@@ -1,0 +1,94 @@
+# By Abdullah As-Sadeed
+
+name: bitscoper_cyber_toolbox
+description: Bitscoper Cyber ToolBox
+publish_to: none
+version: 12.0.1+20
+
+environment:
+  sdk: ">=3.5.1 <4.0.0"
+
+dependencies:
+  async: any
+  b: ^0.2.0
+  crypto: ^3.0.5
+  dart_ping: ^9.0.1
+  dart_ping_ios: ^4.0.2
+  dnsolve: ^1.0.0
+  file_picker: ^8.1.2
+  flutter:
+    sdk: flutter
+  flutter_native_splash: ^2.4.1
+  #flutter_traceroute: ^0.0.1+2
+  html: ^0.15.4
+  http: ^1.2.2
+  morse_code_translator: ^0.0.1
+  ogp_data_extract: ^0.1.4
+  quick_actions: ^1.0.7
+  tcp_scanner: ^2.0.5
+  url_launcher: ^6.3.0
+  whois: ^1.0.0
+
+dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
+  flutter_lints: ^4.0.0
+  flutter_test:
+    sdk: flutter
+  msix: ^3.16.8
+  rename: ^3.0.2
+
+flutter:
+  uses-material-design: true
+
+flutter_launcher_icons:
+  image_path: assets/icon/maskable_icon_x512.png
+  android: true
+  min_sdk_android: 30
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: assets/icon/maskable_icon_x512.png
+  macos:
+    generate: true
+    image_path: assets/icon/maskable_icon_x512.png
+  ios: true
+  remove_alpha_ios: true
+  windows:
+    generate: true
+    image_path: assets/icon/icon.png
+    icon_size: 192
+  web:
+    generate: true
+    image_path: assets/icon/icon.png
+    background_color: "#F0F8FF"
+    theme_color: "#424242"
+
+flutter_native_splash:
+  color: "#F0F8FF"
+  image: assets/icon/icon.png
+  branding: assets/branding.png
+  branding_mode: bottom
+  color_dark: "#F0F8FF"
+  image_dark: assets/icon/icon.png
+  branding_dark: assets/branding.png
+  android_gravity: center
+  ios_content_mode: center
+  web_image_mode: center
+
+msix_config:
+  display_name: Bitscoper Cyber ToolBox
+  identity_name: 18862TeleChirkut.BitscoperCyberToolBox
+  publisher_display_name: Bitscoper
+  publisher: CN=37755377-8C56-44E3-8D7A-0F1AD45034D2
+  logo_path: assets/icon/maskable_icon_x512.png
+  trim_logo: false
+  languages: en-US
+  execution_alias: Bitscoper_Cyber_ToolBox
+  enable_at_startup: false
+  capabilities: internetClient, internetClientServer, privateNetworkClientServer,
+    removableStorage, wiFiControl
+  architecture: x64
+  store: true
+  build_windows: true
+  windows_build_args: --release --obfuscate --split-debug-info=./build/Debug_Symbols/Windows/
+  debug: false
+  msix_version: 12.0.1.0
+  output_name: Bitscoper_Cyber_ToolBox

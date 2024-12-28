@@ -1,0 +1,409 @@
+# By Abdullah As-Sadeed
+
+name: Build and Release
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build-for-linux:
+    name: Build for Linux
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install Dependencies
+        run: |
+          sudo apt update -y
+          sudo apt install -y ninja-build libgtk-3-dev fuse
+        shell: bash
+
+      - name: Run flutter doctor
+        run: flutter doctor -v
+        shell: bash
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Get Dependencies
+        run: flutter pub get -v
+        shell: bash
+
+      - name: Build for Linux
+        run: flutter build linux --release --obfuscate --split-debug-info=./build/Debug_Symbols/Linux_x64/ -v
+        shell: bash
+
+      - name: Upload Build Artifacts (Executable)
+        uses: actions/upload-artifact@v4
+        with:
+          name: Linux_x64_Executable
+          path: build/linux/x64/release/bundle/*
+
+      - name: Download appimagetool (x86_64) and Make It Executable
+        run: |
+          wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
+          chmod +x ./appimagetool-x86_64.AppImage
+        shell: bash
+
+      - name: Copy Build Artifacts, and Icon into AppDir
+        run: |
+          cp -r ./build/linux/x64/release/bundle/* ./Linux_Extras/Bitscoper_Cyber_ToolBox.AppDir/
+          cp ./assets/icon/maskable_icon_x512.png ./Linux_Extras/Bitscoper_Cyber_ToolBox.AppDir/Bitscoper_Cyber_ToolBox.png
+        shell: bash
+
+      - name: Permit Execution of AppRun and Binary
+        run: |
+          chmod +x ./Linux_Extras/Bitscoper_Cyber_ToolBox.AppDir/AppRun
+          chmod +x ./Linux_Extras/Bitscoper_Cyber_ToolBox.AppDir/Bitscoper_Cyber_ToolBox
+        shell: bash
+
+      - name: Create AppImage and Make It Executable
+        run: |
+          ./appimagetool-x86_64.AppImage ./Linux_Extras/Bitscoper_Cyber_ToolBox.AppDir ./Bitscoper_Cyber_ToolBox-x64.AppImage
+          chmod +x ./Bitscoper_Cyber_ToolBox-x64.AppImage
+        shell: bash
+
+      - name: Upload Build Artifacts (AppImage)
+        uses: actions/upload-artifact@v4
+        with:
+          name: Linux_x64_AppImage
+          path: Bitscoper_Cyber_ToolBox-x64.AppImage
+
+      - name: Upload Debug Symbols
+        uses: actions/upload-artifact@v4
+        with:
+          name: Linux_x64_Debug_Symbols
+          path: build/Debug_Symbols/Linux_x64/*
+
+  build-for-android:
+    name: Build for Android
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Run flutter doctor
+        run: flutter doctor -v
+        shell: bash
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Get Dependencies
+        run: flutter pub get -v
+        shell: bash
+
+      - name: Create key.properties
+        run: |
+          echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" >> ./android/key.properties
+          echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> ./android/key.properties
+          echo "keyAlias=Bitscoper_Cyber_ToolBox" >> ./android/key.properties
+          echo "storeFile=./KeyStore.jks" >> ./android/key.properties
+        shell: bash
+
+      - name: Create keystore
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > ./android/app/KeyStore.jks
+        shell: bash
+
+      - name: Build appbundle
+        run: flutter build appbundle --release --obfuscate --split-debug-info=./build/Debug_Symbols/Android/appbundle/ -v
+        shell: bash
+
+      - name: Build APKs
+        run: flutter build apk --split-per-abi --release --obfuscate --split-debug-info=./build/Debug_Symbols/Android/APKs/ -v
+        shell: bash
+
+      - name: Rename Build Artifacts
+        run: |
+          mv ./build/app/outputs/bundle/release/app-release.aab ./build/app/outputs/bundle/release/Bitscoper_Cyber_ToolBox.aab
+          mv ./build/app/outputs/flutter-apk/app-x86_64-release.apk ./build/app/outputs/flutter-apk/Bitscoper_Cyber_ToolBox-x86_64.apk
+          mv ./build/app/outputs/flutter-apk/app-x86_64-release.apk.sha1 ./build/app/outputs/flutter-apk/Bitscoper_Cyber_ToolBox-x86_64.apk.sha1
+          mv ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk ./build/app/outputs/flutter-apk/Bitscoper_Cyber_ToolBox-ARM64_V8A.apk
+          mv ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk.sha1 ./build/app/outputs/flutter-apk/Bitscoper_Cyber_ToolBox-ARM64_V8A.apk.sha1
+          mv ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk ./build/app/outputs/flutter-apk/Bitscoper_Cyber_ToolBox-ARMEABI_V7A.apk
+          mv ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk.sha1 ./build/app/outputs/flutter-apk/Bitscoper_Cyber_ToolBox-ARMEABI_V7A.apk.sha1
+        shell: bash
+
+      - name: Upload Build Artifacts (appbundle)
+        uses: actions/upload-artifact@v4
+        with:
+          name: Android_appbundle
+          path: build/app/outputs/bundle/release/Bitscoper_Cyber_ToolBox.aab
+
+      - name: Upload Build Artifacts (x86_64 APK)
+        uses: actions/upload-artifact@v4
+        with:
+          name: APK_x86_64
+          path: build/app/outputs/flutter-apk/Bitscoper_Cyber_ToolBox-x86_64.*
+
+      - name: Upload Build Artifacts (ARM64 V8A APK)
+        uses: actions/upload-artifact@v4
+        with:
+          name: APK_ARM64_V8A
+          path: build/app/outputs/flutter-apk/Bitscoper_Cyber_ToolBox-ARM64_V8A.*
+
+      - name: Upload Build Artifacts (ARMEABI V7A APK)
+        uses: actions/upload-artifact@v4
+        with:
+          name: APK_ARMEABI_V7A
+          path: build/app/outputs/flutter-apk/Bitscoper_Cyber_ToolBox-ARMEABI_V7A.*
+
+      - name: Upload Debug Symbols (appbundle)
+        uses: actions/upload-artifact@v4
+        with:
+          name: Android_appbundle_Debug_Symbols
+          path: build/Debug_Symbols/Android/appbundle/*
+
+      - name: Upload Debug Symbols (APKs)
+        uses: actions/upload-artifact@v4
+        with:
+          name: APK_Debug_Symbols
+          path: build/Debug_Symbols/Android/APKs/*
+
+  build-for-macos:
+    name: Build for macOS
+    runs-on: macos-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Run flutter doctor
+        run: flutter doctor -v
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Get Dependencies
+        run: flutter pub get -v
+
+      - name: Build for macOS
+        run: flutter build macos --release --obfuscate --split-debug-info=./build/Debug_Symbols/macOS/ -v
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: macOS_Executable
+          path: build/macos/Build/Products/Release/*.app
+
+      - name: Upload Debug Symbols
+        uses: actions/upload-artifact@v4
+        with:
+          name: macOS_Debug_Symbols
+          path: build/Debug_Symbols/macOS/*
+
+  # build-for-ios:
+  #   name: Build for iOS
+  #   runs-on: macos-latest
+  #   permissions:
+  #       contents: read
+  #   steps:
+  #     - name: Install Pods
+  #       run: |
+  #         cd ios && pod install
+
+  #     - name: Setup Flutter
+  #       uses: subosito/flutter-action@v2
+  #       with:
+  #         channel: stable
+
+  #     - name: Run flutter doctor
+  #       run: flutter doctor -v
+
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v4
+
+  #     - name: Get Dependencies
+  #       run: flutter pub get -v
+
+  #     - name: Build for iOS
+  #       run: flutter build ios --no-codesign --release --obfuscate --split-debug-info=./build/Debug_Symbols/iOS/ -v
+
+  #     - name: Upload Build Artifacts
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: iOS_Application
+  #         path: build/ios/iphoneos/*
+
+  #     - name: Upload Debug Symbols
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: iOS_Debug_Symbols
+  #         path: build/Debug_Symbols/iOS/*
+
+  build-for-windows:
+    name: Build for Windows
+    runs-on: windows-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Run flutter doctor
+        run: flutter doctor -v
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Get Dependencies
+        run: flutter pub get -v
+
+      - name: Build for Windows
+        run: dart run msix:create # This includes: flutter build windows --release --obfuscate --split-debug-info=./build/Debug_Symbols/Windows/
+
+      - name: Move MSIX Package
+        run: |
+          New-Item -ItemType Directory -Force -Path build\windows\x64\runner\Release_MSIX
+          Move-Item -Path build\windows\x64\runner\Release\Bitscoper_Cyber_ToolBox.msix -Destination build\windows\x64\runner\Release_MSIX/Bitscoper_Cyber_ToolBox.msix
+        shell: powershell
+
+      - name: Upload Build Artifacts (Executable)
+        uses: actions/upload-artifact@v4
+        with:
+          name: Windows_x64_Executable
+          path: build\windows\x64\runner\Release\*
+
+      - name: Upload Build Artifacts (MSIX Package)
+        uses: actions/upload-artifact@v4
+        with:
+          name: Windows_x64_MSIX_Package
+          path: build\windows\x64\runner\Release_MSIX\Bitscoper_Cyber_ToolBox.msix
+
+      - name: Upload Debug Symbols
+        uses: actions/upload-artifact@v4
+        with:
+          name: Windows_x64_Debug_Symbols
+          path: build\Debug_Symbols\Windows\*
+
+  build-for-web:
+    name: Build for Web
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Run flutter doctor
+        run: flutter doctor -v
+        shell: bash
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Get Dependencies
+        run: flutter pub get -v
+        shell: bash
+
+      - name: Build for Web
+        run: flutter build web --release -v
+        shell: bash
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Web_Application
+          path: build/web/*
+
+  upload-release:
+    name: Upload Release
+    needs: [
+        build-for-linux,
+        build-for-android,
+        build-for-macos,
+        # build-for-ios,
+        build-for-windows,
+        build-for-web,
+      ]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+
+      - name: Archive Build Artifacts and Debug Symbols
+        run: |
+          zip -r ./Linux_x64_Executable.zip ./Linux_x64_Executable/*
+          zip -r ./Android_appbundle.zip ./Android_appbundle/*
+          zip -r ./APK_x86_64.zip ./APK_x86_64/*
+          zip -r ./APK_ARM64_V8A.zip ./APK_ARM64_V8A/*
+          zip -r ./APK_ARMEABI_V7A.zip ./APK_ARMEABI_V7A/*
+          zip -r ./macOS_Executable.zip ./macOS_Executable/*
+          # zip -r ./iOS_Application.zip ./iOS_Application/*
+          zip -r ./Windows_x64_Executable.zip ./Windows_x64_Executable/*
+          zip -r ./Windows_x64_MSIX_Package.zip ./Windows_x64_MSIX_Package/*
+          zip -r ./Linux_x64_Debug_Symbols.zip ./Linux_x64_Debug_Symbols/*
+          zip -r ./Android_appbundle_Debug_Symbols.zip ./Android_appbundle_Debug_Symbols/*
+          zip -r ./APK_Debug_Symbols.zip ./APK_Debug_Symbols/*
+          zip -r ./macOS_Debug_Symbols.zip ./macOS_Debug_Symbols/*
+          # zip -r ./iOS_Debug_Symbols.zip ./iOS_Debug_Symbols/*
+          zip -r ./Windows_x64_Debug_Symbols.zip ./Windows_x64_Debug_Symbols/*
+          zip -r ./Web_Application.zip ./Web_Application/*
+        shell: bash
+
+      - name: Get Version
+        run: echo "VERSION=$(grep '^version:' ./pubspec.yaml | awk '{print $2}')" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Rename AppImage
+        run: |
+          APPIMAGE_VERSION=${VERSION%%+*}
+          mv ./Linux_x64_AppImage/Bitscoper_Cyber_ToolBox-x64.AppImage ./Linux_x64_AppImage/Bitscoper_Cyber_ToolBox-$APPIMAGE_VERSION-x64.AppImage
+        shell: bash
+
+      - name: Delete Existing Tag and Release (If Any)
+        run: |
+          RELEASE_ID=$(curl --silent --show-error --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/${{ github.repository }}/releases/tags/v$VERSION | jq '.id')
+          if [ "$RELEASE_ID" != "null" ]; then
+            curl --silent --show-error --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' --request DELETE https://api.github.com/repos/${{ github.repository }}/releases/$RELEASE_ID
+            git push --delete origin v$VERSION
+          fi
+        shell: bash
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1.14.0
+        with:
+          artifacts: |
+            ./*.zip
+            ./Linux_x64_AppImage/*.AppImage
+          tag: v${{ env.VERSION }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  update-docker-image:
+    name: Update Docker Image
+    needs: [upload-release]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Build and Push Docker Image
+        run: |
+          docker login --username bitscoper --password ${{secrets.GITHUB_TOKEN}} ghcr.io
+          docker build . --tag ghcr.io/bitscoper/bitscoper_cyber_toolbox:latest
+          docker push ghcr.io/bitscoper/bitscoper_cyber_toolbox:latest
+        shell: bash
