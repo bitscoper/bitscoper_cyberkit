@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Bitscoper Cyber ToolBox
+Comment=A Flutter application consisting of TCP Port Scanner, Route Tracer, Pinger, File Hash Calculator, String Hash Calculator, Base Encoder, Morse Code Translator, Open Graph Protocol Data Extractor, Series URI Crawler, DNS Record Retriever, and WHOIS Retriever.
+Icon=Bitscoper_Cyber_ToolBox
+Exec=Bitscoper_Cyber_ToolBox %u
+Terminal=false
+Categories=Utility;Network;
