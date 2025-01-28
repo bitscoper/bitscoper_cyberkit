@@ -1,11 +1,24 @@
 /* By Abdullah As-Sadeed */
 
 import 'package:bitscoper_cyber_toolbox/home.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() {
+  LicenseRegistry.addLicense(
+    () async* {
+      final license = await rootBundle.loadString('google_fonts/OFL.txt');
+      yield LicenseEntryWithLineBreaks(
+        ['google_fonts'],
+        license,
+      );
+    },
+  );
+
   runApp(
     const MainApp(),
   );
@@ -73,8 +86,8 @@ class MainAppState extends State<MainApp> {
         child,
       ) {
         return MaterialApp(
-          theme: ThemeData.light(),
-          darkTheme: ThemeData.dark(),
+          theme: _buildTheme(Brightness.light),
+          darkTheme: _buildTheme(Brightness.dark),
           themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
           home: HomePage(
             toggleTheme: toggleTheme,
@@ -82,6 +95,16 @@ class MainAppState extends State<MainApp> {
           debugShowCheckedModeBanner: false,
         );
       },
+    );
+  }
+
+  ThemeData _buildTheme(
+    Brightness brightness,
+  ) {
+    var baseTheme = ThemeData(brightness: brightness);
+
+    return baseTheme.copyWith(
+      textTheme: GoogleFonts.notoSansTextTheme(baseTheme.textTheme),
     );
   }
 }
