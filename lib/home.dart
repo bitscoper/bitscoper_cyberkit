@@ -9,7 +9,7 @@ import 'package:bitscoper_cyber_toolbox/file_hash_calculator.dart';
 import 'package:bitscoper_cyber_toolbox/morse_code_translator.dart';
 import 'package:bitscoper_cyber_toolbox/open_graph_protocol_data_extractor.dart';
 import 'package:bitscoper_cyber_toolbox/pinger.dart';
-//import 'package:bitscoper_cyber_toolbox/route_tracer.dart';
+import 'package:bitscoper_cyber_toolbox/route_tracer.dart';
 import 'package:bitscoper_cyber_toolbox/series_uri_crawler.dart';
 import 'package:bitscoper_cyber_toolbox/string_hash_calculator.dart';
 import 'package:bitscoper_cyber_toolbox/tcp_port_scanner.dart';
@@ -36,6 +36,64 @@ class HomePage extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
+    final tools = [
+      ToolCard(
+        'TCP Port Scanner',
+        Icons.network_ping_rounded,
+        const TCPPortScannerPage(),
+      ),
+      ToolCard(
+        'Route Tracer',
+        Icons.track_changes_rounded,
+        const RouteTracerPage(),
+      ),
+      ToolCard(
+        'Pinger',
+        Icons.network_ping_rounded,
+        const PingerPage(),
+      ),
+      ToolCard(
+        'File Hash Calculator',
+        Icons.file_present_rounded,
+        const FileHashCalculatorPage(),
+      ),
+      ToolCard(
+        'String Hash Calculator',
+        Icons.short_text_rounded,
+        const StringHashCalculatorPage(),
+      ),
+      ToolCard(
+        'Base Encoder',
+        Icons.short_text_rounded,
+        const BaseEncoderPage(),
+      ),
+      ToolCard(
+        'Morse Code Translator',
+        Icons.short_text_rounded,
+        const MorseCodeTranslatorPage(),
+      ),
+      ToolCard(
+        'OGP Data Extractor',
+        Icons.share_rounded,
+        const OGPDataExtractorPage(),
+      ),
+      ToolCard(
+        'Series URI Crawler',
+        Icons.web_rounded,
+        const SeriesURICrawlerPage(),
+      ),
+      ToolCard(
+        'DNS Record Retriever',
+        Icons.dns_rounded,
+        const DNSRecordRetrieverPage(),
+      ),
+      ToolCard(
+        'WHOIS Retriever',
+        Icons.domain_rounded,
+        const WHOISRetrieverPage(),
+      ),
+    ];
+
     Widget buildToolCard(
       String title,
       IconData icon,
@@ -144,67 +202,10 @@ class HomePage extends StatelessWidget {
             mainAxisSpacing: 16,
             childAspectRatio: 3 / 2,
           ),
-          itemCount: 11,
+          itemCount: tools.length,
           itemBuilder: (BuildContext context, int index) {
-            final tools = [
-              ToolCard(
-                'TCP Port Scanner',
-                Icons.network_ping_rounded,
-                const TCPPortScannerPage(),
-              ),
-              // ToolCard(
-              //   'Route Tracer',
-              //   Icons.track_changes_rounded,
-              //   const RouteTracerPage(),
-              // ),
-              ToolCard(
-                'Pinger',
-                Icons.network_ping_rounded,
-                const PingerPage(),
-              ),
-              ToolCard(
-                'File Hash Calculator',
-                Icons.file_present_rounded,
-                const FileHashCalculatorPage(),
-              ),
-              ToolCard(
-                'String Hash Calculator',
-                Icons.short_text_rounded,
-                const StringHashCalculatorPage(),
-              ),
-              ToolCard(
-                'Base Encoder',
-                Icons.short_text_rounded,
-                const BaseEncoderPage(),
-              ),
-              ToolCard(
-                'Morse Code Translator',
-                Icons.short_text_rounded,
-                const MorseCodeTranslatorPage(),
-              ),
-              ToolCard(
-                'Open Graph Protocol Data Extractor',
-                Icons.share_rounded,
-                const OGPDataExtractorPage(),
-              ),
-              ToolCard(
-                'Series URI Crawler',
-                Icons.web_rounded,
-                const SeriesURICrawlerPage(),
-              ),
-              ToolCard(
-                'DNS Record Retriever',
-                Icons.dns_rounded,
-                const DNSRecordRetrieverPage(),
-              ),
-              ToolCard(
-                'WHOIS Retriever',
-                Icons.domain_rounded,
-                const WHOISRetrieverPage(),
-              ),
-            ];
-
             final ToolCard tool = tools[index];
+
             return buildToolCard(
               tool.title, // title
               tool.icon, // icon
