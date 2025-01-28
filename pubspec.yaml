@@ -19,13 +19,12 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_native_splash: ^2.4.1
-  flutter_network_connection: ^1.0.2
   # flutter_traceroute: ^0.0.1+2
   html: ^0.15.4
   http: ^1.2.2
   morse_code_translator: ^0.0.1
   ogp_data_extract: ^0.1.4
-  path_provider: ^2.1.5
+  # path_provider: ^2.1.5
   quick_actions: ^1.0.7
   tcp_scanner: ^2.0.5
   url_launcher: ^6.3.0
