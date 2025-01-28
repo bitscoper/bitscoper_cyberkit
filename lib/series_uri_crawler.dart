@@ -35,7 +35,7 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
   final _formKey = GlobalKey<FormState>();
 
   late String uriPrefix, uriSuffix;
-  late int lowerLimit, upperLimit;
+  late int lowerLimit = 1, upperLimit = 100;
 
   bool isCrawling = false;
   Map<String, String> webPages = {};
