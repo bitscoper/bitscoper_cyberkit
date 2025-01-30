@@ -325,7 +325,7 @@ jobs:
         build-for-linux,
         build-for-android,
         build-for-macos,
-        # build-for-ios,
+        build-for-ios,
         build-for-windows,
         build-for-web,
       ]
@@ -347,14 +347,14 @@ jobs:
           zip -r ./APK_ARM64_V8A.zip ./APK_ARM64_V8A/*
           zip -r ./APK_ARMEABI_V7A.zip ./APK_ARMEABI_V7A/*
           zip -r ./macOS_Executable.zip ./macOS_Executable/*
-          # zip -r ./iOS_Application.zip ./iOS_Application/*
+          zip -r ./iOS_Application.zip ./iOS_Application/*
           zip -r ./Windows_x64_Executable.zip ./Windows_x64_Executable/*
           zip -r ./Windows_x64_MSIX_Package.zip ./Windows_x64_MSIX_Package/*
           zip -r ./Linux_x64_Debug_Symbols.zip ./Linux_x64_Debug_Symbols/*
           zip -r ./Android_appbundle_Debug_Symbols.zip ./Android_appbundle_Debug_Symbols/*
           zip -r ./APK_Debug_Symbols.zip ./APK_Debug_Symbols/*
           zip -r ./macOS_Debug_Symbols.zip ./macOS_Debug_Symbols/*
-          # zip -r ./iOS_Debug_Symbols.zip ./iOS_Debug_Symbols/*
+          zip -r ./iOS_Debug_Symbols.zip ./iOS_Debug_Symbols/*
           zip -r ./Windows_x64_Debug_Symbols.zip ./Windows_x64_Debug_Symbols/*
           zip -r ./Web_Application.zip ./Web_Application/*
         shell: bash
