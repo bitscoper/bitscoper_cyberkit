@@ -63,122 +63,128 @@ Web --> Release[Release]
 
 Linux_x64_Executable --> Docker_Image(Docker Image)
 Docker_Image --> GHCR[GHCR]
+Docker_Image --> Amazon_ECR[Amazon ECR]
 
 Android_appbundle --> |Manual Submission| Google_Play[Google Play]
 Windows_x64_MSIX_Package --> |Manual Submission| Microsoft_Store[Microsoft Store]
 ```
 
-<table>
-  <tr>
-    <th colspan="2">Platform</th>
-    <th colspan="2">Builds</th>
-    <th>Debug Symbols</th>
-    <th>Stores / Repositories</th>
-  </tr>
-  <tr>
-    <th rowspan="2" colspan="2">Linux</th>
-    <td colspan="2">
-      <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Linux_x64_Executable.zip">Linux_x64_Executable.zip</a>
-    </td>
-    <td rowspan="2">
-      <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Linux_x64_Debug_Symbols.zip">Linux_x64_Debug_Symbols.zip</a>
-    </td>
-    <td rowspan="2">-</td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Bitscoper_Cyber_ToolBox-12.0.1-x64.AppImage">Bitscoper_Cyber_ToolBox-12.0.1-x64.AppImage</a>
-    </td>
-  </tr>
-  <tr>
-    <th rowspan="4" width="46">Android</th>
-    <th>appbundle</th>
-    <td colspan="2">
-      <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Android_appbundle.zip">Android_appbundle.zip</a>
-    </td>
-    <td>
-      <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Android_appbundle_Debug_Symbols.zip">Android_appbundle_Debug_Symbols.zip</a>
-    </td>
-    <td rowspan="4">
-      <a href="https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox">Google Play</a> *
-    </td>
-  </tr>
-  <tr>
-    <th rowspan="3">APK</th>
-    <td rowspan="2">ARM</td>
-    <td>
-      <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/APK_ARM64_V8A.zip">APK_ARM64_V8A.zip</a>
-    </td>
-    <td rowspan="3">
-      <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/APK_Debug_Symbols.zip">APK_Debug_Symbols.zip</a>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/APK_ARMEABI_V7A.zip">APK_ARMEABI_V7A.zip</a>
-    </td>
-  </tr>
-  <tr>
-    <td>x86_64</td>
-    <td>
-      <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/APK_x86_64.zip">APK_x86_64.zip</a>
-    </td>
-  </tr>
-  <tr>
-    <th colspan="2">macOS</th>
-    <td colspan="2">
-      <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/macOS_Executable.zip">macOS_Executable.zip</a>
-    </td>
-    <td>
-      <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/macOS_Debug_Symbols.zip">macOS_Debug_Symbols.zip</a>
-    </td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <th colspan="2">iOS</th>
-    <td colspan="2">
-      <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/iOS_Application.zip">iOS_Application.zip</a>
-    </td>
-    <td>
-      <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/iOS_Debug_Symbols.zip">iOS_Debug_Symbols.zip</a>
-    </td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <th rowspan="2" colspan="2">Windows</th>
-    <td colspan="2">
-      <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Windows_x64_Executable.zip">Windows_x64_Executable.zip</a>
-    </td>
-    <td rowspan="2">
-      <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Windows_x64_Debug_Symbols.zip">Windows_x64_Debug_Symbols.zip</a>
-    </td>
-    <td rowspan="2">
-      <a href="https://apps.microsoft.com/detail/9n6r5lxczxl6">Microsoft Store</a> *
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Windows_x64_MSIX_Package.zip">Windows_x64_MSIX_Package.zip</a>
-    </td>
-  </tr>
-  <tr>
-    <th colspan="2">Web</th>
-    <td colspan="2">
-      <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Web_Application.zip">Web_Application.zip</a>
-    </td>
-    <td>-</td>
-    <td>-</td>
-  </tr>
-  <tr>
-  <th colspan="2">Docker / Podman</th>
-  <td colspan="2">-</td>
-  <td>-</td>
-  <td>
-  <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/pkgs/container/bitscoper_cyber_toolbox/">GHCR</a>
-  </td>
-  </tr>
-</table>
-
+  <table>
+    <tr>
+      <th colspan="2">Platform</th>
+      <th colspan="2">Builds</th>
+      <th>Debug Symbols</th>
+      <th>Stores / Repositories</th>
+    </tr>
+    <tr>
+      <th rowspan="2" colspan="2">Linux</th>
+      <td colspan="2">
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Linux_x64_Executable.zip">Linux_x64_Executable.zip</a>
+      </td>
+      <td rowspan="2">
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Linux_x64_Debug_Symbols.zip">Linux_x64_Debug_Symbols.zip</a>
+      </td>
+      <td rowspan="2">-</td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Bitscoper_Cyber_ToolBox-12.0.1-x64.AppImage">Bitscoper_Cyber_ToolBox-12.0.1-x64.AppImage</a>
+      </td>
+    </tr>
+    <tr>
+      <th rowspan="4" width="46">Android</th>
+      <th>appbundle</th>
+      <td colspan="2">
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Android_appbundle.zip">Android_appbundle.zip</a>
+      </td>
+      <td>
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Android_appbundle_Debug_Symbols.zip">Android_appbundle_Debug_Symbols.zip</a>
+      </td>
+      <td rowspan="4">
+        <a href="https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox">Google Play</a> *
+      </td>
+    </tr>
+    <tr>
+      <th rowspan="3">APK</th>
+      <td rowspan="2">ARM</td>
+      <td>
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/APK_ARM64_V8A.zip">APK_ARM64_V8A.zip</a>
+      </td>
+      <td rowspan="3">
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/APK_Debug_Symbols.zip">APK_Debug_Symbols.zip</a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/APK_ARMEABI_V7A.zip">APK_ARMEABI_V7A.zip</a>
+      </td>
+    </tr>
+    <tr>
+      <td>x86_64</td>
+      <td>
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/APK_x86_64.zip">APK_x86_64.zip</a>
+      </td>
+    </tr>
+    <tr>
+      <th colspan="2">macOS</th>
+      <td colspan="2">
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/macOS_Executable.zip">macOS_Executable.zip</a>
+      </td>
+      <td>
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/macOS_Debug_Symbols.zip">macOS_Debug_Symbols.zip</a>
+      </td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th colspan="2">iOS</th>
+      <td colspan="2">
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/iOS_Application.zip">iOS_Application.zip</a>
+      </td>
+      <td>
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/iOS_Debug_Symbols.zip">iOS_Debug_Symbols.zip</a>
+      </td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th rowspan="2" colspan="2">Windows</th>
+      <td colspan="2">
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Windows_x64_Executable.zip">Windows_x64_Executable.zip</a>
+      </td>
+      <td rowspan="2">
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Windows_x64_Debug_Symbols.zip">Windows_x64_Debug_Symbols.zip</a>
+      </td>
+      <td rowspan="2">
+        <a href="https://apps.microsoft.com/detail/9n6r5lxczxl6">Microsoft Store</a> *
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Windows_x64_MSIX_Package.zip">Windows_x64_MSIX_Package.zip</a>
+      </td>
+    </tr>
+    <tr>
+      <th colspan="2">Web</th>
+      <td colspan="2">
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Web_Application.zip">Web_Application.zip</a>
+        <br /> (Not Recommended)
+      </td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th colspan="2" rowspan="2">Docker / Podman</th>
+      <td colspan="2" rowspan="2">-</td>
+      <td rowspan="2">-</td>
+      <td>
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/pkgs/container/bitscoper_cyber_toolbox/">GHCR</a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href="">Amazon ECR</a>
+      </td>
+    </tr>
+  </table>
 </div>
 
 \* Versions are submitted to the marked stores manually, so releases may be delayed.
