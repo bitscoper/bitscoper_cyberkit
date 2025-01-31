@@ -13,5 +13,3 @@ WORKDIR /opt/Linux_x64_Executable
 RUN chmod +x Bitscoper_Cyber_ToolBox
 
 CMD ["./Bitscoper_Cyber_ToolBox"]
-
-# docker build -t bitscoper_cyber_toolbox . && xhost +si:localuser:root && docker run --rm -it -e DISPLAY=$DISPLAY -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY -v /run/user/$(id -u)/wayland-0:/run/user/$(id -u)/wayland-0 -e XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR bitscoper_cyber_toolbox
