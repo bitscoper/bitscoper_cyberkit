@@ -321,7 +321,8 @@ jobs:
 
   upload-release:
     name: Upload Release
-    needs: [
+    needs:
+      [
         build-for-linux,
         build-for-android,
         build-for-macos,
@@ -395,11 +396,38 @@ jobs:
       contents: read
       packages: write
     steps:
+      - name: Install Python
+        uses: actions/setup-python@v5.4.0
+        with:
+          python-version: '3.13'
+
+      - name: Install PIP
+        run: |
+          python -m pip install --upgrade pip
+        shell: bash
+
+      - name: Install AWS CLI
+        run: |
+          pip install --upgrade awscli
+        shell: bash
+
       - name: Checkout Repository
         uses: actions/checkout@v4
-      - name: Build and Push Docker Image
+
+      - name: Build and Push Docker Image to GHCR
         run: |
           docker login --username bitscoper --password ${{secrets.GITHUB_TOKEN}} ghcr.io
           docker build . --tag ghcr.io/bitscoper/bitscoper_cyber_toolbox:latest
           docker push ghcr.io/bitscoper/bitscoper_cyber_toolbox:latest
+        shell: bash
+
+      - name: Build and Push Docker Image to Amazon ECR
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set default.region ap-southeast-1
+          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/n7r2f3q1
+          docker build -t bitscoper/bitscoper_cyber_toolbox .
+          docker tag bitscoper/bitscoper_cyber_toolbox:latest public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyber_toolbox:latest
+          docker push public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyber_toolbox:latest
         shell: bash
