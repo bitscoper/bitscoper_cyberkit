@@ -231,7 +231,7 @@ jobs:
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4.6.0
         with:
-          name: iOS_Application
+          name: iOS_Executable
           path: build/ios/iphoneos/*
 
       - name: Upload Debug Symbols
@@ -348,7 +348,7 @@ jobs:
           zip -r ./APK_ARM64_V8A.zip ./APK_ARM64_V8A/*
           zip -r ./APK_ARMEABI_V7A.zip ./APK_ARMEABI_V7A/*
           zip -r ./macOS_Executable.zip ./macOS_Executable/*
-          zip -r ./iOS_Application.zip ./iOS_Application/*
+          zip -r ./iOS_Executable.zip ./iOS_Executable/*
           zip -r ./Windows_x64_Executable.zip ./Windows_x64_Executable/*
           zip -r ./Windows_x64_MSIX_Package.zip ./Windows_x64_MSIX_Package/*
           zip -r ./Linux_x64_Debug_Symbols.zip ./Linux_x64_Debug_Symbols/*
@@ -399,7 +399,7 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v5.4.0
         with:
-          python-version: '3.13'
+          python-version: "3.13"
 
       - name: Install PIP
         run: |
