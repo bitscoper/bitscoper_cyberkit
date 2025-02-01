@@ -1,3 +1,6 @@
+> [!CAUTION]
+> Any unlawful usage is strictly prohibited.
+
 <div align="center">
   <img src="assets/icon/icon.png" height="128" alt="Bitscoper Cyber ToolBox" />
 </div>
@@ -118,7 +121,7 @@ Windows_x64_MSIX_Package --> |Manual Submission| Microsoft_Store[Microsoft Store
         <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Android_appbundle_Debug_Symbols.zip">ZIP</a>
       </td>
       <td rowspan="4">
-        <a href="https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox">Google Play</a> *
+        <a href="https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox">Google Play</a>
       </td>
     </tr>
     <tr>
@@ -171,7 +174,7 @@ Windows_x64_MSIX_Package --> |Manual Submission| Microsoft_Store[Microsoft Store
         <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Windows_x64_Debug_Symbols.zip">ZIP</a>
       </td>
       <td rowspan="2">
-        <a href="https://apps.microsoft.com/detail/9n6r5lxczxl6">Microsoft Store</a> *
+        <a href="https://apps.microsoft.com/detail/9n6r5lxczxl6">Microsoft Store</a>
       </td>
     </tr>
     <tr>
@@ -204,13 +207,14 @@ Windows_x64_MSIX_Package --> |Manual Submission| Microsoft_Store[Microsoft Store
   </table>
 </div>
 
-\* Versions are submitted to the marked stores manually, so releases may be delayed.
+> [!IMPORTANT]
+> Versions submitted to Google Play and Microsoft Store may vary and be delayed.
 
 ### From GHCR
 
 #### Pull
 
-```bash
+```sh
 podman pull ghcr.io/bitscoper/bitscoper_cyber_toolbox:latest
 # or
 docker pull ghcr.io/bitscoper/bitscoper_cyber_toolbox:latest
@@ -218,7 +222,7 @@ docker pull ghcr.io/bitscoper/bitscoper_cyber_toolbox:latest
 
 #### Run
 
-```bash
+```sh
 podman run -it --rm ghcr.io/bitscoper/bitscoper_cyber_toolbox:latest
 # or
 docker run -it --rm ghcr.io/bitscoper/bitscoper_cyber_toolbox:latest
@@ -228,7 +232,7 @@ docker run -it --rm ghcr.io/bitscoper/bitscoper_cyber_toolbox:latest
 
 #### Pull
 
-```bash
+```sh
 podman pull public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyber_toolbox:latest
 # or
 docker pull public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyber_toolbox:latest
@@ -236,7 +240,7 @@ docker pull public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyber_toolbox:latest
 
 #### Run
 
-```bash
+```sh
 podman run -it --rm public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyber_toolbox:latest
 # or
 docker run -it --rm public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyber_toolbox:latest
@@ -292,13 +296,13 @@ Retrieves WHOIS information about a domain name.
 
 ### Build
 
-```bash
+```sh
 docker build -t bitscoper_cyber_toolbox .
 ```
 
 ### Run
 
-```bash
+```sh
 xhost +si:localuser:root && docker run -it --rm -e DISPLAY=$DISPLAY -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY -v /run/user/$(id -u)/wayland-0:/run/user/$(id -u)/wayland-0 -e XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR bitscoper_cyber_toolbox
 ```
 
@@ -306,7 +310,7 @@ xhost +si:localuser:root && docker run -it --rm -e DISPLAY=$DISPLAY -e WAYLAND_D
 
 ### Name
 
-```bash
+```sh
 flutter pub run rename setAppName --targets linux --value "Bitscoper_Cyber_ToolBox"
 
 flutter pub run rename setAppName --targets android,macos,ios,windows,web --value "Bitscoper Cyber ToolBox"
@@ -314,19 +318,19 @@ flutter pub run rename setAppName --targets android,macos,ios,windows,web --valu
 
 ### ID
 
-```bash
+```sh
 flutter pub run rename setBundleId --targets linux,android,macos,ios,windows,web --value "bitscoper.bitscoper_cyber_toolbox"
 ```
 
 ### Icon
 
-```bash
+```sh
 flutter pub run flutter_launcher_icons
 ```
 
 ### Splash Screen
 
-```bash
+```sh
 flutter pub run flutter_native_splash:create
 ```
 
@@ -334,12 +338,15 @@ flutter pub run flutter_native_splash:create
 
 #### Generation
 
-```bash
+```sh
 keytool -genkey -v -keystore ~/Laboratory/Bitscoper\ Cyber\ ToolBox/KeyStore.jks -keyalg RSA -keysize 4096 -validity 10000 -alias Bitscoper_Cyber_ToolBox
 ```
 
 #### Conversion to Base64
 
-```bash
+```sh
 base64 ~/Laboratory/Bitscoper\ Cyber\ ToolBox/KeyStore.jks > ~/Laboratory/Bitscoper\ Cyber\ ToolBox/KeyStore.b64
 ```
+
+> [!NOTE]
+> I sometimes clean up commit messages when they become too cringeworthy.
