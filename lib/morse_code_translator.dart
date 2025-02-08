@@ -1,6 +1,7 @@
 /* By Abdullah As-Sadeed */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:morse_code_translator/morse_code_translator.dart';
 
 class MorseCodeTranslatorPage extends StatelessWidget {
@@ -12,7 +13,7 @@ class MorseCodeTranslatorPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Morse Code Translator'),
+        title: Text(AppLocalizations.of(context)!.morse_code_translator),
         centerTitle: true,
       ),
       body: const MorseCodeTranslatorBody(),

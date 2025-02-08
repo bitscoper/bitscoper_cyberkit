@@ -2,6 +2,7 @@
 
 // import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 // import 'package:flutter_traceroute/flutter_traceroute.dart';
 // import 'package:flutter_traceroute/flutter_traceroute_platform_interface.dart';
 
@@ -14,7 +15,7 @@ class RouteTracerPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Route Tracer'),
+        title: Text(AppLocalizations.of(context)!.route_tracer),
         centerTitle: true,
       ),
       body: const RouteTracerBody(),

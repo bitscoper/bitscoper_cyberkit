@@ -1,6 +1,7 @@
 /* By Abdullah As-Sadeed */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:whois/whois.dart';
 
 class WHOISRetrieverPage extends StatelessWidget {
@@ -12,7 +13,7 @@ class WHOISRetrieverPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('WHOIS Retriever'),
+        title: Text(AppLocalizations.of(context)!.whois_retriever),
         centerTitle: true,
       ),
       body: const WHOISRetrieverBody(),

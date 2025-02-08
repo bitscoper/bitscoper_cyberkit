@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tcp_scanner/tcp_scanner.dart';
 
 class TCPPortScannerPage extends StatelessWidget {
@@ -13,7 +14,7 @@ class TCPPortScannerPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('TCP Port Scanner'),
+        title: Text(AppLocalizations.of(context)!.tcp_port_scanner),
         centerTitle: true,
       ),
       body: const TCPPortScannerBody(),
