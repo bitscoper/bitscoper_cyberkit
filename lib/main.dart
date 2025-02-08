@@ -4,6 +4,7 @@ import 'package:bitscoper_cyber_toolbox/home.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -34,6 +35,7 @@ class MainApp extends StatefulWidget {
 class MainAppState extends State<MainApp> {
   ValueNotifier<bool> isDarkTheme = ValueNotifier<bool>(false);
   bool userToggledTheme = false;
+  Locale userLocale = const Locale('en');
 
   @override
   void initState() {
@@ -56,6 +58,14 @@ class MainAppState extends State<MainApp> {
             localizedTitle: 'Source Code',
             icon: 'ic_launcher'), /* Android only */
       ],
+    );
+  }
+
+  void changeLocale(Locale locale) {
+    setState(
+      () {
+        userLocale = locale;
+      },
     );
   }
 
@@ -86,10 +96,18 @@ class MainAppState extends State<MainApp> {
         child,
       ) {
         return MaterialApp(
-          theme: _buildTheme(Brightness.light),
-          darkTheme: _buildTheme(Brightness.dark),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: userLocale,
+          theme: buildTheme(
+            Brightness.light,
+          ),
+          darkTheme: buildTheme(
+            Brightness.dark,
+          ),
           themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
           home: HomePage(
+            changeLocale: changeLocale,
             toggleTheme: toggleTheme,
           ),
           debugShowCheckedModeBanner: false,
@@ -98,7 +116,7 @@ class MainAppState extends State<MainApp> {
     );
   }
 
-  ThemeData _buildTheme(
+  ThemeData buildTheme(
     Brightness brightness,
   ) {
     var baseTheme = ThemeData(brightness: brightness);

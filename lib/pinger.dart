@@ -1,7 +1,8 @@
 /* By Abdullah As-Sadeed */
 
-import 'package:flutter/material.dart';
 import 'package:dart_ping/dart_ping.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PingerPage extends StatelessWidget {
   const PingerPage({super.key});
@@ -12,7 +13,7 @@ class PingerPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pinger'),
+        title: Text(AppLocalizations.of(context)!.pinger),
         centerTitle: true,
       ),
       body: const PingerBody(),
