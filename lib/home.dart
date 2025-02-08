@@ -1,6 +1,7 @@
 /* By Abdullah As-Sadeed */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:bitscoper_cyber_toolbox/base_encoder.dart';
@@ -28,9 +29,10 @@ class ToolCard {
 }
 
 class HomePage extends StatelessWidget {
+  final Function(Locale) changeLocale;
   final Function toggleTheme;
-
-  const HomePage({super.key, required this.toggleTheme});
+  const HomePage(
+      {super.key, required this.changeLocale, required this.toggleTheme});
 
   @override
   Widget build(
@@ -38,57 +40,57 @@ class HomePage extends StatelessWidget {
   ) {
     final tools = [
       ToolCard(
-        'TCP Port Scanner',
+        AppLocalizations.of(context)!.tcp_port_scanner,
         Icons.network_ping_rounded,
         const TCPPortScannerPage(),
       ),
       ToolCard(
-        'Route Tracer',
+        AppLocalizations.of(context)!.route_tracer,
         Icons.track_changes_rounded,
         const RouteTracerPage(),
       ),
       ToolCard(
-        'Pinger',
+        AppLocalizations.of(context)!.pinger,
         Icons.network_ping_rounded,
         const PingerPage(),
       ),
       ToolCard(
-        'File Hash Calculator',
+        AppLocalizations.of(context)!.file_hash_calculator,
         Icons.file_present_rounded,
         const FileHashCalculatorPage(),
       ),
       ToolCard(
-        'String Hash Calculator',
+        AppLocalizations.of(context)!.string_hash_calculator,
         Icons.short_text_rounded,
         const StringHashCalculatorPage(),
       ),
       ToolCard(
-        'Base Encoder',
+        AppLocalizations.of(context)!.base_encoder,
         Icons.short_text_rounded,
         const BaseEncoderPage(),
       ),
       ToolCard(
-        'Morse Code Translator',
+        AppLocalizations.of(context)!.morse_code_translator,
         Icons.short_text_rounded,
         const MorseCodeTranslatorPage(),
       ),
       ToolCard(
-        'OGP Data Extractor',
+        AppLocalizations.of(context)!.open_graph_protocol_data_extractor,
         Icons.share_rounded,
         const OGPDataExtractorPage(),
       ),
       ToolCard(
-        'Series URI Crawler',
+        AppLocalizations.of(context)!.series_uri_crawler,
         Icons.web_rounded,
         const SeriesURICrawlerPage(),
       ),
       ToolCard(
-        'DNS Record Retriever',
+        AppLocalizations.of(context)!.dns_record_retriever,
         Icons.dns_rounded,
         const DNSRecordRetrieverPage(),
       ),
       ToolCard(
-        'WHOIS Retriever',
+        AppLocalizations.of(context)!.whois_retriever,
         Icons.domain_rounded,
         const WHOISRetrieverPage(),
       ),
@@ -130,24 +132,41 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bitscoper Cyber ToolBox'),
+        title: Text(AppLocalizations.of(context)!.bitscoper_cyber_toolbox),
         centerTitle: true,
       ),
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
-            const DrawerHeader(
-              child: Text('Bitscoper Cyber ToolBox'),
+            DrawerHeader(
+              child:
+                  Text(AppLocalizations.of(context)!.bitscoper_cyber_toolbox),
             ),
             ListTile(
-              title: const Text('Toggle Theme'),
+              title: Text(AppLocalizations.of(context)!.change_language),
+              leading: const Icon(Icons.language_rounded),
+              onTap: () {
+                Locale currentLocale = Localizations.localeOf(context);
+                if (currentLocale.languageCode == 'en') {
+                  changeLocale(
+                    const Locale('bn'),
+                  );
+                } else {
+                  changeLocale(
+                    const Locale('en'),
+                  );
+                }
+              },
+            ),
+            ListTile(
+              title: Text(AppLocalizations.of(context)!.toggle_theme),
               leading: const Icon(Icons.dark_mode_rounded),
               onTap: () {
                 toggleTheme();
               },
             ),
             ListTile(
-              title: const Text('Source Code'),
+              title: Text(AppLocalizations.of(context)!.source_code),
               leading: const Icon(Icons.code_rounded),
               onTap: () {
                 launchUrl(
@@ -157,7 +176,7 @@ class HomePage extends StatelessWidget {
               },
             ),
             ListTile(
-              title: const Text('Microsoft Store'),
+              title: Text(AppLocalizations.of(context)!.microsoft_store),
               leading: const Icon(Icons.shop_2_rounded),
               onTap: () {
                 launchUrl(
@@ -166,7 +185,7 @@ class HomePage extends StatelessWidget {
               },
             ),
             ListTile(
-              title: const Text('Google Play Store'),
+              title: Text(AppLocalizations.of(context)!.google_play),
               leading: const Icon(Icons.shop_rounded),
               onTap: () {
                 launchUrl(
@@ -176,7 +195,7 @@ class HomePage extends StatelessWidget {
               },
             ),
             ListTile(
-              title: const Text('Developer'),
+              title: Text(AppLocalizations.of(context)!.developer),
               leading: const Icon(Icons.person_rounded),
               onTap: () {
                 launchUrl(

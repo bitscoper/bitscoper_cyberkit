@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void copyToClipBoard(
   BuildContext context,
@@ -17,7 +18,7 @@ void copyToClipBoard(
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('$dataType copied to clipboard!'),
+        content: Text('$dataType${AppLocalizations.of(context)!.copied_to_clipboard}'),
       ),
     );
   }

@@ -3,6 +3,7 @@
 import "dart:convert";
 import 'package:b/b.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:bitscoper_cyber_toolbox/copy_to_clipboard.dart';
 
@@ -15,7 +16,7 @@ class BaseEncoderPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Base Encoder'),
+        title: Text(AppLocalizations.of(context)!.base_encoder),
         centerTitle: true,
       ),
       body: const BaseEncoderBody(),

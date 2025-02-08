@@ -1,6 +1,7 @@
 /* By Abdullah As-Sadeed */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ogp_data_extract/ogp_data_extract.dart';
 
 import 'package:bitscoper_cyber_toolbox/copy_to_clipboard.dart';
@@ -14,7 +15,7 @@ class OGPDataExtractorPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Open Graph Protocol Data Retriever'),
+        title: Text(AppLocalizations.of(context)!.open_graph_protocol_data_extractor),
         centerTitle: true,
       ),
       body: const OGPDataExtractorBody(),

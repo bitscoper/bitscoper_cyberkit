@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:bitscoper_cyber_toolbox/copy_to_clipboard.dart';
 
@@ -15,7 +16,7 @@ class StringHashCalculatorPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('String Hash Calculator'),
+        title: Text(AppLocalizations.of(context)!.string_hash_calculator),
         centerTitle: true,
       ),
       body: const StringHashCalculatorBody(),

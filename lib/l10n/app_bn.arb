@@ -1,0 +1,24 @@
+{
+  "bitscoper_cyber_toolbox": "বিটস্কোপার সাইবার টুলবক্স",
+
+  "change_language": "লোক্যাল ইংলিশে পরিবর্তন",
+  "toggle_theme": "থিম পরিবর্তন",
+  "source_code": "সোর্স কোড",
+  "microsoft_store": "মাইক্রোসফট স্টোর",
+  "google_play": "গুগল প্লে",
+  "developer": "ডেভেলপার",
+
+  "tcp_port_scanner": "টিসিপি পোর্ট স্ক্যানার",
+  "route_tracer": "রুট ট্রেসার",
+  "pinger": "পিংগার",
+  "file_hash_calculator": "ফাইল হ্যাশ ক্যালকুলেটর",
+  "string_hash_calculator": "স্ট্রিং হ্যাশ ক্যালকুলেটর",
+  "base_encoder": "বেস এনকোডার",
+  "morse_code_translator": "মোর্স কোড ট্রান্সলেটর",
+  "open_graph_protocol_data_extractor": "ওপেন গ্রাফ প্রোটোকল ডেটা এক্সট্রাক্টর",
+  "series_uri_crawler": "সিরিজ ইউআরআই ক্রলার",
+  "dns_record_retriever": "ডিএনএস রেকর্ড রিট্রিভার",
+  "whois_retriever": "হুইস রিট্রিভার",
+
+  "copied_to_clipboard": " ক্লিপবোর্ডে কপি করা হয়েছে।"
+}
