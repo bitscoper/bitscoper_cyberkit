@@ -2,7 +2,7 @@
 
 // import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart' as localizations;
 // import 'package:flutter_traceroute/flutter_traceroute.dart';
 // import 'package:flutter_traceroute/flutter_traceroute_platform_interface.dart';
 
@@ -16,7 +16,7 @@ class RouteTracerPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(context)!.route_tracer,
+          localizations.AppLocalizations.of(context)!.route_tracer,
         ),
         centerTitle: true,
       ),
@@ -37,11 +37,11 @@ class RouteTracerBodyState extends State<RouteTracerBody> {
   Widget build(
     BuildContext context,
   ) {
-    return const Center(
+    return Center(
       child: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Text(
-          "Apologies, Route Tracer is currently unavailable due to build errors.",
+          localizations.AppLocalizations.of(context)!.route_tracer_apology,
           textAlign: TextAlign.center,
         ),
       ),
@@ -109,7 +109,7 @@ class RouteTracerBodyState extends State<RouteTracerBody> {
 //                 TextFormField(
 //                   decoration: const InputDecoration(
 //                     border: OutlineInputBorder(),
-//                     labelText: 'A Host or IP Address',
+//                     labelText: AppLocalizations.of(context)!.a_host_or_ip_address,
 //                     hintText: 'bitscoper.dev',
 //                   ),
 //                   maxLines: 1,

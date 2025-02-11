@@ -155,7 +155,7 @@ class FileHashCalculatorBodyState extends State<FileHashCalculatorBody> {
                                       onPressed: () {
                                         copyToClipBoard(
                                           context,
-                                          "${entry.key} hash",
+                                          "${entry.key} ${AppLocalizations.of(context)!.hash}",
                                           entry.value,
                                         );
                                       },

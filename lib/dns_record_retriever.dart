@@ -118,9 +118,10 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
             child: Column(
               children: [
                 TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'A Host or IP Address',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText:
+                        AppLocalizations.of(context)!.a_host_or_ip_address,
                     hintText: 'bitscoper.dev',
                   ),
                   maxLines: 1,
@@ -144,8 +145,8 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                   height: 16,
                 ),
                 DropdownButtonFormField<DNSProvider>(
-                  decoration: const InputDecoration(
-                    labelText: 'Select DNS Provider',
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.dns_provider,
                   ),
                   value: recordProvider,
                   onChanged: (DNSProvider? newValue) {
@@ -255,7 +256,7 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                                   onPressed: () {
                                     copyToClipBoard(
                                       context,
-                                      '${record.type} DNS record',
+                                      '${record.type} ${AppLocalizations.of(context)!.dns_record}',
                                       record.record,
                                     );
                                   },
