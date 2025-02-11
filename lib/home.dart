@@ -132,18 +132,23 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.bitscoper_cyber_toolbox),
+        title: Text(
+          AppLocalizations.of(context)!.bitscoper_cyber_toolbox,
+        ),
         centerTitle: true,
       ),
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
             DrawerHeader(
-              child:
-                  Text(AppLocalizations.of(context)!.bitscoper_cyber_toolbox),
+              child: Text(
+                AppLocalizations.of(context)!.bitscoper_cyber_toolbox,
+              ),
             ),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.change_language),
+              title: Text(
+                AppLocalizations.of(context)!.change_language,
+              ),
               leading: const Icon(Icons.language_rounded),
               onTap: () {
                 Locale currentLocale = Localizations.localeOf(context);
@@ -159,14 +164,18 @@ class HomePage extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.toggle_theme),
+              title: Text(
+                AppLocalizations.of(context)!.toggle_theme,
+              ),
               leading: const Icon(Icons.dark_mode_rounded),
               onTap: () {
                 toggleTheme();
               },
             ),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.source_code),
+              title: Text(
+                AppLocalizations.of(context)!.source_code,
+              ),
               leading: const Icon(Icons.code_rounded),
               onTap: () {
                 launchUrl(
@@ -176,7 +185,9 @@ class HomePage extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.microsoft_store),
+              title: Text(
+                AppLocalizations.of(context)!.microsoft_store,
+              ),
               leading: const Icon(Icons.shop_2_rounded),
               onTap: () {
                 launchUrl(
@@ -185,7 +196,9 @@ class HomePage extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.google_play),
+              title: Text(
+                AppLocalizations.of(context)!.google_play,
+              ),
               leading: const Icon(Icons.shop_rounded),
               onTap: () {
                 launchUrl(
@@ -195,7 +208,9 @@ class HomePage extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.developer),
+              title: Text(
+                AppLocalizations.of(context)!.developer,
+              ),
               leading: const Icon(Icons.person_rounded),
               onTap: () {
                 launchUrl(

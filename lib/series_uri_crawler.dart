@@ -17,7 +17,9 @@ class SeriesURICrawlerPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.series_uri_crawler),
+        title: Text(
+          AppLocalizations.of(context)!.series_uri_crawler,
+        ),
         centerTitle: true,
       ),
       body: const SeriesURICrawlerBody(),
@@ -244,7 +246,9 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                                 crawl();
                               }
                             },
-                      child: const Text('Crawl'),
+                      child: Text(
+                        AppLocalizations.of(context)!.crawl,
+                      ),
                     ),
                     ElevatedButton(
                       onPressed: isCrawling
@@ -256,7 +260,9 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                               );
                             }
                           : null,
-                      child: const Text('Stop'),
+                      child: Text(
+                        AppLocalizations.of(context)!.stop,
+                      ),
                     ),
                   ],
                 ),

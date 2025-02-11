@@ -15,10 +15,18 @@
   "string_hash_calculator": "স্ট্রিং হ্যাশ ক্যালকুলেটর",
   "base_encoder": "বেস এনকোডার",
   "morse_code_translator": "মোর্স কোড ট্রান্সলেটর",
-  "open_graph_protocol_data_extractor": "ওপেন গ্রাফ প্রোটোকল ডেটা এক্সট্রাক্টর",
+  "open_graph_protocol_data_extractor": "ওপেন গ্রাফ প্রোটোকল ডেটা এক্সট্র্যাক্টর",
   "series_uri_crawler": "সিরিজ ইউআরআই ক্রলার",
   "dns_record_retriever": "ডিএনএস রেকর্ড রিট্রিভার",
   "whois_retriever": "হুইস রিট্রিভার",
 
-  "copied_to_clipboard": " ক্লিপবোর্ডে কপি করা হয়েছে।"
+  "copied_to_clipboard": " ক্লিপবোর্ডে কপি করা হয়েছে।",
+
+  "scan": "স্ক্যান",
+  "ping": "পিং",
+  "select_files": "সিলেক্ট ফাইলস",
+  "extract": "এক্সট্র্যাক্ট",
+  "crawl": "ক্রল",
+  "retrieve": "রিট্রিভ",
+  "stop": "স্টপ"
 }

@@ -13,7 +13,9 @@ class PingerPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.pinger),
+        title: Text(
+          AppLocalizations.of(context)!.pinger,
+        ),
         centerTitle: true,
       ),
       body: const PingerBody(),
@@ -125,7 +127,9 @@ class PingerBodyState extends State<PingerBody> {
                                 await ping();
                               }
                             },
-                      child: const Text('Ping'),
+                      child: Text(
+                        AppLocalizations.of(context)!.ping,
+                      ),
                     ),
                     ElevatedButton(
                       onPressed: isPinging
@@ -140,7 +144,9 @@ class PingerBodyState extends State<PingerBody> {
                               }
                             }
                           : null,
-                      child: const Text('Stop'),
+                      child: Text(
+                        AppLocalizations.of(context)!.stop,
+                      ),
                     ),
                   ],
                 ),

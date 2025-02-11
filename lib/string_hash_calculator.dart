@@ -16,7 +16,9 @@ class StringHashCalculatorPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.string_hash_calculator),
+        title: Text(
+          AppLocalizations.of(context)!.string_hash_calculator,
+        ),
         centerTitle: true,
       ),
       body: const StringHashCalculatorBody(),

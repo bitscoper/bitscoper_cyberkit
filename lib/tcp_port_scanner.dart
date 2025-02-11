@@ -14,7 +14,9 @@ class TCPPortScannerPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.tcp_port_scanner),
+        title: Text(
+          AppLocalizations.of(context)!.tcp_port_scanner,
+        ),
         centerTitle: true,
       ),
       body: const TCPPortScannerBody(),
@@ -179,7 +181,9 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
                               await scanTCPPorts();
                             }
                           },
-                          child: const Text('Scan'),
+                          child: Text(
+                            AppLocalizations.of(context)!.scan,
+                          ),
                         ),
                 ),
               ],
