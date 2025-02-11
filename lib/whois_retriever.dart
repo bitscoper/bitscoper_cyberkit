@@ -13,7 +13,9 @@ class WHOISRetrieverPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.whois_retriever),
+        title: Text(
+          AppLocalizations.of(context)!.whois_retriever,
+        ),
         centerTitle: true,
       ),
       body: const WHOISRetrieverBody(),
@@ -124,7 +126,9 @@ class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
                               retrieveWHOIS();
                             }
                           },
-                    child: const Text('Lookup'),
+                    child: Text(
+                      AppLocalizations.of(context)!.retrieve,
+                    ),
                   ),
                 ),
               ],

@@ -18,7 +18,9 @@ class FileHashCalculatorPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.file_hash_calculator),
+        title: Text(
+          AppLocalizations.of(context)!.file_hash_calculator,
+        ),
         centerTitle: true,
       ),
       body: const FileHashCalculatorBody(),
@@ -77,7 +79,9 @@ class FileHashCalculatorBodyState extends State<FileHashCalculatorBody> {
         children: <Widget>[
           Center(
             child: ElevatedButton(
-              child: const Text('Select Files'),
+              child: Text(
+                AppLocalizations.of(context)!.select_files,
+              ),
               onPressed: () async {
                 List<Uint8List> files = [];
 

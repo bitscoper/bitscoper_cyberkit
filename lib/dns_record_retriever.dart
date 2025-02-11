@@ -16,7 +16,9 @@ class DNSRecordRetrieverPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.dns_record_retriever),
+        title: Text(
+          AppLocalizations.of(context)!.dns_record_retriever,
+        ),
         centerTitle: true,
       ),
       body: const DNSRecordRetrieverBody(),
@@ -179,7 +181,9 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                                   retrieveDNSRecord();
                                 }
                               },
-                        child: const Text('Lookup'),
+                        child: Text(
+                          AppLocalizations.of(context)!.retrieve,
+                        ),
                       ),
                       ElevatedButton(
                         onPressed: isRetrieving
@@ -191,7 +195,9 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                                 );
                               }
                             : null,
-                        child: const Text('Stop'),
+                        child: Text(
+                          AppLocalizations.of(context)!.stop,
+                        ),
                       ),
                     ],
                   ),

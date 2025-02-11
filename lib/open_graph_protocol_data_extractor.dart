@@ -15,7 +15,9 @@ class OGPDataExtractorPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.open_graph_protocol_data_extractor),
+        title: Text(
+          AppLocalizations.of(context)!.open_graph_protocol_data_extractor,
+        ),
         centerTitle: true,
       ),
       body: const OGPDataExtractorBody(),
@@ -61,6 +63,27 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
         },
       );
     }
+  }
+
+  Widget buildCard(String title, String? value) {
+    return Card(
+      child: ListTile(
+        title: Text(title),
+        subtitle: Text(
+          value ?? 'N/A',
+        ),
+        trailing: IconButton(
+          icon: const Icon(Icons.copy_rounded),
+          onPressed: () {
+            copyToClipBoard(
+              context,
+              title,
+              value ?? 'N/A',
+            );
+          },
+        ),
+      ),
+    );
   }
 
   @override
@@ -111,7 +134,9 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
                               retrieveOGPData();
                             }
                           },
-                    child: const Text('Extract'),
+                    child: Text(
+                      AppLocalizations.of(context)!.extract,
+                    ),
                   ),
                 ),
               ],
@@ -289,27 +314,6 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
                     )
                   : Container(),
         ],
-      ),
-    );
-  }
-
-  Widget buildCard(String title, String? value) {
-    return Card(
-      child: ListTile(
-        title: Text(title),
-        subtitle: Text(
-          value ?? 'N/A',
-        ),
-        trailing: IconButton(
-          icon: const Icon(Icons.copy_rounded),
-          onPressed: () {
-            copyToClipBoard(
-              context,
-              title,
-              value ?? 'N/A',
-            );
-          },
-        ),
       ),
     );
   }
