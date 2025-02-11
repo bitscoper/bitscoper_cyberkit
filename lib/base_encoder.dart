@@ -16,7 +16,9 @@ class BaseEncoderPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.base_encoder),
+        title: Text(
+          AppLocalizations.of(context)!.base_encoder,
+        ),
         centerTitle: true,
       ),
       body: const BaseEncoderBody(),

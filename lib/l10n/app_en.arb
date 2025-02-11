@@ -20,5 +20,13 @@
   "dns_record_retriever": "DNS Record Retriever",
   "whois_retriever": "WHOIS Retriever",
 
-  "copied_to_clipboard": " copied to clipboard."
+  "copied_to_clipboard": " copied to clipboard.",
+
+  "scan": "Scan",
+  "ping": "Ping",
+  "select_files": "Select Files",
+  "extract": "Extract",
+  "crawl": "Crawl",
+  "retrieve": "Retrieve",
+  "stop": "Stop"
 }

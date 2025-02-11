@@ -116,13 +116,17 @@ class MainAppState extends State<MainApp> {
     );
   }
 
-  ThemeData buildTheme(
-    Brightness brightness,
-  ) {
-    var baseTheme = ThemeData(brightness: brightness);
+ThemeData buildTheme(
+  Brightness brightness,
+) {
+  var baseTheme = ThemeData(
+    brightness: brightness,
+  );
 
-    return baseTheme.copyWith(
-      textTheme: GoogleFonts.notoSansTextTheme(baseTheme.textTheme),
-    );
-  }
+  return baseTheme.copyWith(
+    textTheme: GoogleFonts.notoSansTextTheme(
+      baseTheme.textTheme,
+    ),
+  );
+}
 }

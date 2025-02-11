@@ -13,7 +13,9 @@ class MorseCodeTranslatorPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.morse_code_translator),
+        title: Text(
+          AppLocalizations.of(context)!.morse_code_translator,
+        ),
         centerTitle: true,
       ),
       body: const MorseCodeTranslatorBody(),

@@ -15,7 +15,9 @@ class RouteTracerPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.route_tracer),
+        title: Text(
+          AppLocalizations.of(context)!.route_tracer,
+        ),
         centerTitle: true,
       ),
       body: const RouteTracerBody(),
@@ -145,7 +147,7 @@ class RouteTracerBodyState extends State<RouteTracerBody> {
 //                     ),
 //                     ElevatedButton(
 //                       onPressed: isTracing ? onStop : null,
-//                       child: const Text('Stop'),
+//                       child: Text(AppLocalizations.of(context)!.stop,),
 //                     ),
 //                   ],
 //                 ),
