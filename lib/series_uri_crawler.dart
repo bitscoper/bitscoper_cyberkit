@@ -97,8 +97,8 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                     Expanded(
                       flex: 2,
                       child: TextFormField(
-                        decoration: const InputDecoration(
-                          labelText: 'URI Prefix',
+                        decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context)!.uri_prefix,
                           hintText: 'https://dlhd.sx/stream/stream-',
                         ),
                         maxLines: 1,
@@ -126,8 +126,8 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                     Expanded(
                       flex: 1,
                       child: TextFormField(
-                        decoration: const InputDecoration(
-                          labelText: 'URI Suffix',
+                        decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context)!.uri_suffix,
                           hintText: '.php',
                         ),
                         maxLines: 1,
@@ -155,8 +155,8 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                   children: <Widget>[
                     Expanded(
                       child: TextFormField(
-                        decoration: const InputDecoration(
-                          labelText: 'Lower Limit',
+                        decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context)!.lower_limit,
                           hintText: '1',
                         ),
                         maxLines: 1,
@@ -195,8 +195,8 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                     ),
                     Expanded(
                       child: TextFormField(
-                        decoration: const InputDecoration(
-                          labelText: 'Upper Limit',
+                        decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context)!.upper_limit,
                           hintText: '100',
                         ),
                         maxLines: 1,
@@ -291,7 +291,7 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                         onPressed: () {
                           copyToClipBoard(
                             context,
-                            'URI',
+                            AppLocalizations.of(context)!.uri,
                             entry.key,
                           );
                         },
