@@ -76,10 +76,10 @@ class MorseCodeTranslatorBodyState extends State<MorseCodeTranslatorBody> {
           children: <Widget>[
             TextFormField(
               controller: _stringController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'A String',
-                hintText: 'Abdullah As-Sadeed',
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                labelText: AppLocalizations.of(context)!.a_string,
+                hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
               ),
               maxLines: null,
               showCursor: true,
@@ -99,9 +99,9 @@ class MorseCodeTranslatorBodyState extends State<MorseCodeTranslatorBody> {
             const SizedBox(height: 16),
             TextFormField(
               controller: _morseCodeController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Morse Code',
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                labelText: AppLocalizations.of(context)!.morse_code,
                 hintText:
                     '.- -... -.. ..- .-.. .-.. .- .... / .- ... -....- ... .- -.. . . -..',
               ),

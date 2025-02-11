@@ -74,10 +74,10 @@ class StringHashCalculatorBodyState extends State<StringHashCalculatorBody> {
           Form(
             key: _formKey,
             child: TextFormField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'A Multiline String',
-                hintText: 'Abdullah As-Sadeed',
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                labelText: AppLocalizations.of(context)!.a_multiline_string,
+                hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
               ),
               maxLines: null,
               showCursor: true,
@@ -132,7 +132,7 @@ class StringHashCalculatorBodyState extends State<StringHashCalculatorBody> {
                               onPressed: () {
                                 copyToClipBoard(
                                   context,
-                                  entry.key,
+                                  "${entry.key} ${AppLocalizations.of(context)!.hash}",
                                   entry.value,
                                 );
                               },

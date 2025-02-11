@@ -91,9 +91,9 @@ class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
             child: Column(
               children: [
                 TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'A Domain Name',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: AppLocalizations.of(context)!.a_domain_name,
                     hintText: 'bitscoper.dev',
                   ),
                   maxLines: 1,

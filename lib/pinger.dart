@@ -86,9 +86,10 @@ class PingerBodyState extends State<PingerBody> {
             child: Column(
               children: [
                 TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'A Host or IP Address',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText:
+                        AppLocalizations.of(context)!.a_host_or_ip_address,
                     hintText: 'bitscoper.dev',
                   ),
                   maxLines: 1,

@@ -68,10 +68,10 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
           Form(
             key: _formKey,
             child: TextFormField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'A Multiline String',
-                hintText: 'Abdullah As-Sadeed',
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                labelText: AppLocalizations.of(context)!.a_multiline_string,
+                hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
               ),
               maxLines: null,
               showCursor: true,

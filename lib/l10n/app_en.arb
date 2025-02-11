@@ -20,7 +20,7 @@
   "dns_record_retriever": "DNS Record Retriever",
   "whois_retriever": "WHOIS Retriever",
 
-  "copied_to_clipboard": " copied to clipboard.",
+  "copied_to_clipboard": " has been copied to clipboard.",
 
   "scan": "Scan",
   "ping": "Ping",
@@ -28,5 +28,24 @@
   "extract": "Extract",
   "crawl": "Crawl",
   "retrieve": "Retrieve",
-  "stop": "Stop"
+  "stop": "Stop",
+
+  "a_host_or_ip_address": "A Host or IP Address",
+  "a_domain_name": "A Domain Name",
+  "a_multiline_string": "A Multiline String",
+  "a_string": "A String",
+  "morse_code": "Morse Code",
+  "uri_prefix": "URI Prefix",
+  "uri_suffix": "URI Suffix",
+  "lower_limit": "Lower Limit",
+  "upper_limit": "Upper Limit",
+  "dns_provider": "DNS Provider",
+
+  "abdullah_as_sadeed": "Abdullah As-Sadeed",
+
+  "hash": "hash",
+  "uri": "URI",
+  "dns_record": "DNS record",
+
+  "route_tracer_apology": "Apologies, Route Tracer is currently unavailable due to build errors."
 }
