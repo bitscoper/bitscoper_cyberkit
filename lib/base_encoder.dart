@@ -53,7 +53,6 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
     'Base58': base58,
     'Base62': base62,
     'Base64': base64,
-    'Base64 URL': base64url,
   };
 
   @override
@@ -68,13 +67,21 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
           Form(
             key: _formKey,
             child: TextFormField(
+              keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
                 labelText: AppLocalizations.of(context)!.a_multiline_string,
                 hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
               ),
-              maxLines: null,
               showCursor: true,
+              maxLines: null,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return AppLocalizations.of(context)!.enter_a_string;
+                }
+
+                return null;
+              },
               onChanged: (value) {
                 setState(
                   () {
@@ -85,13 +92,6 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
                     }
                   },
                 );
-              },
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a string!';
-                }
-
-                return null;
               },
               onFieldSubmitted: (value) {
                 if (_formKey.currentState!.validate()) {
@@ -112,8 +112,114 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
             height: 16,
           ),
           inputAsBase64.isEmpty
-              ? const Text(
-                  'Start typing a string to encode it into\nbinary (Base2),\nternary (Base3),\nquaternary (Base4),\nquinary (Base5),\nsenary (Base6),\noctal (Base8),\ndecimal (Base10),\nduodecimal (Base12),\nhexadecimal (Base16),\nBase32, Base32Hex,\nBase36,\nBase58,\nBase62,\nBase64, and Base64 URL.',
+              ? Center(
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        AppLocalizations.of(context)!
+                            .start_typing_a_string_to_encode_it_into_the_bases,
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      const Wrap(
+                        alignment: WrapAlignment.center,
+                        children: <Widget>[
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text('Binary (Base2)'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text('Ternary (Base3)'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text('Quaternary (Base4)'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text('Quinary (Base5)'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text('Senary (Base6)'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text('Octal (Base8)'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text('Decimal (Base10)'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text('Duodecimal (Base12)'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text('Hexadecimal (Base16)'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text('Base32'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text('Base32Hex'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text('Base36'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text('Base58'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text('Base62'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text('Base64'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 )
               : Column(
                   children: encodings.entries.map(

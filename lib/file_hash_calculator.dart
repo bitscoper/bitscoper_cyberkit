@@ -115,9 +115,10 @@ class FileHashCalculatorBodyState extends State<FileHashCalculatorBody> {
             height: 16,
           ),
           hashValues.isEmpty
-              ? const Center(
+              ? Center(
                   child: Text(
-                    'Select files to calculate their MD5, SHA1, SHA224, SHA256, SHA384, and SHA512 hashes.',
+                    AppLocalizations.of(context)!
+                        .select_files_to_calculate_their_md5_sha1_sha224_sha256_sha384_sha512_hashes,
                     textAlign: TextAlign.center,
                   ),
                 )

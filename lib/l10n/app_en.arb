@@ -22,14 +22,6 @@
 
   "copied_to_clipboard": " has been copied to clipboard.",
 
-  "scan": "Scan",
-  "ping": "Ping",
-  "select_files": "Select Files",
-  "extract": "Extract",
-  "crawl": "Crawl",
-  "retrieve": "Retrieve",
-  "stop": "Stop",
-
   "a_host_or_ip_address": "A Host or IP Address",
   "a_domain_name": "A Domain Name",
   "a_multiline_string": "A Multiline String",
@@ -43,9 +35,42 @@
 
   "abdullah_as_sadeed": "Abdullah As-Sadeed",
 
+  "scan": "Scan",
+  "ping": "Ping",
+  "select_files": "Select Files",
+  "extract": "Extract",
+  "crawl": "Crawl",
+  "retrieve": "Retrieve",
+  "stop": "Stop",
+
+  "select_files_to_calculate_their_md5_sha1_sha224_sha256_sha384_sha512_hashes": "Select files to calculate their MD5, SHA1, SHA224, SHA256, SHA384, and SHA512 hashes.",
+  "start_typing_a_string_to_calculate_its_md5_sha1_sha224_sha256_sha384_sha512_hashes": "Start typing a string to calculate its MD5, SHA1, SHA224, SHA256, SHA384, and SHA512 hashes.",
+  "start_typing_a_string_to_encode_it_into_the_bases": "Start typing a string to encode it to into the bases.",
+  "it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records": "It takes time to retrieve all possible types of forward and reverse records.",
+
+  "retrieving": "Retrieving",
+  "records": "records",
+  "wait": "Wait",
+
+  "scanned_ports": "Scanned Ports",
+  "elapsed_time": "Elapsed Time",
+
   "hash": "hash",
   "uri": "URI",
   "dns_record": "DNS record",
+
+  "enter_a_host_or_ip_address": "Enter a host or IP address!",
+  "enter_a_string": "Enter a string!",
+  "enter_morse_code": "Enter morse code!",
+  "enter_a_uri_prefix": "Enter a URI Prefix!",
+  "enter_a_lower_limit": "Enter a Lower Limit!",
+  "enter_an_upper_limit": "Enter an Upper Limit!",
+  "enter_an_integer": "Enter an Integer!",
+  "enter_a_positive_integer": "Enter a Positive Integer!",
+  "upper_limit_must_be_greater_than_lower_limit": "Upper limit must be greater than lower limit!",
+  "enter_a_domain_name": "Enter a domain name!",
+
+  "error": "Error",
 
   "route_tracer_apology": "Apologies, Route Tracer is currently unavailable due to build errors."
 }

@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 import 'package:tcp_scanner/tcp_scanner.dart';
 
 class TCPPortScannerPage extends StatelessWidget {
@@ -74,8 +75,16 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
 
                 setState(
                   () {
-                    scanInformation = 'Scanned ports:\t${report.ports.length}\n'
-                        'Elapsed:\t${stopwatch.elapsed}';
+                    final numberFormat = NumberFormat(
+                        '#', AppLocalizations.of(context)!.localeName);
+                    final timeFormat = DateFormat(
+                        'HH:mm:ss', AppLocalizations.of(context)!.localeName);
+
+                    scanInformation =
+                        '${AppLocalizations.of(context)!.scanned_ports}: ${numberFormat.format(report.ports.length)}\n${AppLocalizations.of(context)!.elapsed_time}: ${timeFormat.format(DateTime.fromMillisecondsSinceEpoch(
+                      stopwatch.elapsedMilliseconds,
+                      isUtc: true,
+                    ))}';
                   },
                 );
 
@@ -88,7 +97,8 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
               ) {
                 setState(
                   () {
-                    scanInformation = 'Error: $error';
+                    scanInformation =
+                        '${AppLocalizations.of(context)!.error}: $error';
                   },
                 );
 
@@ -108,7 +118,7 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
     } catch (error) {
       setState(
         () {
-          scanInformation = 'Error: $error';
+          scanInformation = '${AppLocalizations.of(context)!.error}: $error';
         },
       );
 
@@ -120,6 +130,9 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
   Widget build(
     BuildContext context,
   ) {
+    final numberFormat =
+        NumberFormat('#', AppLocalizations.of(context)!.localeName);
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -128,25 +141,27 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
           Form(
             key: _formKey,
             child: Column(
-              children: [
+              children: <Widget>[
                 TextFormField(
+                  keyboardType: TextInputType.url,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     labelText:
                         AppLocalizations.of(context)!.a_host_or_ip_address,
                     hintText: 'bitscoper.dev',
                   ),
-                  maxLines: 1,
                   showCursor: true,
-                  onChanged: (value) {
-                    host = value.trim();
-                  },
+                  maxLines: 1,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter a host or IP address!';
+                      return AppLocalizations.of(context)!
+                          .enter_a_host_or_ip_address;
                     }
 
                     return null;
+                  },
+                  onChanged: (value) {
+                    host = value.trim();
                   },
                   onFieldSubmitted: (value) async {
                     if (_formKey.currentState!.validate()) {
@@ -208,7 +223,7 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
                       ),
                     ),
                     child: Text(
-                      port.toString(),
+                      numberFormat.format(port),
                     ),
                   ),
               ],

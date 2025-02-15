@@ -74,26 +74,27 @@ class StringHashCalculatorBodyState extends State<StringHashCalculatorBody> {
           Form(
             key: _formKey,
             child: TextFormField(
+              keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
                 labelText: AppLocalizations.of(context)!.a_multiline_string,
                 hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
               ),
-              maxLines: null,
               showCursor: true,
+              maxLines: null,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return AppLocalizations.of(context)!.enter_a_string;
+                }
+
+                return null;
+              },
               onChanged: (value) {
                 setState(
                   () {
                     calculateHashes(value);
                   },
                 );
-              },
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a string!';
-                }
-
-                return null;
               },
               onFieldSubmitted: (value) {
                 if (_formKey.currentState!.validate()) {
@@ -110,9 +111,10 @@ class StringHashCalculatorBodyState extends State<StringHashCalculatorBody> {
             height: 16,
           ),
           hashValues.isEmpty
-              ? const Center(
+              ? Center(
                   child: Text(
-                    'Start typing a string to calculate its MD5, SHA1, SHA224, SHA256, SHA384, and SHA512 hashes.',
+                    AppLocalizations.of(context)!
+                        .start_typing_a_string_to_calculate_its_md5_sha1_sha224_sha256_sha384_sha512_hashes,
                     textAlign: TextAlign.center,
                   ),
                 )

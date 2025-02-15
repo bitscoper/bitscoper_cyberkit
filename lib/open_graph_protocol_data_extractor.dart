@@ -98,24 +98,26 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
           Form(
             key: _formKey,
             child: Column(
-              children: [
+              children: <Widget>[
                 TextFormField(
+                  keyboardType: TextInputType.url,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     labelText:
                         AppLocalizations.of(context)!.a_host_or_ip_address,
                     hintText: 'bitscoper.dev',
                   ),
-                  maxLines: 1,
                   showCursor: true,
-                  onChanged: (value) {
-                    host = value.trim();
-                  },
+                  maxLines: 1,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter a host or IP address!';
+                      return AppLocalizations.of(context)!
+                          .enter_a_host_or_ip_address;
                     }
                     return null;
+                  },
+                  onChanged: (value) {
+                    host = value.trim();
                   },
                   onFieldSubmitted: (value) {
                     if (_formKey.currentState!.validate()) {
@@ -152,7 +154,7 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
                 )
               : ogpData != null
                   ? Column(
-                      children: [
+                      children: <Widget>[
                         buildCard(
                           'URL',
                           ogpData!.url,
