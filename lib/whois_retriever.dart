@@ -89,24 +89,25 @@ class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
           Form(
             key: _formKey,
             child: Column(
-              children: [
+              children: <Widget>[
                 TextFormField(
+                  keyboardType: TextInputType.url,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     labelText: AppLocalizations.of(context)!.a_domain_name,
                     hintText: 'bitscoper.dev',
                   ),
-                  maxLines: 1,
                   showCursor: true,
-                  onChanged: (value) {
-                    domainName = value.trim();
-                  },
+                  maxLines: 1,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter a domain name!';
+                      return AppLocalizations.of(context)!.enter_a_domain_name;
                     }
 
                     return null;
+                  },
+                  onChanged: (value) {
+                    domainName = value.trim();
                   },
                   onFieldSubmitted: (value) {
                     if (_formKey.currentState!.validate()) {

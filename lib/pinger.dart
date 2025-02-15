@@ -84,25 +84,27 @@ class PingerBodyState extends State<PingerBody> {
           Form(
             key: _formKey,
             child: Column(
-              children: [
+              children: <Widget>[
                 TextFormField(
+                  keyboardType: TextInputType.url,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     labelText:
                         AppLocalizations.of(context)!.a_host_or_ip_address,
                     hintText: 'bitscoper.dev',
                   ),
-                  maxLines: 1,
                   showCursor: true,
-                  onChanged: (value) {
-                    host = value.trim();
-                  },
+                  maxLines: 1,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter a host or IP Address!';
+                      return AppLocalizations.of(context)!
+                          .enter_a_host_or_ip_address;
                     }
 
                     return null;
+                  },
+                  onChanged: (value) {
+                    host = value.trim();
                   },
                   onFieldSubmitted: (value) async {
                     await ping();
@@ -113,7 +115,7 @@ class PingerBodyState extends State<PingerBody> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
+                  children: <Widget>[
                     ElevatedButton(
                       onPressed: isPinging
                           ? null
@@ -159,7 +161,7 @@ class PingerBodyState extends State<PingerBody> {
           ),
           Center(
             child: Column(
-              children: [
+              children: <Widget>[
                 if (isPinging) ...[
                   const CircularProgressIndicator(),
                   const SizedBox(
