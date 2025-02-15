@@ -22,6 +22,19 @@
 
   "copied_to_clipboard": " ক্লিপবোর্ডে কপি করা হয়েছে।",
 
+  "a_host_or_ip_address": "একটা হোস্ট বা আইপি অ্যাড্রেস",
+  "a_domain_name": "একটা ডোমেইন নেইম",
+  "a_multiline_string": "একটা মাল্টিলাইন স্ট্রিং",
+  "a_string": "একটা স্ট্রিং",
+  "morse_code": "মোর্স কোড",
+  "uri_prefix": "ইউআরআই প্রিফিক্স",
+  "uri_suffix": "ইউআরআই সাফিক্স",
+  "lower_limit": "নিম্নসীমা",
+  "upper_limit": "উচ্চসীমা",
+  "dns_provider": "ডিএনএস প্রোভাইডার",
+
+  "abdullah_as_sadeed": "আবদুল্লাহ আস সাদীদ",
+
   "scan": "স্ক্যান",
   "ping": "পিং",
   "select_files": "সিলেক্ট ফাইলস",
@@ -30,22 +43,34 @@
   "retrieve": "রিট্রিভ",
   "stop": "স্টপ",
 
-  "a_host_or_ip_address": "একটা হোস্ট বা আইপি অ্যাড্রেস",
-  "a_domain_name": "একটা ডোমেইন নেইম",
-  "a_multiline_string": "একটা মাল্টিলাইন স্ট্রিং",
-  "a_string": "একটা স্ট্রিং",
-  "morse_code": "মোর্স কোড",
-  "uri_prefix": "ইউআরআই প্রিফিক্স",
-  "uri_suffix": "ইউআরআই সাফিক্স",
-  "lower_limit": "নিম্ন সীমা",
-  "upper_limit": "উচ্চ সীমা",
-  "dns_provider": "ডিএনএস প্রোভাইডার",
+  "select_files_to_calculate_their_md5_sha1_sha224_sha256_sha384_sha512_hashes": "ফাইলসের MD5, SHA1, SHA224, SHA256, SHA384, ও SHA512 হ্যাশগুলো ক্যালকুলেট করতে ফাইলগুলো সিলেক্ট করুন।",
+  "start_typing_a_string_to_calculate_its_md5_sha1_sha224_sha256_sha384_sha512_hashes": "স্ট্রিংয়ের MD5, SHA1, SHA224, SHA256, SHA384, ও SHA512 হ্যাশগুলো ক্যালকুলেট করতে স্ট্রিংটা লিখতে শুরু করুন।",
+  "start_typing_a_string_to_encode_it_into_the_bases": "স্ট্রিংকে বেসগুলোতে এনকোড করতে স্ট্রিংটা লিখতে শুরু করুন।",
+  "it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records": "সম্ভাব্য সকল ধরনের ফরওয়ার্ড ও রিভার্স রেকর্ডস রিট্রিভ করতে সময়ের প্রয়োজন।",
 
-  "abdullah_as_sadeed": "আবদুল্লাহ আস সাদীদ",
+  "retrieving": "রিট্রিভিইং",
+  "records": "রেকর্ডস",
+  "wait": "অপেক্ষা করুন",
+
+  "scanned_ports": "স্ক্যানড পোর্টের সংখ্যা",
+  "elapsed_time": "সময়",
 
   "hash": "হ্যাশ",
   "uri": "ইউআরআই",
   "dns_record": "ডিএনএস রেকর্ড",
+
+  "enter_a_host_or_ip_address": "একটা হোস্ট বা আইপি অ্যাড্রেস লিখুন!",
+  "enter_a_string": "একটা স্ট্রিং লিখুন!",
+  "enter_morse_code": "মোর্স কোড লিখুন!",
+  "enter_a_uri_prefix": "একটা ইউআরআই প্রিফিক্স লিখুন!",
+  "enter_a_lower_limit": "একটা নিম্নসীমা লিখুন!",
+  "enter_an_upper_limit": "একটা উচ্চসীমা লিখুন!",
+  "enter_an_integer": "একটা পূর্ণসংখ্যা লিখুন!",
+  "enter_a_positive_integer": "একটা ধনাত্মক পূর্ণসংখ্যা লিখুন!",
+  "upper_limit_must_be_greater_than_lower_limit": "নিম্নসীমার চেয়ে উচ্চসীমা বড় হতে হবে!",
+  "enter_a_domain_name": "একটা ডোমেইন নেইম লিখুন!",
+
+  "error": "ত্রুটি",
 
   "route_tracer_apology": "দুঃখিত, বিল্ড ত্রুটির কারণে বর্তমানে রুট ট্রেসার ব্যবহারযোগ্য না।"
 }

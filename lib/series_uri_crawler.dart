@@ -97,21 +97,23 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                     Expanded(
                       flex: 2,
                       child: TextFormField(
+                        keyboardType: TextInputType.url,
                         decoration: InputDecoration(
                           labelText: AppLocalizations.of(context)!.uri_prefix,
                           hintText: 'https://dlhd.sx/stream/stream-',
                         ),
-                        maxLines: 1,
                         showCursor: true,
-                        onChanged: (value) {
-                          uriPrefix = value.trim();
-                        },
+                        maxLines: 1,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter a URI prefix!';
+                            return AppLocalizations.of(context)!
+                                .enter_a_uri_prefix;
                           }
 
                           return null;
+                        },
+                        onChanged: (value) {
+                          uriPrefix = value.trim();
                         },
                         onFieldSubmitted: (value) {
                           if (_formKey.currentState!.validate()) {
@@ -126,21 +128,16 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                     Expanded(
                       flex: 1,
                       child: TextFormField(
+                        keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           labelText: AppLocalizations.of(context)!.uri_suffix,
                           hintText: '.php',
                         ),
-                        maxLines: 1,
                         showCursor: true,
+                        maxLines: 1,
+                        // validator: (value) {},
                         onChanged: (value) {
                           uriSuffix = value.trim();
-                        },
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a URI suffix!';
-                          }
-
-                          return null;
                         },
                         onFieldSubmitted: (value) {
                           if (_formKey.currentState!.validate()) {
@@ -155,33 +152,37 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                   children: <Widget>[
                     Expanded(
                       child: TextFormField(
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           labelText: AppLocalizations.of(context)!.lower_limit,
                           hintText: '1',
                         ),
-                        maxLines: 1,
                         showCursor: true,
-                        keyboardType: TextInputType.number,
+                        maxLines: 1,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return AppLocalizations.of(context)!
+                                .enter_a_lower_limit;
+                          }
+                          if (int.tryParse(value) == null) {
+                            return AppLocalizations.of(context)!
+                                .enter_an_integer;
+                          } else if (int.tryParse(value)! < 1) {
+                            return AppLocalizations.of(context)!
+                                .enter_a_positive_integer;
+                          } else if (int.tryParse(value)! > upperLimit) {
+                            return AppLocalizations.of(context)!
+                                .upper_limit_must_be_greater_than_lower_limit;
+                          }
+
+                          return null;
+                        },
                         onChanged: (value) {
                           var parsedValue = int.tryParse(value);
 
                           if (parsedValue != null) {
                             upperLimit = parsedValue;
                           }
-                        },
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a lower limit!';
-                          }
-                          if (int.tryParse(value) == null) {
-                            return 'Please enter an integer!';
-                          } else if (int.tryParse(value)! < 1) {
-                            return 'Please enter a positive integer!';
-                          } else if (int.tryParse(value)! > upperLimit) {
-                            return 'Lower limit must be less than upper limit!';
-                          }
-
-                          return null;
                         },
                         onFieldSubmitted: (value) {
                           if (_formKey.currentState!.validate()) {
@@ -195,33 +196,37 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                     ),
                     Expanded(
                       child: TextFormField(
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           labelText: AppLocalizations.of(context)!.upper_limit,
                           hintText: '100',
                         ),
-                        maxLines: 1,
                         showCursor: true,
-                        keyboardType: TextInputType.number,
+                        maxLines: 1,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return AppLocalizations.of(context)!
+                                .enter_an_upper_limit;
+                          }
+                          if (int.tryParse(value) == null) {
+                            return AppLocalizations.of(context)!
+                                .enter_an_integer;
+                          } else if (int.tryParse(value)! < 1) {
+                            return AppLocalizations.of(context)!
+                                .enter_a_positive_integer;
+                          } else if (int.tryParse(value)! < lowerLimit) {
+                            return AppLocalizations.of(context)!
+                                .upper_limit_must_be_greater_than_lower_limit;
+                          }
+
+                          return null;
+                        },
                         onChanged: (value) {
                           var parsedValue = int.tryParse(value);
 
                           if (parsedValue != null) {
                             upperLimit = parsedValue;
                           }
-                        },
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter an upper limit!';
-                          }
-                          if (int.tryParse(value) == null) {
-                            return 'Please enter an integer!';
-                          } else if (int.tryParse(value)! < 1) {
-                            return 'Please enter a positive integer!';
-                          } else if (int.tryParse(value)! < lowerLimit) {
-                            return 'Upper limit must be greater than lower limit!';
-                          }
-
-                          return null;
                         },
                         onFieldSubmitted: (value) {
                           if (_formKey.currentState!.validate()) {

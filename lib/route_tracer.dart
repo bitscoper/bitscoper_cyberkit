@@ -105,7 +105,7 @@ class RouteTracerBodyState extends State<RouteTracerBody> {
 //           Form(
 //             key: _formKey,
 //             child: Column(
-//               children: [
+//               children: <Widget>[
 //                 TextFormField(
 //                   decoration: const InputDecoration(
 //                     border: OutlineInputBorder(),
@@ -119,7 +119,7 @@ class RouteTracerBodyState extends State<RouteTracerBody> {
 //                   },
 //                   validator: (value) {
 //                     if (value == null || value.isEmpty) {
-//                       return 'Please enter a host or IP address!';
+//                       return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
 //                     }
 //                     return null;
 //                   },

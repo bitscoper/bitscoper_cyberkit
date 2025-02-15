@@ -116,24 +116,26 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
           Form(
             key: _formKey,
             child: Column(
-              children: [
+              children: <Widget>[
                 TextFormField(
+                  keyboardType: TextInputType.url,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     labelText:
                         AppLocalizations.of(context)!.a_host_or_ip_address,
                     hintText: 'bitscoper.dev',
                   ),
-                  maxLines: 1,
                   showCursor: true,
-                  onChanged: (value) {
-                    host = value.trim();
-                  },
+                  maxLines: 1,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter a host or IP address!';
+                      return AppLocalizations.of(context)!
+                          .enter_a_host_or_ip_address;
                     }
                     return null;
+                  },
+                  onChanged: (value) {
+                    host = value.trim();
                   },
                   onFieldSubmitted: (value) {
                     if (_formKey.currentState!.validate()) {
@@ -173,7 +175,7 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                 Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
+                    children: <Widget>[
                       ElevatedButton(
                         onPressed: isRetrieving
                             ? null
@@ -212,7 +214,7 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
           isRetrieving
               ? Center(
                   child: Column(
-                    children: [
+                    children: <Widget>[
                       StreamBuilder<String>(
                         stream: recordTypeController.stream,
                         builder: (
@@ -220,9 +222,10 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                           snapshot,
                         ) {
                           if (snapshot.hasData && snapshot.data != null) {
-                            return Text('Retrieving ${snapshot.data} records');
+                            return Text(
+                                '${AppLocalizations.of(context)!.retrieving} ${snapshot.data} ${AppLocalizations.of(context)!.records}');
                           } else {
-                            return const Text('Please Wait');
+                            return Text(AppLocalizations.of(context)!.wait);
                           }
                         },
                       ),
@@ -234,9 +237,10 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                   ),
                 )
               : (records.isEmpty
-                  ? const Center(
+                  ? Center(
                       child: Text(
-                        'It takes time to retrieve all possible types of forward and reverse records.',
+                        AppLocalizations.of(context)!
+                            .it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records,
                         textAlign: TextAlign.center,
                       ),
                     )

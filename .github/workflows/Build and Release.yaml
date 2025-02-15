@@ -389,7 +389,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
   update-docker-image:
-    name: Update Docker Image
+    name: Update Docker Images
     needs: [upload-release]
     runs-on: ubuntu-latest
     permissions:

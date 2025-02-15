@@ -21,18 +21,18 @@ void main() {
   );
 
   runApp(
-    const MainApp(),
+    const BitscoperCyberToolBox(),
   );
 }
 
-class MainApp extends StatefulWidget {
-  const MainApp({super.key});
+class BitscoperCyberToolBox extends StatefulWidget {
+  const BitscoperCyberToolBox({super.key});
 
   @override
-  MainAppState createState() => MainAppState();
+  BitscoperCyberToolBoxState createState() => BitscoperCyberToolBoxState();
 }
 
-class MainAppState extends State<MainApp> {
+class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
   ValueNotifier<bool> isDarkTheme = ValueNotifier<bool>(false);
   bool userToggledTheme = false;
   Locale userLocale = const Locale('en');
@@ -78,6 +78,20 @@ class MainAppState extends State<MainApp> {
     );
   }
 
+  ThemeData buildTheme(
+    Brightness brightness,
+  ) {
+    var baseTheme = ThemeData(
+      brightness: brightness,
+    );
+
+    return baseTheme.copyWith(
+      textTheme: GoogleFonts.notoSansTextTheme(
+        baseTheme.textTheme,
+      ),
+    );
+  }
+
   @override
   Widget build(
     BuildContext context,
@@ -115,18 +129,4 @@ class MainAppState extends State<MainApp> {
       },
     );
   }
-
-ThemeData buildTheme(
-  Brightness brightness,
-) {
-  var baseTheme = ThemeData(
-    brightness: brightness,
-  );
-
-  return baseTheme.copyWith(
-    textTheme: GoogleFonts.notoSansTextTheme(
-      baseTheme.textTheme,
-    ),
-  );
-}
 }
