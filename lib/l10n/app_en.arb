@@ -15,6 +15,7 @@
   "string_hash_calculator": "String Hash Calculator",
   "base_encoder": "Base Encoder",
   "morse_code_translator": "Morse Code Translator",
+  "qr_code_generator": "QR Code Generator",
   "open_graph_protocol_data_extractor": "Open Graph Protocol Data Extractor",
   "series_uri_crawler": "Series URI Crawler",
   "dns_record_retriever": "DNS Record Retriever",
@@ -46,6 +47,7 @@
   "select_files_to_calculate_their_md5_sha1_sha224_sha256_sha384_sha512_hashes": "Select files to calculate their MD5, SHA1, SHA224, SHA256, SHA384, and SHA512 hashes.",
   "start_typing_a_string_to_calculate_its_md5_sha1_sha224_sha256_sha384_sha512_hashes": "Start typing a string to calculate its MD5, SHA1, SHA224, SHA256, SHA384, and SHA512 hashes.",
   "start_typing_a_string_to_encode_it_into_the_bases": "Start typing a string to encode it to into the bases.",
+  "start_typing_a_string_to_generate_qr_code": "Start typing a string to generate QR Code.",
   "it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records": "It takes time to retrieve all possible types of forward and reverse records.",
 
   "retrieving": "Retrieving",

@@ -151,7 +151,9 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                     labelText: AppLocalizations.of(context)!.dns_provider,
                   ),
                   value: recordProvider,
-                  onChanged: (DNSProvider? newValue) {
+                  onChanged: (
+                    DNSProvider? newValue,
+                  ) {
                     setState(
                       () {
                         recordProvider = newValue!;
@@ -159,11 +161,15 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                     );
                   },
                   items: DNSProvider.values.map<DropdownMenuItem<DNSProvider>>(
-                    (DNSProvider value) {
+                    (
+                      DNSProvider value,
+                    ) {
                       return DropdownMenuItem<DNSProvider>(
                         value: value,
                         child: Text(
-                          capitalize(value.toString().split('.').last),
+                          capitalize(
+                            value.toString().split('.').last,
+                          ),
                         ),
                       );
                     },
@@ -211,66 +217,67 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
           const SizedBox(
             height: 16,
           ),
-          isRetrieving
-              ? Center(
-                  child: Column(
-                    children: <Widget>[
-                      StreamBuilder<String>(
-                        stream: recordTypeController.stream,
-                        builder: (
-                          context,
-                          snapshot,
-                        ) {
-                          if (snapshot.hasData && snapshot.data != null) {
-                            return Text(
-                                '${AppLocalizations.of(context)!.retrieving} ${snapshot.data} ${AppLocalizations.of(context)!.records}');
-                          } else {
-                            return Text(AppLocalizations.of(context)!.wait);
-                          }
-                        },
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      const CircularProgressIndicator(),
-                    ],
+          if (isRetrieving)
+            Center(
+              child: Column(
+                children: <Widget>[
+                  StreamBuilder<String>(
+                    stream: recordTypeController.stream,
+                    builder: (
+                      context,
+                      snapshot,
+                    ) {
+                      if (snapshot.hasData && snapshot.data != null) {
+                        return Text(
+                            '${AppLocalizations.of(context)!.retrieving} ${snapshot.data} ${AppLocalizations.of(context)!.records}');
+                      } else {
+                        return Text(AppLocalizations.of(context)!.wait);
+                      }
+                    },
                   ),
-                )
-              : (records.isEmpty
-                  ? Center(
-                      child: Text(
-                        AppLocalizations.of(context)!
-                            .it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records,
-                        textAlign: TextAlign.center,
-                      ),
-                    )
-                  : Column(
-                      children: records.map(
-                        (record) {
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 8,
-                            ),
-                            child: Card(
-                              child: ListTile(
-                                title: Text(record.type),
-                                subtitle: Text(record.record),
-                                trailing: IconButton(
-                                  icon: const Icon(Icons.copy_rounded),
-                                  onPressed: () {
-                                    copyToClipBoard(
-                                      context,
-                                      '${record.type} ${AppLocalizations.of(context)!.dns_record}',
-                                      record.record,
-                                    );
-                                  },
-                                ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  const CircularProgressIndicator(),
+                ],
+              ),
+            )
+          else
+            records.isEmpty
+                ? Center(
+                    child: Text(
+                      AppLocalizations.of(context)!
+                          .it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records,
+                      textAlign: TextAlign.center,
+                    ),
+                  )
+                : Column(
+                    children: records.map(
+                      (record) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                            bottom: 8,
+                          ),
+                          child: Card(
+                            child: ListTile(
+                              title: Text(record.type),
+                              subtitle: Text(record.record),
+                              trailing: IconButton(
+                                icon: const Icon(Icons.copy_rounded),
+                                onPressed: () {
+                                  copyToClipBoard(
+                                    context,
+                                    '${record.type} ${AppLocalizations.of(context)!.dns_record}',
+                                    record.record,
+                                  );
+                                },
                               ),
                             ),
-                          );
-                        },
-                      ).toList(),
-                    ))
+                          ),
+                        );
+                      },
+                    ).toList(),
+                  )
         ],
       ),
     );
