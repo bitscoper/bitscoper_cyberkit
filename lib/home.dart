@@ -10,6 +10,7 @@ import 'package:bitscoper_cyber_toolbox/file_hash_calculator.dart';
 import 'package:bitscoper_cyber_toolbox/morse_code_translator.dart';
 import 'package:bitscoper_cyber_toolbox/open_graph_protocol_data_extractor.dart';
 import 'package:bitscoper_cyber_toolbox/pinger.dart';
+import 'package:bitscoper_cyber_toolbox/qr_code_generator.dart';
 import 'package:bitscoper_cyber_toolbox/route_tracer.dart';
 import 'package:bitscoper_cyber_toolbox/series_uri_crawler.dart';
 import 'package:bitscoper_cyber_toolbox/string_hash_calculator.dart';
@@ -73,6 +74,11 @@ class HomePage extends StatelessWidget {
         AppLocalizations.of(context)!.morse_code_translator,
         Icons.short_text_rounded,
         const MorseCodeTranslatorPage(),
+      ),
+      ToolCard(
+        AppLocalizations.of(context)!.qr_code_generator,
+        Icons.qr_code_rounded,
+        const QRCodeGeneratorPage(),
       ),
       ToolCard(
         AppLocalizations.of(context)!.open_graph_protocol_data_extractor,

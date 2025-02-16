@@ -15,6 +15,7 @@
   "string_hash_calculator": "স্ট্রিং হ্যাশ ক্যালকুলেটর",
   "base_encoder": "বেস এনকোডার",
   "morse_code_translator": "মোর্স কোড ট্রান্সলেটর",
+  "qr_code_generator": "কিউআর কোড জেনারেটর",
   "open_graph_protocol_data_extractor": "ওপেন গ্রাফ প্রোটোকল ডেটা এক্সট্র্যাক্টর",
   "series_uri_crawler": "সিরিজ ইউআরআই ক্রলার",
   "dns_record_retriever": "ডিএনএস রেকর্ড রিট্রিভার",
@@ -46,6 +47,7 @@
   "select_files_to_calculate_their_md5_sha1_sha224_sha256_sha384_sha512_hashes": "ফাইলসের MD5, SHA1, SHA224, SHA256, SHA384, ও SHA512 হ্যাশগুলো ক্যালকুলেট করতে ফাইলগুলো সিলেক্ট করুন।",
   "start_typing_a_string_to_calculate_its_md5_sha1_sha224_sha256_sha384_sha512_hashes": "স্ট্রিংয়ের MD5, SHA1, SHA224, SHA256, SHA384, ও SHA512 হ্যাশগুলো ক্যালকুলেট করতে স্ট্রিংটা লিখতে শুরু করুন।",
   "start_typing_a_string_to_encode_it_into_the_bases": "স্ট্রিংকে বেসগুলোতে এনকোড করতে স্ট্রিংটা লিখতে শুরু করুন।",
+  "start_typing_a_string_to_generate_qr_code": "কিউআর কোড জেনারেট করতে স্ট্রিংটা লিখতে শুরু করুন।",
   "it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records": "সম্ভাব্য সকল ধরনের ফরওয়ার্ড ও রিভার্স রেকর্ডস রিট্রিভ করতে সময়ের প্রয়োজন।",
 
   "retrieving": "রিট্রিভিইং",
