@@ -114,60 +114,60 @@ class FileHashCalculatorBodyState extends State<FileHashCalculatorBody> {
           const SizedBox(
             height: 16,
           ),
-          hashValues.isEmpty
-              ? Center(
-                  child: Text(
-                    AppLocalizations.of(context)!
-                        .select_files_to_calculate_their_md5_sha1_sha224_sha256_sha384_sha512_hashes,
-                    textAlign: TextAlign.center,
-                  ),
-                )
-              : Column(
-                  children: <Widget>[
-                    for (var hashValue in hashValues)
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: 16,
-                        ),
-                        child: Card(
-                          child: Column(
-                            children: <Widget>[
+          if (hashValues.isEmpty)
+            Center(
+              child: Text(
+                AppLocalizations.of(context)!
+                    .select_files_to_calculate_their_md5_sha1_sha224_sha256_sha384_sha512_hashes,
+                textAlign: TextAlign.center,
+              ),
+            )
+          else
+            Column(
+              children: <Widget>[
+                for (var hashValue in hashValues)
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: 16,
+                    ),
+                    child: Card(
+                      child: Column(
+                        children: <Widget>[
+                          ListTile(
+                            title: Center(
+                              child: Text(
+                                hashValue['File Name'],
+                                style: Theme.of(context).textTheme.bodyMedium,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                          for (var entry in hashValue.entries)
+                            if (entry.key != 'File Name')
                               ListTile(
-                                title: Center(
-                                  child: Text(
-                                    hashValue['File Name'],
-                                    style:
-                                        Theme.of(context).textTheme.bodyMedium,
-                                    textAlign: TextAlign.center,
-                                  ),
+                                title: Text(
+                                  entry.key,
+                                ),
+                                subtitle: Text(
+                                  entry.value,
+                                ),
+                                trailing: IconButton(
+                                  icon: const Icon(Icons.copy_rounded),
+                                  onPressed: () {
+                                    copyToClipBoard(
+                                      context,
+                                      "${entry.key} ${AppLocalizations.of(context)!.hash}",
+                                      entry.value,
+                                    );
+                                  },
                                 ),
                               ),
-                              for (var entry in hashValue.entries)
-                                if (entry.key != 'File Name')
-                                  ListTile(
-                                    title: Text(
-                                      entry.key,
-                                    ),
-                                    subtitle: Text(
-                                      entry.value,
-                                    ),
-                                    trailing: IconButton(
-                                      icon: const Icon(Icons.copy_rounded),
-                                      onPressed: () {
-                                        copyToClipBoard(
-                                          context,
-                                          "${entry.key} ${AppLocalizations.of(context)!.hash}",
-                                          entry.value,
-                                        );
-                                      },
-                                    ),
-                                  ),
-                            ],
-                          ),
-                        ),
+                        ],
                       ),
-                  ],
-                ),
+                    ),
+                  ),
+              ],
+            ),
         ],
       ),
     );

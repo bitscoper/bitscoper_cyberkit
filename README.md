@@ -8,7 +8,7 @@
 
 # Bitscoper Cyber ToolBox
 
-A Flutter application consisting of TCP Port Scanner, Route Tracer, Pinger, File Hash Calculator, String Hash Calculator, Base Encoder, Morse Code Translator, Open Graph Protocol Data Extractor, Series URI Crawler, DNS Record Retriever, and WHOIS Retriever.
+A Flutter application consisting of TCP Port Scanner, Route Tracer, Pinger, File Hash Calculator, String Hash Calculator, Base Encoder, Morse Code Translator, QR Code Generator, Open Graph Protocol Data Extractor, Series URI Crawler, DNS Record Retriever, and WHOIS Retriever.
 
 [![Build and Release](https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/actions/workflows/Build%20and%20Release.yaml/badge.svg)](https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/actions/workflows/Build%20and%20Release.yaml)
 
@@ -108,7 +108,7 @@ Windows_x64_MSIX_Package --> |Manual Submission| Microsoft_Store[Microsoft Store
     </tr>
     <tr>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Bitscoper_Cyber_ToolBox-12.0.1-x64.AppImage">Bitscoper_Cyber_ToolBox-12.0.1-x64.AppImage</a>
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Bitscoper_Cyber_ToolBox-12.1.0-x64.AppImage">Bitscoper_Cyber_ToolBox-12.1.0-x64.AppImage</a>
       </td>
     </tr>
     <tr>
@@ -276,19 +276,23 @@ Encodes a string into binary (Base2), ternary (Base3), quaternary (Base4), quina
 
 Translates English to Morse code and vice versa.
 
-### 8. Open Graph Protocol Data Extractor
+### 8. QR Code Generator
+
+Generates QR (Quick Response) Code from a string.
+
+### 9. Open Graph Protocol Data Extractor
 
 Extracts Open Graph Protocol (OGP) data of an webpage.
 
-### 9. Series URI Crawler
+### 10. Series URI Crawler
 
 Crawls the available webpages in series by number and lists the available ones.
 
-### 10. DNS Record Retriever
+### 11. DNS Record Retriever
 
 Retrieves A, AAAA, ANY, CAA, CDS, CERT, CNAME, DNAME, DNSKEY, DS, HINFO, IPSECKEY, NSEC, NSEC3PARAM, NAPTR, PTR, RP, RRSIG, SOA, SPF, SRV, SSHFP, TLSA, WKS, TXT, NS, and MX records of a domain name (forward) or an IP address (reverse).
 
-### 11. WHOIS Retriever
+### 12. WHOIS Retriever
 
 Retrieves WHOIS information about a domain name.
 

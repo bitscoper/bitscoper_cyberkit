@@ -111,156 +111,157 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
           const SizedBox(
             height: 16,
           ),
-          inputAsBase64.isEmpty
-              ? Center(
-                  child: Column(
+          if (inputAsBase64.isEmpty)
+            Center(
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    AppLocalizations.of(context)!
+                        .start_typing_a_string_to_encode_it_into_the_bases,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  const Wrap(
+                    alignment: WrapAlignment.center,
                     children: <Widget>[
-                      Text(
-                        AppLocalizations.of(context)!
-                            .start_typing_a_string_to_encode_it_into_the_bases,
-                        textAlign: TextAlign.center,
+                      Card(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text('Binary (Base2)'),
+                        ),
                       ),
-                      const SizedBox(
-                        height: 8,
+                      Card(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text('Ternary (Base3)'),
+                        ),
                       ),
-                      const Wrap(
-                        alignment: WrapAlignment.center,
-                        children: <Widget>[
-                          Card(
-                            child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text('Binary (Base2)'),
-                            ),
-                          ),
-                          Card(
-                            child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text('Ternary (Base3)'),
-                            ),
-                          ),
-                          Card(
-                            child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text('Quaternary (Base4)'),
-                            ),
-                          ),
-                          Card(
-                            child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text('Quinary (Base5)'),
-                            ),
-                          ),
-                          Card(
-                            child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text('Senary (Base6)'),
-                            ),
-                          ),
-                          Card(
-                            child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text('Octal (Base8)'),
-                            ),
-                          ),
-                          Card(
-                            child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text('Decimal (Base10)'),
-                            ),
-                          ),
-                          Card(
-                            child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text('Duodecimal (Base12)'),
-                            ),
-                          ),
-                          Card(
-                            child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text('Hexadecimal (Base16)'),
-                            ),
-                          ),
-                          Card(
-                            child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text('Base32'),
-                            ),
-                          ),
-                          Card(
-                            child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text('Base32Hex'),
-                            ),
-                          ),
-                          Card(
-                            child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text('Base36'),
-                            ),
-                          ),
-                          Card(
-                            child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text('Base58'),
-                            ),
-                          ),
-                          Card(
-                            child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text('Base62'),
-                            ),
-                          ),
-                          Card(
-                            child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text('Base64'),
-                            ),
-                          ),
-                        ],
+                      Card(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text('Quaternary (Base4)'),
+                        ),
+                      ),
+                      Card(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text('Quinary (Base5)'),
+                        ),
+                      ),
+                      Card(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text('Senary (Base6)'),
+                        ),
+                      ),
+                      Card(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text('Octal (Base8)'),
+                        ),
+                      ),
+                      Card(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text('Decimal (Base10)'),
+                        ),
+                      ),
+                      Card(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text('Duodecimal (Base12)'),
+                        ),
+                      ),
+                      Card(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text('Hexadecimal (Base16)'),
+                        ),
+                      ),
+                      Card(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text('Base32'),
+                        ),
+                      ),
+                      Card(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text('Base32Hex'),
+                        ),
+                      ),
+                      Card(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text('Base36'),
+                        ),
+                      ),
+                      Card(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text('Base58'),
+                        ),
+                      ),
+                      Card(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text('Base62'),
+                        ),
+                      ),
+                      Card(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text('Base64'),
+                        ),
                       ),
                     ],
                   ),
-                )
-              : Column(
-                  children: encodings.entries.map(
-                    (entry) {
-                      String output;
+                ],
+              ),
+            )
+          else
+            Column(
+              children: encodings.entries.map(
+                (entry) {
+                  String output;
 
-                      try {
-                        final converter = BaseConversion(
-                          from: base64,
-                          to: entry.value,
-                          zeroPadding: true,
-                        );
-                        output = converter(inputAsBase64);
-                      } catch (error) {
-                        output = error.toString();
-                      }
+                  try {
+                    final converter = BaseConversion(
+                      from: base64,
+                      to: entry.value,
+                      zeroPadding: true,
+                    );
+                    output = converter(inputAsBase64);
+                  } catch (error) {
+                    output = error.toString();
+                  }
 
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: 8,
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: 8,
+                    ),
+                    child: Card(
+                      child: ListTile(
+                        title: Text(entry.key),
+                        subtitle: Text(output),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.copy_rounded),
+                          onPressed: () {
+                            copyToClipBoard(
+                              context,
+                              entry.key,
+                              output,
+                            );
+                          },
                         ),
-                        child: Card(
-                          child: ListTile(
-                            title: Text(entry.key),
-                            subtitle: Text(output),
-                            trailing: IconButton(
-                              icon: const Icon(Icons.copy_rounded),
-                              onPressed: () {
-                                copyToClipBoard(
-                                  context,
-                                  entry.key,
-                                  output,
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ).toList(),
-                )
+                      ),
+                    ),
+                  );
+                },
+              ).toList(),
+            )
         ],
       ),
     );

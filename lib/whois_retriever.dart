@@ -138,22 +138,23 @@ class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
           const SizedBox(
             height: 16,
           ),
-          isRetrieving
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Card(
-                  child: Column(
-                    children: whoisInformation.entries.map(
-                      (entry) {
-                        return ListTile(
-                          title: Text(entry.key),
-                          subtitle: Text(entry.value),
-                        );
-                      },
-                    ).toList(),
-                  ),
-                ),
+          if (isRetrieving)
+            const Center(
+              child: CircularProgressIndicator(),
+            )
+          else
+            Card(
+              child: Column(
+                children: whoisInformation.entries.map(
+                  (entry) {
+                    return ListTile(
+                      title: Text(entry.key),
+                      subtitle: Text(entry.value),
+                    );
+                  },
+                ).toList(),
+              ),
+            ),
         ],
       ),
     );

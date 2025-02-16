@@ -110,40 +110,41 @@ class StringHashCalculatorBodyState extends State<StringHashCalculatorBody> {
           const SizedBox(
             height: 16,
           ),
-          hashValues.isEmpty
-              ? Center(
-                  child: Text(
-                    AppLocalizations.of(context)!
-                        .start_typing_a_string_to_calculate_its_md5_sha1_sha224_sha256_sha384_sha512_hashes,
-                    textAlign: TextAlign.center,
-                  ),
-                )
-              : Column(
-                  children: <Widget>[
-                    for (var entry in hashValues.entries)
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: 16,
-                        ),
-                        child: Card(
-                          child: ListTile(
-                            title: Text(entry.key),
-                            subtitle: Text(entry.value),
-                            trailing: IconButton(
-                              icon: const Icon(Icons.copy_rounded),
-                              onPressed: () {
-                                copyToClipBoard(
-                                  context,
-                                  "${entry.key} ${AppLocalizations.of(context)!.hash}",
-                                  entry.value,
-                                );
-                              },
-                            ),
-                          ),
+          if (hashValues.isEmpty)
+            Center(
+              child: Text(
+                AppLocalizations.of(context)!
+                    .start_typing_a_string_to_calculate_its_md5_sha1_sha224_sha256_sha384_sha512_hashes,
+                textAlign: TextAlign.center,
+              ),
+            )
+          else
+            Column(
+              children: <Widget>[
+                for (var entry in hashValues.entries)
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: 16,
+                    ),
+                    child: Card(
+                      child: ListTile(
+                        title: Text(entry.key),
+                        subtitle: Text(entry.value),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.copy_rounded),
+                          onPressed: () {
+                            copyToClipBoard(
+                              context,
+                              "${entry.key} ${AppLocalizations.of(context)!.hash}",
+                              entry.value,
+                            );
+                          },
                         ),
                       ),
-                  ],
-                ),
+                    ),
+                  ),
+              ],
+            ),
         ],
       ),
     );

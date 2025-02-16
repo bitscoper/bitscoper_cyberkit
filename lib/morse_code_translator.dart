@@ -109,7 +109,9 @@ class MorseCodeTranslatorBodyState extends State<MorseCodeTranslatorBody> {
               ),
               showCursor: true,
               maxLines: null,
-              validator: (String? value) {
+              validator: (
+                String? value,
+              ) {
                 if (value == null || value.isEmpty) {
                   return AppLocalizations.of(context)!.enter_morse_code;
                 }

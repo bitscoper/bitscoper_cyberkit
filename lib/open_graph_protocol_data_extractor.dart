@@ -65,7 +65,10 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
     }
   }
 
-  Widget buildCard(String title, String? value) {
+  Widget buildCard(
+    String title,
+    String? value,
+  ) {
     return Card(
       child: ListTile(
         title: Text(title),
@@ -148,174 +151,175 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
           const SizedBox(
             height: 16,
           ),
-          isRetrieving
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : ogpData != null
-                  ? Column(
-                      children: <Widget>[
-                        buildCard(
-                          'URL',
-                          ogpData!.url,
-                        ),
-                        buildCard(
-                          'Type',
-                          ogpData!.type,
-                        ),
-                        buildCard(
-                          'Title',
-                          ogpData!.title,
-                        ),
-                        buildCard(
-                          'Description',
-                          ogpData!.description,
-                        ),
-                        buildCard(
-                          'Image',
-                          ogpData!.image,
-                        ),
-                        buildCard(
-                          'Image (Secure URL)',
-                          ogpData!.imageSecureUrl,
-                        ),
-                        buildCard(
-                          'Image Type',
-                          ogpData!.imageType,
-                        ),
-                        buildCard(
-                          'Image Width',
-                          ogpData!.imageWidth?.toString(),
-                        ),
-                        buildCard(
-                          'Image Height',
-                          ogpData!.imageHeight?.toString(),
-                        ),
-                        buildCard(
-                          'Image Alt',
-                          ogpData!.imageAlt,
-                        ),
-                        buildCard(
-                          'Site Name',
-                          ogpData!.siteName,
-                        ),
-                        buildCard(
-                          'Determiner',
-                          ogpData!.determiner,
-                        ),
-                        buildCard(
-                          'Locale',
-                          ogpData!.locale,
-                        ),
-                        buildCard(
-                          'Locale (Alternate)',
-                          ogpData!.localeAlternate,
-                        ),
-                        buildCard(
-                          'Latitude',
-                          ogpData!.latitude?.toString(),
-                        ),
-                        buildCard(
-                          'Longitude',
-                          ogpData!.longitude?.toString(),
-                        ),
-                        buildCard(
-                          'Street Address',
-                          ogpData!.streetAddress,
-                        ),
-                        buildCard(
-                          'Locality',
-                          ogpData!.locality,
-                        ),
-                        buildCard(
-                          'Region',
-                          ogpData!.region,
-                        ),
-                        buildCard(
-                          'Postal Code',
-                          ogpData!.postalCode,
-                        ),
-                        buildCard(
-                          'Country Name',
-                          ogpData!.countryName,
-                        ),
-                        buildCard(
-                          'Email Address',
-                          ogpData!.email,
-                        ),
-                        buildCard(
-                          'Phone Number',
-                          ogpData!.phoneNumber,
-                        ),
-                        buildCard(
-                          'Fax Number',
-                          ogpData!.faxNumber,
-                        ),
-                        buildCard(
-                          'Video',
-                          ogpData!.video,
-                        ),
-                        buildCard(
-                          'Video (Secure URL)',
-                          ogpData!.videoSecureUrl,
-                        ),
-                        buildCard(
-                          'Video Height',
-                          ogpData!.videoHeight?.toString(),
-                        ),
-                        buildCard(
-                          'Video Width',
-                          ogpData!.videoWidth?.toString(),
-                        ),
-                        buildCard(
-                          'Video Type',
-                          ogpData!.videoType,
-                        ),
-                        buildCard(
-                          'Audio',
-                          ogpData!.audio,
-                        ),
-                        buildCard(
-                          'Audio (Secure URL)',
-                          ogpData!.audioSecureUrl,
-                        ),
-                        buildCard(
-                          'Audio Title',
-                          ogpData!.audioTitle,
-                        ),
-                        buildCard(
-                          'Audio Artist',
-                          ogpData!.audioArtist,
-                        ),
-                        buildCard(
-                          'Audio Album',
-                          ogpData!.audioAlbum,
-                        ),
-                        buildCard(
-                          'Audio Type',
-                          ogpData!.audioType,
-                        ),
-                        buildCard(
-                          'Facebook Admins',
-                          ogpData!.fbAdmins is List<String>
-                              ? (ogpData!.fbAdmins as List<String>).join(', ')
-                              : ogpData!.fbAdmins,
-                        ),
-                        buildCard(
-                          'Facebook App ID',
-                          ogpData!.fbAppId,
-                        ),
-                        buildCard(
-                          'Twitter Card',
-                          ogpData!.twitterCard,
-                        ),
-                        buildCard(
-                          'Twitter Site',
-                          ogpData!.twitterSite,
-                        ),
-                      ],
-                    )
-                  : Container(),
+          if (isRetrieving)
+            const Center(
+              child: CircularProgressIndicator(),
+            )
+          else
+            ogpData != null
+                ? Column(
+                    children: <Widget>[
+                      buildCard(
+                        'URL',
+                        ogpData!.url,
+                      ),
+                      buildCard(
+                        'Type',
+                        ogpData!.type,
+                      ),
+                      buildCard(
+                        'Title',
+                        ogpData!.title,
+                      ),
+                      buildCard(
+                        'Description',
+                        ogpData!.description,
+                      ),
+                      buildCard(
+                        'Image',
+                        ogpData!.image,
+                      ),
+                      buildCard(
+                        'Image (Secure URL)',
+                        ogpData!.imageSecureUrl,
+                      ),
+                      buildCard(
+                        'Image Type',
+                        ogpData!.imageType,
+                      ),
+                      buildCard(
+                        'Image Width',
+                        ogpData!.imageWidth?.toString(),
+                      ),
+                      buildCard(
+                        'Image Height',
+                        ogpData!.imageHeight?.toString(),
+                      ),
+                      buildCard(
+                        'Image Alt',
+                        ogpData!.imageAlt,
+                      ),
+                      buildCard(
+                        'Site Name',
+                        ogpData!.siteName,
+                      ),
+                      buildCard(
+                        'Determiner',
+                        ogpData!.determiner,
+                      ),
+                      buildCard(
+                        'Locale',
+                        ogpData!.locale,
+                      ),
+                      buildCard(
+                        'Locale (Alternate)',
+                        ogpData!.localeAlternate,
+                      ),
+                      buildCard(
+                        'Latitude',
+                        ogpData!.latitude?.toString(),
+                      ),
+                      buildCard(
+                        'Longitude',
+                        ogpData!.longitude?.toString(),
+                      ),
+                      buildCard(
+                        'Street Address',
+                        ogpData!.streetAddress,
+                      ),
+                      buildCard(
+                        'Locality',
+                        ogpData!.locality,
+                      ),
+                      buildCard(
+                        'Region',
+                        ogpData!.region,
+                      ),
+                      buildCard(
+                        'Postal Code',
+                        ogpData!.postalCode,
+                      ),
+                      buildCard(
+                        'Country Name',
+                        ogpData!.countryName,
+                      ),
+                      buildCard(
+                        'Email Address',
+                        ogpData!.email,
+                      ),
+                      buildCard(
+                        'Phone Number',
+                        ogpData!.phoneNumber,
+                      ),
+                      buildCard(
+                        'Fax Number',
+                        ogpData!.faxNumber,
+                      ),
+                      buildCard(
+                        'Video',
+                        ogpData!.video,
+                      ),
+                      buildCard(
+                        'Video (Secure URL)',
+                        ogpData!.videoSecureUrl,
+                      ),
+                      buildCard(
+                        'Video Height',
+                        ogpData!.videoHeight?.toString(),
+                      ),
+                      buildCard(
+                        'Video Width',
+                        ogpData!.videoWidth?.toString(),
+                      ),
+                      buildCard(
+                        'Video Type',
+                        ogpData!.videoType,
+                      ),
+                      buildCard(
+                        'Audio',
+                        ogpData!.audio,
+                      ),
+                      buildCard(
+                        'Audio (Secure URL)',
+                        ogpData!.audioSecureUrl,
+                      ),
+                      buildCard(
+                        'Audio Title',
+                        ogpData!.audioTitle,
+                      ),
+                      buildCard(
+                        'Audio Artist',
+                        ogpData!.audioArtist,
+                      ),
+                      buildCard(
+                        'Audio Album',
+                        ogpData!.audioAlbum,
+                      ),
+                      buildCard(
+                        'Audio Type',
+                        ogpData!.audioType,
+                      ),
+                      buildCard(
+                        'Facebook Admins',
+                        ogpData!.fbAdmins is List<String>
+                            ? (ogpData!.fbAdmins as List<String>).join(', ')
+                            : ogpData!.fbAdmins,
+                      ),
+                      buildCard(
+                        'Facebook App ID',
+                        ogpData!.fbAppId,
+                      ),
+                      buildCard(
+                        'Twitter Card',
+                        ogpData!.twitterCard,
+                      ),
+                      buildCard(
+                        'Twitter Site',
+                        ogpData!.twitterSite,
+                      ),
+                    ],
+                  )
+                : Container(),
         ],
       ),
     );
