@@ -18,7 +18,8 @@ void copyToClipBoard(
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('$dataType${AppLocalizations.of(context)!.copied_to_clipboard}'),
+        content: Text(
+            '$dataType ${AppLocalizations.of(context)!.copied_to_clipboard}'),
       ),
     );
   }

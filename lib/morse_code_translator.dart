@@ -130,3 +130,5 @@ class MorseCodeTranslatorBodyState extends State<MorseCodeTranslatorBody> {
     );
   }
 }
+
+// TODO: Add Copy Buttons
