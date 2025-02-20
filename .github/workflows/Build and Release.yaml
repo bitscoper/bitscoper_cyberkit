@@ -225,8 +225,13 @@ jobs:
       - name: Get Dependencies
         run: flutter pub get -v
 
-      - name: Build for iOS
-        run: flutter build ios --no-codesign --release --obfuscate --split-debug-info=./build/Debug_Symbols/iOS/ -v
+      - name: Build iOS Executable
+        run: flutter build ios --no-codesign --release --obfuscate --split-debug-info=./build/Debug_Symbols/iOS_Executable/ -v
+
+      - name: Build IPA
+        run: flutter build ipa --no-codesign --release --obfuscate --split-debug-info=./build/Debug_Symbols/IPA/ -v && tree build/ios/
+
+      # TODO: Paths
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4.6.0
@@ -234,11 +239,17 @@ jobs:
           name: iOS_Executable
           path: build/ios/iphoneos/*
 
-      - name: Upload Debug Symbols
+      - name: Upload Debug Symbols (iOS Executable)
         uses: actions/upload-artifact@v4.6.0
         with:
-          name: iOS_Debug_Symbols
-          path: build/Debug_Symbols/iOS/*
+          name: iOS_Executable_Debug_Symbols
+          path: build/Debug_Symbols/iOS_Executable/*
+
+      - name: Upload Debug Symbols (IPA)
+        uses: actions/upload-artifact@v4.6.0
+        with:
+          name: IPA_Debug_Symbols
+          path: build/Debug_Symbols/IPA/*
 
   build-for-windows:
     name: Build for Windows
@@ -355,7 +366,8 @@ jobs:
           zip -r ./Android_appbundle_Debug_Symbols.zip ./Android_appbundle_Debug_Symbols/*
           zip -r ./APK_Debug_Symbols.zip ./APK_Debug_Symbols/*
           zip -r ./macOS_Debug_Symbols.zip ./macOS_Debug_Symbols/*
-          zip -r ./iOS_Debug_Symbols.zip ./iOS_Debug_Symbols/*
+          zip -r ./iOS_Executable_Debug_Symbols.zip ./iOS_Executable_Debug_Symbols/*
+          zip -r ./IPA_Debug_Symbols.zip ./IPA_Debug_Symbols/*
           zip -r ./Windows_x64_Debug_Symbols.zip ./Windows_x64_Debug_Symbols/*
           zip -r ./Web_Application.zip ./Web_Application/*
         shell: bash

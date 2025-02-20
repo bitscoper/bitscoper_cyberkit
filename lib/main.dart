@@ -1,5 +1,6 @@
 /* By Abdullah As-Sadeed */
 
+import 'dart:io' show Platform;
 import 'package:bitscoper_cyber_toolbox/home.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -41,24 +42,38 @@ class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
   void initState() {
     super.initState();
 
-    const QuickActions quickActions = QuickActions();
-    quickActions.initialize(
-      (shortcutType) {
-        if (shortcutType == 'source_code') {
-          launchUrl(
-            Uri.parse('https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/'),
-          );
-        }
-      },
-    );
-    quickActions.setShortcutItems(
-      <ShortcutItem>[
-        const ShortcutItem(
+    if (Platform.isAndroid || Platform.isIOS) {
+      const QuickActions quickActions = QuickActions();
+
+      quickActions.initialize(
+        (shortcutType) {
+          if (shortcutType == 'source_code') {
+            launchUrl(
+              Uri.parse(
+                  'https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/'),
+            );
+          }
+        },
+      );
+
+      late final String platformIconName;
+
+      if (Platform.isAndroid) {
+        platformIconName = 'ic_launcher';
+      } else if (Platform.isIOS) {
+        platformIconName = 'AppIcon';
+      }
+
+      quickActions.setShortcutItems(
+        <ShortcutItem>[
+          ShortcutItem(
             type: 'source_code',
-            localizedTitle: 'Source Code',
-            icon: 'ic_launcher'), /* Android only */
-      ],
-    );
+            localizedTitle: AppLocalizations.of(context)!.source_code,
+            icon: platformIconName,
+          ),
+        ],
+      );
+    }
   }
 
   void changeLocale(Locale locale) {
