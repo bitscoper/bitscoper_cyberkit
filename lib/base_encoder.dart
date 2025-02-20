@@ -267,3 +267,5 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
     );
   }
 }
+
+// TODO: Add Bulk Save Button

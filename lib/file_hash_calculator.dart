@@ -173,3 +173,5 @@ class FileHashCalculatorBodyState extends State<FileHashCalculatorBody> {
     );
   }
 }
+
+// TODO: Add Bulk Save Button

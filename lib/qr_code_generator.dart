@@ -1,7 +1,9 @@
 /* By Abdullah As-Sadeed */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class QRCodeGeneratorPage extends StatelessWidget {
@@ -35,10 +37,63 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
 
   String string = '';
 
+  int version = QrVersions.auto;
+  int errorCorrectionLevel = QrErrorCorrectLevel.H;
+  QrEyeShape eyeShape = QrEyeShape.square;
+  QrDataModuleShape dataModuleShape = QrDataModuleShape.square;
+  Color eyeColor = Colors.black;
+  Color dataModuleColor = Colors.black;
+  bool gapless = false;
+  Color backgroundColor = Colors.white;
+
+  void pickColor(
+    BuildContext context,
+    Color currentColor,
+    Function(Color) onColorChanged,
+  ) {
+    Color pickerColor = currentColor;
+
+    showDialog(
+      context: context,
+      builder: (
+        BuildContext context,
+      ) {
+        return AlertDialog(
+          title: Text(
+            AppLocalizations.of(context)!.color_selection,
+            textAlign: TextAlign.center,
+          ),
+          content: SingleChildScrollView(
+            child: ColorPicker(
+              pickerColor: pickerColor,
+              onColorChanged: (Color color) {
+                pickerColor = color;
+              },
+            ),
+          ),
+          actions: <Widget>[
+            Center(
+              child: ElevatedButton(
+                child: Text(AppLocalizations.of(context)!.select),
+                onPressed: () {
+                  onColorChanged(pickerColor);
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(
     BuildContext context,
   ) {
+    final numberFormat =
+        NumberFormat('#', AppLocalizations.of(context)!.localeName);
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -62,7 +117,7 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
 
                 return null;
               },
-              onChanged: (value) {
+              onChanged: (String value) {
                 setState(
                   () {
                     string = value;
@@ -83,19 +138,274 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
           const SizedBox(
             height: 16,
           ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: DropdownButtonFormField(
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.version,
+                  ),
+                  items: [
+                    DropdownMenuItem(
+                      value: QrVersions.auto,
+                      child: Text(AppLocalizations.of(context)!.automatic),
+                    ),
+                    ...List.generate(
+                      40,
+                      (index) => index + 1,
+                    ).map(
+                      (qrVersion) => DropdownMenuItem(
+                        value: qrVersion,
+                        child: Text(
+                          numberFormat.format(qrVersion),
+                        ),
+                      ),
+                    ),
+                  ],
+                  value: version,
+                  onChanged: (int? value) {
+                    setState(
+                      () {
+                        version = value!;
+                      },
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(
+                width: 16,
+              ),
+              Expanded(
+                flex: 1,
+                child: DropdownButtonFormField(
+                  decoration: InputDecoration(
+                    labelText:
+                        AppLocalizations.of(context)!.error_correction_level,
+                  ),
+                  items: [
+                    DropdownMenuItem(
+                      value: QrErrorCorrectLevel.H,
+                      child: Text(AppLocalizations.of(context)!.high),
+                    ),
+                    DropdownMenuItem(
+                      value: QrErrorCorrectLevel.Q,
+                      child: Text(AppLocalizations.of(context)!.quartile),
+                    ),
+                    DropdownMenuItem(
+                      value: QrErrorCorrectLevel.M,
+                      child: Text(AppLocalizations.of(context)!.medium),
+                    ),
+                    DropdownMenuItem(
+                      value: QrErrorCorrectLevel.L,
+                      child: Text(AppLocalizations.of(context)!.low),
+                    ),
+                  ],
+                  value: errorCorrectionLevel,
+                  onChanged: (int? value) {
+                    setState(
+                      () {
+                        errorCorrectionLevel = value!;
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: DropdownButtonFormField(
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.eye_shape,
+                  ),
+                  items: [
+                    DropdownMenuItem(
+                      value: QrEyeShape.square,
+                      child: Text(AppLocalizations.of(context)!.square),
+                    ),
+                    DropdownMenuItem(
+                      value: QrEyeShape.circle,
+                      child: Text(AppLocalizations.of(context)!.circle),
+                    ),
+                  ],
+                  value: eyeShape,
+                  onChanged: (QrEyeShape? value) {
+                    setState(
+                      () {
+                        eyeShape = value!;
+                      },
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(
+                width: 16,
+              ),
+              Expanded(
+                flex: 1,
+                child: DropdownButtonFormField(
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.data_module_shape,
+                  ),
+                  items: [
+                    DropdownMenuItem(
+                      value: QrDataModuleShape.square,
+                      child: Text(AppLocalizations.of(context)!.square),
+                    ),
+                    DropdownMenuItem(
+                      value: QrDataModuleShape.circle,
+                      child: Text(AppLocalizations.of(context)!.circle),
+                    ),
+                  ],
+                  value: dataModuleShape,
+                  onChanged: (QrDataModuleShape? value) {
+                    setState(
+                      () {
+                        dataModuleShape = value!;
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: ElevatedButton(
+                  onPressed: () {
+                    pickColor(
+                      context,
+                      eyeColor,
+                      (
+                        Color color,
+                      ) {
+                        setState(
+                          () {
+                            eyeColor = color;
+                          },
+                        );
+                      },
+                    );
+                  },
+                  child: Text(AppLocalizations.of(context)!.eye_color),
+                ),
+              ),
+              const SizedBox(
+                width: 16,
+              ),
+              Expanded(
+                flex: 1,
+                child: ElevatedButton(
+                  onPressed: () {
+                    pickColor(
+                      context,
+                      dataModuleColor,
+                      (
+                        Color color,
+                      ) {
+                        setState(
+                          () {
+                            dataModuleColor = color;
+                          },
+                        );
+                      },
+                    );
+                  },
+                  child: Text(AppLocalizations.of(context)!.data_module_color),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: DropdownButtonFormField(
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.gapless,
+                  ),
+                  items: [
+                    DropdownMenuItem(
+                      value: false,
+                      child: Text(AppLocalizations.of(context)!.false_),
+                    ),
+                    DropdownMenuItem(
+                      value: true,
+                      child: Text(AppLocalizations.of(context)!.true_),
+                    ),
+                  ],
+                  value: gapless,
+                  onChanged: (Object? value) {
+                    setState(
+                      () {
+                        gapless = value as bool;
+                      },
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(
+                width: 16,
+              ),
+              Expanded(
+                flex: 1,
+                child: ElevatedButton(
+                  onPressed: () {
+                    pickColor(
+                      context,
+                      backgroundColor,
+                      (
+                        Color color,
+                      ) {
+                        setState(
+                          () {
+                            backgroundColor = color;
+                          },
+                        );
+                      },
+                    );
+                  },
+                  child: Text(AppLocalizations.of(context)!.background_color),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 96,
+          ),
           Center(
             child: Column(
               children: <Widget>[
                 if (string.isNotEmpty)
-                  // TODO: Add Options for Customization, Download, and Share
                   QrImageView(
-                    version: QrVersions.auto,
-                    errorCorrectionLevel: QrErrorCorrectLevel.H,
-                    gapless: false,
-                    // eyeStyle: QrEyeStyle(
-                    //   eyeShape: QrEyeShape.square,
-                    // ),
+                    version: version,
+                    errorCorrectionLevel: errorCorrectionLevel,
+                    eyeStyle: QrEyeStyle(
+                      eyeShape: eyeShape,
+                      color: eyeColor,
+                    ),
+                    dataModuleStyle: QrDataModuleStyle(
+                      dataModuleShape: dataModuleShape,
+                      color: dataModuleColor,
+                    ),
+                    gapless: gapless,
+                    backgroundColor: backgroundColor,
                     data: string,
+                    padding: const EdgeInsets.all(16),
                     size: MediaQuery.of(context).size.width * 0.5,
                   )
                 else
@@ -112,3 +422,7 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
     );
   }
 }
+
+  // TODO: Add EmbeddedImage
+  // TODO: Add Save Button
+  // TODO: Add Semantics Label

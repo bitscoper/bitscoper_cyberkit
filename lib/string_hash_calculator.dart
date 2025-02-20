@@ -150,3 +150,5 @@ class StringHashCalculatorBodyState extends State<StringHashCalculatorBody> {
     );
   }
 }
+
+// TODO: Add Bulk Save Button
