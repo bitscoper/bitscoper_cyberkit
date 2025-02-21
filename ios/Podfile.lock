@@ -88,7 +88,7 @@ SPEC CHECKSUMS:
   file_picker: a0560bc09d61de87f12d246fc47d2119e6ef37be
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_icmp_ping: 47c1df3440c18ddd39fc457e607bb3b42d4a339f
-  flutter_native_splash: 6cad9122ea0fad137d23137dd14b937f3e90b145
+  flutter_native_splash: c32d145d68aeda5502d5f543ee38c192065986cf
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
   quick_actions_ios: 4b07fb49d8d8f3518d7565fbb7a91014067a7d82
   SDWebImage: 73c6079366fea25fa4bb9640d5fb58f0893facd8
