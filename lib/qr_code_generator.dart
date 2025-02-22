@@ -35,8 +35,6 @@ class QRCodeGeneratorBody extends StatefulWidget {
 class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
   final _formKey = GlobalKey<FormState>();
 
-  String string = '';
-
   int version = QrVersions.auto;
   int errorCorrectionLevel = QrErrorCorrectLevel.H;
   QrEyeShape eyeShape = QrEyeShape.square;
@@ -44,8 +42,10 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
   Color eyeColor = Colors.black;
   Color dataModuleColor = Colors.black;
   Color backgroundColor = Colors.white;
-  double padding = 16;
   bool gapless = false;
+  double padding = 16;
+  String semanticsLabel = 'Generated QR Code';
+  String data = '';
 
   void pickColor(
     BuildContext context,
@@ -127,7 +127,7 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
               ) {
                 setState(
                   () {
-                    string = value;
+                    data = value;
                   },
                 );
               },
@@ -137,7 +137,7 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
                 if (_formKey.currentState!.validate()) {
                   setState(
                     () {
-                      string = value;
+                      data = value;
                     },
                   );
                 }
@@ -548,7 +548,7 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
             child: Center(
               child: Column(
                 children: <Widget>[
-                  if (string.isNotEmpty)
+                  if (data.isNotEmpty)
                     QrImageView(
                       version: version,
                       errorCorrectionLevel: errorCorrectionLevel,
@@ -560,9 +560,10 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
                         dataModuleShape: dataModuleShape,
                         color: dataModuleColor,
                       ),
-                      gapless: gapless,
                       backgroundColor: backgroundColor,
-                      data: string,
+                      gapless: gapless,
+                      semanticsLabel: semanticsLabel,
+                      data: data,
                       padding: EdgeInsets.all(padding),
                       size: MediaQuery.of(context).size.width * 0.5,
                     )
@@ -584,4 +585,3 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
 
   // TODO: Add EmbeddedImage
   // TODO: Add Save Button
-  // TODO: Add Semantics Label
