@@ -178,18 +178,7 @@ class HomePage extends StatelessWidget {
                 toggleTheme();
               },
             ),
-            ListTile(
-              title: Text(
-                AppLocalizations.of(context)!.source_code,
-              ),
-              leading: const Icon(Icons.code_rounded),
-              onTap: () {
-                launchUrl(
-                  Uri.parse(
-                      'https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/'),
-                );
-              },
-            ),
+            const Divider(),
             ListTile(
               title: Text(
                 AppLocalizations.of(context)!.microsoft_store,
@@ -213,6 +202,19 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
+            const Divider(),
+            ListTile(
+              title: Text(
+                AppLocalizations.of(context)!.source_code,
+              ),
+              leading: const Icon(Icons.code_rounded),
+              onTap: () {
+                launchUrl(
+                  Uri.parse(
+                      'https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/'),
+                );
+              },
+            ),
             ListTile(
               title: Text(
                 AppLocalizations.of(context)!.developer,
@@ -221,6 +223,18 @@ class HomePage extends StatelessWidget {
               onTap: () {
                 launchUrl(
                   Uri.parse('https://bitscoper.dev/'),
+                );
+              },
+            ),
+            ListTile(
+              title: Text(
+                AppLocalizations.of(context)!.privacy_policy,
+              ),
+              leading: const Icon(Icons.privacy_tip_rounded),
+              onTap: () {
+                launchUrl(
+                  Uri.parse(
+                      'https://bitscoper.dev/Bitscoper_Cyber_ToolBox/Privacy_Policy.html'),
                 );
               },
             ),
