@@ -75,14 +75,18 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
               ),
               showCursor: true,
               maxLines: null,
-              validator: (value) {
+              validator: (
+                String? value,
+              ) {
                 if (value == null || value.isEmpty) {
                   return AppLocalizations.of(context)!.enter_a_string;
                 }
 
                 return null;
               },
-              onChanged: (value) {
+              onChanged: (
+                String value,
+              ) {
                 setState(
                   () {
                     if (value.isNotEmpty) {
@@ -93,7 +97,9 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
                   },
                 );
               },
-              onFieldSubmitted: (value) {
+              onFieldSubmitted: (
+                String value,
+              ) {
                 if (_formKey.currentState!.validate()) {
                   setState(
                     () {

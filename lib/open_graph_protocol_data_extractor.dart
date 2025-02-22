@@ -112,17 +112,24 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
                   ),
                   showCursor: true,
                   maxLines: 1,
-                  validator: (value) {
+                  validator: (
+                    String? value,
+                  ) {
                     if (value == null || value.isEmpty) {
                       return AppLocalizations.of(context)!
                           .enter_a_host_or_ip_address;
                     }
+
                     return null;
                   },
-                  onChanged: (value) {
+                  onChanged: (
+                    String value,
+                  ) {
                     host = value.trim();
                   },
-                  onFieldSubmitted: (value) {
+                  onFieldSubmitted: (
+                    String value,
+                  ) {
                     if (_formKey.currentState!.validate()) {
                       retrieveOGPData();
                     }
