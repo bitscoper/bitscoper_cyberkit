@@ -95,7 +95,9 @@ class PingerBodyState extends State<PingerBody> {
                   ),
                   showCursor: true,
                   maxLines: 1,
-                  validator: (value) {
+                  validator: (
+                    String? value,
+                  ) {
                     if (value == null || value.isEmpty) {
                       return AppLocalizations.of(context)!
                           .enter_a_host_or_ip_address;
@@ -103,10 +105,14 @@ class PingerBodyState extends State<PingerBody> {
 
                     return null;
                   },
-                  onChanged: (value) {
+                  onChanged: (
+                    String value,
+                  ) {
                     host = value.trim();
                   },
-                  onFieldSubmitted: (value) async {
+                  onFieldSubmitted: (
+                    String value,
+                  ) async {
                     await ping();
                   },
                 ),

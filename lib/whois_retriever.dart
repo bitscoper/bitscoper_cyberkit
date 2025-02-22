@@ -99,17 +99,23 @@ class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
                   ),
                   showCursor: true,
                   maxLines: 1,
-                  validator: (value) {
+                  validator: (
+                    String? value,
+                  ) {
                     if (value == null || value.isEmpty) {
                       return AppLocalizations.of(context)!.enter_a_domain_name;
                     }
 
                     return null;
                   },
-                  onChanged: (value) {
+                  onChanged: (
+                    String value,
+                  ) {
                     domainName = value.trim();
                   },
-                  onFieldSubmitted: (value) {
+                  onFieldSubmitted: (
+                    String value,
+                  ) {
                     if (_formKey.currentState!.validate()) {
                       retrieveWHOIS();
                     }

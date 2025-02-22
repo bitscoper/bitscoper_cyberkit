@@ -104,7 +104,9 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                         ),
                         showCursor: true,
                         maxLines: 1,
-                        validator: (value) {
+                        validator: (
+                          String? value,
+                        ) {
                           if (value == null || value.isEmpty) {
                             return AppLocalizations.of(context)!
                                 .enter_a_uri_prefix;
@@ -112,10 +114,14 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
 
                           return null;
                         },
-                        onChanged: (value) {
+                        onChanged: (
+                          String value,
+                        ) {
                           uriPrefix = value.trim();
                         },
-                        onFieldSubmitted: (value) {
+                        onFieldSubmitted: (
+                          String value,
+                        ) {
                           if (_formKey.currentState!.validate()) {
                             crawl();
                           }
@@ -135,11 +141,17 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                         ),
                         showCursor: true,
                         maxLines: 1,
-                        // validator: (value) {},
-                        onChanged: (value) {
+                        // validator: (
+                        //   String? value,
+                        // ) {},
+                        onChanged: (
+                          String value,
+                        ) {
                           uriSuffix = value.trim();
                         },
-                        onFieldSubmitted: (value) {
+                        onFieldSubmitted: (
+                          String value,
+                        ) {
                           if (_formKey.currentState!.validate()) {
                             crawl();
                           }
@@ -159,12 +171,13 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                         ),
                         showCursor: true,
                         maxLines: 1,
-                        validator: (value) {
+                        validator: (
+                          String? value,
+                        ) {
                           if (value == null || value.isEmpty) {
                             return AppLocalizations.of(context)!
                                 .enter_a_lower_limit;
-                          }
-                          if (int.tryParse(value) == null) {
+                          } else if (int.tryParse(value) == null) {
                             return AppLocalizations.of(context)!
                                 .enter_an_integer;
                           } else if (int.tryParse(value)! < 1) {
@@ -177,14 +190,20 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
 
                           return null;
                         },
-                        onChanged: (value) {
-                          var parsedValue = int.tryParse(value);
+                        onChanged: (
+                          String value,
+                        ) {
+                          var parsedValue = int.tryParse(
+                            value.trim(),
+                          );
 
                           if (parsedValue != null) {
                             upperLimit = parsedValue;
                           }
                         },
-                        onFieldSubmitted: (value) {
+                        onFieldSubmitted: (
+                          String value,
+                        ) {
                           if (_formKey.currentState!.validate()) {
                             crawl();
                           }
@@ -203,12 +222,13 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                         ),
                         showCursor: true,
                         maxLines: 1,
-                        validator: (value) {
+                        validator: (
+                          String? value,
+                        ) {
                           if (value == null || value.isEmpty) {
                             return AppLocalizations.of(context)!
                                 .enter_an_upper_limit;
-                          }
-                          if (int.tryParse(value) == null) {
+                          } else if (int.tryParse(value) == null) {
                             return AppLocalizations.of(context)!
                                 .enter_an_integer;
                           } else if (int.tryParse(value)! < 1) {
@@ -221,14 +241,20 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
 
                           return null;
                         },
-                        onChanged: (value) {
-                          var parsedValue = int.tryParse(value);
+                        onChanged: (
+                          String value,
+                        ) {
+                          var parsedValue = int.tryParse(
+                            value.trim(),
+                          );
 
                           if (parsedValue != null) {
                             upperLimit = parsedValue;
                           }
                         },
-                        onFieldSubmitted: (value) {
+                        onFieldSubmitted: (
+                          String value,
+                        ) {
                           if (_formKey.currentState!.validate()) {
                             crawl();
                           }
