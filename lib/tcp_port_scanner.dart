@@ -152,7 +152,9 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
                   ),
                   showCursor: true,
                   maxLines: 1,
-                  validator: (value) {
+                  validator: (
+                    String? value,
+                  ) {
                     if (value == null || value.isEmpty) {
                       return AppLocalizations.of(context)!
                           .enter_a_host_or_ip_address;
@@ -160,7 +162,9 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
 
                     return null;
                   },
-                  onChanged: (value) {
+                  onChanged: (
+                    String value,
+                  ) {
                     host = value.trim();
                   },
                   onFieldSubmitted: (value) async {

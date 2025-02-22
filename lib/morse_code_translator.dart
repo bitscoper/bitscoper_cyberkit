@@ -84,14 +84,19 @@ class MorseCodeTranslatorBodyState extends State<MorseCodeTranslatorBody> {
               ),
               showCursor: true,
               maxLines: null,
-              validator: (value) {
+              validator: (
+                String? value,
+              ) {
                 if (value == null || value.isEmpty) {
                   return AppLocalizations.of(context)!.enter_a_string;
                 }
+
                 return null;
               },
               onChanged: encodeString,
-              onFieldSubmitted: (value) {
+              onFieldSubmitted: (
+                String value,
+              ) {
                 if (_formKey.currentState!.validate()) {
                   encodeString(value);
                 }
@@ -115,10 +120,13 @@ class MorseCodeTranslatorBodyState extends State<MorseCodeTranslatorBody> {
                 if (value == null || value.isEmpty) {
                   return AppLocalizations.of(context)!.enter_morse_code;
                 }
+
                 return null;
               },
               onChanged: decodeMorseCode,
-              onFieldSubmitted: (String value) {
+              onFieldSubmitted: (
+                String value,
+              ) {
                 if (_formKey.currentState!.validate()) {
                   decodeMorseCode(value);
                 }

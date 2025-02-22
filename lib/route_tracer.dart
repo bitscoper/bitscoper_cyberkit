@@ -121,6 +121,7 @@ class RouteTracerBodyState extends State<RouteTracerBody> {
 //                     if (value == null || value.isEmpty) {
 //                       return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
 //                     }
+
 //                     return null;
 //                   },
 //                   onFieldSubmitted: (value) {
