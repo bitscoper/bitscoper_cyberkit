@@ -19,6 +19,7 @@ class RouteTracerPage extends StatelessWidget {
           localizations.AppLocalizations.of(context)!.route_tracer,
         ),
         centerTitle: true,
+        elevation: 4.0,
       ),
       body: const RouteTracerBody(),
     );
@@ -39,7 +40,7 @@ class RouteTracerBodyState extends State<RouteTracerBody> {
   ) {
     return Center(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(32),
         child: Text(
           localizations.AppLocalizations.of(context)!.route_tracer_apology,
           textAlign: TextAlign.center,
@@ -98,7 +99,7 @@ class RouteTracerBodyState extends State<RouteTracerBody> {
 //     BuildContext context,
 //   ) {
 //     return SingleChildScrollView(
-//       padding: const EdgeInsets.all(16),
+//       padding: const EdgeInsets.all(32),
 //       child: Column(
 //         crossAxisAlignment: CrossAxisAlignment.start,
 //         children: <Widget>[

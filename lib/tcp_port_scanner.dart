@@ -19,6 +19,7 @@ class TCPPortScannerPage extends StatelessWidget {
           AppLocalizations.of(context)!.tcp_port_scanner,
         ),
         centerTitle: true,
+        elevation: 4.0,
       ),
       body: const TCPPortScannerBody(),
     );
@@ -34,28 +35,32 @@ class TCPPortScannerBody extends StatefulWidget {
 
 class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
   final _formKey = GlobalKey<FormState>();
-  late String host;
 
-  final List<int> portList = List.generate(65536, (i) => i);
-  final Stopwatch stopwatch = Stopwatch();
+  final Stopwatch _stopwatch = Stopwatch();
 
-  bool isScanning = false;
-  double scanProgress = 0.0;
-  late List<int> openPorts;
-  String scanInformation = '';
+  final List<int> _portList = List.generate(
+    65536,
+    (iteration) => iteration,
+  );
+
+  late String _host;
+  bool _isScanning = false;
+  double _scanProgress = 0.0;
+  late List<int> _openPorts;
+  String _scanInformation = '';
 
   Future<void> scanTCPPorts() async {
     setState(
       () {
-        isScanning = true;
+        _isScanning = true;
       },
     );
-    stopwatch.start();
+    _stopwatch.start();
 
     try {
       await TcpScannerTask(
-        host,
-        portList,
+        _host,
+        _portList,
         shuffle: true,
         parallelism: 64,
       )
@@ -67,11 +72,11 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
                 report,
                 sink,
               ) {
-                scanProgress = 1.0;
+                _scanProgress = 1.0;
 
-                openPorts = report.openPorts;
-                openPorts = openPorts.cast<int>();
-                openPorts.sort();
+                _openPorts = report.openPorts;
+                _openPorts = _openPorts.cast<int>();
+                _openPorts.sort();
 
                 setState(
                   () {
@@ -80,9 +85,9 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
                     final timeFormat = DateFormat(
                         'HH:mm:ss', AppLocalizations.of(context)!.localeName);
 
-                    scanInformation =
+                    _scanInformation =
                         '${AppLocalizations.of(context)!.scanned_ports}: ${numberFormat.format(report.ports.length)}\n${AppLocalizations.of(context)!.elapsed_time}: ${timeFormat.format(DateTime.fromMillisecondsSinceEpoch(
-                      stopwatch.elapsedMilliseconds,
+                      _stopwatch.elapsedMilliseconds,
                       isUtc: true,
                     ))}';
                   },
@@ -97,7 +102,7 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
               ) {
                 setState(
                   () {
-                    scanInformation =
+                    _scanInformation =
                         '${AppLocalizations.of(context)!.error}: $error';
                   },
                 );
@@ -110,7 +115,7 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
               handleDone: (sink) {
                 sink.close();
 
-                isScanning = false;
+                _isScanning = false;
               },
             ),
           )
@@ -118,11 +123,11 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
     } catch (error) {
       setState(
         () {
-          scanInformation = '${AppLocalizations.of(context)!.error}: $error';
+          _scanInformation = '${AppLocalizations.of(context)!.error}: $error';
         },
       );
 
-      isScanning = false;
+      _isScanning = false;
     }
   }
 
@@ -134,7 +139,7 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
         NumberFormat('#', AppLocalizations.of(context)!.localeName);
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -165,15 +170,15 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
                   onChanged: (
                     String value,
                   ) {
-                    host = value.trim();
+                    _host = value.trim();
                   },
                   onFieldSubmitted: (value) async {
                     if (_formKey.currentState!.validate()) {
-                      stopwatch.reset();
+                      _stopwatch.reset();
 
                       setState(
                         () {
-                          scanProgress = 0.0;
+                          _scanProgress = 0.0;
                         },
                       );
 
@@ -185,16 +190,16 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
                   height: 16,
                 ),
                 Center(
-                  child: isScanning
+                  child: _isScanning
                       ? const CircularProgressIndicator()
                       : ElevatedButton(
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              stopwatch.reset();
+                              _stopwatch.reset();
 
                               setState(
                                 () {
-                                  scanProgress = 0.0;
+                                  _scanProgress = 0.0;
                                 },
                               );
 
@@ -212,12 +217,12 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
           const SizedBox(
             height: 16,
           ),
-          if (scanProgress == 1.0) ...[
+          if (_scanProgress == 1.0) ...[
             Wrap(
               spacing: 8,
               runSpacing: 8,
               children: <Widget>[
-                for (var port in openPorts)
+                for (int port in _openPorts)
                   Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
@@ -236,7 +241,7 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
           const SizedBox(
             height: 16,
           ),
-          Text(scanInformation),
+          Text(_scanInformation),
         ],
       ),
     );

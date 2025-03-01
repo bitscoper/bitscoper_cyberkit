@@ -17,6 +17,7 @@ class WHOISRetrieverPage extends StatelessWidget {
           AppLocalizations.of(context)!.whois_retriever,
         ),
         centerTitle: true,
+        elevation: 4.0,
       ),
       body: const WHOISRetrieverBody(),
     );
@@ -32,46 +33,43 @@ class WHOISRetrieverBody extends StatefulWidget {
 
 class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
   final _formKey = GlobalKey<FormState>();
-  late String domainName;
 
-  bool isRetrieving = false;
-  Map<String, String> whoisInformation = {};
+  late String _domainName;
+  bool _isRetrieving = false;
+  late Map<String, String> _whoisInformation = {};
 
-  void retrieveWHOIS() async {
+  void _retrieveWHOIS() async {
     setState(
       () {
-        isRetrieving = true;
-        whoisInformation.clear();
+        _isRetrieving = true;
+        _whoisInformation.clear();
       },
-    );
-
-    var lookupOptions = const LookupOptions(
-      timeout: Duration(
-        milliseconds: 10000,
-      ),
-      port: 43,
     );
 
     try {
       final whoisResponse = await Whois.lookup(
-        domainName,
-        lookupOptions,
+        _domainName,
+        const LookupOptions(
+          port: 43,
+        ),
       );
       final parsedResponse = Whois.formatLookup(whoisResponse);
 
       setState(
         () {
-          whoisInformation = Map<String, String>.from(parsedResponse);
-          isRetrieving = false;
+          _whoisInformation = Map<String, String>.from(parsedResponse);
+
+          _isRetrieving = false;
         },
       );
     } catch (error) {
       setState(
         () {
-          whoisInformation = {
+          _whoisInformation = {
             'Error': error.toString(),
           };
-          isRetrieving = false;
+
+          _isRetrieving = false;
         },
       );
     }
@@ -82,7 +80,7 @@ class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
     BuildContext context,
   ) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -111,13 +109,13 @@ class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
                   onChanged: (
                     String value,
                   ) {
-                    domainName = value.trim();
+                    _domainName = value.trim();
                   },
                   onFieldSubmitted: (
                     String value,
                   ) {
                     if (_formKey.currentState!.validate()) {
-                      retrieveWHOIS();
+                      _retrieveWHOIS();
                     }
                   },
                 ),
@@ -126,11 +124,11 @@ class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
                 ),
                 Center(
                   child: ElevatedButton(
-                    onPressed: isRetrieving
+                    onPressed: _isRetrieving
                         ? null
                         : () {
                             if (_formKey.currentState!.validate()) {
-                              retrieveWHOIS();
+                              _retrieveWHOIS();
                             }
                           },
                     child: Text(
@@ -144,14 +142,14 @@ class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
           const SizedBox(
             height: 16,
           ),
-          if (isRetrieving)
+          if (_isRetrieving)
             const Center(
               child: CircularProgressIndicator(),
             )
           else
             Card(
               child: Column(
-                children: whoisInformation.entries.map(
+                children: _whoisInformation.entries.map(
                   (entry) {
                     return ListTile(
                       title: Text(entry.key),

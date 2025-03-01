@@ -19,6 +19,7 @@ class OGPDataExtractorPage extends StatelessWidget {
           AppLocalizations.of(context)!.open_graph_protocol_data_extractor,
         ),
         centerTitle: true,
+        elevation: 4.0,
       ),
       body: const OGPDataExtractorBody(),
     );
@@ -34,38 +35,41 @@ class OGPDataExtractorBody extends StatefulWidget {
 
 class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
   final _formKey = GlobalKey<FormState>();
-  late String host;
 
-  bool isRetrieving = false;
-  OgpData? ogpData;
+  late String _host;
+  bool _isRetrieving = false;
+  OgpData? _ogpData;
 
-  void retrieveOGPData() async {
+  void _retrieveOGPData() async {
     setState(
       () {
-        isRetrieving = true;
-        ogpData = null;
+        _isRetrieving = true;
+        _ogpData = null;
       },
     );
 
     try {
-      final fetchedOgpData = await OgpDataExtract.execute(host);
+      final fetchedOgpData = await OgpDataExtract.execute(_host);
+
       setState(
         () {
-          ogpData = fetchedOgpData;
-          isRetrieving = false;
+          _ogpData = fetchedOgpData;
+          _isRetrieving = false;
         },
       );
     } catch (error) {
       setState(
         () {
-          ogpData = null;
-          isRetrieving = false;
+          _ogpData = null;
+          _isRetrieving = false;
         },
       );
+
+      rethrow;
     }
   }
 
-  Widget buildCard(
+  Widget _buildCard(
     String title,
     String? value,
   ) {
@@ -94,7 +98,7 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
     BuildContext context,
   ) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -108,7 +112,7 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
                     border: const OutlineInputBorder(),
                     labelText:
                         AppLocalizations.of(context)!.a_host_or_ip_address,
-                    hintText: 'bitscoper.dev',
+                    hintText: 'https://bitscoper.dev/',
                   ),
                   showCursor: true,
                   maxLines: 1,
@@ -125,13 +129,13 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
                   onChanged: (
                     String value,
                   ) {
-                    host = value.trim();
+                    _host = value.trim();
                   },
                   onFieldSubmitted: (
                     String value,
                   ) {
                     if (_formKey.currentState!.validate()) {
-                      retrieveOGPData();
+                      _retrieveOGPData();
                     }
                   },
                 ),
@@ -140,11 +144,11 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
                 ),
                 Center(
                   child: ElevatedButton(
-                    onPressed: isRetrieving
+                    onPressed: _isRetrieving
                         ? null
                         : () {
                             if (_formKey.currentState!.validate()) {
-                              retrieveOGPData();
+                              _retrieveOGPData();
                             }
                           },
                     child: Text(
@@ -158,171 +162,171 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
           const SizedBox(
             height: 16,
           ),
-          if (isRetrieving)
+          if (_isRetrieving)
             const Center(
               child: CircularProgressIndicator(),
             )
           else
-            ogpData != null
+            _ogpData != null
                 ? Column(
                     children: <Widget>[
-                      buildCard(
+                      _buildCard(
                         'URL',
-                        ogpData!.url,
+                        _ogpData!.url,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Type',
-                        ogpData!.type,
+                        _ogpData!.type,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Title',
-                        ogpData!.title,
+                        _ogpData!.title,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Description',
-                        ogpData!.description,
+                        _ogpData!.description,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Image',
-                        ogpData!.image,
+                        _ogpData!.image,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Image (Secure URL)',
-                        ogpData!.imageSecureUrl,
+                        _ogpData!.imageSecureUrl,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Image Type',
-                        ogpData!.imageType,
+                        _ogpData!.imageType,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Image Width',
-                        ogpData!.imageWidth?.toString(),
+                        _ogpData!.imageWidth?.toString(),
                       ),
-                      buildCard(
+                      _buildCard(
                         'Image Height',
-                        ogpData!.imageHeight?.toString(),
+                        _ogpData!.imageHeight?.toString(),
                       ),
-                      buildCard(
+                      _buildCard(
                         'Image Alt',
-                        ogpData!.imageAlt,
+                        _ogpData!.imageAlt,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Site Name',
-                        ogpData!.siteName,
+                        _ogpData!.siteName,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Determiner',
-                        ogpData!.determiner,
+                        _ogpData!.determiner,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Locale',
-                        ogpData!.locale,
+                        _ogpData!.locale,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Locale (Alternate)',
-                        ogpData!.localeAlternate,
+                        _ogpData!.localeAlternate,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Latitude',
-                        ogpData!.latitude?.toString(),
+                        _ogpData!.latitude?.toString(),
                       ),
-                      buildCard(
+                      _buildCard(
                         'Longitude',
-                        ogpData!.longitude?.toString(),
+                        _ogpData!.longitude?.toString(),
                       ),
-                      buildCard(
+                      _buildCard(
                         'Street Address',
-                        ogpData!.streetAddress,
+                        _ogpData!.streetAddress,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Locality',
-                        ogpData!.locality,
+                        _ogpData!.locality,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Region',
-                        ogpData!.region,
+                        _ogpData!.region,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Postal Code',
-                        ogpData!.postalCode,
+                        _ogpData!.postalCode,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Country Name',
-                        ogpData!.countryName,
+                        _ogpData!.countryName,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Email Address',
-                        ogpData!.email,
+                        _ogpData!.email,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Phone Number',
-                        ogpData!.phoneNumber,
+                        _ogpData!.phoneNumber,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Fax Number',
-                        ogpData!.faxNumber,
+                        _ogpData!.faxNumber,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Video',
-                        ogpData!.video,
+                        _ogpData!.video,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Video (Secure URL)',
-                        ogpData!.videoSecureUrl,
+                        _ogpData!.videoSecureUrl,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Video Height',
-                        ogpData!.videoHeight?.toString(),
+                        _ogpData!.videoHeight?.toString(),
                       ),
-                      buildCard(
+                      _buildCard(
                         'Video Width',
-                        ogpData!.videoWidth?.toString(),
+                        _ogpData!.videoWidth?.toString(),
                       ),
-                      buildCard(
+                      _buildCard(
                         'Video Type',
-                        ogpData!.videoType,
+                        _ogpData!.videoType,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Audio',
-                        ogpData!.audio,
+                        _ogpData!.audio,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Audio (Secure URL)',
-                        ogpData!.audioSecureUrl,
+                        _ogpData!.audioSecureUrl,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Audio Title',
-                        ogpData!.audioTitle,
+                        _ogpData!.audioTitle,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Audio Artist',
-                        ogpData!.audioArtist,
+                        _ogpData!.audioArtist,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Audio Album',
-                        ogpData!.audioAlbum,
+                        _ogpData!.audioAlbum,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Audio Type',
-                        ogpData!.audioType,
+                        _ogpData!.audioType,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Facebook Admins',
-                        ogpData!.fbAdmins is List<String>
-                            ? (ogpData!.fbAdmins as List<String>).join(', ')
-                            : ogpData!.fbAdmins,
+                        _ogpData!.fbAdmins is List<String>
+                            ? (_ogpData!.fbAdmins as List<String>).join(', ')
+                            : _ogpData!.fbAdmins,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Facebook App ID',
-                        ogpData!.fbAppId,
+                        _ogpData!.fbAppId,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Twitter Card',
-                        ogpData!.twitterCard,
+                        _ogpData!.twitterCard,
                       ),
-                      buildCard(
+                      _buildCard(
                         'Twitter Site',
-                        ogpData!.twitterSite,
+                        _ogpData!.twitterSite,
                       ),
                     ],
                   )
