@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 import 'package:bitscoper_cyber_toolbox/copy_to_clipboard.dart';
 
@@ -21,6 +22,7 @@ class SeriesURICrawlerPage extends StatelessWidget {
           AppLocalizations.of(context)!.series_uri_crawler,
         ),
         centerTitle: true,
+        elevation: 4.0,
       ),
       body: const SeriesURICrawlerBody(),
     );
@@ -37,8 +39,8 @@ class SeriesURICrawlerBody extends StatefulWidget {
 class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
   final _formKey = GlobalKey<FormState>();
 
-  late String uriPrefix, uriSuffix;
-  late int lowerLimit = 1, upperLimit = 100;
+  late String _uriPrefix, _uriSuffix;
+  int _lowerLimit = 1, _upperLimit = 100;
 
   bool isCrawling = false;
   Map<String, String> webPages = {};
@@ -51,13 +53,14 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
       },
     );
 
-    for (var i = lowerLimit; i <= upperLimit; i++) {
+    for (int i = _lowerLimit; i <= _upperLimit; i++) {
       if (!isCrawling) {
         return;
       }
 
-      var uri = '$uriPrefix$i$uriSuffix';
-      var response = await http.get(
+      String uri = '$_uriPrefix$i$_uriSuffix';
+
+      Response response = await http.get(
         Uri.parse(uri),
       );
       dom.Document document = parser.parse(response.body);
@@ -84,7 +87,7 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
     BuildContext context,
   ) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -100,7 +103,7 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                         keyboardType: TextInputType.url,
                         decoration: InputDecoration(
                           labelText: AppLocalizations.of(context)!.uri_prefix,
-                          hintText: 'https://dlhd.sx/stream/stream-',
+                          hintText: 'https://bitscoper.dev/publication-',
                         ),
                         showCursor: true,
                         maxLines: 1,
@@ -117,7 +120,7 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                         onChanged: (
                           String value,
                         ) {
-                          uriPrefix = value.trim();
+                          _uriPrefix = value.trim();
                         },
                         onFieldSubmitted: (
                           String value,
@@ -147,7 +150,7 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                         onChanged: (
                           String value,
                         ) {
-                          uriSuffix = value.trim();
+                          _uriSuffix = value.trim();
                         },
                         onFieldSubmitted: (
                           String value,
@@ -183,7 +186,7 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                           } else if (int.tryParse(value)! < 1) {
                             return AppLocalizations.of(context)!
                                 .enter_a_positive_integer;
-                          } else if (int.tryParse(value)! > upperLimit) {
+                          } else if (int.tryParse(value)! > _upperLimit) {
                             return AppLocalizations.of(context)!
                                 .upper_limit_must_be_greater_than_lower_limit;
                           }
@@ -193,12 +196,12 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                         onChanged: (
                           String value,
                         ) {
-                          var parsedValue = int.tryParse(
+                          int? parsedValue = int.tryParse(
                             value.trim(),
                           );
 
                           if (parsedValue != null) {
-                            upperLimit = parsedValue;
+                            _upperLimit = parsedValue;
                           }
                         },
                         onFieldSubmitted: (
@@ -234,7 +237,7 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                           } else if (int.tryParse(value)! < 1) {
                             return AppLocalizations.of(context)!
                                 .enter_a_positive_integer;
-                          } else if (int.tryParse(value)! < lowerLimit) {
+                          } else if (int.tryParse(value)! < _lowerLimit) {
                             return AppLocalizations.of(context)!
                                 .upper_limit_must_be_greater_than_lower_limit;
                           }
@@ -244,12 +247,12 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                         onChanged: (
                           String value,
                         ) {
-                          var parsedValue = int.tryParse(
+                          int? parsedValue = int.tryParse(
                             value.trim(),
                           );
 
                           if (parsedValue != null) {
-                            upperLimit = parsedValue;
+                            _upperLimit = parsedValue;
                           }
                         },
                         onFieldSubmitted: (
@@ -305,7 +308,7 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
           ),
           Column(
             children: <Widget>[
-              for (var entry in webPages.entries)
+              for (MapEntry<String, dynamic> entry in webPages.entries)
                 Padding(
                   padding: const EdgeInsets.only(
                     bottom: 8,

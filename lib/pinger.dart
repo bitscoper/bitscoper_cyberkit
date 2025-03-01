@@ -17,6 +17,7 @@ class PingerPage extends StatelessWidget {
           AppLocalizations.of(context)!.pinger,
         ),
         centerTitle: true,
+        elevation: 4.0,
       ),
       body: const PingerBody(),
     );
@@ -32,40 +33,42 @@ class PingerBody extends StatefulWidget {
 
 class PingerBodyState extends State<PingerBody> {
   final _formKey = GlobalKey<FormState>();
-  late String host;
 
-  bool isPinging = false;
-  String response = '', ipAddress = '', ttl = '', time = '', result = '';
+  late String host;
+  bool _isPinging = false;
+  String _response = '', _ipAddress = '', _ttl = '', _time = '', _result = '';
 
   Future<void> ping() async {
     if (_formKey.currentState!.validate()) {
       setState(
         () {
-          isPinging = true;
+          _isPinging = true;
         },
       );
 
-      while (isPinging) {
-        response = (
+      while (_isPinging) {
+        _response = (
           await Ping(
             host,
             count: 1,
           ).stream.first,
         ).toString();
 
-        RegExp expression = RegExp(r'ip:(.*?), ttl:(.*?), time:(.*?) ms');
+        final RegExp expression = RegExp(r'ip:(.*?), ttl:(.*?), time:(.*?) ms');
 
-        RegExpMatch? match = expression.firstMatch(response);
+        final RegExpMatch? match = expression.firstMatch(_response);
 
         if (match != null) {
-          ipAddress = match.group(1)?.trim() ?? '';
-          ttl = match.group(2)?.trim() ?? '';
-          time = match.group(3)?.trim() ?? '';
+          _ipAddress = match.group(1)?.trim() ?? '';
+
+          _ttl = match.group(2)?.trim() ?? '';
+
+          _time = match.group(3)?.trim() ?? '';
         }
 
         setState(
           () {
-            result = '$ipAddress TTL: $ttl Time: $time ms\n$result';
+            _result = '$_ipAddress TTL: $_ttl Time: $_time ms\n$_result';
           },
         );
       }
@@ -77,7 +80,7 @@ class PingerBodyState extends State<PingerBody> {
     BuildContext context,
   ) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -123,13 +126,13 @@ class PingerBodyState extends State<PingerBody> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     ElevatedButton(
-                      onPressed: isPinging
+                      onPressed: _isPinging
                           ? null
                           : () async {
                               if (_formKey.currentState!.validate()) {
                                 setState(
                                   () {
-                                    isPinging = true;
+                                    _isPinging = true;
                                   },
                                 );
 
@@ -141,13 +144,13 @@ class PingerBodyState extends State<PingerBody> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: isPinging
+                      onPressed: _isPinging
                           ? () async {
                               if (_formKey.currentState!.validate()) {
                                 setState(
                                   () {
-                                    isPinging = false;
-                                    result = '';
+                                    _isPinging = false;
+                                    _result = '';
                                   },
                                 );
                               }
@@ -168,14 +171,14 @@ class PingerBodyState extends State<PingerBody> {
           Center(
             child: Column(
               children: <Widget>[
-                if (isPinging) ...[
+                if (_isPinging) ...[
                   const CircularProgressIndicator(),
                   const SizedBox(
                     height: 16,
                   ),
                 ],
                 Text(
-                  result,
+                  _result,
                   textAlign: TextAlign.center,
                 ),
               ],

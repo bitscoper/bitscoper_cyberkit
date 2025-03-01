@@ -17,6 +17,7 @@ class MorseCodeTranslatorPage extends StatelessWidget {
           AppLocalizations.of(context)!.morse_code_translator,
         ),
         centerTitle: true,
+        elevation: 4.0,
       ),
       body: const MorseCodeTranslatorBody(),
     );
@@ -32,35 +33,22 @@ class MorseCodeTranslatorBody extends StatefulWidget {
 
 class MorseCodeTranslatorBodyState extends State<MorseCodeTranslatorBody> {
   final _formKey = GlobalKey<FormState>();
-  late TextEditingController _stringController;
-  late TextEditingController _morseCodeController;
 
-  final MorseCode translator = MorseCode();
+  final TextEditingController _stringController = TextEditingController(),
+      _morseCodeController = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-    _stringController = TextEditingController();
-    _morseCodeController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _stringController.dispose();
-    _morseCodeController.dispose();
-    super.dispose();
-  }
+  final MorseCode _translator = MorseCode();
 
   void encodeString(
     String string,
   ) {
-    _morseCodeController.text = translator.enCode(string);
+    _morseCodeController.text = _translator.enCode(string);
   }
 
   void decodeMorseCode(
     String morseCode,
   ) {
-    _stringController.text = translator.deCode(morseCode);
+    _stringController.text = _translator.deCode(morseCode);
   }
 
   @override
@@ -68,7 +56,7 @@ class MorseCodeTranslatorBodyState extends State<MorseCodeTranslatorBody> {
     BuildContext context,
   ) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(32),
       child: Form(
         key: _formKey,
         child: Column(

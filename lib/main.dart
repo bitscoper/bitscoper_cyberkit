@@ -14,6 +14,7 @@ void main() {
   LicenseRegistry.addLicense(
     () async* {
       final license = await rootBundle.loadString('google_fonts/OFL.txt');
+
       yield LicenseEntryWithLineBreaks(
         ['google_fonts'],
         license,
@@ -34,16 +35,17 @@ class BitscoperCyberToolBox extends StatefulWidget {
 }
 
 class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
-  ValueNotifier<bool> isDarkTheme = ValueNotifier<bool>(false);
-  bool userToggledTheme = false;
-  Locale userLocale = const Locale('en');
+  Locale _userLocale = const Locale('en');
+
+  final ValueNotifier<bool> _isDarkTheme = ValueNotifier<bool>(false);
+  bool _userToggledTheme = false;
 
   @override
   void initState() {
     super.initState();
 
     if (Platform.isAndroid || Platform.isIOS) {
-      const QuickActions quickActions = QuickActions();
+      final QuickActions quickActions = QuickActions();
 
       quickActions.initialize(
         (shortcutType) {
@@ -79,7 +81,7 @@ class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
   void changeLocale(Locale locale) {
     setState(
       () {
-        userLocale = locale;
+        _userLocale = locale;
       },
     );
   }
@@ -87,8 +89,8 @@ class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
   void toggleTheme() {
     setState(
       () {
-        userToggledTheme = true;
-        isDarkTheme.value = !isDarkTheme.value;
+        _userToggledTheme = true;
+        _isDarkTheme.value = !_isDarkTheme.value;
       },
     );
   }
@@ -96,7 +98,7 @@ class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
   ThemeData buildTheme(
     Brightness brightness,
   ) {
-    var baseTheme = ThemeData(
+    ThemeData baseTheme = ThemeData(
       brightness: brightness,
     );
 
@@ -113,12 +115,12 @@ class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
   ) {
     final brightness = MediaQuery.of(context).platformBrightness;
 
-    if (!userToggledTheme) {
-      isDarkTheme.value = brightness == Brightness.dark;
+    if (!_userToggledTheme) {
+      _isDarkTheme.value = brightness == Brightness.dark;
     }
 
     return ValueListenableBuilder<bool>(
-      valueListenable: isDarkTheme,
+      valueListenable: _isDarkTheme,
       builder: (
         context,
         isDark,
@@ -127,7 +129,7 @@ class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
         return MaterialApp(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          locale: userLocale,
+          locale: _userLocale,
           theme: buildTheme(
             Brightness.light,
           ),
@@ -140,6 +142,7 @@ class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
             toggleTheme: toggleTheme,
           ),
           debugShowCheckedModeBanner: false,
+          showSemanticsDebugger: false,
         );
       },
     );
