@@ -22,6 +22,7 @@ class FileHashCalculatorPage extends StatelessWidget {
           AppLocalizations.of(context)!.file_hash_calculator,
         ),
         centerTitle: true,
+        elevation: 4.0,
       ),
       body: const FileHashCalculatorBody(),
     );
@@ -36,22 +37,23 @@ class FileHashCalculatorBody extends StatefulWidget {
 }
 
 class FileHashCalculatorBodyState extends State<FileHashCalculatorBody> {
-  List<Map<String, dynamic>> hashValues = [];
+  List<Map<String, dynamic>> _hashValues = [];
 
-  void calculateHashes(
+  void _calculateHashes(
     List<File> files,
   ) {
     setState(
       () {
-        hashValues = files.map(
+        _hashValues = files.map(
           (file) {
-            var bytes = file.readAsBytesSync();
-            var md5Hash = md5.convert(bytes);
-            var sha1Hash = sha1.convert(bytes);
-            var sha224Hash = sha224.convert(bytes);
-            var sha256Hash = sha256.convert(bytes);
-            var sha384Hash = sha384.convert(bytes);
-            var sha512Hash = sha512.convert(bytes);
+            final bytes = file.readAsBytesSync();
+
+            final String md5Hash = md5.convert(bytes).toString();
+            final String sha1Hash = sha1.convert(bytes).toString();
+            final String sha224Hash = sha224.convert(bytes).toString();
+            final String sha512Hash = sha512.convert(bytes).toString();
+            final String sha256Hash = sha256.convert(bytes).toString();
+            final String sha384Hash = sha384.convert(bytes).toString();
 
             return {
               'File Name': file.path.split('/').last,
@@ -73,7 +75,7 @@ class FileHashCalculatorBodyState extends State<FileHashCalculatorBody> {
     BuildContext context,
   ) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -85,7 +87,7 @@ class FileHashCalculatorBodyState extends State<FileHashCalculatorBody> {
               onPressed: () async {
                 List<Uint8List> files = [];
 
-                var result = await FilePicker.platform.pickFiles(
+                FilePickerResult? result = await FilePicker.platform.pickFiles(
                   allowMultiple: true,
                 );
 
@@ -100,13 +102,13 @@ class FileHashCalculatorBodyState extends State<FileHashCalculatorBody> {
                     },
                   ).toList();
 
-                  for (var file in selectedFiles) {
+                  for (File file in selectedFiles) {
                     files.add(
                       file.readAsBytesSync(),
                     );
                   }
 
-                  calculateHashes(selectedFiles);
+                  _calculateHashes(selectedFiles);
                 }
               },
             ),
@@ -114,7 +116,7 @@ class FileHashCalculatorBodyState extends State<FileHashCalculatorBody> {
           const SizedBox(
             height: 16,
           ),
-          if (hashValues.isEmpty)
+          if (_hashValues.isEmpty)
             Center(
               child: Text(
                 AppLocalizations.of(context)!
@@ -125,7 +127,7 @@ class FileHashCalculatorBodyState extends State<FileHashCalculatorBody> {
           else
             Column(
               children: <Widget>[
-                for (var hashValue in hashValues)
+                for (Map<String, dynamic> hashValue in _hashValues)
                   Padding(
                     padding: const EdgeInsets.only(
                       bottom: 16,
@@ -142,7 +144,8 @@ class FileHashCalculatorBodyState extends State<FileHashCalculatorBody> {
                               ),
                             ),
                           ),
-                          for (var entry in hashValue.entries)
+                          for (MapEntry<String, dynamic> entry
+                              in hashValue.entries)
                             if (entry.key != 'File Name')
                               ListTile(
                                 title: Text(

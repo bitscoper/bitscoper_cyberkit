@@ -125,6 +125,9 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(icon),
+                const SizedBox(
+                  height: 8,
+                ),
                 Text(
                   title,
                   textAlign: TextAlign.center,
@@ -142,6 +145,7 @@ class HomePage extends StatelessWidget {
           AppLocalizations.of(context)!.bitscoper_cyber_toolbox,
         ),
         centerTitle: true,
+        elevation: 4.0,
       ),
       drawer: Drawer(
         child: ListView(
@@ -242,7 +246,7 @@ class HomePage extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(32),
         child: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: MediaQuery.of(context).size.width > 1200
@@ -257,7 +261,10 @@ class HomePage extends StatelessWidget {
             childAspectRatio: 3 / 2,
           ),
           itemCount: tools.length,
-          itemBuilder: (BuildContext context, int index) {
+          itemBuilder: (
+            BuildContext context,
+            int index,
+          ) {
             final ToolCard tool = tools[index];
 
             return buildToolCard(

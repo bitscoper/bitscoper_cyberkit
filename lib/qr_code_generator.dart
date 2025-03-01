@@ -19,6 +19,7 @@ class QRCodeGeneratorPage extends StatelessWidget {
           AppLocalizations.of(context)!.qr_code_generator,
         ),
         centerTitle: true,
+        elevation: 4.0,
       ),
       body: const QRCodeGeneratorBody(),
     );
@@ -35,17 +36,17 @@ class QRCodeGeneratorBody extends StatefulWidget {
 class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
   final _formKey = GlobalKey<FormState>();
 
-  int version = QrVersions.auto;
-  int errorCorrectionLevel = QrErrorCorrectLevel.H;
-  QrEyeShape eyeShape = QrEyeShape.square;
-  QrDataModuleShape dataModuleShape = QrDataModuleShape.square;
-  Color eyeColor = Colors.black;
-  Color dataModuleColor = Colors.black;
-  Color backgroundColor = Colors.white;
-  bool gapless = false;
-  double padding = 16;
-  String semanticsLabel = 'Generated QR Code';
-  String data = '';
+  int _version = QrVersions.auto;
+  int _errorCorrectionLevel = QrErrorCorrectLevel.H;
+  QrEyeShape _eyeShape = QrEyeShape.square;
+  QrDataModuleShape _dataModuleShape = QrDataModuleShape.square;
+  Color _eyeColor = Colors.black;
+  Color _dataModuleColor = Colors.black;
+  Color _backgroundColor = Colors.white;
+  bool _gapless = false;
+  double _padding = 16;
+  final String _semanticsLabel = 'Generated QR Code';
+  String _string = '';
 
   void pickColor(
     BuildContext context,
@@ -98,7 +99,7 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
         NumberFormat('#', AppLocalizations.of(context)!.localeName);
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -127,7 +128,7 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
               ) {
                 setState(
                   () {
-                    data = value;
+                    _string = value;
                   },
                 );
               },
@@ -137,7 +138,7 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
                 if (_formKey.currentState!.validate()) {
                   setState(
                     () {
-                      data = value;
+                      _string = value;
                     },
                   );
                 }
@@ -172,13 +173,13 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
                       ),
                     ),
                   ],
-                  value: version,
+                  value: _version,
                   onChanged: (
                     int? value,
                   ) {
                     setState(
                       () {
-                        version = value!;
+                        _version = value!;
                       },
                     );
                   },
@@ -212,13 +213,13 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
                       child: Text(AppLocalizations.of(context)!.low),
                     ),
                   ],
-                  value: errorCorrectionLevel,
+                  value: _errorCorrectionLevel,
                   onChanged: (
                     int? value,
                   ) {
                     setState(
                       () {
-                        errorCorrectionLevel = value!;
+                        _errorCorrectionLevel = value!;
                       },
                     );
                   },
@@ -247,13 +248,13 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
                       child: Text(AppLocalizations.of(context)!.circle),
                     ),
                   ],
-                  value: eyeShape,
+                  value: _eyeShape,
                   onChanged: (
                     QrEyeShape? value,
                   ) {
                     setState(
                       () {
-                        eyeShape = value!;
+                        _eyeShape = value!;
                       },
                     );
                   },
@@ -278,13 +279,13 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
                       child: Text(AppLocalizations.of(context)!.circle),
                     ),
                   ],
-                  value: dataModuleShape,
+                  value: _dataModuleShape,
                   onChanged: (
                     QrDataModuleShape? value,
                   ) {
                     setState(
                       () {
-                        dataModuleShape = value!;
+                        _dataModuleShape = value!;
                       },
                     );
                   },
@@ -310,13 +311,13 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
                   onTap: () {
                     pickColor(
                       context,
-                      eyeColor,
+                      _eyeColor,
                       (
                         Color color,
                       ) {
                         setState(
                           () {
-                            eyeColor = color;
+                            _eyeColor = color;
                           },
                         );
                       },
@@ -332,14 +333,14 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
                           color: Colors.grey,
                         ),
                         borderRadius: BorderRadius.circular(4),
-                        color: eyeColor,
+                        color: _eyeColor,
                       ),
                       child: Center(
                         child: Text(
                           AppLocalizations.of(context)!.eye,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: useWhiteForeground(eyeColor)
+                            color: useWhiteForeground(_eyeColor)
                                 ? Colors.white
                                 : DefaultTextStyle.of(context).style.color,
                           ),
@@ -358,13 +359,13 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
                   onTap: () {
                     pickColor(
                       context,
-                      dataModuleColor,
+                      _dataModuleColor,
                       (
                         Color color,
                       ) {
                         setState(
                           () {
-                            dataModuleColor = color;
+                            _dataModuleColor = color;
                           },
                         );
                       },
@@ -380,14 +381,14 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
                           color: Colors.grey,
                         ),
                         borderRadius: BorderRadius.circular(4),
-                        color: dataModuleColor,
+                        color: _dataModuleColor,
                       ),
                       child: Center(
                         child: Text(
                           AppLocalizations.of(context)!.data,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: useWhiteForeground(dataModuleColor)
+                            color: useWhiteForeground(_dataModuleColor)
                                 ? Colors.white
                                 : DefaultTextStyle.of(context).style.color,
                           ),
@@ -406,13 +407,13 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
                   onTap: () {
                     pickColor(
                       context,
-                      backgroundColor,
+                      _backgroundColor,
                       (
                         Color color,
                       ) {
                         setState(
                           () {
-                            backgroundColor = color;
+                            _backgroundColor = color;
                           },
                         );
                       },
@@ -428,14 +429,14 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
                           color: Colors.grey,
                         ),
                         borderRadius: BorderRadius.circular(4),
-                        color: backgroundColor,
+                        color: _backgroundColor,
                       ),
                       child: Center(
                         child: Text(
                           AppLocalizations.of(context)!.background,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: useWhiteForeground(backgroundColor)
+                            color: useWhiteForeground(_backgroundColor)
                                 ? Colors.white
                                 : DefaultTextStyle.of(context).style.color,
                           ),
@@ -468,13 +469,13 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
                       child: Text(AppLocalizations.of(context)!.true_),
                     ),
                   ],
-                  value: gapless,
+                  value: _gapless,
                   onChanged: (
                     Object? value,
                   ) {
                     setState(
                       () {
-                        gapless = value as bool;
+                        _gapless = value as bool;
                       },
                     );
                   },
@@ -489,11 +490,11 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.padding,
-                    hintText: padding.toString(),
+                    hintText: _padding.toString(),
                   ),
                   showCursor: true,
                   maxLines: 1,
-                  initialValue: padding.toString(),
+                  initialValue: _padding.toString(),
                   validator: (
                     String? value,
                   ) {
@@ -514,10 +515,10 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
                     if (_formKey.currentState!.validate()) {
                       setState(
                         () {
-                          padding = double.tryParse(
+                          _padding = double.tryParse(
                                 value.trim(),
                               ) ??
-                              padding;
+                              _padding;
                         },
                       );
                     }
@@ -528,10 +529,10 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
                     if (_formKey.currentState!.validate()) {
                       setState(
                         () {
-                          padding = double.tryParse(
+                          _padding = double.tryParse(
                                 value.trim(),
                               ) ??
-                              padding;
+                              _padding;
                         },
                       );
                     }
@@ -548,23 +549,23 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
             child: Center(
               child: Column(
                 children: <Widget>[
-                  if (data.isNotEmpty)
+                  if (_string.isNotEmpty)
                     QrImageView(
-                      version: version,
-                      errorCorrectionLevel: errorCorrectionLevel,
+                      version: _version,
+                      errorCorrectionLevel: _errorCorrectionLevel,
                       eyeStyle: QrEyeStyle(
-                        eyeShape: eyeShape,
-                        color: eyeColor,
+                        eyeShape: _eyeShape,
+                        color: _eyeColor,
                       ),
                       dataModuleStyle: QrDataModuleStyle(
-                        dataModuleShape: dataModuleShape,
-                        color: dataModuleColor,
+                        dataModuleShape: _dataModuleShape,
+                        color: _dataModuleColor,
                       ),
-                      backgroundColor: backgroundColor,
-                      gapless: gapless,
-                      semanticsLabel: semanticsLabel,
-                      data: data,
-                      padding: EdgeInsets.all(padding),
+                      backgroundColor: _backgroundColor,
+                      gapless: _gapless,
+                      semanticsLabel: _semanticsLabel,
+                      data: _string,
+                      padding: EdgeInsets.all(_padding),
                       size: MediaQuery.of(context).size.width * 0.5,
                     )
                   else

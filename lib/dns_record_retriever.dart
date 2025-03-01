@@ -20,6 +20,7 @@ class DNSRecordRetrieverPage extends StatelessWidget {
           AppLocalizations.of(context)!.dns_record_retriever,
         ),
         centerTitle: true,
+        elevation: 4.0,
       ),
       body: const DNSRecordRetrieverBody(),
     );
@@ -44,41 +45,41 @@ class DNSRecord {
 
 class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
   final _formKey = GlobalKey<FormState>();
-  late String host;
 
-  DNSProvider recordProvider = DNSProvider.cloudflare;
-
-  bool isRetrieving = false;
-  StreamController<String> recordTypeController =
+  StreamController<String> _recordTypeController =
       StreamController<String>.broadcast();
-  List<DNSRecord> records = [];
+
+  late String _host;
+  DNSProvider _recordProvider = DNSProvider.cloudflare;
+  bool _isRetrieving = false;
+  List<DNSRecord> _records = [];
 
   Future<void> retrieveDNSRecord() async {
     setState(
       () {
-        isRetrieving = true;
-        records = [];
+        _isRetrieving = true;
+        _records = [];
       },
     );
 
-    for (var recordType in RecordType.values) {
-      if (!isRetrieving) {
+    for (RecordType recordType in RecordType.values) {
+      if (!_isRetrieving) {
         break;
       }
 
-      recordTypeController.add(
+      _recordTypeController.add(
           recordType.toString().replaceFirst('RecordType.', '').toUpperCase());
 
       final response = await DNSolve().lookup(
-        host,
+        _host,
         dnsSec: true,
         type: recordType,
-        provider: recordProvider,
+        provider: _recordProvider,
       );
 
       if (response.answer!.records != null) {
         for (final record in response.answer!.records!) {
-          records.add(
+          _records.add(
             DNSRecord(
               recordType.toString().split('.').last.toUpperCase(),
               record.toBind,
@@ -88,14 +89,14 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
       }
     }
 
-    if (!isRetrieving) {
-      recordTypeController.close();
-      recordTypeController = StreamController<String>();
+    if (!_isRetrieving) {
+      _recordTypeController.close();
+      _recordTypeController = StreamController<String>();
     }
 
     setState(
       () {
-        isRetrieving = false;
+        _isRetrieving = false;
       },
     );
   }
@@ -109,7 +110,7 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
     BuildContext context,
   ) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -140,7 +141,7 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                   onChanged: (
                     String value,
                   ) {
-                    host = value.trim();
+                    _host = value.trim();
                   },
                   onFieldSubmitted: (
                     String value,
@@ -157,13 +158,13 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.dns_provider,
                   ),
-                  value: recordProvider,
+                  value: _recordProvider,
                   onChanged: (
                     DNSProvider? newValue,
                   ) {
                     setState(
                       () {
-                        recordProvider = newValue!;
+                        _recordProvider = newValue!;
                       },
                     );
                   },
@@ -190,7 +191,7 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       ElevatedButton(
-                        onPressed: isRetrieving
+                        onPressed: _isRetrieving
                             ? null
                             : () {
                                 if (_formKey.currentState!.validate()) {
@@ -202,11 +203,11 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: isRetrieving
+                        onPressed: _isRetrieving
                             ? () {
                                 setState(
                                   () {
-                                    isRetrieving = false;
+                                    _isRetrieving = false;
                                   },
                                 );
                               }
@@ -224,12 +225,12 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
           const SizedBox(
             height: 16,
           ),
-          if (isRetrieving)
+          if (_isRetrieving)
             Center(
               child: Column(
                 children: <Widget>[
                   StreamBuilder<String>(
-                    stream: recordTypeController.stream,
+                    stream: _recordTypeController.stream,
                     builder: (
                       context,
                       snapshot,
@@ -250,7 +251,7 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
               ),
             )
           else
-            records.isEmpty
+            _records.isEmpty
                 ? Center(
                     child: Text(
                       AppLocalizations.of(context)!
@@ -259,7 +260,7 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                     ),
                   )
                 : Column(
-                    children: records.map(
+                    children: _records.map(
                       (record) {
                         return Padding(
                           padding: const EdgeInsets.only(

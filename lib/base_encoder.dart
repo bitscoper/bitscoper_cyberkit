@@ -20,6 +20,7 @@ class BaseEncoderPage extends StatelessWidget {
           AppLocalizations.of(context)!.base_encoder,
         ),
         centerTitle: true,
+        elevation: 4.0,
       ),
       body: const BaseEncoderBody(),
     );
@@ -35,9 +36,11 @@ class BaseEncoderBody extends StatefulWidget {
 
 class BaseEncoderBodyState extends State<BaseEncoderBody> {
   final _formKey = GlobalKey<FormState>();
-  late String inputAsBase64 = '';
 
-  final encodings = {
+  String _string = '';
+  String _stringAsBase64 = '';
+
+  final bases = {
     'Binary (Base2)': base2,
     'Ternary (Base3)': base3,
     'Quaternary (Base4)': base4,
@@ -55,12 +58,20 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
     'Base64': base64,
   };
 
+  void _encodeStringToBase64() {
+    if (_string.isNotEmpty) {
+      _stringAsBase64 = base64Encode(
+        utf8.encode(_string),
+      ).replaceAll('=', '');
+    }
+  }
+
   @override
   Widget build(
     BuildContext context,
   ) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -89,10 +100,10 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
               ) {
                 setState(
                   () {
+                    _string = value;
+
                     if (value.isNotEmpty) {
-                      inputAsBase64 = base64Encode(
-                        utf8.encode(value),
-                      ).replaceAll('=', '');
+                      _encodeStringToBase64();
                     }
                   },
                 );
@@ -103,10 +114,10 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
                 if (_formKey.currentState!.validate()) {
                   setState(
                     () {
+                      _string = value;
+
                       if (value.isNotEmpty) {
-                        inputAsBase64 = base64Encode(
-                          utf8.encode(value),
-                        ).replaceAll('=', '');
+                        _encodeStringToBase64();
                       }
                     },
                   );
@@ -117,7 +128,7 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
           const SizedBox(
             height: 16,
           ),
-          if (inputAsBase64.isEmpty)
+          if (_string.isEmpty)
             Center(
               child: Column(
                 children: <Widget>[
@@ -229,9 +240,9 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
             )
           else
             Column(
-              children: encodings.entries.map(
+              children: bases.entries.map(
                 (entry) {
-                  String output;
+                  String result;
 
                   try {
                     final converter = BaseConversion(
@@ -239,9 +250,9 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
                       to: entry.value,
                       zeroPadding: true,
                     );
-                    output = converter(inputAsBase64);
+                    result = converter(_stringAsBase64);
                   } catch (error) {
-                    output = error.toString();
+                    result = error.toString();
                   }
 
                   return Padding(
@@ -251,14 +262,14 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
                     child: Card(
                       child: ListTile(
                         title: Text(entry.key),
-                        subtitle: Text(output),
+                        subtitle: Text(result),
                         trailing: IconButton(
                           icon: const Icon(Icons.copy_rounded),
                           onPressed: () {
                             copyToClipBoard(
                               context,
                               entry.key,
-                              output,
+                              result,
                             );
                           },
                         ),

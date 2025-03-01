@@ -20,6 +20,7 @@ class StringHashCalculatorPage extends StatelessWidget {
           AppLocalizations.of(context)!.string_hash_calculator,
         ),
         centerTitle: true,
+        elevation: 4.0,
       ),
       body: const StringHashCalculatorBody(),
     );
@@ -36,21 +37,23 @@ class StringHashCalculatorBody extends StatefulWidget {
 
 class StringHashCalculatorBodyState extends State<StringHashCalculatorBody> {
   final _formKey = GlobalKey<FormState>();
-  Map<String, String> hashValues = {};
 
-  void calculateHashes(String input) {
-    var bytes = utf8.encode(input);
+  String _string = '';
+  Map<String, String> _hashValues = {};
 
-    var md5Hash = md5.convert(bytes).toString();
-    var sha1Hash = sha1.convert(bytes).toString();
-    var sha224Hash = sha224.convert(bytes).toString();
-    var sha256Hash = sha256.convert(bytes).toString();
-    var sha384Hash = sha384.convert(bytes).toString();
-    var sha512Hash = sha512.convert(bytes).toString();
+  void _calculateHashes() {
+    final bytes = utf8.encode(_string);
+
+    final String md5Hash = md5.convert(bytes).toString();
+    final String sha1Hash = sha1.convert(bytes).toString();
+    final String sha224Hash = sha224.convert(bytes).toString();
+    final String sha256Hash = sha256.convert(bytes).toString();
+    final String sha384Hash = sha384.convert(bytes).toString();
+    final String sha512Hash = sha512.convert(bytes).toString();
 
     setState(
       () {
-        hashValues = {
+        _hashValues = {
           'MD5': md5Hash,
           'SHA1': sha1Hash,
           'SHA224': sha224Hash,
@@ -67,7 +70,7 @@ class StringHashCalculatorBodyState extends State<StringHashCalculatorBody> {
     BuildContext context,
   ) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -96,7 +99,9 @@ class StringHashCalculatorBodyState extends State<StringHashCalculatorBody> {
               ) {
                 setState(
                   () {
-                    calculateHashes(value);
+                    _string = value;
+
+                    _calculateHashes();
                   },
                 );
               },
@@ -106,7 +111,9 @@ class StringHashCalculatorBodyState extends State<StringHashCalculatorBody> {
                 if (_formKey.currentState!.validate()) {
                   setState(
                     () {
-                      calculateHashes(value);
+                      _string = value;
+
+                      _calculateHashes();
                     },
                   );
                 }
@@ -116,7 +123,7 @@ class StringHashCalculatorBodyState extends State<StringHashCalculatorBody> {
           const SizedBox(
             height: 16,
           ),
-          if (hashValues.isEmpty)
+          if (_string.isEmpty)
             Center(
               child: Text(
                 AppLocalizations.of(context)!
@@ -127,7 +134,7 @@ class StringHashCalculatorBodyState extends State<StringHashCalculatorBody> {
           else
             Column(
               children: <Widget>[
-                for (var entry in hashValues.entries)
+                for (MapEntry<String, dynamic> entry in _hashValues.entries)
                   Padding(
                     padding: const EdgeInsets.only(
                       bottom: 16,
