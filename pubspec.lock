@@ -141,10 +141,10 @@ packages:
     dependency: "direct main"
     description:
       name: dnsolve
-      sha256: "773146c310d2c38ab257b7705fd149708164f1c9432acb1b4c8e8b3ce995a2d6"
+      sha256: "0d8d0deb9f416772f0509c8ee5bbdd700c8009197cb9973c4a501b0024befd2d"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.2"
   equatable:
     dependency: transitive
     description:
@@ -173,10 +173,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: "6f6bfa8797f296965bdc3e1f702574ab49a540c19b9237b401e7c2b25dfe594c"
+      sha256: ee11ce89f8937c39181bc88d57a455972f7545b86150d8f287d0d9cf95bcdf0a
       url: "https://pub.dev"
     source: hosted
-    version: "9.0.0"
+    version: "9.1.0"
   flutter:
     dependency: "direct main"
     description: flutter
