@@ -70,7 +70,8 @@ class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
         <ShortcutItem>[
           ShortcutItem(
             type: 'source_code',
-            localizedTitle: AppLocalizations.of(context)!.source_code,
+            // localizedTitle: AppLocalizations.of(context)!.source_code,
+            localizedTitle: "Source Code",
             icon: platformIconName,
           ),
         ],
