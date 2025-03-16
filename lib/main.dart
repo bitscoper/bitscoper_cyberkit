@@ -1,6 +1,5 @@
 /* By Abdullah As-Sadeed */
 
-import 'dart:io' show Platform;
 import 'package:bitscoper_cyber_toolbox/home.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +43,9 @@ class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
   void initState() {
     super.initState();
 
-    if (Platform.isAndroid || Platform.isIOS) {
+    if (!kIsWeb &&
+        (defaultTargetPlatform == TargetPlatform.iOS ||
+            defaultTargetPlatform == TargetPlatform.android)) {
       final QuickActions quickActions = QuickActions();
 
       quickActions.initialize(
@@ -60,9 +61,9 @@ class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
 
       late final String platformIconName;
 
-      if (Platform.isAndroid) {
+      if (defaultTargetPlatform == TargetPlatform.android) {
         platformIconName = 'ic_launcher';
-      } else if (Platform.isIOS) {
+      } else if (defaultTargetPlatform == TargetPlatform.iOS) {
         platformIconName = 'AppIcon';
       }
 
