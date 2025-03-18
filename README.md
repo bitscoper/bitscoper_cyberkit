@@ -47,46 +47,47 @@ A Flutter application consisting of TCP Port Scanner, Route Tracer, Pinger, File
 ```mermaid
 flowchart LR
 
+Code --> Release[Release]
+
 Code[Code] --> Linux{Linux}
 Linux --> Linux_x64_Executable(x64 Executable)
 Linux_x64_Executable --> Linux_x64_AppImage(x64 AppImage)
+Linux_x64_Executable --> Release[Release]
+Linux_x64_AppImage --> Release[Release]
+Linux_x64_Executable --> Linux_Docker_Image(Docker Image)
+Linux_Docker_Image --> GHCR[GHCR]
+Linux_Docker_Image --> Amazon_ECR[Amazon ECR]
 
 Code --> Android{Android}
 Android --> |Signing| Android_appbundle(appbundle)
 Android --> |Signing| Android_ARMEABI_V7A_APK(ARMEABI-V7A APK)
 Android --> |Signing| Android_ARM64_V8A_APK(ARM64-V8A APK)
 Android --> |Signing| Android_x86_64_APK(x86_64 APK)
-
-Code --> macOS{macOS}
-macOS --> macOS_Executable(Executable)
-
-Code --> iOS{iOS}
-iOS --> |Not Signing Yet| iOS_Executable(Executable)
-
-Code --> Windows{Windows}
-Windows --> Windows_x64_Executable(x64 Executable)
-Windows_x64_Executable --> |Signing| Windows_x64_MSIX_Package(MSIX Package)
-
-Code --> |Not Recommended| Web{Web}
-
-Linux_x64_Executable --> Release[Release]
-Linux_x64_AppImage --> Release[Release]
 Android_appbundle --> Release[Release]
 Android_x86_64_APK --> Release[Release]
 Android_ARM64_V8A_APK --> Release[Release]
 Android_ARMEABI_V7A_APK --> Release[Release]
+Android_appbundle --> |Manual Submission| Google_Play[Google Play]
+
+Code --> macOS{macOS}
+macOS --> macOS_Executable(Executable)
 macOS_Executable --> Release[Release]
+
+Code --> iOS{iOS}
+iOS --> |Not Signing Yet| iOS_Executable(Executable)
 iOS_Executable --> Release[Release]
+
+Code --> Windows{Windows}
+Windows --> Windows_x64_Executable(x64 Executable)
+Windows_x64_Executable --> |Signing| Windows_x64_MSIX_Package(MSIX Package)
 Windows_x64_Executable --> Release[Release]
 Windows_x64_MSIX_Package --> Release[Release]
-Web --> Release[Release]
-
-Linux_x64_Executable --> Docker_Image(Docker Image)
-Docker_Image --> GHCR[GHCR]
-Docker_Image --> Amazon_ECR[Amazon ECR]
-
-Android_appbundle --> |Manual Submission| Google_Play[Google Play]
 Windows_x64_MSIX_Package --> |Manual Submission| Microsoft_Store[Microsoft Store]
+
+Code --> Web{Web}
+Web --> |Not Recommended| Web_Application(Application)
+Web_Application --> Release[Release]
+Web_Application --> My_Server[My Server]
 ```
 
   <table>
