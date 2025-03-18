@@ -1,6 +1,6 @@
 # By Abdullah As-Sadeed
 
-name: Build and Release
+name: Build, Release, and Deploy
 on:
   push:
     branches:
@@ -440,4 +440,34 @@ jobs:
           docker build -t bitscoper/bitscoper_cyber_toolbox .
           docker tag bitscoper/bitscoper_cyber_toolbox:latest public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyber_toolbox:latest
           docker push public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyber_toolbox:latest
+        shell: bash
+
+  deploy-web-application-to-server:
+    name: Deploy Web Application to Server
+    needs: [upload-release]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4.2.2
+
+      - name: Setup SSH key
+        uses: webfactory/ssh-agent@v0.9.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Execution
+        run: |
+          ssh -o StrictHostKeyChecking=no root@bitscoper.dev -p ${{ secrets.SSH_PORT }} << 'EOF'
+            cd /var/internet_server/bct.bitscoper.dev/
+            rm -rf *
+            wget https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Web_Application.zip
+            unzip ./Web_Application.zip
+            mv ./Web_Application/ ./out_site/
+            chown -R nobody:nobody /var/internet_server/
+            chmod -R 755 /var/internet_server/
+            systemctl restart openlitespeed.service
+            exit
+          EOF
         shell: bash
