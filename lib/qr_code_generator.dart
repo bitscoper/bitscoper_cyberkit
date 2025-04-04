@@ -1,5 +1,8 @@
 /* By Abdullah As-Sadeed */
 
+// import 'package:bitscoper_cyber_toolbox/main.dart';
+// import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
+import 'package:bitscoper_cyber_toolbox/application_toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -14,12 +17,8 @@ class QRCodeGeneratorPage extends StatelessWidget {
     BuildContext context,
   ) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context)!.qr_code_generator,
-        ),
-        centerTitle: true,
-        elevation: 4.0,
+      appBar: ApplicationToolBar(
+        title: AppLocalizations.of(context)!.qr_code_generator,
       ),
       body: const QRCodeGeneratorBody(),
     );
@@ -34,7 +33,17 @@ class QRCodeGeneratorBody extends StatefulWidget {
 }
 
 class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
-  final _formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _stringEditingController =
+      TextEditingController();
+  final TextEditingController _paddingEditingController = TextEditingController(
+    text: '16',
+  );
 
   int _version = QrVersions.auto;
   int _errorCorrectionLevel = QrErrorCorrectLevel.H;
@@ -44,9 +53,7 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
   Color _dataModuleColor = Colors.black;
   Color _backgroundColor = Colors.white;
   bool _gapless = false;
-  double _padding = 16;
   final String _semanticsLabel = 'Generated QR Code';
-  String _string = '';
 
   void pickColor(
     BuildContext context,
@@ -92,10 +99,15 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(
     BuildContext context,
   ) {
-    final numberFormat =
+    final NumberFormat numberFormat =
         NumberFormat('#', AppLocalizations.of(context)!.localeName);
 
     return SingleChildScrollView(
@@ -106,6 +118,7 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
           Form(
             key: _formKey,
             child: TextFormField(
+              controller: _stringEditingController,
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
@@ -126,20 +139,18 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
               onChanged: (
                 String value,
               ) {
-                setState(
-                  () {
-                    _string = value;
-                  },
-                );
+                if (_formKey.currentState!.validate()) {
+                  setState(
+                    () {},
+                  );
+                }
               },
               onFieldSubmitted: (
                 String value,
               ) {
                 if (_formKey.currentState!.validate()) {
                   setState(
-                    () {
-                      _string = value;
-                    },
+                    () {},
                   );
                 }
               },
@@ -304,7 +315,7 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
             height: 8,
           ),
           Row(
-            children: [
+            children: <Widget>[
               Expanded(
                 flex: 1,
                 child: GestureDetector(
@@ -452,7 +463,7 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
             height: 16,
           ),
           Row(
-            children: [
+            children: <Widget>[
               Expanded(
                 flex: 1,
                 child: DropdownButtonFormField(
@@ -487,14 +498,14 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
               Expanded(
                 flex: 1,
                 child: TextFormField(
+                  controller: _paddingEditingController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.padding,
-                    hintText: _padding.toString(),
+                    hintText: _paddingEditingController.text,
                   ),
                   showCursor: true,
                   maxLines: 1,
-                  initialValue: _padding.toString(),
                   validator: (
                     String? value,
                   ) {
@@ -514,12 +525,7 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
                   ) {
                     if (_formKey.currentState!.validate()) {
                       setState(
-                        () {
-                          _padding = double.tryParse(
-                                value.trim(),
-                              ) ??
-                              _padding;
-                        },
+                        () {},
                       );
                     }
                   },
@@ -528,12 +534,7 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
                   ) {
                     if (_formKey.currentState!.validate()) {
                       setState(
-                        () {
-                          _padding = double.tryParse(
-                                value.trim(),
-                              ) ??
-                              _padding;
-                        },
+                        () {},
                       );
                     }
                   },
@@ -549,7 +550,7 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
             child: Center(
               child: Column(
                 children: <Widget>[
-                  if (_string.isNotEmpty)
+                  if (_stringEditingController.text.isNotEmpty)
                     QrImageView(
                       version: _version,
                       errorCorrectionLevel: _errorCorrectionLevel,
@@ -564,8 +565,12 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
                       backgroundColor: _backgroundColor,
                       gapless: _gapless,
                       semanticsLabel: _semanticsLabel,
-                      data: _string,
-                      padding: EdgeInsets.all(_padding),
+                      data: _stringEditingController.text,
+                      padding: EdgeInsets.all(
+                        double.tryParse(
+                          _paddingEditingController.text.trim(),
+                        )!,
+                      ),
                       size: MediaQuery.of(context).size.width * 0.5,
                     )
                   else

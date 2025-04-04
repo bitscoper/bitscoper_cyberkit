@@ -1,13 +1,15 @@
 /* By Abdullah As-Sadeed */
 
+import 'package:bitscoper_cyber_toolbox/application_toolbar.dart';
+import 'package:bitscoper_cyber_toolbox/copy_to_clipboard.dart';
+import 'package:bitscoper_cyber_toolbox/main.dart';
+import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-
-import 'package:bitscoper_cyber_toolbox/copy_to_clipboard.dart';
 
 class SeriesURICrawlerPage extends StatelessWidget {
   const SeriesURICrawlerPage({super.key});
@@ -17,12 +19,8 @@ class SeriesURICrawlerPage extends StatelessWidget {
     BuildContext context,
   ) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context)!.series_uri_crawler,
-        ),
-        centerTitle: true,
-        elevation: 4.0,
+      appBar: ApplicationToolBar(
+        title: AppLocalizations.of(context)!.series_uri_crawler,
       ),
       body: const SeriesURICrawlerBody(),
     );
@@ -37,49 +35,91 @@ class SeriesURICrawlerBody extends StatefulWidget {
 }
 
 class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
-  final _formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    super.initState();
+  }
 
-  late String _uriPrefix, _uriSuffix;
-  int _lowerLimit = 1, _upperLimit = 100;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _uriPrefixEditingController =
+      TextEditingController();
+  final TextEditingController _uriSuffixEditingController =
+      TextEditingController();
+  final TextEditingController _lowerLimitEditingController =
+      TextEditingController();
+  final TextEditingController _upperLimitEditingController =
+      TextEditingController();
 
-  bool isCrawling = false;
+  bool _isCrawling = false;
   Map<String, String> webPages = {};
 
   Future<void> crawl() async {
-    setState(
-      () {
-        isCrawling = true;
-        webPages.clear();
-      },
-    );
+    if (_formKey.currentState!.validate()) {
+      try {
+        setState(
+          () {
+            _isCrawling = true;
+            webPages.clear();
+          },
+        );
 
-    for (int i = _lowerLimit; i <= _upperLimit; i++) {
-      if (!isCrawling) {
-        return;
+        for (int iteration =
+                int.tryParse(_lowerLimitEditingController.text.trim())!;
+            iteration <=
+                int.tryParse(_upperLimitEditingController.text.trim())!;
+            iteration++,) {
+          if (!_isCrawling) {
+            return;
+          }
+
+          String uri =
+              '${_uriPrefixEditingController.text.trim()}$iteration${_uriSuffixEditingController.text.trim()}';
+
+          Response response = await http.get(
+            Uri.parse(uri),
+          );
+
+          if (response.statusCode == 200) {
+            dom.Document document = parser.parse(response.body);
+
+            dom.Element? titleElement = document.querySelector('title');
+            String title;
+            if (titleElement != null) {
+              title = titleElement.text;
+            } else {
+              title = 'NO TITLE';
+            }
+
+            setState(
+              () {
+                webPages[uri] = title;
+              },
+            );
+          }
+        }
+      } catch (error) {
+        showMessageDialog(
+          AppLocalizations.of(navigatorKey.currentContext!)!.error,
+          error.toString(),
+        );
+      } finally {
+        setState(
+          () {
+            _isCrawling = false;
+          },
+        );
       }
-
-      String uri = '$_uriPrefix$i$_uriSuffix';
-
-      Response response = await http.get(
-        Uri.parse(uri),
-      );
-      dom.Document document = parser.parse(response.body);
-
-      dom.Element? titleElement = document.querySelector('title');
-      String title = titleElement != null ? titleElement.text : 'NO TITLE';
-
-      setState(
-        () {
-          webPages[uri] = title;
-        },
-      );
     }
+  }
 
-    setState(
-      () {
-        isCrawling = false;
-      },
-    );
+  @override
+  void dispose() {
+    _uriPrefixEditingController.dispose();
+    _uriSuffixEditingController.dispose();
+    _lowerLimitEditingController.dispose();
+    _upperLimitEditingController.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -100,6 +140,7 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                     Expanded(
                       flex: 2,
                       child: TextFormField(
+                        controller: _uriPrefixEditingController,
                         keyboardType: TextInputType.url,
                         decoration: InputDecoration(
                           labelText: AppLocalizations.of(context)!.uri_prefix,
@@ -119,15 +160,11 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                         },
                         onChanged: (
                           String value,
-                        ) {
-                          _uriPrefix = value.trim();
-                        },
+                        ) {},
                         onFieldSubmitted: (
                           String value,
                         ) {
-                          if (_formKey.currentState!.validate()) {
-                            crawl();
-                          }
+                          crawl();
                         },
                       ),
                     ),
@@ -137,6 +174,7 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                     Expanded(
                       flex: 1,
                       child: TextFormField(
+                        controller: _uriSuffixEditingController,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           labelText: AppLocalizations.of(context)!.uri_suffix,
@@ -149,15 +187,11 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                         // ) {},
                         onChanged: (
                           String value,
-                        ) {
-                          _uriSuffix = value.trim();
-                        },
+                        ) {},
                         onFieldSubmitted: (
                           String value,
                         ) {
-                          if (_formKey.currentState!.validate()) {
-                            crawl();
-                          }
+                          crawl();
                         },
                       ),
                     ),
@@ -167,6 +201,7 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                   children: <Widget>[
                     Expanded(
                       child: TextFormField(
+                        controller: _lowerLimitEditingController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           labelText: AppLocalizations.of(context)!.lower_limit,
@@ -186,7 +221,9 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                           } else if (int.tryParse(value)! < 1) {
                             return AppLocalizations.of(context)!
                                 .enter_a_positive_integer;
-                          } else if (int.tryParse(value)! > _upperLimit) {
+                          } else if (int.tryParse(value)! >
+                              int.tryParse(
+                                  _upperLimitEditingController.text.trim())!) {
                             return AppLocalizations.of(context)!
                                 .upper_limit_must_be_greater_than_lower_limit;
                           }
@@ -195,21 +232,11 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                         },
                         onChanged: (
                           String value,
-                        ) {
-                          int? parsedValue = int.tryParse(
-                            value.trim(),
-                          );
-
-                          if (parsedValue != null) {
-                            _upperLimit = parsedValue;
-                          }
-                        },
+                        ) {},
                         onFieldSubmitted: (
                           String value,
                         ) {
-                          if (_formKey.currentState!.validate()) {
-                            crawl();
-                          }
+                          crawl();
                         },
                       ),
                     ),
@@ -218,6 +245,7 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                     ),
                     Expanded(
                       child: TextFormField(
+                        controller: _upperLimitEditingController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           labelText: AppLocalizations.of(context)!.upper_limit,
@@ -237,7 +265,9 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                           } else if (int.tryParse(value)! < 1) {
                             return AppLocalizations.of(context)!
                                 .enter_a_positive_integer;
-                          } else if (int.tryParse(value)! < _lowerLimit) {
+                          } else if (int.tryParse(value)! <
+                              int.tryParse(
+                                  _lowerLimitEditingController.text.trim())!) {
                             return AppLocalizations.of(context)!
                                 .upper_limit_must_be_greater_than_lower_limit;
                           }
@@ -246,21 +276,11 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                         },
                         onChanged: (
                           String value,
-                        ) {
-                          int? parsedValue = int.tryParse(
-                            value.trim(),
-                          );
-
-                          if (parsedValue != null) {
-                            _upperLimit = parsedValue;
-                          }
-                        },
+                        ) {},
                         onFieldSubmitted: (
                           String value,
                         ) {
-                          if (_formKey.currentState!.validate()) {
-                            crawl();
-                          }
+                          crawl();
                         },
                       ),
                     ),
@@ -273,23 +293,21 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     ElevatedButton(
-                      onPressed: isCrawling
+                      onPressed: _isCrawling
                           ? null
                           : () {
-                              if (_formKey.currentState!.validate()) {
-                                crawl();
-                              }
+                              crawl();
                             },
                       child: Text(
                         AppLocalizations.of(context)!.crawl,
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: isCrawling
+                      onPressed: _isCrawling
                           ? () {
                               setState(
                                 () {
-                                  isCrawling = false;
+                                  _isCrawling = false;
                                 },
                               );
                             }
@@ -333,7 +351,7 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                     ),
                   ),
                 ),
-              if (isCrawling) ...[
+              if (_isCrawling) ...[
                 const SizedBox(
                   height: 8,
                 ),

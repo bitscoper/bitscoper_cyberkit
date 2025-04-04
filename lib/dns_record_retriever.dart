@@ -1,11 +1,13 @@
 /* By Abdullah As-Sadeed */
 
 import 'dart:async';
+import 'package:bitscoper_cyber_toolbox/application_toolbar.dart';
+import 'package:bitscoper_cyber_toolbox/copy_to_clipboard.dart';
+import 'package:bitscoper_cyber_toolbox/main.dart';
+import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
 import 'package:dnsolve/dnsolve.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import 'package:bitscoper_cyber_toolbox/copy_to_clipboard.dart';
 
 class DNSRecordRetrieverPage extends StatelessWidget {
   const DNSRecordRetrieverPage({super.key});
@@ -15,12 +17,8 @@ class DNSRecordRetrieverPage extends StatelessWidget {
     BuildContext context,
   ) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context)!.dns_record_retriever,
-        ),
-        centerTitle: true,
-        elevation: 4.0,
+      appBar: ApplicationToolBar(
+        title: AppLocalizations.of(context)!.dns_record_retriever,
       ),
       body: const DNSRecordRetrieverBody(),
     );
@@ -44,65 +42,84 @@ class DNSRecord {
 }
 
 class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
-  final _formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    super.initState();
+  }
 
-  StreamController<String> _recordTypeController =
-      StreamController<String>.broadcast();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _hostEditingController = TextEditingController();
+  late StreamController<String> _recordTypeController;
 
-  late String _host;
   DNSProvider _recordProvider = DNSProvider.cloudflare;
   bool _isRetrieving = false;
   List<DNSRecord> _records = [];
 
   Future<void> retrieveDNSRecord() async {
-    setState(
-      () {
-        _isRetrieving = true;
-        _records = [];
-      },
-    );
+    if (_formKey.currentState!.validate()) {
+      try {
+        _recordTypeController = StreamController<String>.broadcast();
 
-    for (RecordType recordType in RecordType.values) {
-      if (!_isRetrieving) {
-        break;
-      }
+        setState(
+          () {
+            _isRetrieving = true;
+            _records = [];
+          },
+        );
 
-      _recordTypeController.add(
-          recordType.toString().replaceFirst('RecordType.', '').toUpperCase());
-
-      final response = await DNSolve().lookup(
-        _host,
-        dnsSec: true,
-        type: recordType,
-        provider: _recordProvider,
-      );
-
-      if (response.answer!.records != null) {
-        for (final record in response.answer!.records!) {
-          _records.add(
-            DNSRecord(
-              recordType.toString().split('.').last.toUpperCase(),
-              record.toBind,
-            ),
+        for (RecordType recordType in RecordType.values) {
+          _recordTypeController.add(
+            recordType.toString().replaceFirst('RecordType.', '').toUpperCase(),
           );
+
+          final ResolveResponse response = await DNSolve().lookup(
+            _hostEditingController.text.trim(),
+            dnsSec: true,
+            type: recordType,
+            provider: _recordProvider,
+          );
+
+          if (response.answer!.records != null) {
+            for (final record in response.answer!.records!) {
+              _records.add(
+                DNSRecord(
+                  recordType.toString().split('.').last.toUpperCase(),
+                  record.toBind,
+                ),
+              );
+            }
+          }
         }
+      } catch (error) {
+        showMessageDialog(
+          AppLocalizations.of(navigatorKey.currentContext!)!.error,
+          error.toString(),
+        );
+      } finally {
+        setState(
+          () {
+            _recordTypeController.close();
+            _recordTypeController = StreamController<String>();
+
+            _isRetrieving = false;
+          },
+        );
       }
     }
-
-    if (!_isRetrieving) {
-      _recordTypeController.close();
-      _recordTypeController = StreamController<String>();
-    }
-
-    setState(
-      () {
-        _isRetrieving = false;
-      },
-    );
   }
 
-  String capitalize(String string) {
+  String _capitalize(
+    String string,
+  ) {
     return string[0].toUpperCase() + string.substring(1);
+  }
+
+  @override
+  void dispose() {
+    _hostEditingController.dispose();
+    _recordTypeController.close();
+
+    super.dispose();
   }
 
   @override
@@ -119,6 +136,7 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
             child: Column(
               children: <Widget>[
                 TextFormField(
+                  controller: _hostEditingController,
                   keyboardType: TextInputType.url,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
@@ -140,15 +158,11 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                   },
                   onChanged: (
                     String value,
-                  ) {
-                    _host = value.trim();
-                  },
+                  ) {},
                   onFieldSubmitted: (
                     String value,
                   ) {
-                    if (_formKey.currentState!.validate()) {
-                      retrieveDNSRecord();
-                    }
+                    retrieveDNSRecord();
                   },
                 ),
                 const SizedBox(
@@ -175,7 +189,7 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                       return DropdownMenuItem<DNSProvider>(
                         value: value,
                         child: Text(
-                          capitalize(
+                          _capitalize(
                             value.toString().split('.').last,
                           ),
                         ),
@@ -194,9 +208,7 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                         onPressed: _isRetrieving
                             ? null
                             : () {
-                                if (_formKey.currentState!.validate()) {
-                                  retrieveDNSRecord();
-                                }
+                                retrieveDNSRecord();
                               },
                         child: Text(
                           AppLocalizations.of(context)!.retrieve,

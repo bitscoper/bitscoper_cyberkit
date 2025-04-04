@@ -1,9 +1,6 @@
 /* By Abdullah As-Sadeed */
 
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:url_launcher/url_launcher.dart';
-
+import 'package:bitscoper_cyber_toolbox/application_toolbar.dart';
 import 'package:bitscoper_cyber_toolbox/base_encoder.dart';
 import 'package:bitscoper_cyber_toolbox/dns_record_retriever.dart';
 import 'package:bitscoper_cyber_toolbox/file_hash_calculator.dart';
@@ -16,6 +13,9 @@ import 'package:bitscoper_cyber_toolbox/series_uri_crawler.dart';
 import 'package:bitscoper_cyber_toolbox/string_hash_calculator.dart';
 import 'package:bitscoper_cyber_toolbox/tcp_port_scanner.dart';
 import 'package:bitscoper_cyber_toolbox/whois_retriever.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ToolCard {
   final String title;
@@ -140,12 +140,8 @@ class HomePage extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context)!.bitscoper_cyber_toolbox,
-        ),
-        centerTitle: true,
-        elevation: 4.0,
+      appBar: ApplicationToolBar(
+        title: AppLocalizations.of(context)!.bitscoper_cyber_toolbox,
       ),
       drawer: Drawer(
         child: ListView(
@@ -268,9 +264,9 @@ class HomePage extends StatelessWidget {
             final ToolCard tool = tools[index];
 
             return buildToolCard(
-              tool.title, // title
-              tool.icon, // icon
-              tool.page, // page widget
+              tool.title,
+              tool.icon,
+              tool.page,
             );
           },
         ),

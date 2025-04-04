@@ -9,6 +9,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 void main() {
   LicenseRegistry.addLicense(
     () async* {
@@ -80,7 +82,7 @@ class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
     }
   }
 
-  void changeLocale(Locale locale) {
+  void _changeLocale(Locale locale) {
     setState(
       () {
         _userLocale = locale;
@@ -88,7 +90,7 @@ class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
     );
   }
 
-  void toggleTheme() {
+  void _toggleTheme() {
     setState(
       () {
         _userToggledTheme = true;
@@ -97,7 +99,7 @@ class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
     );
   }
 
-  ThemeData buildTheme(
+  ThemeData _buildTheme(
     Brightness brightness,
   ) {
     ThemeData baseTheme = ThemeData(
@@ -112,10 +114,17 @@ class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
   }
 
   @override
+  void dispose() {
+    _isDarkTheme.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(
     BuildContext context,
   ) {
-    final brightness = MediaQuery.of(context).platformBrightness;
+    final Brightness brightness = MediaQuery.of(context).platformBrightness;
 
     if (!_userToggledTheme) {
       _isDarkTheme.value = brightness == Brightness.dark;
@@ -129,19 +138,20 @@ class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
         child,
       ) {
         return MaterialApp(
+          navigatorKey: navigatorKey,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           locale: _userLocale,
-          theme: buildTheme(
+          theme: _buildTheme(
             Brightness.light,
           ),
-          darkTheme: buildTheme(
+          darkTheme: _buildTheme(
             Brightness.dark,
           ),
           themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
           home: HomePage(
-            changeLocale: changeLocale,
-            toggleTheme: toggleTheme,
+            changeLocale: _changeLocale,
+            toggleTheme: _toggleTheme,
           ),
           debugShowCheckedModeBanner: false,
           showSemanticsDebugger: false,
