@@ -1,13 +1,15 @@
 /* By Abdullah As-Sadeed */
 
 import 'dart:io';
+import 'package:bitscoper_cyber_toolbox/application_toolbar.dart';
+import 'package:bitscoper_cyber_toolbox/copy_to_clipboard.dart';
+import 'package:bitscoper_cyber_toolbox/main.dart';
+import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
 import 'package:crypto/crypto.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import 'package:bitscoper_cyber_toolbox/copy_to_clipboard.dart';
 
 class FileHashCalculatorPage extends StatelessWidget {
   const FileHashCalculatorPage({super.key});
@@ -17,12 +19,8 @@ class FileHashCalculatorPage extends StatelessWidget {
     BuildContext context,
   ) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context)!.file_hash_calculator,
-        ),
-        centerTitle: true,
-        elevation: 4.0,
+      appBar: ApplicationToolBar(
+        title: AppLocalizations.of(context)!.file_hash_calculator,
       ),
       body: const FileHashCalculatorBody(),
     );
@@ -37,16 +35,30 @@ class FileHashCalculatorBody extends StatefulWidget {
 }
 
 class FileHashCalculatorBodyState extends State<FileHashCalculatorBody> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  bool _isCalculating = false;
   List<Map<String, dynamic>> _hashValues = [];
 
-  void _calculateHashes(
+  Future<void> _calculateHashes(
     List<File> files,
-  ) {
-    setState(
-      () {
-        _hashValues = files.map(
-          (file) {
-            final bytes = file.readAsBytesSync();
+  ) async {
+    try {
+      setState(
+        () {
+          _isCalculating = true;
+        },
+      );
+
+      final List<Map<String, String>> hashValues = await Future.wait(
+        files.map(
+          (
+            File file,
+          ) async {
+            final Uint8List bytes = await file.readAsBytes();
 
             final String md5Hash = md5.convert(bytes).toString();
             final String sha1Hash = sha1.convert(bytes).toString();
@@ -57,17 +69,39 @@ class FileHashCalculatorBodyState extends State<FileHashCalculatorBody> {
 
             return {
               'File Name': file.path.split('/').last,
-              'MD5': md5Hash.toString(),
-              'SHA1': sha1Hash.toString(),
-              'SHA224': sha224Hash.toString(),
-              'SHA256': sha256Hash.toString(),
-              'SHA384': sha384Hash.toString(),
-              'SHA512': sha512Hash.toString(),
+              'MD5': md5Hash,
+              'SHA1': sha1Hash,
+              'SHA224': sha224Hash,
+              'SHA256': sha256Hash,
+              'SHA384': sha384Hash,
+              'SHA512': sha512Hash,
             };
           },
-        ).toList();
-      },
-    );
+        ),
+      );
+
+      setState(
+        () {
+          _hashValues = hashValues;
+        },
+      );
+    } catch (error) {
+      showMessageDialog(
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
+    } finally {
+      setState(
+        () {
+          _isCalculating = false;
+        },
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -88,16 +122,23 @@ class FileHashCalculatorBodyState extends State<FileHashCalculatorBody> {
                 List<Uint8List> files = [];
 
                 FilePickerResult? result = await FilePicker.platform.pickFiles(
+                  type: FileType.any,
                   allowMultiple: true,
+                  dialogTitle: AppLocalizations.of(context)!.select_files,
                 );
 
                 if (result != null) {
                   List<File> selectedFiles = result.paths
                       .where(
-                    (path) => path != null,
+                    (
+                      String? path,
+                    ) =>
+                        path != null,
                   )
                       .map(
-                    (path) {
+                    (
+                      String? path,
+                    ) {
                       return File(path!);
                     },
                   ).toList();
@@ -108,7 +149,7 @@ class FileHashCalculatorBodyState extends State<FileHashCalculatorBody> {
                     );
                   }
 
-                  _calculateHashes(selectedFiles);
+                  await _calculateHashes(selectedFiles);
                 }
               },
             ),
@@ -116,13 +157,17 @@ class FileHashCalculatorBodyState extends State<FileHashCalculatorBody> {
           const SizedBox(
             height: 16,
           ),
-          if (_hashValues.isEmpty)
+          if (!_isCalculating && _hashValues.isEmpty)
             Center(
               child: Text(
                 AppLocalizations.of(context)!
                     .select_files_to_calculate_their_md5_sha1_sha224_sha256_sha384_sha512_hashes,
                 textAlign: TextAlign.center,
               ),
+            )
+          else if (_isCalculating)
+            const Center(
+              child: CircularProgressIndicator(),
             )
           else
             Column(

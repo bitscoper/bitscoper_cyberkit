@@ -1,0 +1,274 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Bengali Bangla (`bn`).
+class AppLocalizationsBn extends AppLocalizations {
+  AppLocalizationsBn([String locale = 'bn']) : super(locale);
+
+  @override
+  String get bitscoper_cyber_toolbox => 'বিটস্কোপার সাইবার টুলবক্স';
+
+  @override
+  String get change_language => 'লোক্যাল ইংরেজিতে পরিবর্তন';
+
+  @override
+  String get toggle_theme => 'থিম পরিবর্তন';
+
+  @override
+  String get source_code => 'সোর্স কোড';
+
+  @override
+  String get microsoft_store => 'মাইক্রোসফট স্টোর';
+
+  @override
+  String get google_play => 'গুগল প্লে';
+
+  @override
+  String get developer => 'ডেভেলপার';
+
+  @override
+  String get privacy_policy => 'গোপনীয়তা নীতি';
+
+  @override
+  String get tcp_port_scanner => 'টিসিপি পোর্ট স্ক্যানার';
+
+  @override
+  String get route_tracer => 'রুট ট্রেসার';
+
+  @override
+  String get pinger => 'পিংগার';
+
+  @override
+  String get file_hash_calculator => 'ফাইল হ্যাশ ক্যালকুলেটর';
+
+  @override
+  String get string_hash_calculator => 'স্ট্রিং হ্যাশ ক্যালকুলেটর';
+
+  @override
+  String get base_encoder => 'বেইস এনকোডার';
+
+  @override
+  String get morse_code_translator => 'মোর্স কোড ট্রান্সলেটর';
+
+  @override
+  String get qr_code_generator => 'কিউআর কোড জেনারেটর';
+
+  @override
+  String get open_graph_protocol_data_extractor => 'ওপেন গ্রাফ প্রোটোকল ডেইটা এক্সট্র্যাক্টর';
+
+  @override
+  String get series_uri_crawler => 'সিরিজ ইউআরআই ক্রলার';
+
+  @override
+  String get dns_record_retriever => 'ডিএনএস রেকর্ড রিট্রিভার';
+
+  @override
+  String get whois_retriever => 'হুইস রিট্রিভার';
+
+  @override
+  String get copied_to_clipboard => 'ক্লিপবোর্ডে কপি করা হয়েছে।';
+
+  @override
+  String get a_host_or_ip_address => 'একটা হোস্ট বা আইপি অ্যাড্রেস';
+
+  @override
+  String get a_domain_name => 'একটা ডোমেইন নেইম';
+
+  @override
+  String get a_multiline_string => 'একটা মাল্টিলাইন স্ট্রিং';
+
+  @override
+  String get a_string => 'একটা স্ট্রিং';
+
+  @override
+  String get morse_code => 'মোর্স কোড';
+
+  @override
+  String get version => 'সংস্করণ';
+
+  @override
+  String get automatic => 'স্বয়ংক্রিয়';
+
+  @override
+  String get error_correction_level => 'ত্রুটি সংশোধনের স্তর';
+
+  @override
+  String get high => 'উচ্চ';
+
+  @override
+  String get quartile => 'তিন চতুর্থাংশ';
+
+  @override
+  String get medium => 'মধ্যম';
+
+  @override
+  String get low => 'নিম্ন';
+
+  @override
+  String get eye_shape => 'চোখের আকৃতি';
+
+  @override
+  String get data_module_shape => 'তথ্য মডিউলের আকৃতি';
+
+  @override
+  String get square => 'বর্গাকার';
+
+  @override
+  String get circle => 'বৃত্তাকার';
+
+  @override
+  String get colors => 'রঙগুলো';
+
+  @override
+  String get eye => 'চোখ';
+
+  @override
+  String get data => 'তথ্য';
+
+  @override
+  String get background => 'পটভূমি';
+
+  @override
+  String get gapless => 'ফাঁকবিহীন';
+
+  @override
+  String get padding => 'প্যাডিং';
+
+  @override
+  String get false_ => 'না';
+
+  @override
+  String get true_ => 'হ্যাঁ';
+
+  @override
+  String get color_selection => 'রঙ নির্বাচন';
+
+  @override
+  String get select => 'নির্বাচন';
+
+  @override
+  String get uri_prefix => 'ইউআরআইয়ের উপসর্গ';
+
+  @override
+  String get uri_suffix => 'ইউআরআইয়ের প্রত্যয়';
+
+  @override
+  String get lower_limit => 'নিম্ন সীমা';
+
+  @override
+  String get upper_limit => 'উচ্চ সীমা';
+
+  @override
+  String get dns_provider => 'ডিএনএস প্রোভাইডার';
+
+  @override
+  String get abdullah_as_sadeed => 'আবদুল্লাহ আস-সাদীদ';
+
+  @override
+  String get scan => 'স্ক্যান';
+
+  @override
+  String get ping => 'পিং';
+
+  @override
+  String get select_files => 'সিলেক্ট ফাইলস';
+
+  @override
+  String get extract => 'এক্সট্র্যাক্ট';
+
+  @override
+  String get crawl => 'ক্রল';
+
+  @override
+  String get retrieve => 'রিট্রিভ';
+
+  @override
+  String get stop => 'স্টপ';
+
+  @override
+  String get select_files_to_calculate_their_md5_sha1_sha224_sha256_sha384_sha512_hashes => 'ফাইলসের MD5, SHA1, SHA224, SHA256, SHA384, ও SHA512 হ্যাশগুলো ক্যালকুলেট করতে ফাইলগুলো সিলেক্ট করুন।';
+
+  @override
+  String get start_typing_a_string_to_calculate_its_md5_sha1_sha224_sha256_sha384_sha512_hashes => 'স্ট্রিংয়ের MD5, SHA1, SHA224, SHA256, SHA384, ও SHA512 হ্যাশগুলো ক্যালকুলেট করতে স্ট্রিংটা লিখতে শুরু করুন।';
+
+  @override
+  String get start_typing_a_string_to_encode_it_into_the_bases => 'স্ট্রিংকে বেইসগুলোতে এনকোড করতে স্ট্রিংটা লিখতে শুরু করুন।';
+
+  @override
+  String get start_typing_a_string_to_generate_qr_code => 'কিউআর কোড জেনারেট করতে স্ট্রিংটা লিখতে শুরু করুন।';
+
+  @override
+  String get it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records => 'সম্ভাব্য সকল ধরনের ফরওয়ার্ড ও রিভার্স রেকর্ডস রিট্রিভ করতে সময়ের প্রয়োজন।';
+
+  @override
+  String get retrieving => 'রিট্রিভিং';
+
+  @override
+  String get records => 'রেকর্ডস';
+
+  @override
+  String get wait => 'অপেক্ষা করুন';
+
+  @override
+  String get scanned_ports => 'স্ক্যানড পোর্টের সংখ্যা';
+
+  @override
+  String get elapsed_time => 'সময়';
+
+  @override
+  String get hash => 'হ্যাশ';
+
+  @override
+  String get uri => 'ইউআরআই';
+
+  @override
+  String get dns_record => 'ডিএনএস রেকর্ড';
+
+  @override
+  String get enter_a_host_or_ip_address => 'একটা হোস্ট বা আইপি অ্যাড্রেস লিখুন!';
+
+  @override
+  String get enter_a_string => 'একটা স্ট্রিং লিখুন!';
+
+  @override
+  String get enter_morse_code => 'মোর্স কোড লিখুন!';
+
+  @override
+  String get enter_padding => 'প্যাডিং লিখুন!';
+
+  @override
+  String get enter_a_number => 'একটা নম্বর লিখুন!';
+
+  @override
+  String get enter_a_positive_number => 'একটা ধনাত্মক নম্বর লিখুন!';
+
+  @override
+  String get enter_a_uri_prefix => 'একটা ইউআরআই প্রিফিক্স লিখুন!';
+
+  @override
+  String get enter_a_lower_limit => 'একটা নিম্ন সীমা লিখুন!';
+
+  @override
+  String get enter_an_upper_limit => 'একটা উচ্চ সীমা লিখুন!';
+
+  @override
+  String get enter_an_integer => 'একটা পূর্ণসংখ্যা লিখুন!';
+
+  @override
+  String get enter_a_positive_integer => 'একটা ধনাত্মক পূর্ণসংখ্যা লিখুন!';
+
+  @override
+  String get upper_limit_must_be_greater_than_lower_limit => 'নিম্ন সীমার চেয়ে উচ্চ সীমা বড় হতে হবে!';
+
+  @override
+  String get enter_a_domain_name => 'একটা ডোমেইন নেইম লিখুন!';
+
+  @override
+  String get error => 'ত্রুটি';
+
+  @override
+  String get route_tracer_apology => 'দুঃখিত, বিল্ড ত্রুটির কারণে বর্তমানে রুট ট্রেসার ব্যবহারযোগ্য না।';
+}

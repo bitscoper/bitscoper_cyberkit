@@ -2,10 +2,12 @@
 
 import "dart:convert";
 import 'package:b/b.dart';
+import 'package:bitscoper_cyber_toolbox/application_toolbar.dart';
+import 'package:bitscoper_cyber_toolbox/copy_to_clipboard.dart';
+import 'package:bitscoper_cyber_toolbox/main.dart';
+import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import 'package:bitscoper_cyber_toolbox/copy_to_clipboard.dart';
 
 class BaseEncoderPage extends StatelessWidget {
   const BaseEncoderPage({super.key});
@@ -15,12 +17,8 @@ class BaseEncoderPage extends StatelessWidget {
     BuildContext context,
   ) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context)!.base_encoder,
-        ),
-        centerTitle: true,
-        elevation: 4.0,
+      appBar: ApplicationToolBar(
+        title: AppLocalizations.of(context)!.base_encoder,
       ),
       body: const BaseEncoderBody(),
     );
@@ -35,12 +33,18 @@ class BaseEncoderBody extends StatefulWidget {
 }
 
 class BaseEncoderBodyState extends State<BaseEncoderBody> {
-  final _formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    super.initState();
+  }
 
-  String _string = '';
-  String _stringAsBase64 = '';
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _stringEditingController =
+      TextEditingController();
 
-  final bases = {
+  late String _stringAsBase64;
+
+  final Map<String, String> bases = {
     'Binary (Base2)': base2,
     'Ternary (Base3)': base3,
     'Quaternary (Base4)': base4,
@@ -59,11 +63,29 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
   };
 
   void _encodeStringToBase64() {
-    if (_string.isNotEmpty) {
-      _stringAsBase64 = base64Encode(
-        utf8.encode(_string),
-      ).replaceAll('=', '');
+    try {
+      setState(
+        () {
+          if (_formKey.currentState!.validate()) {
+            _stringAsBase64 = base64Encode(
+              utf8.encode(_stringEditingController.text),
+            ).replaceAll('=', '');
+          }
+        },
+      );
+    } catch (error) {
+      showMessageDialog(
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
     }
+  }
+
+  @override
+  void dispose() {
+    _stringEditingController.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -78,6 +100,7 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
           Form(
             key: _formKey,
             child: TextFormField(
+              controller: _stringEditingController,
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
@@ -98,37 +121,19 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
               onChanged: (
                 String value,
               ) {
-                setState(
-                  () {
-                    _string = value;
-
-                    if (value.isNotEmpty) {
-                      _encodeStringToBase64();
-                    }
-                  },
-                );
+                _encodeStringToBase64();
               },
               onFieldSubmitted: (
                 String value,
               ) {
-                if (_formKey.currentState!.validate()) {
-                  setState(
-                    () {
-                      _string = value;
-
-                      if (value.isNotEmpty) {
-                        _encodeStringToBase64();
-                      }
-                    },
-                  );
-                }
+                _encodeStringToBase64();
               },
             ),
           ),
           const SizedBox(
             height: 16,
           ),
-          if (_string.isEmpty)
+          if (_stringEditingController.text.isEmpty)
             Center(
               child: Column(
                 children: <Widget>[
@@ -241,8 +246,10 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
           else
             Column(
               children: bases.entries.map(
-                (entry) {
-                  String result;
+                (
+                  MapEntry<String, String> entry,
+                ) {
+                  String result = '';
 
                   try {
                     final converter = BaseConversion(
@@ -252,7 +259,10 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
                     );
                     result = converter(_stringAsBase64);
                   } catch (error) {
-                    result = error.toString();
+                    showMessageDialog(
+                      AppLocalizations.of(navigatorKey.currentContext!)!.error,
+                      error.toString(),
+                    );
                   }
 
                   return Padding(

@@ -1,10 +1,13 @@
 /* By Abdullah As-Sadeed */
 
 // import 'dart:async';
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart' as localizations;
+// import 'package:bitscoper_cyber_toolbox/main.dart';
+// import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
 // import 'package:flutter_traceroute/flutter_traceroute.dart';
 // import 'package:flutter_traceroute/flutter_traceroute_platform_interface.dart';
+import 'package:bitscoper_cyber_toolbox/application_toolbar.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart' as localizations;
 
 class RouteTracerPage extends StatelessWidget {
   const RouteTracerPage({super.key});
@@ -14,12 +17,8 @@ class RouteTracerPage extends StatelessWidget {
     BuildContext context,
   ) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          localizations.AppLocalizations.of(context)!.route_tracer,
-        ),
-        centerTitle: true,
-        elevation: 4.0,
+      appBar: ApplicationToolBar(
+        title: localizations.AppLocalizations.of(context)!.route_tracer,
       ),
       body: const RouteTracerBody(),
     );
@@ -51,7 +50,7 @@ class RouteTracerBodyState extends State<RouteTracerBody> {
 }
 
 // class RouteTracerBodyState extends State<RouteTracerBody> {
-//   final _formKey = GlobalKey<FormState>();
+//   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 //   late String host;
 
 //   final FlutterTraceroute routeTracer = FlutterTraceroute();

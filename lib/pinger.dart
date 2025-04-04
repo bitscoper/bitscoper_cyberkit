@@ -1,5 +1,9 @@
 /* By Abdullah As-Sadeed */
 
+import 'dart:convert';
+import 'package:bitscoper_cyber_toolbox/application_toolbar.dart';
+import 'package:bitscoper_cyber_toolbox/main.dart';
+import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
 import 'package:dart_ping/dart_ping.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -12,12 +16,8 @@ class PingerPage extends StatelessWidget {
     BuildContext context,
   ) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context)!.pinger,
-        ),
-        centerTitle: true,
-        elevation: 4.0,
+      appBar: ApplicationToolBar(
+        title: AppLocalizations.of(context)!.pinger,
       ),
       body: const PingerBody(),
     );
@@ -32,47 +32,71 @@ class PingerBody extends StatefulWidget {
 }
 
 class PingerBodyState extends State<PingerBody> {
-  final _formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    super.initState();
+  }
 
-  late String host;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _hostEditingController = TextEditingController();
+
   bool _isPinging = false;
-  String _response = '', _ipAddress = '', _ttl = '', _time = '', _result = '';
+  String _response = '', _result = '';
 
   Future<void> ping() async {
     if (_formKey.currentState!.validate()) {
-      setState(
-        () {
-          _isPinging = true;
-        },
-      );
-
-      while (_isPinging) {
-        _response = (
-          await Ping(
-            host,
-            count: 1,
-          ).stream.first,
-        ).toString();
-
-        final RegExp expression = RegExp(r'ip:(.*?), ttl:(.*?), time:(.*?) ms');
-
-        final RegExpMatch? match = expression.firstMatch(_response);
-
-        if (match != null) {
-          _ipAddress = match.group(1)?.trim() ?? '';
-
-          _ttl = match.group(2)?.trim() ?? '';
-
-          _time = match.group(3)?.trim() ?? '';
-        }
-
+      try {
         setState(
           () {
-            _result = '$_ipAddress TTL: $_ttl Time: $_time ms\n$_result';
+            _isPinging = true;
+            _result = '';
+          },
+        );
+
+        while (_isPinging) {
+          _response = (
+            await Ping(
+              _hostEditingController.text.trim(),
+              // ipv6: false,
+              encoding: const Utf8Codec(),
+              count: 1,
+            ).stream.first,
+          ).toString();
+
+          final RegExp expression =
+              RegExp(r'ip:(.*?), ttl:(.*?), time:(.*?) ms');
+
+          final RegExpMatch? match = expression.firstMatch(_response);
+
+          if (match != null) {
+            setState(
+              () {
+                _result =
+                    '${match.group(1)?.trim() ?? ''} TTL: ${match.group(2)?.trim() ?? ''} Time: ${match.group(3)?.trim() ?? ''} ms\n$_result';
+              },
+            );
+          }
+        }
+      } catch (error) {
+        showMessageDialog(
+          AppLocalizations.of(navigatorKey.currentContext!)!.error,
+          error.toString(),
+        );
+      } finally {
+        setState(
+          () {
+            _isPinging = false;
           },
         );
       }
     }
+  }
+
+  @override
+  void dispose() {
+    _hostEditingController.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -89,6 +113,7 @@ class PingerBodyState extends State<PingerBody> {
             child: Column(
               children: <Widget>[
                 TextFormField(
+                  controller: _hostEditingController,
                   keyboardType: TextInputType.url,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
@@ -110,9 +135,7 @@ class PingerBodyState extends State<PingerBody> {
                   },
                   onChanged: (
                     String value,
-                  ) {
-                    host = value.trim();
-                  },
+                  ) {},
                   onFieldSubmitted: (
                     String value,
                   ) async {
@@ -129,15 +152,7 @@ class PingerBodyState extends State<PingerBody> {
                       onPressed: _isPinging
                           ? null
                           : () async {
-                              if (_formKey.currentState!.validate()) {
-                                setState(
-                                  () {
-                                    _isPinging = true;
-                                  },
-                                );
-
-                                await ping();
-                              }
+                              await ping();
                             },
                       child: Text(
                         AppLocalizations.of(context)!.ping,
@@ -145,15 +160,12 @@ class PingerBodyState extends State<PingerBody> {
                     ),
                     ElevatedButton(
                       onPressed: _isPinging
-                          ? () async {
-                              if (_formKey.currentState!.validate()) {
-                                setState(
-                                  () {
-                                    _isPinging = false;
-                                    _result = '';
-                                  },
-                                );
-                              }
+                          ? () {
+                              setState(
+                                () {
+                                  _isPinging = false;
+                                },
+                              );
                             }
                           : null,
                       child: Text(
