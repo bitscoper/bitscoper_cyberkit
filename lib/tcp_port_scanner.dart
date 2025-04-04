@@ -1,6 +1,9 @@
 /* By Abdullah As-Sadeed */
 
 import 'dart:async';
+import 'package:bitscoper_cyber_toolbox/application_toolbar.dart';
+import 'package:bitscoper_cyber_toolbox/main.dart';
+import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
@@ -14,12 +17,8 @@ class TCPPortScannerPage extends StatelessWidget {
     BuildContext context,
   ) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context)!.tcp_port_scanner,
-        ),
-        centerTitle: true,
-        elevation: 4.0,
+      appBar: ApplicationToolBar(
+        title: AppLocalizations.of(context)!.tcp_port_scanner,
       ),
       body: const TCPPortScannerBody(),
     );
@@ -34,108 +33,132 @@ class TCPPortScannerBody extends StatefulWidget {
 }
 
 class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
-  final _formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _hostEditingController = TextEditingController();
 
   final Stopwatch _stopwatch = Stopwatch();
 
   final List<int> _portList = List.generate(
     65536,
-    (iteration) => iteration,
+    (
+      int iteration,
+    ) =>
+        iteration,
   );
 
-  late String _host;
   bool _isScanning = false;
-  double _scanProgress = 0.0;
-  late List<int> _openPorts;
+  List<int> _openPorts = [];
   String _scanInformation = '';
 
-  Future<void> scanTCPPorts() async {
-    setState(
-      () {
-        _isScanning = true;
-      },
-    );
-    _stopwatch.start();
+  Future<void> _scanTCPPorts() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        setState(
+          () {
+            _isScanning = true;
+          },
+        );
 
-    try {
-      await TcpScannerTask(
-        _host,
-        _portList,
-        shuffle: true,
-        parallelism: 64,
-      )
-          .start()
-          .asStream()
-          .transform(
-            StreamTransformer.fromHandlers(
-              handleData: (
-                report,
-                sink,
-              ) {
-                _scanProgress = 1.0;
+        _stopwatch.reset();
+        _stopwatch.start();
 
-                _openPorts = report.openPorts;
-                _openPorts = _openPorts.cast<int>();
-                _openPorts.sort();
+        await TcpScannerTask(
+          _hostEditingController.text.trim(),
+          _portList,
+          shuffle: false,
+          parallelism: 64,
+        )
+            .start()
+            .asStream()
+            .transform(
+              StreamTransformer.fromHandlers(
+                handleData: (
+                  TcpScannerTaskReport report,
+                  EventSink<Object?> sink,
+                ) {
+                  setState(
+                    () {
+                      _openPorts = report.openPorts.cast<int>();
+                      _openPorts.sort();
 
-                setState(
-                  () {
-                    final numberFormat = NumberFormat(
-                        '#', AppLocalizations.of(context)!.localeName);
-                    final timeFormat = DateFormat(
-                        'HH:mm:ss', AppLocalizations.of(context)!.localeName);
+                      final NumberFormat numberFormat = NumberFormat(
+                        '#',
+                        AppLocalizations.of(context)!.localeName,
+                      );
+                      final DateFormat timeFormat = DateFormat(
+                        'HH:mm:ss',
+                        AppLocalizations.of(context)!.localeName,
+                      );
 
-                    _scanInformation =
-                        '${AppLocalizations.of(context)!.scanned_ports}: ${numberFormat.format(report.ports.length)}\n${AppLocalizations.of(context)!.elapsed_time}: ${timeFormat.format(DateTime.fromMillisecondsSinceEpoch(
-                      _stopwatch.elapsedMilliseconds,
-                      isUtc: true,
-                    ))}';
-                  },
-                );
+                      _scanInformation =
+                          '${AppLocalizations.of(context)!.scanned_ports}: ${numberFormat.format(report.ports.length)}\n${AppLocalizations.of(context)!.elapsed_time}: ${timeFormat.format(
+                        DateTime.fromMillisecondsSinceEpoch(
+                          _stopwatch.elapsedMilliseconds,
+                          isUtc: true,
+                        ),
+                      )}';
+                    },
+                  );
 
-                sink.add(report);
-              },
-              handleError: (
-                error,
-                stackTrace,
-                sink,
-              ) {
-                setState(
-                  () {
-                    _scanInformation =
-                        '${AppLocalizations.of(context)!.error}: $error';
-                  },
-                );
-
-                sink.addError(
+                  sink.add(report);
+                },
+                handleDone: (
+                  EventSink<Object?> sink,
+                ) {
+                  sink.close();
+                },
+                handleError: (
                   error,
                   stackTrace,
-                );
-              },
-              handleDone: (sink) {
-                sink.close();
+                  sink,
+                ) {
+                  showMessageDialog(
+                    AppLocalizations.of(navigatorKey.currentContext!)!.error,
+                    error.toString(),
+                  );
 
-                _isScanning = false;
-              },
-            ),
-          )
-          .toList();
-    } catch (error) {
-      setState(
-        () {
-          _scanInformation = '${AppLocalizations.of(context)!.error}: $error';
-        },
-      );
+                  sink.addError(
+                    error,
+                    stackTrace,
+                  );
 
-      _isScanning = false;
+                  sink.close();
+                },
+              ),
+            )
+            .toList();
+      } catch (error) {
+        showMessageDialog(
+          AppLocalizations.of(navigatorKey.currentContext!)!.error,
+          error.toString(),
+        );
+      } finally {
+        setState(
+          () {
+            _isScanning = false;
+          },
+        );
+      }
     }
+  }
+
+  @override
+  void dispose() {
+    _hostEditingController.dispose();
+
+    super.dispose();
   }
 
   @override
   Widget build(
     BuildContext context,
   ) {
-    final numberFormat =
+    final NumberFormat numberFormat =
         NumberFormat('#', AppLocalizations.of(context)!.localeName);
 
     return SingleChildScrollView(
@@ -148,6 +171,7 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
             child: Column(
               children: <Widget>[
                 TextFormField(
+                  controller: _hostEditingController,
                   keyboardType: TextInputType.url,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
@@ -169,21 +193,11 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
                   },
                   onChanged: (
                     String value,
-                  ) {
-                    _host = value.trim();
-                  },
-                  onFieldSubmitted: (value) async {
-                    if (_formKey.currentState!.validate()) {
-                      _stopwatch.reset();
-
-                      setState(
-                        () {
-                          _scanProgress = 0.0;
-                        },
-                      );
-
-                      await scanTCPPorts();
-                    }
+                  ) {},
+                  onFieldSubmitted: (
+                    String value,
+                  ) async {
+                    await _scanTCPPorts();
                   },
                 ),
                 const SizedBox(
@@ -194,17 +208,7 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
                       ? const CircularProgressIndicator()
                       : ElevatedButton(
                           onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              _stopwatch.reset();
-
-                              setState(
-                                () {
-                                  _scanProgress = 0.0;
-                                },
-                              );
-
-                              await scanTCPPorts();
-                            }
+                            await _scanTCPPorts();
                           },
                           child: Text(
                             AppLocalizations.of(context)!.scan,
@@ -217,31 +221,34 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
           const SizedBox(
             height: 16,
           ),
-          if (_scanProgress == 1.0) ...[
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
+          if (!_isScanning)
+            Column(
               children: <Widget>[
-                for (int port in _openPorts)
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      border: Border.all(
-                        color: Colors.grey,
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: <Widget>[
+                    for (int port in _openPorts)
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          border: Border.all(
+                            color: Colors.grey,
+                          ),
+                        ),
+                        child: Text(
+                          numberFormat.format(port),
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      numberFormat.format(port),
-                    ),
-                  ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Text(_scanInformation),
               ],
             ),
-          ],
-          const SizedBox(
-            height: 16,
-          ),
-          Text(_scanInformation),
         ],
       ),
     );

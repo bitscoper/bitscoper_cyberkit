@@ -1,10 +1,12 @@
 /* By Abdullah As-Sadeed */
 
+import 'package:bitscoper_cyber_toolbox/application_toolbar.dart';
+import 'package:bitscoper_cyber_toolbox/copy_to_clipboard.dart';
+import 'package:bitscoper_cyber_toolbox/main.dart';
+import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ogp_data_extract/ogp_data_extract.dart';
-
-import 'package:bitscoper_cyber_toolbox/copy_to_clipboard.dart';
 
 class OGPDataExtractorPage extends StatelessWidget {
   const OGPDataExtractorPage({super.key});
@@ -14,12 +16,8 @@ class OGPDataExtractorPage extends StatelessWidget {
     BuildContext context,
   ) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context)!.open_graph_protocol_data_extractor,
-        ),
-        centerTitle: true,
-        elevation: 4.0,
+      appBar: ApplicationToolBar(
+        title: AppLocalizations.of(context)!.open_graph_protocol_data_extractor,
       ),
       body: const OGPDataExtractorBody(),
     );
@@ -34,38 +32,42 @@ class OGPDataExtractorBody extends StatefulWidget {
 }
 
 class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
-  final _formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    super.initState();
+  }
 
-  late String _host;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _hostEditingController = TextEditingController();
+
   bool _isRetrieving = false;
   OgpData? _ogpData;
 
   void _retrieveOGPData() async {
-    setState(
-      () {
-        _isRetrieving = true;
-        _ogpData = null;
-      },
-    );
+    if (_formKey.currentState!.validate()) {
+      try {
+        setState(
+          () {
+            _isRetrieving = true;
+            _ogpData = null;
+          },
+        );
 
-    try {
-      final fetchedOgpData = await OgpDataExtract.execute(_host);
-
-      setState(
-        () {
-          _ogpData = fetchedOgpData;
-          _isRetrieving = false;
-        },
-      );
-    } catch (error) {
-      setState(
-        () {
-          _ogpData = null;
-          _isRetrieving = false;
-        },
-      );
-
-      rethrow;
+        _ogpData = await OgpDataExtract.execute(
+          _hostEditingController.text.trim(),
+        );
+      } catch (error) {
+        showMessageDialog(
+          AppLocalizations.of(navigatorKey.currentContext!)!.error,
+          error.toString(),
+        );
+      } finally {
+        setState(
+          () {
+            _isRetrieving = false;
+          },
+        );
+      }
     }
   }
 
@@ -94,6 +96,13 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
   }
 
   @override
+  void dispose() {
+    _hostEditingController.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(
     BuildContext context,
   ) {
@@ -107,6 +116,7 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
             child: Column(
               children: <Widget>[
                 TextFormField(
+                  controller: _hostEditingController,
                   keyboardType: TextInputType.url,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
@@ -128,15 +138,11 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
                   },
                   onChanged: (
                     String value,
-                  ) {
-                    _host = value.trim();
-                  },
+                  ) {},
                   onFieldSubmitted: (
                     String value,
                   ) {
-                    if (_formKey.currentState!.validate()) {
-                      _retrieveOGPData();
-                    }
+                    _retrieveOGPData();
                   },
                 ),
                 const SizedBox(
@@ -147,9 +153,7 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
                     onPressed: _isRetrieving
                         ? null
                         : () {
-                            if (_formKey.currentState!.validate()) {
-                              _retrieveOGPData();
-                            }
+                            _retrieveOGPData();
                           },
                     child: Text(
                       AppLocalizations.of(context)!.extract,
@@ -311,7 +315,7 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
                         _ogpData!.audioType,
                       ),
                       _buildCard(
-                        'Facebook Admins',
+                        'Facebook Administrators',
                         _ogpData!.fbAdmins is List<String>
                             ? (_ogpData!.fbAdmins as List<String>).join(', ')
                             : _ogpData!.fbAdmins,
@@ -330,7 +334,7 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
                       ),
                     ],
                   )
-                : Container(),
+                : SizedBox(),
         ],
       ),
     );

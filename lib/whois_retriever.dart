@@ -1,5 +1,8 @@
 /* By Abdullah As-Sadeed */
 
+import 'package:bitscoper_cyber_toolbox/application_toolbar.dart';
+import 'package:bitscoper_cyber_toolbox/main.dart';
+import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:whois/whois.dart';
@@ -12,12 +15,8 @@ class WHOISRetrieverPage extends StatelessWidget {
     BuildContext context,
   ) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context)!.whois_retriever,
-        ),
-        centerTitle: true,
-        elevation: 4.0,
+      appBar: ApplicationToolBar(
+        title: AppLocalizations.of(context)!.whois_retriever,
       ),
       body: const WHOISRetrieverBody(),
     );
@@ -32,47 +31,63 @@ class WHOISRetrieverBody extends StatefulWidget {
 }
 
 class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
-  final _formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    super.initState();
+  }
 
-  late String _domainName;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _domainNameEditingController =
+      TextEditingController();
+
   bool _isRetrieving = false;
   late Map<String, String> _whoisInformation = {};
 
   void _retrieveWHOIS() async {
-    setState(
-      () {
-        _isRetrieving = true;
-        _whoisInformation.clear();
-      },
-    );
+    if (_formKey.currentState!.validate()) {
+      try {
+        setState(
+          () {
+            _isRetrieving = true;
 
-    try {
-      final whoisResponse = await Whois.lookup(
-        _domainName,
-        const LookupOptions(
-          port: 43,
-        ),
-      );
-      final parsedResponse = Whois.formatLookup(whoisResponse);
+            _whoisInformation.clear();
+          },
+        );
 
-      setState(
-        () {
-          _whoisInformation = Map<String, String>.from(parsedResponse);
+        final String response = await Whois.lookup(
+          _domainNameEditingController.text.trim(),
+          const LookupOptions(
+            port: 43,
+          ),
+        );
+        final Map<String, dynamic> parsedResponse =
+            Whois.formatLookup(response);
 
-          _isRetrieving = false;
-        },
-      );
-    } catch (error) {
-      setState(
-        () {
-          _whoisInformation = {
-            'Error': error.toString(),
-          };
-
-          _isRetrieving = false;
-        },
-      );
+        setState(
+          () {
+            _whoisInformation = Map<String, String>.from(parsedResponse);
+          },
+        );
+      } catch (error) {
+        showMessageDialog(
+          AppLocalizations.of(navigatorKey.currentContext!)!.error,
+          error.toString(),
+        );
+      } finally {
+        setState(
+          () {
+            _isRetrieving = false;
+          },
+        );
+      }
     }
+  }
+
+  @override
+  void dispose() {
+    _domainNameEditingController.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -89,6 +104,7 @@ class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
             child: Column(
               children: <Widget>[
                 TextFormField(
+                  controller: _domainNameEditingController,
                   keyboardType: TextInputType.url,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
@@ -108,15 +124,11 @@ class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
                   },
                   onChanged: (
                     String value,
-                  ) {
-                    _domainName = value.trim();
-                  },
+                  ) {},
                   onFieldSubmitted: (
                     String value,
                   ) {
-                    if (_formKey.currentState!.validate()) {
-                      _retrieveWHOIS();
-                    }
+                    _retrieveWHOIS();
                   },
                 ),
                 const SizedBox(
@@ -127,9 +139,7 @@ class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
                     onPressed: _isRetrieving
                         ? null
                         : () {
-                            if (_formKey.currentState!.validate()) {
-                              _retrieveWHOIS();
-                            }
+                            _retrieveWHOIS();
                           },
                     child: Text(
                       AppLocalizations.of(context)!.retrieve,
@@ -150,7 +160,9 @@ class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
             Card(
               child: Column(
                 children: _whoisInformation.entries.map(
-                  (entry) {
+                  (
+                    MapEntry<String, String> entry,
+                  ) {
                     return ListTile(
                       title: Text(entry.key),
                       subtitle: Text(entry.value),
