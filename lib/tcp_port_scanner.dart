@@ -2,10 +2,10 @@
 
 import 'dart:async';
 import 'package:bitscoper_cyber_toolbox/application_toolbar.dart';
+import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
 import 'package:bitscoper_cyber_toolbox/main.dart';
 import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:tcp_scanner/tcp_scanner.dart';
 
