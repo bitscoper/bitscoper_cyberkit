@@ -1,10 +1,10 @@
 /* By Abdullah As-Sadeed */
 
 import 'package:bitscoper_cyber_toolbox/home.dart';
+import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:url_launcher/url_launcher.dart';

@@ -6,8 +6,9 @@
 // import 'package:flutter_traceroute/flutter_traceroute.dart';
 // import 'package:flutter_traceroute/flutter_traceroute_platform_interface.dart';
 import 'package:bitscoper_cyber_toolbox/application_toolbar.dart';
+import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart'
+    as localizations;
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart' as localizations;
 
 class RouteTracerPage extends StatelessWidget {
   const RouteTracerPage({super.key});

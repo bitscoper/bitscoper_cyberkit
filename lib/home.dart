@@ -4,6 +4,7 @@ import 'package:bitscoper_cyber_toolbox/application_toolbar.dart';
 import 'package:bitscoper_cyber_toolbox/base_encoder.dart';
 import 'package:bitscoper_cyber_toolbox/dns_record_retriever.dart';
 import 'package:bitscoper_cyber_toolbox/file_hash_calculator.dart';
+import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
 import 'package:bitscoper_cyber_toolbox/morse_code_translator.dart';
 import 'package:bitscoper_cyber_toolbox/open_graph_protocol_data_extractor.dart';
 import 'package:bitscoper_cyber_toolbox/pinger.dart';
@@ -14,7 +15,6 @@ import 'package:bitscoper_cyber_toolbox/string_hash_calculator.dart';
 import 'package:bitscoper_cyber_toolbox/tcp_port_scanner.dart';
 import 'package:bitscoper_cyber_toolbox/whois_retriever.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ToolCard {

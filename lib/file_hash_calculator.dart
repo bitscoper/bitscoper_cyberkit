@@ -3,13 +3,13 @@
 import 'dart:io';
 import 'package:bitscoper_cyber_toolbox/application_toolbar.dart';
 import 'package:bitscoper_cyber_toolbox/copy_to_clipboard.dart';
+import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
 import 'package:bitscoper_cyber_toolbox/main.dart';
 import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
 import 'package:crypto/crypto.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FileHashCalculatorPage extends StatelessWidget {
   const FileHashCalculatorPage({super.key});
