@@ -30,38 +30,23 @@ class _ToolCardWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return Card(
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (
-                BuildContext context,
-              ) =>
-                  page,
-            ),
+            MaterialPageRoute(builder: (BuildContext context) => page),
           );
         },
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 8.0,
-            vertical: 16,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                icon,
-                size: 32,
-              ),
-              const SizedBox(
-                height: 12,
-              ),
+              Icon(icon, size: 32),
+              const SizedBox(height: 12),
               Text(
                 title,
                 style: Theme.of(context).textTheme.titleMedium,
@@ -85,9 +70,7 @@ class HomePage extends StatelessWidget {
     required this.toggleTheme,
   });
 
-  int _getCrossAxisCount(
-    BuildContext context,
-  ) {
+  int _getCrossAxisCount(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
 
     if (width > 1200) {
@@ -100,9 +83,7 @@ class HomePage extends StatelessWidget {
   }
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     final tools = [
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.tcp_port_scanner,
@@ -125,8 +106,9 @@ class HomePage extends StatelessWidget {
         const FileHashCalculatorPage(),
       ),
       (
-        AppLocalizations.of(navigatorKey.currentContext!)!
-            .string_hash_calculator,
+        AppLocalizations.of(
+          navigatorKey.currentContext!,
+        )!.string_hash_calculator,
         Icons.text_snippet_rounded,
         const StringHashCalculatorPage(),
       ),
@@ -136,8 +118,9 @@ class HomePage extends StatelessWidget {
         const BaseEncoderPage(),
       ),
       (
-        AppLocalizations.of(navigatorKey.currentContext!)!
-            .morse_code_translator,
+        AppLocalizations.of(
+          navigatorKey.currentContext!,
+        )!.morse_code_translator,
         Icons.text_fields_rounded,
         const MorseCodeTranslatorPage(),
       ),
@@ -147,8 +130,9 @@ class HomePage extends StatelessWidget {
         const QRCodeGeneratorPage(),
       ),
       (
-        AppLocalizations.of(navigatorKey.currentContext!)!
-            .open_graph_protocol_data_extractor,
+        AppLocalizations.of(
+          navigatorKey.currentContext!,
+        )!.open_graph_protocol_data_extractor,
         Icons.share_rounded,
         const OGPDataExtractorPage(),
       ),
@@ -171,34 +155,34 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(navigatorKey.currentContext!)!
-            .bitscoper_cyber_toolbox,
+        title:
+            AppLocalizations.of(
+              navigatorKey.currentContext!,
+            )!.bitscoper_cyber_toolbox,
       ),
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
             DrawerHeader(
               child: Text(
-                AppLocalizations.of(navigatorKey.currentContext!)!
-                    .bitscoper_cyber_toolbox,
+                AppLocalizations.of(
+                  navigatorKey.currentContext!,
+                )!.bitscoper_cyber_toolbox,
               ),
             ),
             ListTile(
               title: Text(
-                AppLocalizations.of(navigatorKey.currentContext!)!
-                    .change_language,
+                AppLocalizations.of(
+                  navigatorKey.currentContext!,
+                )!.change_language,
               ),
               leading: const Icon(Icons.language_rounded),
               onTap: () {
                 Locale currentLocale = Localizations.localeOf(context);
                 if (currentLocale.languageCode == 'en') {
-                  changeLocale(
-                    const Locale('bn'),
-                  );
+                  changeLocale(const Locale('bn'));
                 } else {
-                  changeLocale(
-                    const Locale('en'),
-                  );
+                  changeLocale(const Locale('en'));
                 }
               },
             ),
@@ -214,8 +198,9 @@ class HomePage extends StatelessWidget {
             const Divider(),
             ListTile(
               title: Text(
-                AppLocalizations.of(navigatorKey.currentContext!)!
-                    .microsoft_store,
+                AppLocalizations.of(
+                  navigatorKey.currentContext!,
+                )!.microsoft_store,
               ),
               leading: const Icon(Icons.shop_2_rounded),
               onTap: () {
@@ -232,7 +217,8 @@ class HomePage extends StatelessWidget {
               onTap: () {
                 launchUrl(
                   Uri.parse(
-                      'https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox'),
+                    'https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox',
+                  ),
                 );
               },
             ),
@@ -245,7 +231,8 @@ class HomePage extends StatelessWidget {
               onTap: () {
                 launchUrl(
                   Uri.parse(
-                      'https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/'),
+                    'https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/',
+                  ),
                 );
               },
             ),
@@ -255,21 +242,21 @@ class HomePage extends StatelessWidget {
               ),
               leading: const Icon(Icons.person_rounded),
               onTap: () {
-                launchUrl(
-                  Uri.parse('https://bitscoper.dev/'),
-                );
+                launchUrl(Uri.parse('https://bitscoper.dev/'));
               },
             ),
             ListTile(
               title: Text(
-                AppLocalizations.of(navigatorKey.currentContext!)!
-                    .privacy_policy,
+                AppLocalizations.of(
+                  navigatorKey.currentContext!,
+                )!.privacy_policy,
               ),
               leading: const Icon(Icons.privacy_tip_rounded),
               onTap: () {
                 launchUrl(
                   Uri.parse(
-                      'https://bitscoper.dev/Bitscoper_Cyber_ToolBox/Privacy_Policy.html'),
+                    'https://bitscoper.dev/Bitscoper_Cyber_ToolBox/Privacy_Policy.html',
+                  ),
                 );
               },
             ),
@@ -283,21 +270,10 @@ class HomePage extends StatelessWidget {
           mainAxisSpacing: 16,
           crossAxisSpacing: 16,
           itemCount: tools.length,
-          itemBuilder: (
-            BuildContext context,
-            int index,
-          ) {
-            final (
-              title,
-              icon,
-              page,
-            ) = tools[index];
+          itemBuilder: (BuildContext context, int index) {
+            final (title, icon, page) = tools[index];
 
-            return _ToolCardWidget(
-              title: title,
-              icon: icon,
-              page: page,
-            );
+            return _ToolCardWidget(title: title, icon: icon, page: page);
           },
         ),
       ),
