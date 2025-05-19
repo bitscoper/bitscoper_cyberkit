@@ -47,6 +47,9 @@ dev_dependencies:
   rename: null
 
 flutter:
+  assets:
+    - assets/
+    - assets/icon/
   generate: true
   uses-material-design: true
 
