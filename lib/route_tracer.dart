@@ -6,8 +6,8 @@
 // import 'package:flutter_traceroute/flutter_traceroute.dart';
 // import 'package:flutter_traceroute/flutter_traceroute_platform_interface.dart';
 import 'package:bitscoper_cyber_toolbox/application_toolbar.dart';
-import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart'
-    as localizations;
+import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
+import 'package:bitscoper_cyber_toolbox/main.dart';
 import 'package:flutter/material.dart';
 
 class RouteTracerPage extends StatelessWidget {
@@ -19,7 +19,7 @@ class RouteTracerPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: localizations.AppLocalizations.of(context)!.route_tracer,
+        title: AppLocalizations.of(navigatorKey.currentContext!)!.route_tracer,
       ),
       body: const RouteTracerBody(),
     );
@@ -42,7 +42,8 @@ class RouteTracerBodyState extends State<RouteTracerBody> {
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(32),
         child: Text(
-          localizations.AppLocalizations.of(context)!.route_tracer_apology,
+          AppLocalizations.of(navigatorKey.currentContext!)!
+              .route_tracer_apology,
           textAlign: TextAlign.center,
         ),
       ),
@@ -110,7 +111,7 @@ class RouteTracerBodyState extends State<RouteTracerBody> {
 //                 TextFormField(
 //                   decoration: const InputDecoration(
 //                     border: OutlineInputBorder(),
-//                     labelText: AppLocalizations.of(context)!.a_host_or_ip_address,
+//                     labelText: AppLocalizations.of(navigatorKey.currentContext!)!.a_host_or_ip_address,
 //                     hintText: 'bitscoper.dev',
 //                   ),
 //                   maxLines: 1,
@@ -120,7 +121,7 @@ class RouteTracerBodyState extends State<RouteTracerBody> {
 //                   },
 //                   validator: (value) {
 //                     if (value == null || value.isEmpty) {
-//                       return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
+//                       return AppLocalizations.of(navigatorKey.currentContext!)!.enter_a_host_or_ip_address;
 //                     }
 
 //                     return null;
@@ -149,7 +150,7 @@ class RouteTracerBodyState extends State<RouteTracerBody> {
 //                     ),
 //                     ElevatedButton(
 //                       onPressed: isTracing ? onStop : null,
-//                       child: Text(AppLocalizations.of(context)!.stop,),
+//                       child: Text(AppLocalizations.of(navigatorKey.currentContext!)!.stop,),
 //                     ),
 //                   ],
 //                 ),

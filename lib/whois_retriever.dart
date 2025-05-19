@@ -4,6 +4,7 @@ import 'package:bitscoper_cyber_toolbox/application_toolbar.dart';
 import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
 import 'package:bitscoper_cyber_toolbox/main.dart';
 import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
+import 'package:bitscoper_cyber_toolbox/notification_sender.dart';
 import 'package:flutter/material.dart';
 import 'package:whois/whois.dart';
 
@@ -16,7 +17,8 @@ class WHOISRetrieverPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(context)!.whois_retriever,
+        title:
+            AppLocalizations.of(navigatorKey.currentContext!)!.whois_retriever,
       ),
       body: const WHOISRetrieverBody(),
     );
@@ -68,6 +70,15 @@ class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
             _whoisInformation = Map<String, String>.from(parsedResponse);
           },
         );
+
+        await sendNotification(
+          title: AppLocalizations.of(navigatorKey.currentContext!)!
+              .whois_retriever,
+          subtitle: AppLocalizations.of(navigatorKey.currentContext!)!
+              .bitscoper_cyber_toolbox,
+          body: AppLocalizations.of(navigatorKey.currentContext!)!.retrieved,
+          payload: "WHOIS_Retriever",
+        );
       } catch (error) {
         showMessageDialog(
           AppLocalizations.of(navigatorKey.currentContext!)!.error,
@@ -108,7 +119,9 @@ class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
                   keyboardType: TextInputType.url,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
-                    labelText: AppLocalizations.of(context)!.a_domain_name,
+                    labelText:
+                        AppLocalizations.of(navigatorKey.currentContext!)!
+                            .a_domain_name,
                     hintText: 'bitscoper.dev',
                   ),
                   showCursor: true,
@@ -117,7 +130,8 @@ class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
                     String? value,
                   ) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!.enter_a_domain_name;
+                      return AppLocalizations.of(navigatorKey.currentContext!)!
+                          .enter_a_domain_name;
                     }
 
                     return null;
@@ -142,7 +156,8 @@ class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
                             _retrieveWHOIS();
                           },
                     child: Text(
-                      AppLocalizations.of(context)!.retrieve,
+                      AppLocalizations.of(navigatorKey.currentContext!)!
+                          .retrieve,
                     ),
                   ),
                 ),

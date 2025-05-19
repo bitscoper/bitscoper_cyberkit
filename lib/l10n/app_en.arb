@@ -1,4 +1,5 @@
 {
+  "@@locale": "en",
   "bitscoper_cyber_toolbox": "Bitscoper Cyber ToolBox",
 
   "change_language": "Change Locale to Bangla",
@@ -72,12 +73,23 @@
   "start_typing_a_string_to_generate_qr_code": "Start typing a string to generate QR Code.",
   "it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records": "It takes time to retrieve all possible types of forward and reverse records.",
 
-  "retrieving": "Retrieving",
-  "records": "records",
-  "wait": "Wait",
-
   "scanned_ports": "Scanned Ports",
   "elapsed_time": "Elapsed Time",
+  "scanned": "Scanned",
+
+  "wait": "Wait",
+  "retrieving": "Retrieving",
+  "records": "records",
+  "retrieved": "Retrieved",
+
+  "ttl": "TTL",
+  "time": "Time",
+
+  "calculated": "Calculated",
+
+  "crawled": "Crawled",
+
+  "extracted": "Extracted",
 
   "hash": "hash",
   "uri": "URI",

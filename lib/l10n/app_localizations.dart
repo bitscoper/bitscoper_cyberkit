@@ -485,6 +485,30 @@ abstract class AppLocalizations {
   /// **'It takes time to retrieve all possible types of forward and reverse records.'**
   String get it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records;
 
+  /// No description provided for @scanned_ports.
+  ///
+  /// In en, this message translates to:
+  /// **'Scanned Ports'**
+  String get scanned_ports;
+
+  /// No description provided for @elapsed_time.
+  ///
+  /// In en, this message translates to:
+  /// **'Elapsed Time'**
+  String get elapsed_time;
+
+  /// No description provided for @scanned.
+  ///
+  /// In en, this message translates to:
+  /// **'Scanned'**
+  String get scanned;
+
+  /// No description provided for @wait.
+  ///
+  /// In en, this message translates to:
+  /// **'Wait'**
+  String get wait;
+
   /// No description provided for @retrieving.
   ///
   /// In en, this message translates to:
@@ -497,23 +521,41 @@ abstract class AppLocalizations {
   /// **'records'**
   String get records;
 
-  /// No description provided for @wait.
+  /// No description provided for @retrieved.
   ///
   /// In en, this message translates to:
-  /// **'Wait'**
-  String get wait;
+  /// **'Retrieved'**
+  String get retrieved;
 
-  /// No description provided for @scanned_ports.
+  /// No description provided for @ttl.
   ///
   /// In en, this message translates to:
-  /// **'Scanned Ports'**
-  String get scanned_ports;
+  /// **'TTL'**
+  String get ttl;
 
-  /// No description provided for @elapsed_time.
+  /// No description provided for @time.
   ///
   /// In en, this message translates to:
-  /// **'Elapsed Time'**
-  String get elapsed_time;
+  /// **'Time'**
+  String get time;
+
+  /// No description provided for @calculated.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculated'**
+  String get calculated;
+
+  /// No description provided for @crawled.
+  ///
+  /// In en, this message translates to:
+  /// **'Crawled'**
+  String get crawled;
+
+  /// No description provided for @extracted.
+  ///
+  /// In en, this message translates to:
+  /// **'Extracted'**
+  String get extracted;
 
   /// No description provided for @hash.
   ///

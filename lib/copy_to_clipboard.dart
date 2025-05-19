@@ -1,6 +1,7 @@
 /* By Abdullah As-Sadeed */
 
 import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
+import 'package:bitscoper_cyber_toolbox/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -19,7 +20,7 @@ void copyToClipBoard(
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-            '$dataType ${AppLocalizations.of(context)!.copied_to_clipboard}'),
+            '$dataType ${AppLocalizations.of(navigatorKey.currentContext!)!.copied_to_clipboard}'),
       ),
     );
   }

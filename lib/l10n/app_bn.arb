@@ -1,4 +1,5 @@
 {
+  "@@locale": "bn",
   "bitscoper_cyber_toolbox": "বিটস্কোপার সাইবার টুলবক্স",
 
   "change_language": "লোক্যাল ইংরেজিতে পরিবর্তন",
@@ -72,12 +73,23 @@
   "start_typing_a_string_to_generate_qr_code": "কিউআর কোড জেনারেট করতে স্ট্রিংটা লিখতে শুরু করুন।",
   "it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records": "সম্ভাব্য সকল ধরনের ফরওয়ার্ড ও রিভার্স রেকর্ডস রিট্রিভ করতে সময়ের প্রয়োজন।",
 
-  "retrieving": "রিট্রিভিং",
-  "records": "রেকর্ডস",
-  "wait": "অপেক্ষা করুন",
-
   "scanned_ports": "স্ক্যানড পোর্টের সংখ্যা",
   "elapsed_time": "সময়",
+  "scanned": "স্ক্যানড",
+
+  "wait": "অপেক্ষা করুন",
+  "retrieving": "রিট্রিভিং",
+  "records": "রেকর্ডস",
+  "retrieved": "রিট্রিভড",
+
+  "ttl": "টিটিএল",
+  "time": "সময়",
+
+  "calculated": "ক্যালকুলেটেড",
+
+  "crawled": "ক্রলড",
+
+  "extracted": "এক্সট্রাক্টেড",
 
   "hash": "হ্যাশ",
   "uri": "ইউআরআই",

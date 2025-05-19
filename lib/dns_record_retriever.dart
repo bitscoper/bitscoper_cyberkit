@@ -6,6 +6,7 @@ import 'package:bitscoper_cyber_toolbox/copy_to_clipboard.dart';
 import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
 import 'package:bitscoper_cyber_toolbox/main.dart';
 import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
+import 'package:bitscoper_cyber_toolbox/notification_sender.dart';
 import 'package:dnsolve/dnsolve.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,8 @@ class DNSRecordRetrieverPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(context)!.dns_record_retriever,
+        title: AppLocalizations.of(navigatorKey.currentContext!)!
+            .dns_record_retriever,
       ),
       body: const DNSRecordRetrieverBody(),
     );
@@ -90,6 +92,15 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
             }
           }
         }
+
+        await sendNotification(
+          title: AppLocalizations.of(navigatorKey.currentContext!)!
+              .dns_record_retriever,
+          subtitle: AppLocalizations.of(navigatorKey.currentContext!)!
+              .bitscoper_cyber_toolbox,
+          body: AppLocalizations.of(navigatorKey.currentContext!)!.retrieved,
+          payload: "DNS_Record_Retriever",
+        );
       } catch (error) {
         showMessageDialog(
           AppLocalizations.of(navigatorKey.currentContext!)!.error,
@@ -141,7 +152,8 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     labelText:
-                        AppLocalizations.of(context)!.a_host_or_ip_address,
+                        AppLocalizations.of(navigatorKey.currentContext!)!
+                            .a_host_or_ip_address,
                     hintText: 'bitscoper.dev',
                   ),
                   showCursor: true,
@@ -150,7 +162,7 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                     String? value,
                   ) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!
+                      return AppLocalizations.of(navigatorKey.currentContext!)!
                           .enter_a_host_or_ip_address;
                     }
 
@@ -170,7 +182,9 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                 ),
                 DropdownButtonFormField<DNSProvider>(
                   decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.dns_provider,
+                    labelText:
+                        AppLocalizations.of(navigatorKey.currentContext!)!
+                            .dns_provider,
                   ),
                   value: _recordProvider,
                   onChanged: (
@@ -211,7 +225,8 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                                 retrieveDNSRecord();
                               },
                         child: Text(
-                          AppLocalizations.of(context)!.retrieve,
+                          AppLocalizations.of(navigatorKey.currentContext!)!
+                              .retrieve,
                         ),
                       ),
                       ElevatedButton(
@@ -225,7 +240,8 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                               }
                             : null,
                         child: Text(
-                          AppLocalizations.of(context)!.stop,
+                          AppLocalizations.of(navigatorKey.currentContext!)!
+                              .stop,
                         ),
                       ),
                     ],
@@ -249,9 +265,11 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                     ) {
                       if (snapshot.hasData && snapshot.data != null) {
                         return Text(
-                            '${AppLocalizations.of(context)!.retrieving} ${snapshot.data} ${AppLocalizations.of(context)!.records}');
+                            '${AppLocalizations.of(navigatorKey.currentContext!)!.retrieving} ${snapshot.data} ${AppLocalizations.of(navigatorKey.currentContext!)!.records}');
                       } else {
-                        return Text(AppLocalizations.of(context)!.wait);
+                        return Text(
+                            AppLocalizations.of(navigatorKey.currentContext!)!
+                                .wait);
                       }
                     },
                   ),
@@ -266,7 +284,7 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
             _records.isEmpty
                 ? Center(
                     child: Text(
-                      AppLocalizations.of(context)!
+                      AppLocalizations.of(navigatorKey.currentContext!)!
                           .it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records,
                       textAlign: TextAlign.center,
                     ),
@@ -287,7 +305,7 @@ class DNSRecordRetrieverBodyState extends State<DNSRecordRetrieverBody> {
                                 onPressed: () {
                                   copyToClipBoard(
                                     context,
-                                    '${record.type} ${AppLocalizations.of(context)!.dns_record}',
+                                    '${record.type} ${AppLocalizations.of(navigatorKey.currentContext!)!.dns_record}',
                                     record.record,
                                   );
                                 },
