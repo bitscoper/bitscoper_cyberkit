@@ -34,6 +34,7 @@ class PingerPageState extends State<PingerPage> {
       try {
         setState(() {
           _isPinging = true;
+          _results = [];
         });
 
         while (_isPinging) {

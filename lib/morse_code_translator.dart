@@ -5,6 +5,7 @@ import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
 import 'package:bitscoper_cyber_toolbox/main.dart';
 import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:morse_code_translator/morse_code_translator.dart';
 
 class MorseCodeTranslatorPage extends StatefulWidget {
@@ -12,6 +13,19 @@ class MorseCodeTranslatorPage extends StatefulWidget {
 
   @override
   MorseCodeTranslatorPageState createState() => MorseCodeTranslatorPageState();
+}
+
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    return newValue.copyWith(
+      text: newValue.text.toUpperCase(),
+      selection: newValue.selection,
+    );
+  }
 }
 
 class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
@@ -95,6 +109,7 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
                   TextFormField(
                     controller: _stringEditingController,
                     keyboardType: TextInputType.text,
+                    inputFormatters: [UpperCaseTextFormatter()],
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
                       labelText:
@@ -104,7 +119,7 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
                       hintText:
                           AppLocalizations.of(
                             navigatorKey.currentContext!,
-                          )!.abdullah_as_sadeed,
+                          )!.abdullah_as_sadeed.toUpperCase(),
                     ),
                     showCursor: true,
                     maxLines: null,
