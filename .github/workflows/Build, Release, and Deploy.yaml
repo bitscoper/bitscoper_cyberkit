@@ -262,15 +262,20 @@ jobs:
 
       - name: Run flutter doctor
         run: flutter doctor -v
+        shell: powershell
 
       - name: Checkout Repository
         uses: actions/checkout@v4.2.2
 
       - name: Get Dependencies
         run: flutter pub get -v
+        shell: powershell
 
       - name: Build for Windows
-        run: dart run msix:create # This includes: flutter build windows --release --obfuscate --split-debug-info=./build/Debug_Symbols/Windows/
+        run: |
+          flutter build windows --release --obfuscate --split-debug-info=./build/Debug_Symbols/Windows/ -v
+          dart run msix:create
+        shell: powershell
 
       - name: Move MSIX Package
         run: |
