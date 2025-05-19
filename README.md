@@ -10,7 +10,7 @@
 
 A Flutter application consisting of TCP Port Scanner, Route Tracer, Pinger, File Hash Calculator, String Hash Calculator, Base Encoder, Morse Code Translator, QR Code Generator, Open Graph Protocol Data Extractor, Series URI Crawler, DNS Record Retriever, and WHOIS Retriever.
 
-[![Build and Release](https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/actions/workflows/Build%20and%20Release.yaml/badge.svg)](https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/actions/workflows/Build%20and%20Release.yaml)
+[![Build, Release, and Deploy](https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/actions/workflows/Build,%20Release,%20and%20Deploy.yaml/badge.svg)](https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/actions/workflows/Build,%20Release,%20and%20Deploy.yaml)
 
   <table>
     <tbody>
@@ -95,7 +95,7 @@ Web_Application --> My_Server[My Server]
       <th colspan="2">Platform</th>
       <th colspan="2">Builds</th>
       <th>Debug Symbols</th>
-      <th>Stores / Repositories</th>
+      <th>Stores / Repositories / Deployments</th>
     </tr>
     <tr>
       <th rowspan="2" colspan="2">Linux</th>
@@ -190,7 +190,7 @@ Web_Application --> My_Server[My Server]
         <br /> (Not Recommended)
       </td>
       <td>-</td>
-      <td>-</td>
+      <td><a href="https://bitscoper.dev/Bitscoper_Cyber_ToolBox/Application/">(My Server)</a></td>
     </tr>
     <tr>
       <th colspan="2" rowspan="2">Docker / Podman</th>
