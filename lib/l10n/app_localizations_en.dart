@@ -204,19 +204,40 @@ class AppLocalizationsEn extends AppLocalizations {
   String get it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records => 'It takes time to retrieve all possible types of forward and reverse records.';
 
   @override
+  String get scanned_ports => 'Scanned Ports';
+
+  @override
+  String get elapsed_time => 'Elapsed Time';
+
+  @override
+  String get scanned => 'Scanned';
+
+  @override
+  String get wait => 'Wait';
+
+  @override
   String get retrieving => 'Retrieving';
 
   @override
   String get records => 'records';
 
   @override
-  String get wait => 'Wait';
+  String get retrieved => 'Retrieved';
 
   @override
-  String get scanned_ports => 'Scanned Ports';
+  String get ttl => 'TTL';
 
   @override
-  String get elapsed_time => 'Elapsed Time';
+  String get time => 'Time';
+
+  @override
+  String get calculated => 'Calculated';
+
+  @override
+  String get crawled => 'Crawled';
+
+  @override
+  String get extracted => 'Extracted';
 
   @override
   String get hash => 'hash';

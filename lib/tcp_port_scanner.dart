@@ -5,6 +5,7 @@ import 'package:bitscoper_cyber_toolbox/application_toolbar.dart';
 import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
 import 'package:bitscoper_cyber_toolbox/main.dart';
 import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
+import 'package:bitscoper_cyber_toolbox/notification_sender.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tcp_scanner/tcp_scanner.dart';
@@ -18,7 +19,8 @@ class TCPPortScannerPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(context)!.tcp_port_scanner,
+        title:
+            AppLocalizations.of(navigatorKey.currentContext!)!.tcp_port_scanner,
       ),
       body: const TCPPortScannerBody(),
     );
@@ -88,15 +90,17 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
 
                       final NumberFormat numberFormat = NumberFormat(
                         '#',
-                        AppLocalizations.of(context)!.localeName,
+                        AppLocalizations.of(navigatorKey.currentContext!)!
+                            .localeName,
                       );
                       final DateFormat timeFormat = DateFormat(
                         'HH:mm:ss',
-                        AppLocalizations.of(context)!.localeName,
+                        AppLocalizations.of(navigatorKey.currentContext!)!
+                            .localeName,
                       );
 
                       _scanInformation =
-                          '${AppLocalizations.of(context)!.scanned_ports}: ${numberFormat.format(report.ports.length)}\n${AppLocalizations.of(context)!.elapsed_time}: ${timeFormat.format(
+                          '${AppLocalizations.of(navigatorKey.currentContext!)!.scanned_ports}: ${numberFormat.format(report.ports.length)}\n${AppLocalizations.of(navigatorKey.currentContext!)!.elapsed_time}: ${timeFormat.format(
                         DateTime.fromMillisecondsSinceEpoch(
                           _stopwatch.elapsedMilliseconds,
                           isUtc: true,
@@ -109,8 +113,18 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
                 },
                 handleDone: (
                   EventSink<Object?> sink,
-                ) {
+                ) async {
                   sink.close();
+
+                  await sendNotification(
+                    title: AppLocalizations.of(navigatorKey.currentContext!)!
+                        .tcp_port_scanner,
+                    subtitle: AppLocalizations.of(navigatorKey.currentContext!)!
+                        .bitscoper_cyber_toolbox,
+                    body: AppLocalizations.of(navigatorKey.currentContext!)!
+                        .scanned,
+                    payload: "TCP_Port_Scanner",
+                  );
                 },
                 handleError: (
                   error,
@@ -158,8 +172,8 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
   Widget build(
     BuildContext context,
   ) {
-    final NumberFormat numberFormat =
-        NumberFormat('#', AppLocalizations.of(context)!.localeName);
+    final NumberFormat numberFormat = NumberFormat(
+        '#', AppLocalizations.of(navigatorKey.currentContext!)!.localeName);
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(32),
@@ -176,7 +190,8 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     labelText:
-                        AppLocalizations.of(context)!.a_host_or_ip_address,
+                        AppLocalizations.of(navigatorKey.currentContext!)!
+                            .a_host_or_ip_address,
                     hintText: 'bitscoper.dev',
                   ),
                   showCursor: true,
@@ -185,7 +200,7 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
                     String? value,
                   ) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!
+                      return AppLocalizations.of(navigatorKey.currentContext!)!
                           .enter_a_host_or_ip_address;
                     }
 
@@ -211,7 +226,8 @@ class TCPPortScannerBodyState extends State<TCPPortScannerBody> {
                             await _scanTCPPorts();
                           },
                           child: Text(
-                            AppLocalizations.of(context)!.scan,
+                            AppLocalizations.of(navigatorKey.currentContext!)!
+                                .scan,
                           ),
                         ),
                 ),

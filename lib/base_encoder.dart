@@ -18,7 +18,7 @@ class BaseEncoderPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(context)!.base_encoder,
+        title: AppLocalizations.of(navigatorKey.currentContext!)!.base_encoder,
       ),
       body: const BaseEncoderBody(),
     );
@@ -104,8 +104,10 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
-                labelText: AppLocalizations.of(context)!.a_multiline_string,
-                hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
+                labelText: AppLocalizations.of(navigatorKey.currentContext!)!
+                    .a_multiline_string,
+                hintText: AppLocalizations.of(navigatorKey.currentContext!)!
+                    .abdullah_as_sadeed,
               ),
               showCursor: true,
               maxLines: null,
@@ -113,7 +115,8 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
                 String? value,
               ) {
                 if (value == null || value.isEmpty) {
-                  return AppLocalizations.of(context)!.enter_a_string;
+                  return AppLocalizations.of(navigatorKey.currentContext!)!
+                      .enter_a_string;
                 }
 
                 return null;
@@ -138,7 +141,7 @@ class BaseEncoderBodyState extends State<BaseEncoderBody> {
               child: Column(
                 children: <Widget>[
                   Text(
-                    AppLocalizations.of(context)!
+                    AppLocalizations.of(navigatorKey.currentContext!)!
                         .start_typing_a_string_to_encode_it_into_the_bases,
                     textAlign: TextAlign.center,
                   ),

@@ -459,12 +459,13 @@ jobs:
 
       - name: Execution
         run: |
-          ssh -o StrictHostKeyChecking=no root@bitscoper.dev -p ${{ secrets.SSH_PORT }} << 'EOF'
-            cd /var/internet_server/bct.bitscoper.dev/
-            rm -rf *
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} << 'EOF'
+            cd /var/internet_server/bitscoper.dev/out_site/Bitscoper_Cyber_ToolBox/
+            rm -rf ./Application/
             wget https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Web_Application.zip
             unzip ./Web_Application.zip
-            mv ./Web_Application/ ./out_site/
+            rm -rf ./Web_Application.zip
+            mv ./Web_Application/ ./Application/
             chown -R nobody:nobody /var/internet_server/
             chmod -R 755 /var/internet_server/
             systemctl restart openlitespeed.service

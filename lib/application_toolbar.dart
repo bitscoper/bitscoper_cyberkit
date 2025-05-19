@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 class ApplicationToolBar extends StatelessWidget
     implements PreferredSizeWidget {
   final String title;
-  const ApplicationToolBar({super.key, required this.title});
+  const ApplicationToolBar({
+    super.key,
+    required this.title,
+  });
 
   @override
   Widget build(
