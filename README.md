@@ -109,7 +109,7 @@ Web_Application --> My_Server[My Server]
     </tr>
     <tr>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Bitscoper_Cyber_ToolBox-12.1.2-x64.AppImage">Bitscoper_Cyber_ToolBox-12.1.2-x64.AppImage</a>
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Bitscoper_Cyber_ToolBox-12.1.3-x64.AppImage">Bitscoper_Cyber_ToolBox-12.1.3-x64.AppImage</a>
       </td>
     </tr>
     <tr>
@@ -162,7 +162,7 @@ Web_Application --> My_Server[My Server]
         <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/iOS_Executable.zip">iOS_Executable.zip</a>
       </td>
       <td>
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/iOS_Debug_Symbols.zip">ZIP</a>
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/iOS_Executable_Debug_Symbols.zip">ZIP</a>
       </td>
       <td>-</td>
     </tr>
