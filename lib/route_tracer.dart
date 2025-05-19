@@ -10,48 +10,36 @@ import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
 import 'package:bitscoper_cyber_toolbox/main.dart';
 import 'package:flutter/material.dart';
 
-class RouteTracerPage extends StatelessWidget {
+class RouteTracerPage extends StatefulWidget {
   const RouteTracerPage({super.key});
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  RouteTracerPageState createState() => RouteTracerPageState();
+}
+
+class RouteTracerPageState extends State<RouteTracerPage> {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
         title: AppLocalizations.of(navigatorKey.currentContext!)!.route_tracer,
       ),
-      body: const RouteTracerBody(),
-    );
-  }
-}
-
-class RouteTracerBody extends StatefulWidget {
-  const RouteTracerBody({super.key});
-
-  @override
-  RouteTracerBodyState createState() => RouteTracerBodyState();
-}
-
-class RouteTracerBodyState extends State<RouteTracerBody> {
-  @override
-  Widget build(
-    BuildContext context,
-  ) {
-    return Center(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(32),
-        child: Text(
-          AppLocalizations.of(navigatorKey.currentContext!)!
-              .route_tracer_apology,
-          textAlign: TextAlign.center,
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(32),
+          child: Text(
+            AppLocalizations.of(
+              navigatorKey.currentContext!,
+            )!.route_tracer_apology,
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );
   }
 }
 
-// class RouteTracerBodyState extends State<RouteTracerBody> {
+// class RouteTracerPageState extends State<RouteTracerPage> {
 //   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 //   late String host;
 

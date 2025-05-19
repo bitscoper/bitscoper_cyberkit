@@ -8,31 +8,14 @@ import 'package:bitscoper_cyber_toolbox/notification_sender.dart';
 import 'package:flutter/material.dart';
 import 'package:whois/whois.dart';
 
-class WHOISRetrieverPage extends StatelessWidget {
+class WHOISRetrieverPage extends StatefulWidget {
   const WHOISRetrieverPage({super.key});
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
-    return Scaffold(
-      appBar: ApplicationToolBar(
-        title:
-            AppLocalizations.of(navigatorKey.currentContext!)!.whois_retriever,
-      ),
-      body: const WHOISRetrieverBody(),
-    );
-  }
+  WHOISRetrieverPageState createState() => WHOISRetrieverPageState();
 }
 
-class WHOISRetrieverBody extends StatefulWidget {
-  const WHOISRetrieverBody({super.key});
-
-  @override
-  WHOISRetrieverBodyState createState() => WHOISRetrieverBodyState();
-}
-
-class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
+class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
   @override
   void initState() {
     super.initState();
@@ -48,34 +31,33 @@ class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
   void _retrieveWHOIS() async {
     if (_formKey.currentState!.validate()) {
       try {
-        setState(
-          () {
-            _isRetrieving = true;
+        setState(() {
+          _isRetrieving = true;
 
-            _whoisInformation.clear();
-          },
-        );
+          _whoisInformation.clear();
+        });
 
         final String response = await Whois.lookup(
           _domainNameEditingController.text.trim(),
-          const LookupOptions(
-            port: 43,
-          ),
+          const LookupOptions(port: 43),
         );
-        final Map<String, dynamic> parsedResponse =
-            Whois.formatLookup(response);
+        final Map<String, dynamic> parsedResponse = Whois.formatLookup(
+          response,
+        );
 
-        setState(
-          () {
-            _whoisInformation = Map<String, String>.from(parsedResponse);
-          },
-        );
+        setState(() {
+          _whoisInformation = Map<String, String>.from(parsedResponse);
+        });
 
         await sendNotification(
-          title: AppLocalizations.of(navigatorKey.currentContext!)!
-              .whois_retriever,
-          subtitle: AppLocalizations.of(navigatorKey.currentContext!)!
-              .bitscoper_cyber_toolbox,
+          title:
+              AppLocalizations.of(
+                navigatorKey.currentContext!,
+              )!.whois_retriever,
+          subtitle:
+              AppLocalizations.of(
+                navigatorKey.currentContext!,
+              )!.bitscoper_cyber_toolbox,
           body: AppLocalizations.of(navigatorKey.currentContext!)!.retrieved,
           payload: "WHOIS_Retriever",
         );
@@ -85,11 +67,9 @@ class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
           error.toString(),
         );
       } finally {
-        setState(
-          () {
-            _isRetrieving = false;
-          },
-        );
+        setState(() {
+          _isRetrieving = false;
+        });
       }
     }
   }
@@ -102,91 +82,86 @@ class WHOISRetrieverBodyState extends State<WHOISRetrieverBody> {
   }
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(32),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Form(
-            key: _formKey,
-            child: Column(
-              children: <Widget>[
-                TextFormField(
-                  controller: _domainNameEditingController,
-                  keyboardType: TextInputType.url,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    labelText:
-                        AppLocalizations.of(navigatorKey.currentContext!)!
-                            .a_domain_name,
-                    hintText: 'bitscoper.dev',
-                  ),
-                  showCursor: true,
-                  maxLines: 1,
-                  validator: (
-                    String? value,
-                  ) {
-                    if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(navigatorKey.currentContext!)!
-                          .enter_a_domain_name;
-                    }
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: ApplicationToolBar(
+        title:
+            AppLocalizations.of(navigatorKey.currentContext!)!.whois_retriever,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  TextFormField(
+                    controller: _domainNameEditingController,
+                    keyboardType: TextInputType.url,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText:
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.a_domain_name,
+                      hintText: 'bitscoper.dev',
+                    ),
+                    showCursor: true,
+                    maxLines: 1,
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.enter_a_domain_name;
+                      }
 
-                    return null;
-                  },
-                  onChanged: (
-                    String value,
-                  ) {},
-                  onFieldSubmitted: (
-                    String value,
-                  ) {
-                    _retrieveWHOIS();
-                  },
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: _isRetrieving
-                        ? null
-                        : () {
-                            _retrieveWHOIS();
-                          },
-                    child: Text(
-                      AppLocalizations.of(navigatorKey.currentContext!)!
-                          .retrieve,
+                      return null;
+                    },
+                    onChanged: (String value) {},
+                    onFieldSubmitted: (String value) {
+                      _retrieveWHOIS();
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed:
+                          _isRetrieving
+                              ? null
+                              : () {
+                                _retrieveWHOIS();
+                              },
+                      child: Text(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.retrieve,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          if (_isRetrieving)
-            const Center(
-              child: CircularProgressIndicator(),
-            )
-          else
-            Card(
-              child: Column(
-                children: _whoisInformation.entries.map(
-                  (
-                    MapEntry<String, String> entry,
-                  ) {
-                    return ListTile(
-                      title: Text(entry.key),
-                      subtitle: Text(entry.value),
-                    );
-                  },
-                ).toList(),
+                ],
               ),
             ),
-        ],
+            const SizedBox(height: 16),
+            if (_isRetrieving)
+              const Center(child: CircularProgressIndicator())
+            else
+              Card(
+                child: Column(
+                  children:
+                      _whoisInformation.entries.map((
+                        MapEntry<String, String> entry,
+                      ) {
+                        return ListTile(
+                          title: Text(entry.key),
+                          subtitle: Text(entry.value),
+                        );
+                      }).toList(),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

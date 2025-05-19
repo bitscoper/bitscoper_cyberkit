@@ -3,15 +3,10 @@
 import 'package:bitscoper_cyber_toolbox/main.dart';
 import 'package:flutter/material.dart';
 
-void showMessageDialog(
-  String title,
-  String message,
-) {
+void showMessageDialog(String title, String message) {
   showDialog(
     context: navigatorKey.currentContext!,
-    builder: (
-      BuildContext context,
-    ) {
+    builder: (BuildContext context) {
       return AlertDialog(
         title: Text(title),
         content: Text(message),

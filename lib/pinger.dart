@@ -9,40 +9,20 @@ import 'package:dart_ping/dart_ping.dart';
 import 'package:flutter/material.dart';
 import 'package:timelines_plus/timelines_plus.dart';
 
-class PingerPage extends StatelessWidget {
+class PingerPage extends StatefulWidget {
   const PingerPage({super.key});
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
-    return Scaffold(
-      appBar: ApplicationToolBar(
-        title: AppLocalizations.of(navigatorKey.currentContext!)!.pinger,
-      ),
-      body: const PingerBody(),
-    );
-  }
-}
-
-class PingerBody extends StatefulWidget {
-  const PingerBody({super.key});
-
-  @override
-  PingerBodyState createState() => PingerBodyState();
+  PingerPageState createState() => PingerPageState();
 }
 
 class PingResult {
   final String ipAddress, ttl, time;
 
-  PingResult(
-    this.ipAddress,
-    this.ttl,
-    this.time,
-  );
+  PingResult(this.ipAddress, this.ttl, this.time);
 }
 
-class PingerBodyState extends State<PingerBody> {
+class PingerPageState extends State<PingerPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _hostEditingController = TextEditingController();
 
@@ -52,39 +32,37 @@ class PingerBodyState extends State<PingerBody> {
   Future<void> ping() async {
     if (_formKey.currentState!.validate()) {
       try {
-        setState(
-          () {
-            _isPinging = true;
-          },
-        );
+        setState(() {
+          _isPinging = true;
+        });
 
         while (_isPinging) {
-          final String response = (
-            await Ping(
-              _hostEditingController.text.trim(),
-              encoding: const Utf8Codec(),
-              count: 1,
-            ).stream.first,
-          ).toString();
+          final String response =
+              (
+                await Ping(
+                  _hostEditingController.text.trim(),
+                  encoding: const Utf8Codec(),
+                  count: 1,
+                ).stream.first,
+              ).toString();
 
-          final RegExp expression =
-              RegExp(r'ip:(.*?), ttl:(.*?), time:(.*?) ms');
+          final RegExp expression = RegExp(
+            r'ip:(.*?), ttl:(.*?), time:(.*?) ms',
+          );
 
           final RegExpMatch? match = expression.firstMatch(response);
 
           if (match != null) {
-            setState(
-              () {
-                _results.insert(
-                  0,
-                  PingResult(
-                    match.group(1)?.trim() ?? '',
-                    match.group(2)?.trim() ?? '',
-                    match.group(3)?.trim() ?? '',
-                  ),
-                );
-              },
-            );
+            setState(() {
+              _results.insert(
+                0,
+                PingResult(
+                  match.group(1)?.trim() ?? '',
+                  match.group(2)?.trim() ?? '',
+                  match.group(3)?.trim() ?? '',
+                ),
+              );
+            });
           }
         }
       } catch (error) {
@@ -93,11 +71,9 @@ class PingerBodyState extends State<PingerBody> {
           error.toString(),
         );
       } finally {
-        setState(
-          () {
-            _isPinging = false;
-          },
-        );
+        setState(() {
+          _isPinging = false;
+        });
       }
     }
   }
@@ -110,145 +86,126 @@ class PingerBodyState extends State<PingerBody> {
   }
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
-    return Padding(
-      padding: const EdgeInsets.all(32),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Form(
-            key: _formKey,
-            child: Column(
-              children: <Widget>[
-                TextFormField(
-                  controller: _hostEditingController,
-                  keyboardType: TextInputType.url,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    labelText:
-                        AppLocalizations.of(navigatorKey.currentContext!)!
-                            .a_host_or_ip_address,
-                    hintText: 'bitscoper.dev',
-                  ),
-                  showCursor: true,
-                  maxLines: 1,
-                  validator: (
-                    String? value,
-                  ) {
-                    if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(navigatorKey.currentContext!)!
-                          .enter_a_host_or_ip_address;
-                    }
-                    return null;
-                  },
-                  onChanged: (
-                    String value,
-                  ) {},
-                  onFieldSubmitted: (
-                    String value,
-                  ) async {
-                    await ping();
-                  },
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    ElevatedButton(
-                      onPressed: _isPinging
-                          ? null
-                          : () async {
-                              await ping();
-                            },
-                      child: Text(
-                        AppLocalizations.of(navigatorKey.currentContext!)!.ping,
-                      ),
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: ApplicationToolBar(
+        title: AppLocalizations.of(navigatorKey.currentContext!)!.pinger,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  TextFormField(
+                    controller: _hostEditingController,
+                    keyboardType: TextInputType.url,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText:
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.a_host_or_ip_address,
+                      hintText: 'bitscoper.dev',
                     ),
-                    ElevatedButton(
-                      onPressed: _isPinging
-                          ? () {
-                              setState(
-                                () {
-                                  _isPinging = false;
+                    showCursor: true,
+                    maxLines: 1,
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.enter_a_host_or_ip_address;
+                      }
+                      return null;
+                    },
+                    onChanged: (String value) {},
+                    onFieldSubmitted: (String value) async {
+                      await ping();
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      ElevatedButton(
+                        onPressed:
+                            _isPinging
+                                ? null
+                                : () async {
+                                  await ping();
                                 },
-                              );
-                            }
-                          : null,
-                      child: Text(
-                        AppLocalizations.of(navigatorKey.currentContext!)!.stop,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          if (_isPinging) ...[
-            const Center(
-              child: CircularProgressIndicator(),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-          ],
-          if (_results.isNotEmpty)
-            Expanded(
-              child: Timeline.tileBuilder(
-                builder: TimelineTileBuilder.connected(
-                  itemCount: _results.length,
-                  nodePositionBuilder: (
-                    BuildContext context,
-                    int index,
-                  ) =>
-                      0,
-                  connectionDirection: ConnectionDirection.before,
-                  indicatorBuilder: (
-                    BuildContext context,
-                    int index,
-                  ) =>
-                      OutlinedDotIndicator(
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  connectorBuilder: (
-                    BuildContext context,
-                    int index,
-                    ConnectorType type,
-                  ) =>
-                      SolidLineConnector(
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  contentsBuilder: (
-                    context,
-                    index,
-                  ) {
-                    final PingResult result = _results[index];
-
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        child: ListTile(
-                          leading: const Icon(
-                            Icons.network_ping_rounded,
-                          ),
-                          title: Text(result.ipAddress),
-                          subtitle: Text(
-                            '${AppLocalizations.of(navigatorKey.currentContext!)!.ttl}: ${result.ttl}    ${AppLocalizations.of(navigatorKey.currentContext!)!.time}: ${result.time} ms',
-                          ),
+                        child: Text(
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.ping,
                         ),
                       ),
-                    );
-                  },
-                ),
+                      ElevatedButton(
+                        onPressed:
+                            _isPinging
+                                ? () {
+                                  setState(() {
+                                    _isPinging = false;
+                                  });
+                                }
+                                : null,
+                        child: Text(
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.stop,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-        ],
+            const SizedBox(height: 16),
+            if (_isPinging) ...[
+              const Center(child: CircularProgressIndicator()),
+              const SizedBox(height: 16),
+            ],
+            if (_results.isNotEmpty)
+              Expanded(
+                child: Timeline.tileBuilder(
+                  builder: TimelineTileBuilder.connected(
+                    itemCount: _results.length,
+                    nodePositionBuilder: (BuildContext context, int index) => 0,
+                    connectionDirection: ConnectionDirection.before,
+                    indicatorBuilder:
+                        (BuildContext context, int index) =>
+                            OutlinedDotIndicator(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                    connectorBuilder:
+                        (BuildContext context, int index, ConnectorType type) =>
+                            SolidLineConnector(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                    contentsBuilder: (context, index) {
+                      final PingResult result = _results[index];
+
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+                          child: ListTile(
+                            leading: const Icon(Icons.network_ping_rounded),
+                            title: Text(result.ipAddress),
+                            subtitle: Text(
+                              '${AppLocalizations.of(navigatorKey.currentContext!)!.ttl}: ${result.ttl}    ${AppLocalizations.of(navigatorKey.currentContext!)!.time}: ${result.time} ms',
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

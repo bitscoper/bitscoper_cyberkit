@@ -7,31 +7,14 @@ import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:morse_code_translator/morse_code_translator.dart';
 
-class MorseCodeTranslatorPage extends StatelessWidget {
+class MorseCodeTranslatorPage extends StatefulWidget {
   const MorseCodeTranslatorPage({super.key});
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
-    return Scaffold(
-      appBar: ApplicationToolBar(
-        title: AppLocalizations.of(navigatorKey.currentContext!)!
-            .morse_code_translator,
-      ),
-      body: const MorseCodeTranslatorBody(),
-    );
-  }
+  MorseCodeTranslatorPageState createState() => MorseCodeTranslatorPageState();
 }
 
-class MorseCodeTranslatorBody extends StatefulWidget {
-  const MorseCodeTranslatorBody({super.key});
-
-  @override
-  MorseCodeTranslatorBodyState createState() => MorseCodeTranslatorBodyState();
-}
-
-class MorseCodeTranslatorBodyState extends State<MorseCodeTranslatorBody> {
+class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
   @override
   void initState() {
     super.initState();
@@ -47,16 +30,15 @@ class MorseCodeTranslatorBodyState extends State<MorseCodeTranslatorBody> {
 
   void _encodeString() {
     try {
-      setState(
-        () {
-          if (_stringFormKey.currentState!.validate()) {
-            _morseCodeController.text =
-                _translator.enCode(_stringEditingController.text);
+      setState(() {
+        if (_stringFormKey.currentState!.validate()) {
+          _morseCodeController.text = _translator.enCode(
+            _stringEditingController.text,
+          );
 
-            _morseCodeFormKey.currentState!.validate();
-          }
-        },
-      );
+          _morseCodeFormKey.currentState!.validate();
+        }
+      });
     } catch (error) {
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
@@ -67,16 +49,15 @@ class MorseCodeTranslatorBodyState extends State<MorseCodeTranslatorBody> {
 
   void _decodeMorseCode() {
     try {
-      setState(
-        () {
-          if (_morseCodeFormKey.currentState!.validate()) {
-            _stringEditingController.text =
-                _translator.deCode(_morseCodeController.text);
+      setState(() {
+        if (_morseCodeFormKey.currentState!.validate()) {
+          _stringEditingController.text = _translator.deCode(
+            _morseCodeController.text,
+          );
 
-            _stringFormKey.currentState!.validate();
-          }
-        },
-      );
+          _stringFormKey.currentState!.validate();
+        }
+      });
     } catch (error) {
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
@@ -94,95 +75,94 @@ class MorseCodeTranslatorBodyState extends State<MorseCodeTranslatorBody> {
   }
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(32),
-      child: Column(
-        children: [
-          Form(
-            key: _stringFormKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                TextFormField(
-                  controller: _stringEditingController,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    labelText:
-                        AppLocalizations.of(navigatorKey.currentContext!)!
-                            .a_string,
-                    hintText: AppLocalizations.of(navigatorKey.currentContext!)!
-                        .abdullah_as_sadeed,
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: ApplicationToolBar(
+        title:
+            AppLocalizations.of(
+              navigatorKey.currentContext!,
+            )!.morse_code_translator,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          children: [
+            Form(
+              key: _stringFormKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  TextFormField(
+                    controller: _stringEditingController,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText:
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.a_string,
+                      hintText:
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.abdullah_as_sadeed,
+                    ),
+                    showCursor: true,
+                    maxLines: null,
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.enter_a_string;
+                      }
+
+                      return null;
+                    },
+                    onChanged: (String? value) {
+                      _encodeString();
+                    },
+                    onFieldSubmitted: (String value) {
+                      _encodeString();
+                    },
                   ),
-                  showCursor: true,
-                  maxLines: null,
-                  validator: (
-                    String? value,
-                  ) {
-                    if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(navigatorKey.currentContext!)!
-                          .enter_a_string;
-                    }
-
-                    return null;
-                  },
-                  onChanged: (
-                    String? value,
-                  ) {
-                    _encodeString();
-                  },
-                  onFieldSubmitted: (
-                    String value,
-                  ) {
-                    _encodeString();
-                  },
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Form(
-            key: _morseCodeFormKey,
-            child: TextFormField(
-              controller: _morseCodeController,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(),
-                labelText: AppLocalizations.of(navigatorKey.currentContext!)!
-                    .morse_code,
-                hintText:
-                    '.- -... -.. ..- .-.. .-.. .- .... / .- ... -....- ... .- -.. . . -..',
+                ],
               ),
-              showCursor: true,
-              maxLines: null,
-              validator: (
-                String? value,
-              ) {
-                if (value == null || value.isEmpty) {
-                  return AppLocalizations.of(navigatorKey.currentContext!)!
-                      .enter_morse_code;
-                }
-
-                return null;
-              },
-              onChanged: (
-                String? value,
-              ) {
-                _decodeMorseCode();
-              },
-              onFieldSubmitted: (
-                String value,
-              ) {
-                _decodeMorseCode();
-              },
             ),
-          )
-        ],
+            const SizedBox(height: 16),
+            Form(
+              key: _morseCodeFormKey,
+              child: TextFormField(
+                controller: _morseCodeController,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText:
+                      AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.morse_code,
+                  hintText:
+                      '.- -... -.. ..- .-.. .-.. .- .... / .- ... -....- ... .- -.. . . -..',
+                ),
+                showCursor: true,
+                maxLines: null,
+                validator: (String? value) {
+                  if (value == null || value.isEmpty) {
+                    return AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.enter_morse_code;
+                  }
+
+                  return null;
+                },
+                onChanged: (String? value) {
+                  _decodeMorseCode();
+                },
+                onFieldSubmitted: (String value) {
+                  _decodeMorseCode();
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
