@@ -1,4 +1,4 @@
-> [!CAUTION]
+> [!WARNING]
 > Any unlawful usage is strictly prohibited.
 
 <div align="center">
@@ -169,10 +169,10 @@ Web_Application --> My_Server[My Server]
     <tr>
       <th rowspan="2" colspan="2">Windows</th>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Windows_x64_Executable.zip">Windows_x64_Executable.zip</a>
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Windows_x64_Executable.zip">Windows_x64_Executable.zip</a> **
       </td>
       <td rowspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Windows_x64_Debug_Symbols.zip">ZIP</a>
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Windows_x64_Debug_Symbols.zip">ZIP</a> **
       </td>
       <td rowspan="2">
         <a href="https://apps.microsoft.com/detail/9n6r5lxczxl6">Microsoft Store</a>
@@ -180,7 +180,7 @@ Web_Application --> My_Server[My Server]
     </tr>
     <tr>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Windows_x64_MSIX_Package.zip">Windows_x64_MSIX_Package.zip</a>
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Windows_x64_MSIX_Package.zip">Windows_x64_MSIX_Package.zip</a> **
       </td>
     </tr>
     <tr>
@@ -210,6 +210,9 @@ Web_Application --> My_Server[My Server]
 
 > [!IMPORTANT]
 > Versions submitted to Google Play and Microsoft Store may vary and be delayed.
+
+> [!CAUTION]
+> \*\* Windows builds are [failing](https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/actions/) due to [AOT Compilation Error with flutter_local_notifications](https://github.com/MaikuB/flutter_local_notifications/issues/2615#issuecomment-2890925149).
 
 ### From GHCR
 
