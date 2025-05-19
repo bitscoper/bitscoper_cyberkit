@@ -2,10 +2,11 @@
 
 import 'package:bitscoper_cyber_toolbox/application_toolbar.dart';
 import 'package:bitscoper_cyber_toolbox/copy_to_clipboard.dart';
+import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
 import 'package:bitscoper_cyber_toolbox/main.dart';
 import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
+import 'package:bitscoper_cyber_toolbox/notification_sender.dart';
 import 'package:flutter/material.dart';
-import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
 import 'package:http/http.dart' as http;
@@ -20,7 +21,8 @@ class SeriesURICrawlerPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(context)!.series_uri_crawler,
+        title: AppLocalizations.of(navigatorKey.currentContext!)!
+            .series_uri_crawler,
       ),
       body: const SeriesURICrawlerBody(),
     );
@@ -97,6 +99,15 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
             );
           }
         }
+
+        await sendNotification(
+          title: AppLocalizations.of(navigatorKey.currentContext!)!
+              .series_uri_crawler,
+          subtitle: AppLocalizations.of(navigatorKey.currentContext!)!
+              .bitscoper_cyber_toolbox,
+          body: AppLocalizations.of(navigatorKey.currentContext!)!.crawled,
+          payload: "Series_URI_Crawler",
+        );
       } catch (error) {
         showMessageDialog(
           AppLocalizations.of(navigatorKey.currentContext!)!.error,
@@ -143,7 +154,9 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                         controller: _uriPrefixEditingController,
                         keyboardType: TextInputType.url,
                         decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context)!.uri_prefix,
+                          labelText:
+                              AppLocalizations.of(navigatorKey.currentContext!)!
+                                  .uri_prefix,
                           hintText: 'https://bitscoper.dev/publication-',
                         ),
                         showCursor: true,
@@ -152,7 +165,8 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                           String? value,
                         ) {
                           if (value == null || value.isEmpty) {
-                            return AppLocalizations.of(context)!
+                            return AppLocalizations.of(
+                                    navigatorKey.currentContext!)!
                                 .enter_a_uri_prefix;
                           }
 
@@ -177,7 +191,9 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                         controller: _uriSuffixEditingController,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context)!.uri_suffix,
+                          labelText:
+                              AppLocalizations.of(navigatorKey.currentContext!)!
+                                  .uri_suffix,
                           hintText: '.php',
                         ),
                         showCursor: true,
@@ -204,7 +220,9 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                         controller: _lowerLimitEditingController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context)!.lower_limit,
+                          labelText:
+                              AppLocalizations.of(navigatorKey.currentContext!)!
+                                  .lower_limit,
                           hintText: '1',
                         ),
                         showCursor: true,
@@ -213,18 +231,22 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                           String? value,
                         ) {
                           if (value == null || value.isEmpty) {
-                            return AppLocalizations.of(context)!
+                            return AppLocalizations.of(
+                                    navigatorKey.currentContext!)!
                                 .enter_a_lower_limit;
                           } else if (int.tryParse(value) == null) {
-                            return AppLocalizations.of(context)!
+                            return AppLocalizations.of(
+                                    navigatorKey.currentContext!)!
                                 .enter_an_integer;
                           } else if (int.tryParse(value)! < 1) {
-                            return AppLocalizations.of(context)!
+                            return AppLocalizations.of(
+                                    navigatorKey.currentContext!)!
                                 .enter_a_positive_integer;
                           } else if (int.tryParse(value)! >
                               int.tryParse(
                                   _upperLimitEditingController.text.trim())!) {
-                            return AppLocalizations.of(context)!
+                            return AppLocalizations.of(
+                                    navigatorKey.currentContext!)!
                                 .upper_limit_must_be_greater_than_lower_limit;
                           }
 
@@ -248,7 +270,9 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                         controller: _upperLimitEditingController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context)!.upper_limit,
+                          labelText:
+                              AppLocalizations.of(navigatorKey.currentContext!)!
+                                  .upper_limit,
                           hintText: '100',
                         ),
                         showCursor: true,
@@ -257,18 +281,22 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                           String? value,
                         ) {
                           if (value == null || value.isEmpty) {
-                            return AppLocalizations.of(context)!
+                            return AppLocalizations.of(
+                                    navigatorKey.currentContext!)!
                                 .enter_an_upper_limit;
                           } else if (int.tryParse(value) == null) {
-                            return AppLocalizations.of(context)!
+                            return AppLocalizations.of(
+                                    navigatorKey.currentContext!)!
                                 .enter_an_integer;
                           } else if (int.tryParse(value)! < 1) {
-                            return AppLocalizations.of(context)!
+                            return AppLocalizations.of(
+                                    navigatorKey.currentContext!)!
                                 .enter_a_positive_integer;
                           } else if (int.tryParse(value)! <
                               int.tryParse(
                                   _lowerLimitEditingController.text.trim())!) {
-                            return AppLocalizations.of(context)!
+                            return AppLocalizations.of(
+                                    navigatorKey.currentContext!)!
                                 .upper_limit_must_be_greater_than_lower_limit;
                           }
 
@@ -299,7 +327,8 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                               crawl();
                             },
                       child: Text(
-                        AppLocalizations.of(context)!.crawl,
+                        AppLocalizations.of(navigatorKey.currentContext!)!
+                            .crawl,
                       ),
                     ),
                     ElevatedButton(
@@ -313,7 +342,7 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                             }
                           : null,
                       child: Text(
-                        AppLocalizations.of(context)!.stop,
+                        AppLocalizations.of(navigatorKey.currentContext!)!.stop,
                       ),
                     ),
                   ],
@@ -343,7 +372,8 @@ class SeriesURICrawlerBodyState extends State<SeriesURICrawlerBody> {
                         onPressed: () {
                           copyToClipBoard(
                             context,
-                            AppLocalizations.of(context)!.uri,
+                            AppLocalizations.of(navigatorKey.currentContext!)!
+                                .uri,
                             entry.key,
                           );
                         },

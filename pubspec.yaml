@@ -3,44 +3,48 @@
 name: bitscoper_cyber_toolbox
 description: Bitscoper Cyber ToolBox
 publish_to: none
-version: 12.1.2+23
+version: 12.1.3+24
 
 environment:
-  sdk: ">=3.6.2" # 3.7.1
+  sdk: ">=3.7.2" # 3.7.2
 
 dependencies:
   async: any
-  b: ^0.2.0
-  crypto: ^3.0.6
-  dart_ping: ^9.0.1
-  dart_ping_ios: ^4.0.2
-  dnsolve: ^1.0.2
-  file_picker: ^9.1.0
+  b: null
+  crypto: null
+  dart_ping: null
+  dart_ping_ios: null
+  dnsolve: null
+  file_picker: null
   flutter:
     sdk: flutter
-  flutter_colorpicker: ^1.1.0
+  flutter_colorpicker: null
+  flutter_local_notifications: null
   flutter_localizations:
     sdk: flutter
-  flutter_native_splash: ^2.4.4 # 2.4.5
-  google_fonts: ^6.2.1
-  html: ^0.15.5
-  http: ^1.3.0
+  flutter_native_splash: null
+  flutter_staggered_grid_view: null
+  google_fonts: null
+  html: null
+  http: null
   intl: any
-  morse_code_translator: ^0.0.1
-  ogp_data_extract: ^0.2.1
-  qr_flutter: ^4.1.0
-  quick_actions: ^1.1.0
-  tcp_scanner: ^2.0.5
-  url_launcher: ^6.3.1
-  whois: ^1.0.0
+  morse_code_translator: null
+  ogp_data_extract: null
+  qr_flutter: null
+  quick_actions: null
+  tcp_scanner: null
+  timelines_plus: null
+  url_launcher: null
+  whois: null
 
 dev_dependencies:
-  flutter_launcher_icons: ^0.14.3
-  flutter_lints: ^5.0.0
+  dashmon: null
+  flutter_launcher_icons: null
+  flutter_lints: null
   flutter_test:
     sdk: flutter
-  msix: ^3.16.8
-  rename: ^3.0.2
+  msix: null
+  rename: null
 
 flutter:
   generate: true
@@ -89,12 +93,13 @@ msix_config:
   languages: en-US
   execution_alias: Bitscoper_Cyber_ToolBox
   enable_at_startup: false
-  capabilities: internetClient, internetClientServer, privateNetworkClientServer,
+  capabilities:
+    internetClient, internetClientServer, privateNetworkClientServer,
     removableStorage, wiFiControl
   architecture: x64
   store: true
   build_windows: true
   windows_build_args: --release --obfuscate --split-debug-info=./build/Debug_Symbols/Windows/
   debug: false
-  msix_version: 12.1.2.0
+  msix_version: 12.1.3.0
   output_name: Bitscoper_Cyber_ToolBox

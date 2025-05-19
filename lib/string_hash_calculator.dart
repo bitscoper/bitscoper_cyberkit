@@ -19,7 +19,8 @@ class StringHashCalculatorPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(context)!.string_hash_calculator,
+        title: AppLocalizations.of(navigatorKey.currentContext!)!
+            .string_hash_calculator,
       ),
       body: const StringHashCalculatorBody(),
     );
@@ -104,8 +105,10 @@ class StringHashCalculatorBodyState extends State<StringHashCalculatorBody> {
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
-                labelText: AppLocalizations.of(context)!.a_multiline_string,
-                hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
+                labelText: AppLocalizations.of(navigatorKey.currentContext!)!
+                    .a_multiline_string,
+                hintText: AppLocalizations.of(navigatorKey.currentContext!)!
+                    .abdullah_as_sadeed,
               ),
               showCursor: true,
               maxLines: null,
@@ -113,7 +116,8 @@ class StringHashCalculatorBodyState extends State<StringHashCalculatorBody> {
                 String? value,
               ) {
                 if (value == null || value.isEmpty) {
-                  return AppLocalizations.of(context)!.enter_a_string;
+                  return AppLocalizations.of(navigatorKey.currentContext!)!
+                      .enter_a_string;
                 }
 
                 return null;
@@ -136,7 +140,7 @@ class StringHashCalculatorBodyState extends State<StringHashCalculatorBody> {
           if (_stringEditingController.text.isEmpty)
             Center(
               child: Text(
-                AppLocalizations.of(context)!
+                AppLocalizations.of(navigatorKey.currentContext!)!
                     .start_typing_a_string_to_calculate_its_md5_sha1_sha224_sha256_sha384_sha512_hashes,
                 textAlign: TextAlign.center,
               ),
@@ -158,7 +162,7 @@ class StringHashCalculatorBodyState extends State<StringHashCalculatorBody> {
                           onPressed: () {
                             copyToClipBoard(
                               context,
-                              "${entry.key} ${AppLocalizations.of(context)!.hash}",
+                              "${entry.key} ${AppLocalizations.of(navigatorKey.currentContext!)!.hash}",
                               entry.value,
                             );
                           },

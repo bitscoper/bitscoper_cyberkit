@@ -5,6 +5,7 @@ import 'package:bitscoper_cyber_toolbox/copy_to_clipboard.dart';
 import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
 import 'package:bitscoper_cyber_toolbox/main.dart';
 import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
+import 'package:bitscoper_cyber_toolbox/notification_sender.dart';
 import 'package:flutter/material.dart';
 import 'package:ogp_data_extract/ogp_data_extract.dart';
 
@@ -17,7 +18,8 @@ class OGPDataExtractorPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(context)!.open_graph_protocol_data_extractor,
+        title: AppLocalizations.of(navigatorKey.currentContext!)!
+            .open_graph_protocol_data_extractor,
       ),
       body: const OGPDataExtractorBody(),
     );
@@ -55,6 +57,15 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
 
         _ogpData = await OgpDataExtract.execute(
           _hostEditingController.text.trim(),
+        );
+
+        await sendNotification(
+          title: AppLocalizations.of(navigatorKey.currentContext!)!
+              .open_graph_protocol_data_extractor,
+          subtitle: AppLocalizations.of(navigatorKey.currentContext!)!
+              .bitscoper_cyber_toolbox,
+          body: AppLocalizations.of(navigatorKey.currentContext!)!.extracted,
+          payload: "Open_Graph_Protocol_Data_Extractor",
         );
       } catch (error) {
         showMessageDialog(
@@ -121,7 +132,8 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     labelText:
-                        AppLocalizations.of(context)!.a_host_or_ip_address,
+                        AppLocalizations.of(navigatorKey.currentContext!)!
+                            .a_host_or_ip_address,
                     hintText: 'https://bitscoper.dev/',
                   ),
                   showCursor: true,
@@ -130,7 +142,7 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
                     String? value,
                   ) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!
+                      return AppLocalizations.of(navigatorKey.currentContext!)!
                           .enter_a_host_or_ip_address;
                     }
 
@@ -156,7 +168,8 @@ class OGPDataExtractorBodyState extends State<OGPDataExtractorBody> {
                             _retrieveOGPData();
                           },
                     child: Text(
-                      AppLocalizations.of(context)!.extract,
+                      AppLocalizations.of(navigatorKey.currentContext!)!
+                          .extract,
                     ),
                   ),
                 ),

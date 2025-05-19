@@ -7,6 +7,7 @@ import 'package:bitscoper_cyber_toolbox/main.dart';
 import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
 import 'package:dart_ping/dart_ping.dart';
 import 'package:flutter/material.dart';
+import 'package:timelines_plus/timelines_plus.dart';
 
 class PingerPage extends StatelessWidget {
   const PingerPage({super.key});
@@ -17,7 +18,7 @@ class PingerPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(context)!.pinger,
+        title: AppLocalizations.of(navigatorKey.currentContext!)!.pinger,
       ),
       body: const PingerBody(),
     );
@@ -31,17 +32,22 @@ class PingerBody extends StatefulWidget {
   PingerBodyState createState() => PingerBodyState();
 }
 
-class PingerBodyState extends State<PingerBody> {
-  @override
-  void initState() {
-    super.initState();
-  }
+class PingResult {
+  final String ipAddress, ttl, time;
 
+  PingResult(
+    this.ipAddress,
+    this.ttl,
+    this.time,
+  );
+}
+
+class PingerBodyState extends State<PingerBody> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _hostEditingController = TextEditingController();
 
   bool _isPinging = false;
-  String _response = '', _result = '';
+  List<PingResult> _results = [];
 
   Future<void> ping() async {
     if (_formKey.currentState!.validate()) {
@@ -49,15 +55,13 @@ class PingerBodyState extends State<PingerBody> {
         setState(
           () {
             _isPinging = true;
-            _result = '';
           },
         );
 
         while (_isPinging) {
-          _response = (
+          final String response = (
             await Ping(
               _hostEditingController.text.trim(),
-              // ipv6: false,
               encoding: const Utf8Codec(),
               count: 1,
             ).stream.first,
@@ -66,13 +70,19 @@ class PingerBodyState extends State<PingerBody> {
           final RegExp expression =
               RegExp(r'ip:(.*?), ttl:(.*?), time:(.*?) ms');
 
-          final RegExpMatch? match = expression.firstMatch(_response);
+          final RegExpMatch? match = expression.firstMatch(response);
 
           if (match != null) {
             setState(
               () {
-                _result =
-                    '${match.group(1)?.trim() ?? ''} TTL: ${match.group(2)?.trim() ?? ''} Time: ${match.group(3)?.trim() ?? ''} ms\n$_result';
+                _results.insert(
+                  0,
+                  PingResult(
+                    match.group(1)?.trim() ?? '',
+                    match.group(2)?.trim() ?? '',
+                    match.group(3)?.trim() ?? '',
+                  ),
+                );
               },
             );
           }
@@ -103,7 +113,7 @@ class PingerBodyState extends State<PingerBody> {
   Widget build(
     BuildContext context,
   ) {
-    return SingleChildScrollView(
+    return Padding(
       padding: const EdgeInsets.all(32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,7 +128,8 @@ class PingerBodyState extends State<PingerBody> {
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     labelText:
-                        AppLocalizations.of(context)!.a_host_or_ip_address,
+                        AppLocalizations.of(navigatorKey.currentContext!)!
+                            .a_host_or_ip_address,
                     hintText: 'bitscoper.dev',
                   ),
                   showCursor: true,
@@ -127,10 +138,9 @@ class PingerBodyState extends State<PingerBody> {
                     String? value,
                   ) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!
+                      return AppLocalizations.of(navigatorKey.currentContext!)!
                           .enter_a_host_or_ip_address;
                     }
-
                     return null;
                   },
                   onChanged: (
@@ -155,7 +165,7 @@ class PingerBodyState extends State<PingerBody> {
                               await ping();
                             },
                       child: Text(
-                        AppLocalizations.of(context)!.ping,
+                        AppLocalizations.of(navigatorKey.currentContext!)!.ping,
                       ),
                     ),
                     ElevatedButton(
@@ -169,7 +179,7 @@ class PingerBodyState extends State<PingerBody> {
                             }
                           : null,
                       child: Text(
-                        AppLocalizations.of(context)!.stop,
+                        AppLocalizations.of(navigatorKey.currentContext!)!.stop,
                       ),
                     ),
                   ],
@@ -180,22 +190,64 @@ class PingerBodyState extends State<PingerBody> {
           const SizedBox(
             height: 16,
           ),
-          Center(
-            child: Column(
-              children: <Widget>[
-                if (_isPinging) ...[
-                  const CircularProgressIndicator(),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                ],
-                Text(
-                  _result,
-                  textAlign: TextAlign.center,
-                ),
-              ],
+          if (_isPinging) ...[
+            const Center(
+              child: CircularProgressIndicator(),
             ),
-          ),
+            const SizedBox(
+              height: 16,
+            ),
+          ],
+          if (_results.isNotEmpty)
+            Expanded(
+              child: Timeline.tileBuilder(
+                builder: TimelineTileBuilder.connected(
+                  itemCount: _results.length,
+                  nodePositionBuilder: (
+                    BuildContext context,
+                    int index,
+                  ) =>
+                      0,
+                  connectionDirection: ConnectionDirection.before,
+                  indicatorBuilder: (
+                    BuildContext context,
+                    int index,
+                  ) =>
+                      OutlinedDotIndicator(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  connectorBuilder: (
+                    BuildContext context,
+                    int index,
+                    ConnectorType type,
+                  ) =>
+                      SolidLineConnector(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  contentsBuilder: (
+                    context,
+                    index,
+                  ) {
+                    final PingResult result = _results[index];
+
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.network_ping_rounded,
+                          ),
+                          title: Text(result.ipAddress),
+                          subtitle: Text(
+                            '${AppLocalizations.of(navigatorKey.currentContext!)!.ttl}: ${result.ttl}    ${AppLocalizations.of(navigatorKey.currentContext!)!.time}: ${result.time} ms',
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
         ],
       ),
     );

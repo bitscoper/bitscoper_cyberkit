@@ -204,19 +204,40 @@ class AppLocalizationsBn extends AppLocalizations {
   String get it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records => 'সম্ভাব্য সকল ধরনের ফরওয়ার্ড ও রিভার্স রেকর্ডস রিট্রিভ করতে সময়ের প্রয়োজন।';
 
   @override
+  String get scanned_ports => 'স্ক্যানড পোর্টের সংখ্যা';
+
+  @override
+  String get elapsed_time => 'সময়';
+
+  @override
+  String get scanned => 'স্ক্যানড';
+
+  @override
+  String get wait => 'অপেক্ষা করুন';
+
+  @override
   String get retrieving => 'রিট্রিভিং';
 
   @override
   String get records => 'রেকর্ডস';
 
   @override
-  String get wait => 'অপেক্ষা করুন';
+  String get retrieved => 'রিট্রিভড';
 
   @override
-  String get scanned_ports => 'স্ক্যানড পোর্টের সংখ্যা';
+  String get ttl => 'টিটিএল';
 
   @override
-  String get elapsed_time => 'সময়';
+  String get time => 'সময়';
+
+  @override
+  String get calculated => 'ক্যালকুলেটেড';
+
+  @override
+  String get crawled => 'ক্রলড';
+
+  @override
+  String get extracted => 'এক্সট্রাক্টেড';
 
   @override
   String get hash => 'হ্যাশ';

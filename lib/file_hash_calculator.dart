@@ -6,6 +6,7 @@ import 'package:bitscoper_cyber_toolbox/copy_to_clipboard.dart';
 import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
 import 'package:bitscoper_cyber_toolbox/main.dart';
 import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
+import 'package:bitscoper_cyber_toolbox/notification_sender.dart';
 import 'package:crypto/crypto.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,8 @@ class FileHashCalculatorPage extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(context)!.file_hash_calculator,
+        title: AppLocalizations.of(navigatorKey.currentContext!)!
+            .file_hash_calculator,
       ),
       body: const FileHashCalculatorBody(),
     );
@@ -85,6 +87,15 @@ class FileHashCalculatorBodyState extends State<FileHashCalculatorBody> {
           _hashValues = hashValues;
         },
       );
+
+      await sendNotification(
+        title: AppLocalizations.of(navigatorKey.currentContext!)!
+            .file_hash_calculator,
+        subtitle: AppLocalizations.of(navigatorKey.currentContext!)!
+            .bitscoper_cyber_toolbox,
+        body: AppLocalizations.of(navigatorKey.currentContext!)!.calculated,
+        payload: "File_Hash_Calculator",
+      );
     } catch (error) {
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
@@ -116,7 +127,7 @@ class FileHashCalculatorBodyState extends State<FileHashCalculatorBody> {
           Center(
             child: ElevatedButton(
               child: Text(
-                AppLocalizations.of(context)!.select_files,
+                AppLocalizations.of(navigatorKey.currentContext!)!.select_files,
               ),
               onPressed: () async {
                 List<Uint8List> files = [];
@@ -124,7 +135,9 @@ class FileHashCalculatorBodyState extends State<FileHashCalculatorBody> {
                 FilePickerResult? result = await FilePicker.platform.pickFiles(
                   type: FileType.any,
                   allowMultiple: true,
-                  dialogTitle: AppLocalizations.of(context)!.select_files,
+                  dialogTitle:
+                      AppLocalizations.of(navigatorKey.currentContext!)!
+                          .select_files,
                 );
 
                 if (result != null) {
@@ -160,7 +173,7 @@ class FileHashCalculatorBodyState extends State<FileHashCalculatorBody> {
           if (!_isCalculating && _hashValues.isEmpty)
             Center(
               child: Text(
-                AppLocalizations.of(context)!
+                AppLocalizations.of(navigatorKey.currentContext!)!
                     .select_files_to_calculate_their_md5_sha1_sha224_sha256_sha384_sha512_hashes,
                 textAlign: TextAlign.center,
               ),
@@ -204,7 +217,7 @@ class FileHashCalculatorBodyState extends State<FileHashCalculatorBody> {
                                   onPressed: () {
                                     copyToClipBoard(
                                       context,
-                                      "${entry.key} ${AppLocalizations.of(context)!.hash}",
+                                      "${entry.key} ${AppLocalizations.of(navigatorKey.currentContext!)!.hash}",
                                       entry.value,
                                     );
                                   },
