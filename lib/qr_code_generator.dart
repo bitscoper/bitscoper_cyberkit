@@ -10,31 +10,14 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-class QRCodeGeneratorPage extends StatelessWidget {
+class QRCodeGeneratorPage extends StatefulWidget {
   const QRCodeGeneratorPage({super.key});
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
-    return Scaffold(
-      appBar: ApplicationToolBar(
-        title: AppLocalizations.of(navigatorKey.currentContext!)!
-            .qr_code_generator,
-      ),
-      body: const QRCodeGeneratorBody(),
-    );
-  }
+  QRCodeGeneratorPageState createState() => QRCodeGeneratorPageState();
 }
 
-class QRCodeGeneratorBody extends StatefulWidget {
-  const QRCodeGeneratorBody({super.key});
-
-  @override
-  QRCodeGeneratorBodyState createState() => QRCodeGeneratorBodyState();
-}
-
-class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
+class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
   @override
   void initState() {
     super.initState();
@@ -66,9 +49,7 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
 
     showDialog(
       context: context,
-      builder: (
-        BuildContext context,
-      ) {
+      builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
             AppLocalizations.of(navigatorKey.currentContext!)!.color_selection,
@@ -77,9 +58,7 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
           content: SingleChildScrollView(
             child: ColorPicker(
               pickerColor: pickerColor,
-              onColorChanged: (
-                Color color,
-              ) {
+              onColorChanged: (Color color) {
                 pickerColor = color;
               },
             ),
@@ -88,7 +67,8 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
             Center(
               child: ElevatedButton(
                 child: Text(
-                    AppLocalizations.of(navigatorKey.currentContext!)!.select),
+                  AppLocalizations.of(navigatorKey.currentContext!)!.select,
+                ),
                 onPressed: () {
                   onColorChanged(pickerColor);
                   Navigator.of(context).pop();
@@ -107,527 +87,486 @@ class QRCodeGeneratorBodyState extends State<QRCodeGeneratorBody> {
   }
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     final NumberFormat numberFormat = NumberFormat(
-        '#', AppLocalizations.of(navigatorKey.currentContext!)!.localeName);
+      '#',
+      AppLocalizations.of(navigatorKey.currentContext!)!.localeName,
+    );
 
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(32),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Form(
-            key: _formKey,
-            child: TextFormField(
-              controller: _stringEditingController,
-              keyboardType: TextInputType.multiline,
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(),
-                labelText: AppLocalizations.of(navigatorKey.currentContext!)!
-                    .a_multiline_string,
-                hintText: AppLocalizations.of(navigatorKey.currentContext!)!
-                    .abdullah_as_sadeed,
+    return Scaffold(
+      appBar: ApplicationToolBar(
+        title:
+            AppLocalizations.of(
+              navigatorKey.currentContext!,
+            )!.qr_code_generator,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Form(
+              key: _formKey,
+              child: TextFormField(
+                controller: _stringEditingController,
+                keyboardType: TextInputType.multiline,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText:
+                      AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.a_multiline_string,
+                  hintText:
+                      AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.abdullah_as_sadeed,
+                ),
+                showCursor: true,
+                maxLines: null,
+                validator: (String? value) {
+                  if (value == null || value.isEmpty) {
+                    return AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.enter_a_string;
+                  }
+
+                  return null;
+                },
+                onChanged: (String value) {
+                  if (_formKey.currentState!.validate()) {
+                    setState(() {});
+                  }
+                },
+                onFieldSubmitted: (String value) {
+                  if (_formKey.currentState!.validate()) {
+                    setState(() {});
+                  }
+                },
               ),
-              showCursor: true,
-              maxLines: null,
-              validator: (
-                String? value,
-              ) {
-                if (value == null || value.isEmpty) {
-                  return AppLocalizations.of(navigatorKey.currentContext!)!
-                      .enter_a_string;
-                }
-
-                return null;
-              },
-              onChanged: (
-                String value,
-              ) {
-                if (_formKey.currentState!.validate()) {
-                  setState(
-                    () {},
-                  );
-                }
-              },
-              onFieldSubmitted: (
-                String value,
-              ) {
-                if (_formKey.currentState!.validate()) {
-                  setState(
-                    () {},
-                  );
-                }
-              },
             ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Row(
-            children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: DropdownButtonFormField(
-                  decoration: InputDecoration(
-                    labelText:
-                        AppLocalizations.of(navigatorKey.currentContext!)!
-                            .version,
-                  ),
-                  items: [
-                    DropdownMenuItem(
-                      value: QrVersions.auto,
-                      child: Text(
-                          AppLocalizations.of(navigatorKey.currentContext!)!
-                              .automatic),
+            const SizedBox(height: 16),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 1,
+                  child: DropdownButtonFormField(
+                    decoration: InputDecoration(
+                      labelText:
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.version,
                     ),
-                    ...List.generate(
-                      40,
-                      (index) => index + 1,
-                    ).map(
-                      (qrVersion) => DropdownMenuItem(
-                        value: qrVersion,
+                    items: [
+                      DropdownMenuItem(
+                        value: QrVersions.auto,
                         child: Text(
-                          numberFormat.format(qrVersion),
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.automatic,
                         ),
                       ),
-                    ),
-                  ],
-                  value: _version,
-                  onChanged: (
-                    int? value,
-                  ) {
-                    setState(
-                      () {
+                      ...List.generate(40, (index) => index + 1).map(
+                        (qrVersion) => DropdownMenuItem(
+                          value: qrVersion,
+                          child: Text(numberFormat.format(qrVersion)),
+                        ),
+                      ),
+                    ],
+                    value: _version,
+                    onChanged: (int? value) {
+                      setState(() {
                         _version = value!;
-                      },
-                    );
-                  },
-                ),
-              ),
-              const SizedBox(
-                width: 16,
-              ),
-              Expanded(
-                flex: 1,
-                child: DropdownButtonFormField(
-                  decoration: InputDecoration(
-                    labelText:
-                        AppLocalizations.of(navigatorKey.currentContext!)!
-                            .error_correction_level,
+                      });
+                    },
                   ),
-                  items: [
-                    DropdownMenuItem(
-                      value: QrErrorCorrectLevel.H,
-                      child: Text(
-                          AppLocalizations.of(navigatorKey.currentContext!)!
-                              .high),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  flex: 1,
+                  child: DropdownButtonFormField(
+                    decoration: InputDecoration(
+                      labelText:
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.error_correction_level,
                     ),
-                    DropdownMenuItem(
-                      value: QrErrorCorrectLevel.Q,
-                      child: Text(
-                          AppLocalizations.of(navigatorKey.currentContext!)!
-                              .quartile),
-                    ),
-                    DropdownMenuItem(
-                      value: QrErrorCorrectLevel.M,
-                      child: Text(
-                          AppLocalizations.of(navigatorKey.currentContext!)!
-                              .medium),
-                    ),
-                    DropdownMenuItem(
-                      value: QrErrorCorrectLevel.L,
-                      child: Text(
-                          AppLocalizations.of(navigatorKey.currentContext!)!
-                              .low),
-                    ),
-                  ],
-                  value: _errorCorrectionLevel,
-                  onChanged: (
-                    int? value,
-                  ) {
-                    setState(
-                      () {
+                    items: [
+                      DropdownMenuItem(
+                        value: QrErrorCorrectLevel.H,
+                        child: Text(
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.high,
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: QrErrorCorrectLevel.Q,
+                        child: Text(
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.quartile,
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: QrErrorCorrectLevel.M,
+                        child: Text(
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.medium,
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: QrErrorCorrectLevel.L,
+                        child: Text(
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.low,
+                        ),
+                      ),
+                    ],
+                    value: _errorCorrectionLevel,
+                    onChanged: (int? value) {
+                      setState(() {
                         _errorCorrectionLevel = value!;
-                      },
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Row(
-            children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: DropdownButtonFormField(
-                  decoration: InputDecoration(
-                    labelText:
-                        AppLocalizations.of(navigatorKey.currentContext!)!
-                            .eye_shape,
+                      });
+                    },
                   ),
-                  items: [
-                    DropdownMenuItem(
-                      value: QrEyeShape.square,
-                      child: Text(
-                          AppLocalizations.of(navigatorKey.currentContext!)!
-                              .square),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 1,
+                  child: DropdownButtonFormField(
+                    decoration: InputDecoration(
+                      labelText:
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.eye_shape,
                     ),
-                    DropdownMenuItem(
-                      value: QrEyeShape.circle,
-                      child: Text(
-                          AppLocalizations.of(navigatorKey.currentContext!)!
-                              .circle),
-                    ),
-                  ],
-                  value: _eyeShape,
-                  onChanged: (
-                    QrEyeShape? value,
-                  ) {
-                    setState(
-                      () {
+                    items: [
+                      DropdownMenuItem(
+                        value: QrEyeShape.square,
+                        child: Text(
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.square,
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: QrEyeShape.circle,
+                        child: Text(
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.circle,
+                        ),
+                      ),
+                    ],
+                    value: _eyeShape,
+                    onChanged: (QrEyeShape? value) {
+                      setState(() {
                         _eyeShape = value!;
-                      },
-                    );
-                  },
-                ),
-              ),
-              const SizedBox(
-                width: 16,
-              ),
-              Expanded(
-                flex: 1,
-                child: DropdownButtonFormField(
-                  decoration: InputDecoration(
-                    labelText:
-                        AppLocalizations.of(navigatorKey.currentContext!)!
-                            .data_module_shape,
+                      });
+                    },
                   ),
-                  items: [
-                    DropdownMenuItem(
-                      value: QrDataModuleShape.square,
-                      child: Text(
-                          AppLocalizations.of(navigatorKey.currentContext!)!
-                              .square),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  flex: 1,
+                  child: DropdownButtonFormField(
+                    decoration: InputDecoration(
+                      labelText:
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.data_module_shape,
                     ),
-                    DropdownMenuItem(
-                      value: QrDataModuleShape.circle,
-                      child: Text(
-                          AppLocalizations.of(navigatorKey.currentContext!)!
-                              .circle),
-                    ),
-                  ],
-                  value: _dataModuleShape,
-                  onChanged: (
-                    QrDataModuleShape? value,
-                  ) {
-                    setState(
-                      () {
+                    items: [
+                      DropdownMenuItem(
+                        value: QrDataModuleShape.square,
+                        child: Text(
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.square,
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: QrDataModuleShape.circle,
+                        child: Text(
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.circle,
+                        ),
+                      ),
+                    ],
+                    value: _dataModuleShape,
+                    onChanged: (QrDataModuleShape? value) {
+                      setState(() {
                         _dataModuleShape = value!;
-                      },
-                    );
-                  },
+                      });
+                    },
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Text(
-            AppLocalizations.of(navigatorKey.currentContext!)!.colors,
-            style: Theme.of(context).textTheme.labelMedium,
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Row(
-            children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: GestureDetector(
-                  onTap: () {
-                    pickColor(
-                      context,
-                      _eyeColor,
-                      (
-                        Color color,
-                      ) {
-                        setState(
-                          () {
-                            _eyeColor = color;
-                          },
-                        );
-                      },
-                    );
-                  },
-                  child: MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: Container(
-                      height: 32,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 1,
-                          color: Colors.grey,
+              ],
+            ),
+            const SizedBox(height: 16),
+            Text(
+              AppLocalizations.of(navigatorKey.currentContext!)!.colors,
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 1,
+                  child: GestureDetector(
+                    onTap: () {
+                      pickColor(context, _eyeColor, (Color color) {
+                        setState(() {
+                          _eyeColor = color;
+                        });
+                      });
+                    },
+                    child: MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: Container(
+                        height: 32,
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 1, color: Colors.grey),
+                          borderRadius: BorderRadius.circular(4),
+                          color: _eyeColor,
                         ),
-                        borderRadius: BorderRadius.circular(4),
-                        color: _eyeColor,
-                      ),
-                      child: Center(
-                        child: Text(
-                          AppLocalizations.of(navigatorKey.currentContext!)!
-                              .eye,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: useWhiteForeground(_eyeColor)
-                                ? Colors.white
-                                : DefaultTextStyle.of(context).style.color,
+                        child: Center(
+                          child: Text(
+                            AppLocalizations.of(
+                              navigatorKey.currentContext!,
+                            )!.eye,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color:
+                                  useWhiteForeground(_eyeColor)
+                                      ? Colors.white
+                                      : DefaultTextStyle.of(
+                                        context,
+                                      ).style.color,
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                width: 16,
-              ),
-              Expanded(
-                flex: 1,
-                child: GestureDetector(
-                  onTap: () {
-                    pickColor(
-                      context,
-                      _dataModuleColor,
-                      (
-                        Color color,
-                      ) {
-                        setState(
-                          () {
-                            _dataModuleColor = color;
-                          },
-                        );
-                      },
-                    );
-                  },
-                  child: MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: Container(
-                      height: 32,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 1,
-                          color: Colors.grey,
+                const SizedBox(width: 16),
+                Expanded(
+                  flex: 1,
+                  child: GestureDetector(
+                    onTap: () {
+                      pickColor(context, _dataModuleColor, (Color color) {
+                        setState(() {
+                          _dataModuleColor = color;
+                        });
+                      });
+                    },
+                    child: MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: Container(
+                        height: 32,
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 1, color: Colors.grey),
+                          borderRadius: BorderRadius.circular(4),
+                          color: _dataModuleColor,
                         ),
-                        borderRadius: BorderRadius.circular(4),
-                        color: _dataModuleColor,
-                      ),
-                      child: Center(
-                        child: Text(
-                          AppLocalizations.of(navigatorKey.currentContext!)!
-                              .data,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: useWhiteForeground(_dataModuleColor)
-                                ? Colors.white
-                                : DefaultTextStyle.of(context).style.color,
+                        child: Center(
+                          child: Text(
+                            AppLocalizations.of(
+                              navigatorKey.currentContext!,
+                            )!.data,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color:
+                                  useWhiteForeground(_dataModuleColor)
+                                      ? Colors.white
+                                      : DefaultTextStyle.of(
+                                        context,
+                                      ).style.color,
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                width: 16,
-              ),
-              Expanded(
-                flex: 2,
-                child: GestureDetector(
-                  onTap: () {
-                    pickColor(
-                      context,
-                      _backgroundColor,
-                      (
-                        Color color,
-                      ) {
-                        setState(
-                          () {
-                            _backgroundColor = color;
-                          },
-                        );
-                      },
-                    );
-                  },
-                  child: MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: Container(
-                      height: 32,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 1,
-                          color: Colors.grey,
+                const SizedBox(width: 16),
+                Expanded(
+                  flex: 2,
+                  child: GestureDetector(
+                    onTap: () {
+                      pickColor(context, _backgroundColor, (Color color) {
+                        setState(() {
+                          _backgroundColor = color;
+                        });
+                      });
+                    },
+                    child: MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: Container(
+                        height: 32,
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 1, color: Colors.grey),
+                          borderRadius: BorderRadius.circular(4),
+                          color: _backgroundColor,
                         ),
-                        borderRadius: BorderRadius.circular(4),
-                        color: _backgroundColor,
-                      ),
-                      child: Center(
-                        child: Text(
-                          AppLocalizations.of(navigatorKey.currentContext!)!
-                              .background,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: useWhiteForeground(_backgroundColor)
-                                ? Colors.white
-                                : DefaultTextStyle.of(context).style.color,
+                        child: Center(
+                          child: Text(
+                            AppLocalizations.of(
+                              navigatorKey.currentContext!,
+                            )!.background,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color:
+                                  useWhiteForeground(_backgroundColor)
+                                      ? Colors.white
+                                      : DefaultTextStyle.of(
+                                        context,
+                                      ).style.color,
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Row(
-            children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: DropdownButtonFormField(
-                  decoration: InputDecoration(
-                    labelText:
-                        AppLocalizations.of(navigatorKey.currentContext!)!
-                            .gapless,
-                  ),
-                  items: [
-                    DropdownMenuItem(
-                      value: false,
-                      child: Text(
-                          AppLocalizations.of(navigatorKey.currentContext!)!
-                              .false_),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 1,
+                  child: DropdownButtonFormField(
+                    decoration: InputDecoration(
+                      labelText:
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.gapless,
                     ),
-                    DropdownMenuItem(
-                      value: true,
-                      child: Text(
-                          AppLocalizations.of(navigatorKey.currentContext!)!
-                              .true_),
-                    ),
-                  ],
-                  value: _gapless,
-                  onChanged: (
-                    Object? value,
-                  ) {
-                    setState(
-                      () {
+                    items: [
+                      DropdownMenuItem(
+                        value: false,
+                        child: Text(
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.false_,
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: true,
+                        child: Text(
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.true_,
+                        ),
+                      ),
+                    ],
+                    value: _gapless,
+                    onChanged: (Object? value) {
+                      setState(() {
                         _gapless = value as bool;
-                      },
-                    );
-                  },
-                ),
-              ),
-              const SizedBox(
-                width: 16,
-              ),
-              Expanded(
-                flex: 1,
-                child: TextFormField(
-                  controller: _paddingEditingController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText:
-                        AppLocalizations.of(navigatorKey.currentContext!)!
-                            .padding,
-                    hintText: _paddingEditingController.text,
+                      });
+                    },
                   ),
-                  showCursor: true,
-                  maxLines: 1,
-                  validator: (
-                    String? value,
-                  ) {
-                    if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(navigatorKey.currentContext!)!
-                          .enter_padding;
-                    } else if (double.tryParse(value) == null) {
-                      return AppLocalizations.of(navigatorKey.currentContext!)!
-                          .enter_a_number;
-                    } else if (double.tryParse(value)! < 1.toDouble()) {
-                      return AppLocalizations.of(navigatorKey.currentContext!)!
-                          .enter_a_positive_number;
-                    }
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  flex: 1,
+                  child: TextFormField(
+                    controller: _paddingEditingController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      labelText:
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.padding,
+                      hintText: _paddingEditingController.text,
+                    ),
+                    showCursor: true,
+                    maxLines: 1,
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.enter_padding;
+                      } else if (double.tryParse(value) == null) {
+                        return AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.enter_a_number;
+                      } else if (double.tryParse(value)! < 1.toDouble()) {
+                        return AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.enter_a_positive_number;
+                      }
 
-                    return null;
-                  },
-                  onChanged: (
-                    String value,
-                  ) {
-                    if (_formKey.currentState!.validate()) {
-                      setState(
-                        () {},
-                      );
-                    }
-                  },
-                  onFieldSubmitted: (
-                    String value,
-                  ) {
-                    if (_formKey.currentState!.validate()) {
-                      setState(
-                        () {},
-                      );
-                    }
-                  },
+                      return null;
+                    },
+                    onChanged: (String value) {
+                      if (_formKey.currentState!.validate()) {
+                        setState(() {});
+                      }
+                    },
+                    onFieldSubmitted: (String value) {
+                      if (_formKey.currentState!.validate()) {
+                        setState(() {});
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 96,
+                bottom: 80, // 80 = (96 - 16)
+              ),
+              child: Center(
+                child: Column(
+                  children: <Widget>[
+                    if (_stringEditingController.text.isNotEmpty)
+                      QrImageView(
+                        version: _version,
+                        errorCorrectionLevel: _errorCorrectionLevel,
+                        eyeStyle: QrEyeStyle(
+                          eyeShape: _eyeShape,
+                          color: _eyeColor,
+                        ),
+                        dataModuleStyle: QrDataModuleStyle(
+                          dataModuleShape: _dataModuleShape,
+                          color: _dataModuleColor,
+                        ),
+                        backgroundColor: _backgroundColor,
+                        gapless: _gapless,
+                        semanticsLabel: _semanticsLabel,
+                        data: _stringEditingController.text,
+                        padding: EdgeInsets.all(
+                          double.tryParse(
+                            _paddingEditingController.text.trim(),
+                          )!,
+                        ),
+                        size: MediaQuery.of(context).size.width * 0.5,
+                      )
+                    else
+                      Text(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.start_typing_a_string_to_generate_qr_code,
+                        textAlign: TextAlign.center,
+                      ),
+                  ],
                 ),
               ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 96,
-              bottom: 80, // 80 = (96 - 16)
             ),
-            child: Center(
-              child: Column(
-                children: <Widget>[
-                  if (_stringEditingController.text.isNotEmpty)
-                    QrImageView(
-                      version: _version,
-                      errorCorrectionLevel: _errorCorrectionLevel,
-                      eyeStyle: QrEyeStyle(
-                        eyeShape: _eyeShape,
-                        color: _eyeColor,
-                      ),
-                      dataModuleStyle: QrDataModuleStyle(
-                        dataModuleShape: _dataModuleShape,
-                        color: _dataModuleColor,
-                      ),
-                      backgroundColor: _backgroundColor,
-                      gapless: _gapless,
-                      semanticsLabel: _semanticsLabel,
-                      data: _stringEditingController.text,
-                      padding: EdgeInsets.all(
-                        double.tryParse(
-                          _paddingEditingController.text.trim(),
-                        )!,
-                      ),
-                      size: MediaQuery.of(context).size.width * 0.5,
-                    )
-                  else
-                    Text(
-                      AppLocalizations.of(navigatorKey.currentContext!)!
-                          .start_typing_a_string_to_generate_qr_code,
-                      textAlign: TextAlign.center,
-                    ),
-                ],
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

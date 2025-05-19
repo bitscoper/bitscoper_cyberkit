@@ -78,6 +78,7 @@ flutter {
     source '../..'
 }
 
+// https://mvnrepository.com/artifact/com.android.tools/desugar_jdk_libs
 dependencies {
-   coreLibraryDesugaring ("com.android.tools:desugar_jdk_libs:2.1.5")
+    coreLibraryDesugaring ("com.android.tools:desugar_jdk_libs:2.1.5")
 }

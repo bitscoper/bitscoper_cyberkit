@@ -12,20 +12,13 @@ import 'package:url_launcher/url_launcher.dart';
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() {
-  LicenseRegistry.addLicense(
-    () async* {
-      final license = await rootBundle.loadString('google_fonts/OFL.txt');
+  LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString('google_fonts/OFL.txt');
 
-      yield LicenseEntryWithLineBreaks(
-        ['google_fonts'],
-        license,
-      );
-    },
-  );
+    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
+  });
 
-  runApp(
-    const BitscoperCyberToolBox(),
-  );
+  runApp(const BitscoperCyberToolBox());
 }
 
 class BitscoperCyberToolBox extends StatefulWidget {
@@ -50,16 +43,13 @@ class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
             defaultTargetPlatform == TargetPlatform.android)) {
       final QuickActions quickActions = QuickActions();
 
-      quickActions.initialize(
-        (shortcutType) {
-          if (shortcutType == 'source_code') {
-            launchUrl(
-              Uri.parse(
-                  'https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/'),
-            );
-          }
-        },
-      );
+      quickActions.initialize((shortcutType) {
+        if (shortcutType == 'source_code') {
+          launchUrl(
+            Uri.parse('https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/'),
+          );
+        }
+      });
 
       late final String platformIconName;
 
@@ -69,47 +59,35 @@ class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
         platformIconName = 'AppIcon';
       }
 
-      quickActions.setShortcutItems(
-        <ShortcutItem>[
-          ShortcutItem(
-            type: 'source_code',
-            // localizedTitle: AppLocalizations.of(navigatorKey.currentContext!)!.source_code,
-            localizedTitle: "Source Code",
-            icon: platformIconName,
-          ),
-        ],
-      );
+      quickActions.setShortcutItems(<ShortcutItem>[
+        ShortcutItem(
+          type: 'source_code',
+          // localizedTitle: AppLocalizations.of(navigatorKey.currentContext!)!.source_code,
+          localizedTitle: "Source Code",
+          icon: platformIconName,
+        ),
+      ]);
     }
   }
 
   void _changeLocale(Locale locale) {
-    setState(
-      () {
-        _userLocale = locale;
-      },
-    );
+    setState(() {
+      _userLocale = locale;
+    });
   }
 
   void _toggleTheme() {
-    setState(
-      () {
-        _userToggledTheme = true;
-        _isDarkTheme.value = !_isDarkTheme.value;
-      },
-    );
+    setState(() {
+      _userToggledTheme = true;
+      _isDarkTheme.value = !_isDarkTheme.value;
+    });
   }
 
-  ThemeData _buildTheme(
-    Brightness brightness,
-  ) {
-    ThemeData baseTheme = ThemeData(
-      brightness: brightness,
-    );
+  ThemeData _buildTheme(Brightness brightness) {
+    ThemeData baseTheme = ThemeData(brightness: brightness);
 
     return baseTheme.copyWith(
-      textTheme: GoogleFonts.notoSansTextTheme(
-        baseTheme.textTheme,
-      ),
+      textTheme: GoogleFonts.notoSansTextTheme(baseTheme.textTheme),
     );
   }
 
@@ -121,9 +99,7 @@ class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
   }
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     final Brightness brightness = MediaQuery.of(context).platformBrightness;
 
     if (!_userToggledTheme) {
@@ -132,22 +108,14 @@ class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
 
     return ValueListenableBuilder<bool>(
       valueListenable: _isDarkTheme,
-      builder: (
-        context,
-        isDark,
-        child,
-      ) {
+      builder: (context, isDark, child) {
         return MaterialApp(
           navigatorKey: navigatorKey,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           locale: _userLocale,
-          theme: _buildTheme(
-            Brightness.light,
-          ),
-          darkTheme: _buildTheme(
-            Brightness.dark,
-          ),
+          theme: _buildTheme(Brightness.light),
+          darkTheme: _buildTheme(Brightness.dark),
           themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
           home: HomePage(
             changeLocale: _changeLocale,
