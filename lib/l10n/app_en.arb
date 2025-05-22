@@ -4,6 +4,7 @@
 
   "change_language": "Change Locale to Bangla",
   "toggle_theme": "Toggle Theme",
+  "check_version": "Check Version",
   "source_code": "Source Code",
   "microsoft_store": "Microsoft Store",
   "google_play": "Google Play",
@@ -22,6 +23,15 @@
   "series_uri_crawler": "Series URI Crawler",
   "dns_record_retriever": "DNS Record Retriever",
   "whois_retriever": "WHOIS Retriever",
+
+  "ok": "OK",
+
+  "checking_version": "Checking Version ...",
+  "available_update": "Available Update",
+  "latest_version": "Latest Version",
+  "your_version": "Your Version",
+  "up_to_date": "Up to Date",
+  "you_are_using_the_latest_version": "You are using the latest version.",
 
   "copied_to_clipboard": "has been copied to clipboard.",
 

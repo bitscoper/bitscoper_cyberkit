@@ -6,7 +6,7 @@ publish_to: none
 version: 12.1.3+24
 
 environment:
-  sdk: ">=3.7.2" # 3.7.2
+  sdk: ">=3.7.2"
 
 dependencies:
   async: any
@@ -30,12 +30,14 @@ dependencies:
   intl: any
   morse_code_translator: null
   ogp_data_extract: null
+  package_info_plus: null
   qr_flutter: null
   quick_actions: null
   tcp_scanner: null
   timelines_plus: null
   url_launcher: null
   whois: null
+  yaml: null
 
 dev_dependencies:
   dashmon: null

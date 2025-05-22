@@ -270,7 +270,6 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                                   icon: const Icon(Icons.copy_rounded),
                                   onPressed: () {
                                     copyToClipBoard(
-                                      context,
                                       '${record.type} ${AppLocalizations.of(navigatorKey.currentContext!)!.dns_record}',
                                       record.record,
                                     );

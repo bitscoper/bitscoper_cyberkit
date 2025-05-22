@@ -14,6 +14,7 @@ import 'package:bitscoper_cyber_toolbox/route_tracer.dart';
 import 'package:bitscoper_cyber_toolbox/series_uri_crawler.dart';
 import 'package:bitscoper_cyber_toolbox/string_hash_calculator.dart';
 import 'package:bitscoper_cyber_toolbox/tcp_port_scanner.dart';
+import 'package:bitscoper_cyber_toolbox/version_checker.dart';
 import 'package:bitscoper_cyber_toolbox/whois_retriever.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -164,10 +165,30 @@ class HomePage extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             DrawerHeader(
-              child: Text(
-                AppLocalizations.of(
-                  navigatorKey.currentContext!,
-                )!.bitscoper_cyber_toolbox,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.bitscoper_cyber_toolbox,
+                  ),
+                  FutureBuilder<String>(
+                    future: getVersion(),
+                    builder: (
+                      BuildContext context,
+                      AsyncSnapshot<String> snapshot,
+                    ) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      } else if (snapshot.hasError) {
+                        return Text(snapshot.error.toString());
+                      } else {
+                        return Text(snapshot.data ?? '');
+                      }
+                    },
+                  ),
+                ],
               ),
             ),
             ListTile(
@@ -193,6 +214,17 @@ class HomePage extends StatelessWidget {
               leading: const Icon(Icons.dark_mode_rounded),
               onTap: () {
                 toggleTheme();
+              },
+            ),
+            ListTile(
+              title: Text(
+                AppLocalizations.of(
+                  navigatorKey.currentContext!,
+                )!.check_version,
+              ),
+              leading: const Icon(Icons.update_rounded),
+              onTap: () {
+                checkVersion();
               },
             ),
             const Divider(),
