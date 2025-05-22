@@ -333,7 +333,6 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                           icon: const Icon(Icons.copy_rounded),
                           onPressed: () {
                             copyToClipBoard(
-                              context,
                               AppLocalizations.of(
                                 navigatorKey.currentContext!,
                               )!.uri,

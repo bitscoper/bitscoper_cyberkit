@@ -4,6 +4,7 @@
 
   "change_language": "লোক্যাল ইংরেজিতে পরিবর্তন",
   "toggle_theme": "থিম পরিবর্তন",
+  "check_version": "চেক সংস্করণ",
   "source_code": "সোর্স কোড",
   "microsoft_store": "মাইক্রোসফট স্টোর",
   "google_play": "গুগল প্লে",
@@ -22,6 +23,15 @@
   "series_uri_crawler": "সিরিজ ইউআরআই ক্রলার",
   "dns_record_retriever": "ডিএনএস রেকর্ড রিট্রিভার",
   "whois_retriever": "হুইস রিট্রিভার",
+
+  "ok": "ঠিক আছে",
+
+  "checking_version": "সংস্করণ চেক করা হচ্ছে ...",
+  "available_update": "অ্যাভেইলেবল আপডেট",
+  "latest_version": "সর্বশেষ সংস্করণ",
+  "your_version": "আপনার সংস্করণ",
+  "up_to_date": "আপ টু ডেট",
+  "you_are_using_the_latest_version": "আপনি সর্বশেষ সংস্করণ ব্যবহার করছেন।",
 
   "copied_to_clipboard": "ক্লিপবোর্ডে কপি করা হয়েছে।",
 
