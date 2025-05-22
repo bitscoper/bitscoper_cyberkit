@@ -109,7 +109,7 @@ Web_Application --> My_Server[My Server]
     </tr>
     <tr>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Bitscoper_Cyber_ToolBox-12.1.3-x64.AppImage">Bitscoper_Cyber_ToolBox-12.1.3-x64.AppImage</a>
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Bitscoper_Cyber_ToolBox-12.1.4-x64.AppImage">Bitscoper_Cyber_ToolBox-12.1.4-x64.AppImage</a>
       </td>
     </tr>
     <tr>
@@ -314,7 +314,13 @@ docker build -t bitscoper_cyber_toolbox .
 xhost +si:localuser:root && docker run -it --rm -e DISPLAY=$DISPLAY -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY -v /run/user/$(id -u)/wayland-0:/run/user/$(id -u)/wayland-0 -e XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR bitscoper_cyber_toolbox
 ```
 
-## Development Configuration Commands
+## Development Commands
+
+### ID
+
+```sh
+flutter pub run rename setBundleId --targets linux,android,macos,ios,windows,web --value "bitscoper.bitscoper_cyber_toolbox"
+```
 
 ### Name
 
@@ -322,12 +328,6 @@ xhost +si:localuser:root && docker run -it --rm -e DISPLAY=$DISPLAY -e WAYLAND_D
 flutter pub run rename setAppName --targets linux --value "Bitscoper_Cyber_ToolBox"
 
 flutter pub run rename setAppName --targets android,macos,ios,windows,web --value "Bitscoper Cyber ToolBox"
-```
-
-### ID
-
-```sh
-flutter pub run rename setBundleId --targets linux,android,macos,ios,windows,web --value "bitscoper.bitscoper_cyber_toolbox"
 ```
 
 ### Icon
@@ -340,6 +340,12 @@ flutter pub run flutter_launcher_icons
 
 ```sh
 flutter pub run flutter_native_splash:create
+```
+
+### Localizations
+
+```sh
+flutter gen-l10n
 ```
 
 ### Android Keystore
