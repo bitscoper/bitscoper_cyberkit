@@ -257,7 +257,7 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
                             trailing: IconButton(
                               icon: const Icon(Icons.copy_rounded),
                               onPressed: () {
-                                copyToClipBoard(context, entry.key, result);
+                                copyToClipBoard(entry.key, result);
                               },
                             ),
                           ),

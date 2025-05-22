@@ -18,6 +18,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get toggle_theme => 'থিম পরিবর্তন';
 
   @override
+  String get check_version => 'চেক সংস্করণ';
+
+  @override
   String get source_code => 'সোর্স কোড';
 
   @override
@@ -67,6 +70,27 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get whois_retriever => 'হুইস রিট্রিভার';
+
+  @override
+  String get ok => 'ঠিক আছে';
+
+  @override
+  String get checking_version => 'সংস্করণ চেক করা হচ্ছে ...';
+
+  @override
+  String get available_update => 'অ্যাভেইলেবল আপডেট';
+
+  @override
+  String get latest_version => 'সর্বশেষ সংস্করণ';
+
+  @override
+  String get your_version => 'আপনার সংস্করণ';
+
+  @override
+  String get up_to_date => 'আপ টু ডেট';
+
+  @override
+  String get you_are_using_the_latest_version => 'আপনি সর্বশেষ সংস্করণ ব্যবহার করছেন।';
 
   @override
   String get copied_to_clipboard => 'ক্লিপবোর্ডে কপি করা হয়েছে।';

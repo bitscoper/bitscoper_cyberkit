@@ -18,6 +18,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get toggle_theme => 'Toggle Theme';
 
   @override
+  String get check_version => 'Check Version';
+
+  @override
   String get source_code => 'Source Code';
 
   @override
@@ -67,6 +70,27 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get whois_retriever => 'WHOIS Retriever';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get checking_version => 'Checking Version ...';
+
+  @override
+  String get available_update => 'Available Update';
+
+  @override
+  String get latest_version => 'Latest Version';
+
+  @override
+  String get your_version => 'Your Version';
+
+  @override
+  String get up_to_date => 'Up to Date';
+
+  @override
+  String get you_are_using_the_latest_version => 'You are using the latest version.';
 
   @override
   String get copied_to_clipboard => 'has been copied to clipboard.';

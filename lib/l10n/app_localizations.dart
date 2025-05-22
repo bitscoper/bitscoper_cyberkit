@@ -113,6 +113,12 @@ abstract class AppLocalizations {
   /// **'Toggle Theme'**
   String get toggle_theme;
 
+  /// No description provided for @check_version.
+  ///
+  /// In en, this message translates to:
+  /// **'Check Version'**
+  String get check_version;
+
   /// No description provided for @source_code.
   ///
   /// In en, this message translates to:
@@ -214,6 +220,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'WHOIS Retriever'**
   String get whois_retriever;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// No description provided for @checking_version.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking Version ...'**
+  String get checking_version;
+
+  /// No description provided for @available_update.
+  ///
+  /// In en, this message translates to:
+  /// **'Available Update'**
+  String get available_update;
+
+  /// No description provided for @latest_version.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest Version'**
+  String get latest_version;
+
+  /// No description provided for @your_version.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Version'**
+  String get your_version;
+
+  /// No description provided for @up_to_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Up to Date'**
+  String get up_to_date;
+
+  /// No description provided for @you_are_using_the_latest_version.
+  ///
+  /// In en, this message translates to:
+  /// **'You are using the latest version.'**
+  String get you_are_using_the_latest_version;
 
   /// No description provided for @copied_to_clipboard.
   ///

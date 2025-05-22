@@ -141,7 +141,6 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
                             icon: const Icon(Icons.copy_rounded),
                             onPressed: () {
                               copyToClipBoard(
-                                context,
                                 "${entry.key} ${AppLocalizations.of(navigatorKey.currentContext!)!.hash}",
                                 entry.value,
                               );
