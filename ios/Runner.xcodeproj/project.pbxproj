@@ -479,7 +479,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 12.1.3;
+				MARKETING_VERSION = 12.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = bitscoper.bitscoper_cyber_toolbox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -668,7 +668,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 12.1.3;
+				MARKETING_VERSION = 12.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = bitscoper.bitscoper_cyber_toolbox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -694,7 +694,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 12.1.3;
+				MARKETING_VERSION = 12.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = bitscoper.bitscoper_cyber_toolbox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
