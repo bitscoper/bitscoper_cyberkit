@@ -75,6 +75,19 @@ Future<void> sendNotification({
     },
   );
 
+  flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails().then((
+    NotificationAppLaunchDetails? applicationLaunchDetails,
+  ) {
+    if (applicationLaunchDetails?.didNotificationLaunchApp ?? false) {
+      final String? payload =
+          applicationLaunchDetails?.notificationResponse?.payload;
+
+      if (payload != null) {
+        debugPrint(payload);
+      }
+    }
+  });
+
   final LinuxNotificationDetails linuxNotificationDetails =
       LinuxNotificationDetails(
         urgency: LinuxNotificationUrgency.normal,

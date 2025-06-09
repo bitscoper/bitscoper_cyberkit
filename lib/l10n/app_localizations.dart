@@ -62,7 +62,8 @@ import 'app_localizations_en.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale)
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -70,7 +71,8 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -82,17 +84,18 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('bn'),
-    Locale('en')
+    Locale('en'),
   ];
 
   /// No description provided for @bitscoper_cyber_toolbox.
@@ -507,13 +510,15 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Select files to calculate their MD5, SHA1, SHA224, SHA256, SHA384, and SHA512 hashes.'**
-  String get select_files_to_calculate_their_md5_sha1_sha224_sha256_sha384_sha512_hashes;
+  String
+  get select_files_to_calculate_their_md5_sha1_sha224_sha256_sha384_sha512_hashes;
 
   /// No description provided for @start_typing_a_string_to_calculate_its_md5_sha1_sha224_sha256_sha384_sha512_hashes.
   ///
   /// In en, this message translates to:
   /// **'Start typing a string to calculate its MD5, SHA1, SHA224, SHA256, SHA384, and SHA512 hashes.'**
-  String get start_typing_a_string_to_calculate_its_md5_sha1_sha224_sha256_sha384_sha512_hashes;
+  String
+  get start_typing_a_string_to_calculate_its_md5_sha1_sha224_sha256_sha384_sha512_hashes;
 
   /// No description provided for @start_typing_a_string_to_encode_it_into_the_bases.
   ///
@@ -531,7 +536,8 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'It takes time to retrieve all possible types of forward and reverse records.'**
-  String get it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records;
+  String
+  get it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records;
 
   /// No description provided for @scanned_ports.
   ///
@@ -714,7 +720,8 @@ abstract class AppLocalizations {
   String get route_tracer_apology;
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -723,25 +730,26 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['bn', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['bn', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'bn': return AppLocalizationsBn();
-    case 'en': return AppLocalizationsEn();
+    case 'bn':
+      return AppLocalizationsBn();
+    case 'en':
+      return AppLocalizationsEn();
   }
 
   throw FlutterError(
     'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
+    'that was used.',
   );
 }

@@ -60,7 +60,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get qr_code_generator => 'QR Code Generator';
 
   @override
-  String get open_graph_protocol_data_extractor => 'Open Graph Protocol Data Extractor';
+  String get open_graph_protocol_data_extractor =>
+      'Open Graph Protocol Data Extractor';
 
   @override
   String get series_uri_crawler => 'Series URI Crawler';
@@ -90,7 +91,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get up_to_date => 'Up to Date';
 
   @override
-  String get you_are_using_the_latest_version => 'You are using the latest version.';
+  String get you_are_using_the_latest_version =>
+      'You are using the latest version.';
 
   @override
   String get copied_to_clipboard => 'has been copied to clipboard.';
@@ -213,19 +215,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get stop => 'Stop';
 
   @override
-  String get select_files_to_calculate_their_md5_sha1_sha224_sha256_sha384_sha512_hashes => 'Select files to calculate their MD5, SHA1, SHA224, SHA256, SHA384, and SHA512 hashes.';
+  String
+  get select_files_to_calculate_their_md5_sha1_sha224_sha256_sha384_sha512_hashes =>
+      'Select files to calculate their MD5, SHA1, SHA224, SHA256, SHA384, and SHA512 hashes.';
 
   @override
-  String get start_typing_a_string_to_calculate_its_md5_sha1_sha224_sha256_sha384_sha512_hashes => 'Start typing a string to calculate its MD5, SHA1, SHA224, SHA256, SHA384, and SHA512 hashes.';
+  String
+  get start_typing_a_string_to_calculate_its_md5_sha1_sha224_sha256_sha384_sha512_hashes =>
+      'Start typing a string to calculate its MD5, SHA1, SHA224, SHA256, SHA384, and SHA512 hashes.';
 
   @override
-  String get start_typing_a_string_to_encode_it_into_the_bases => 'Start typing a string to encode it to into the bases.';
+  String get start_typing_a_string_to_encode_it_into_the_bases =>
+      'Start typing a string to encode it to into the bases.';
 
   @override
-  String get start_typing_a_string_to_generate_qr_code => 'Start typing a string to generate QR Code.';
+  String get start_typing_a_string_to_generate_qr_code =>
+      'Start typing a string to generate QR Code.';
 
   @override
-  String get it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records => 'It takes time to retrieve all possible types of forward and reverse records.';
+  String
+  get it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records =>
+      'It takes time to retrieve all possible types of forward and reverse records.';
 
   @override
   String get scanned_ports => 'Scanned Ports';
@@ -306,7 +316,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enter_a_positive_integer => 'Enter a Positive Integer!';
 
   @override
-  String get upper_limit_must_be_greater_than_lower_limit => 'Upper limit must be greater than lower limit!';
+  String get upper_limit_must_be_greater_than_lower_limit =>
+      'Upper limit must be greater than lower limit!';
 
   @override
   String get enter_a_domain_name => 'Enter a domain name!';
@@ -315,5 +326,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get error => 'Error';
 
   @override
-  String get route_tracer_apology => 'Apologies, Route Tracer is currently unavailable due to build errors.';
+  String get route_tracer_apology =>
+      'Apologies, Route Tracer is currently unavailable due to build errors.';
 }
