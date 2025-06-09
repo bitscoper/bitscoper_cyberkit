@@ -60,7 +60,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get qr_code_generator => 'কিউআর কোড জেনারেটর';
 
   @override
-  String get open_graph_protocol_data_extractor => 'ওপেন গ্রাফ প্রোটোকল ডেইটা এক্সট্র্যাক্টর';
+  String get open_graph_protocol_data_extractor =>
+      'ওপেন গ্রাফ প্রোটোকল ডেইটা এক্সট্র্যাক্টর';
 
   @override
   String get series_uri_crawler => 'সিরিজ ইউআরআই ক্রলার';
@@ -90,7 +91,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get up_to_date => 'আপ টু ডেট';
 
   @override
-  String get you_are_using_the_latest_version => 'আপনি সর্বশেষ সংস্করণ ব্যবহার করছেন।';
+  String get you_are_using_the_latest_version =>
+      'আপনি সর্বশেষ সংস্করণ ব্যবহার করছেন।';
 
   @override
   String get copied_to_clipboard => 'ক্লিপবোর্ডে কপি করা হয়েছে।';
@@ -213,19 +215,27 @@ class AppLocalizationsBn extends AppLocalizations {
   String get stop => 'স্টপ';
 
   @override
-  String get select_files_to_calculate_their_md5_sha1_sha224_sha256_sha384_sha512_hashes => 'ফাইলসের MD5, SHA1, SHA224, SHA256, SHA384, ও SHA512 হ্যাশগুলো ক্যালকুলেট করতে ফাইলগুলো সিলেক্ট করুন।';
+  String
+  get select_files_to_calculate_their_md5_sha1_sha224_sha256_sha384_sha512_hashes =>
+      'ফাইলসের MD5, SHA1, SHA224, SHA256, SHA384, ও SHA512 হ্যাশগুলো ক্যালকুলেট করতে ফাইলগুলো সিলেক্ট করুন।';
 
   @override
-  String get start_typing_a_string_to_calculate_its_md5_sha1_sha224_sha256_sha384_sha512_hashes => 'স্ট্রিংয়ের MD5, SHA1, SHA224, SHA256, SHA384, ও SHA512 হ্যাশগুলো ক্যালকুলেট করতে স্ট্রিংটা লিখতে শুরু করুন।';
+  String
+  get start_typing_a_string_to_calculate_its_md5_sha1_sha224_sha256_sha384_sha512_hashes =>
+      'স্ট্রিংয়ের MD5, SHA1, SHA224, SHA256, SHA384, ও SHA512 হ্যাশগুলো ক্যালকুলেট করতে স্ট্রিংটা লিখতে শুরু করুন।';
 
   @override
-  String get start_typing_a_string_to_encode_it_into_the_bases => 'স্ট্রিংকে বেইসগুলোতে এনকোড করতে স্ট্রিংটা লিখতে শুরু করুন।';
+  String get start_typing_a_string_to_encode_it_into_the_bases =>
+      'স্ট্রিংকে বেইসগুলোতে এনকোড করতে স্ট্রিংটা লিখতে শুরু করুন।';
 
   @override
-  String get start_typing_a_string_to_generate_qr_code => 'কিউআর কোড জেনারেট করতে স্ট্রিংটা লিখতে শুরু করুন।';
+  String get start_typing_a_string_to_generate_qr_code =>
+      'কিউআর কোড জেনারেট করতে স্ট্রিংটা লিখতে শুরু করুন।';
 
   @override
-  String get it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records => 'সম্ভাব্য সকল ধরনের ফরওয়ার্ড ও রিভার্স রেকর্ডস রিট্রিভ করতে সময়ের প্রয়োজন।';
+  String
+  get it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records =>
+      'সম্ভাব্য সকল ধরনের ফরওয়ার্ড ও রিভার্স রেকর্ডস রিট্রিভ করতে সময়ের প্রয়োজন।';
 
   @override
   String get scanned_ports => 'স্ক্যানড পোর্টের সংখ্যা';
@@ -273,7 +283,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get dns_record => 'ডিএনএস রেকর্ড';
 
   @override
-  String get enter_a_host_or_ip_address => 'একটা হোস্ট বা আইপি অ্যাড্রেস লিখুন!';
+  String get enter_a_host_or_ip_address =>
+      'একটা হোস্ট বা আইপি অ্যাড্রেস লিখুন!';
 
   @override
   String get enter_a_string => 'একটা স্ট্রিং লিখুন!';
@@ -306,7 +317,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get enter_a_positive_integer => 'একটা ধনাত্মক পূর্ণসংখ্যা লিখুন!';
 
   @override
-  String get upper_limit_must_be_greater_than_lower_limit => 'নিম্ন সীমার চেয়ে উচ্চ সীমা বড় হতে হবে!';
+  String get upper_limit_must_be_greater_than_lower_limit =>
+      'নিম্ন সীমার চেয়ে উচ্চ সীমা বড় হতে হবে!';
 
   @override
   String get enter_a_domain_name => 'একটা ডোমেইন নেইম লিখুন!';
@@ -315,5 +327,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get error => 'ত্রুটি';
 
   @override
-  String get route_tracer_apology => 'দুঃখিত, বিল্ড ত্রুটির কারণে বর্তমানে রুট ট্রেসার ব্যবহারযোগ্য না।';
+  String get route_tracer_apology =>
+      'দুঃখিত, বিল্ড ত্রুটির কারণে বর্তমানে রুট ট্রেসার ব্যবহারযোগ্য না।';
 }
