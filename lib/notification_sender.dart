@@ -1,8 +1,8 @@
 /* By Abdullah As-Sadeed */
 
 import "dart:core";
-import "package:flutter/material.dart";
 import "package:flutter_local_notifications/flutter_local_notifications.dart";
+import "package:flutter/material.dart";
 
 Future<void> sendNotification({
   required final String title,
@@ -11,7 +11,8 @@ Future<void> sendNotification({
   required final String payload,
 }) async {
   final String iconPath = "assets/icon/icon.png";
-  final String androidIconName = "icon_monochrome";
+  final String androidMonochromeIconName = "icon_monochrome";
+  final String androidIconName = "icon";
   final String linuxSoundTheme = "bell-window-system";
   final String linuxActionName = "default_linux_notification_action_name";
 
@@ -20,7 +21,7 @@ Future<void> sendNotification({
 
   final LinuxInitializationSettings initializationSettingsLinux =
       LinuxInitializationSettings(
-        defaultIcon: AssetsLinuxIcon(iconPath), // TODO: Test
+        defaultIcon: AssetsLinuxIcon(iconPath),
         defaultSound: ThemeLinuxSound(
           linuxSoundTheme,
         ), // https://0pointer.de/public/sound-naming-spec.html
@@ -28,9 +29,7 @@ Future<void> sendNotification({
       );
 
   AndroidInitializationSettings androidInitializationSettings =
-      AndroidInitializationSettings(
-        androidIconName, // TODO: Test
-      );
+      AndroidInitializationSettings(androidMonochromeIconName);
 
   final DarwinInitializationSettings darwinInitializationSettings =
       DarwinInitializationSettings(
@@ -64,34 +63,33 @@ Future<void> sendNotification({
 
   await flutterLocalNotificationsPlugin.initialize(
     initializationSettings,
-    onDidReceiveNotificationResponse: (
-      NotificationResponse notificationResponse,
-    ) async {
-      final String? payload = notificationResponse.payload;
+    onDidReceiveNotificationResponse:
+        (NotificationResponse notificationResponse) async {
+          final String? payload = notificationResponse.payload;
 
-      if (notificationResponse.payload != null) {
-        debugPrint(payload);
-      }
-    },
+          if (notificationResponse.payload != null) {
+            debugPrint(payload);
+          }
+        },
   );
 
-  flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails().then((
-    NotificationAppLaunchDetails? applicationLaunchDetails,
-  ) {
-    if (applicationLaunchDetails?.didNotificationLaunchApp ?? false) {
-      final String? payload =
-          applicationLaunchDetails?.notificationResponse?.payload;
+  // flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails().then((
+  //   NotificationAppLaunchDetails? applicationLaunchDetails,
+  // ) {
+  //   if (applicationLaunchDetails?.didNotificationLaunchApp ?? false) {
+  //     final String? payload =
+  //         applicationLaunchDetails?.notificationResponse?.payload;
 
-      if (payload != null) {
-        debugPrint(payload);
-      }
-    }
-  });
+  //     if (payload != null) {
+  //       debugPrint(payload);
+  //     }
+  //   }
+  // });
 
   final LinuxNotificationDetails linuxNotificationDetails =
       LinuxNotificationDetails(
         urgency: LinuxNotificationUrgency.normal,
-        icon: AssetsLinuxIcon(iconPath), // TODO: Test
+        icon: AssetsLinuxIcon(iconPath),
         actionKeyAsIconName: false,
         defaultActionName: linuxActionName,
         sound: ThemeLinuxSound(linuxSoundTheme),
@@ -115,7 +113,7 @@ Future<void> sendNotification({
         priority: Priority.defaultPriority,
         styleInformation: const DefaultStyleInformation(true, true),
         colorized: true,
-        icon: androidIconName, // TODO: Test
+        icon: androidMonochromeIconName,
         largeIcon: DrawableResourceAndroidBitmap(androidIconName), // TODO: Test
         subText: subtitle,
         showWhen: true,

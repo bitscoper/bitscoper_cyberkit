@@ -72,14 +72,12 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
         }
 
         await sendNotification(
-          title:
-              AppLocalizations.of(
-                navigatorKey.currentContext!,
-              )!.dns_record_retriever,
-          subtitle:
-              AppLocalizations.of(
-                navigatorKey.currentContext!,
-              )!.bitscoper_cyber_toolbox,
+          title: AppLocalizations.of(
+            navigatorKey.currentContext!,
+          )!.dns_record_retriever,
+          subtitle: AppLocalizations.of(
+            navigatorKey.currentContext!,
+          )!.bitscoper_cyber_toolbox,
           body: AppLocalizations.of(navigatorKey.currentContext!)!.retrieved,
           payload: "DNS_Record_Retriever",
         );
@@ -115,10 +113,9 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title:
-            AppLocalizations.of(
-              navigatorKey.currentContext!,
-            )!.dns_record_retriever,
+        title: AppLocalizations.of(
+          navigatorKey.currentContext!,
+        )!.dns_record_retriever,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32),
@@ -134,10 +131,9 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                     keyboardType: TextInputType.url,
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
-                      labelText:
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.a_host_or_ip_address,
+                      labelText: AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.a_host_or_ip_address,
                       hintText: 'bitscoper.dev',
                     ),
                     showCursor: true,
@@ -159,10 +155,9 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                   const SizedBox(height: 16),
                   DropdownButtonFormField<DNSProvider>(
                     decoration: InputDecoration(
-                      labelText:
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.dns_provider,
+                      labelText: AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.dns_provider,
                     ),
                     value: _recordProvider,
                     onChanged: (DNSProvider? newValue) {
@@ -170,8 +165,8 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                         _recordProvider = newValue!;
                       });
                     },
-                    items:
-                        DNSProvider.values.map<DropdownMenuItem<DNSProvider>>((
+                    items: DNSProvider.values
+                        .map<DropdownMenuItem<DNSProvider>>((
                           DNSProvider value,
                         ) {
                           return DropdownMenuItem<DNSProvider>(
@@ -180,7 +175,8 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                               _capitalize(value.toString().split('.').last),
                             ),
                           );
-                        }).toList(),
+                        })
+                        .toList(),
                   ),
                   const SizedBox(height: 16),
                   Center(
@@ -188,12 +184,11 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         ElevatedButton(
-                          onPressed:
-                              _isRetrieving
-                                  ? null
-                                  : () {
-                                    retrieveDNSRecord();
-                                  },
+                          onPressed: _isRetrieving
+                              ? null
+                              : () {
+                                  retrieveDNSRecord();
+                                },
                           child: Text(
                             AppLocalizations.of(
                               navigatorKey.currentContext!,
@@ -201,14 +196,13 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                           ),
                         ),
                         ElevatedButton(
-                          onPressed:
-                              _isRetrieving
-                                  ? () {
-                                    setState(() {
-                                      _isRetrieving = false;
-                                    });
-                                  }
-                                  : null,
+                          onPressed: _isRetrieving
+                              ? () {
+                                  setState(() {
+                                    _isRetrieving = false;
+                                  });
+                                }
+                              : null,
                           child: Text(
                             AppLocalizations.of(
                               navigatorKey.currentContext!,
@@ -250,36 +244,35 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
             else
               _records.isEmpty
                   ? Center(
-                    child: Text(
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records,
-                      textAlign: TextAlign.center,
-                    ),
-                  )
+                      child: Text(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records,
+                        textAlign: TextAlign.center,
+                      ),
+                    )
                   : Column(
-                    children:
-                        _records.map((record) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: Card(
-                              child: ListTile(
-                                title: Text(record.type),
-                                subtitle: Text(record.record),
-                                trailing: IconButton(
-                                  icon: const Icon(Icons.copy_rounded),
-                                  onPressed: () {
-                                    copyToClipBoard(
-                                      '${record.type} ${AppLocalizations.of(navigatorKey.currentContext!)!.dns_record}',
-                                      record.record,
-                                    );
-                                  },
-                                ),
+                      children: _records.map((record) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: Card(
+                            child: ListTile(
+                              title: Text(record.type),
+                              subtitle: Text(record.record),
+                              trailing: IconButton(
+                                icon: const Icon(Icons.copy_rounded),
+                                onPressed: () {
+                                  copyToClipBoard(
+                                    '${record.type} ${AppLocalizations.of(navigatorKey.currentContext!)!.dns_record}',
+                                    record.record,
+                                  );
+                                },
                               ),
                             ),
-                          );
-                        }).toList(),
-                  ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
           ],
         ),
       ),

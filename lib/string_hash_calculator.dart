@@ -72,10 +72,9 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title:
-            AppLocalizations.of(
-              navigatorKey.currentContext!,
-            )!.string_hash_calculator,
+        title: AppLocalizations.of(
+          navigatorKey.currentContext!,
+        )!.string_hash_calculator,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32),
@@ -89,14 +88,12 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
                 keyboardType: TextInputType.multiline,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText:
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.a_multiline_string,
-                  hintText:
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.abdullah_as_sadeed,
+                  labelText: AppLocalizations.of(
+                    navigatorKey.currentContext!,
+                  )!.a_multiline_string,
+                  hintText: AppLocalizations.of(
+                    navigatorKey.currentContext!,
+                  )!.abdullah_as_sadeed,
                 ),
                 showCursor: true,
                 maxLines: null,

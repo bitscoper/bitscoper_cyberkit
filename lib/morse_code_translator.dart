@@ -92,10 +92,9 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title:
-            AppLocalizations.of(
-              navigatorKey.currentContext!,
-            )!.morse_code_translator,
+        title: AppLocalizations.of(
+          navigatorKey.currentContext!,
+        )!.morse_code_translator,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32),
@@ -112,14 +111,12 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
                     inputFormatters: [UpperCaseTextFormatter()],
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
-                      labelText:
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.a_string,
-                      hintText:
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.abdullah_as_sadeed.toUpperCase(),
+                      labelText: AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.a_string,
+                      hintText: AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.abdullah_as_sadeed.toUpperCase(),
                     ),
                     showCursor: true,
                     maxLines: null,
@@ -150,10 +147,9 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText:
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.morse_code,
+                  labelText: AppLocalizations.of(
+                    navigatorKey.currentContext!,
+                  )!.morse_code,
                   hintText:
                       '.- -... -.. ..- .-.. .-.. .- .... / .- ... -....- ... .- -.. . . -..',
                 ),

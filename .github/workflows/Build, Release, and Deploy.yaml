@@ -273,9 +273,9 @@ jobs:
 
       - name: Build for Windows
         run: |
-          flutter build windows --release --obfuscate --split-debug-info=./build/Debug_Symbols/Windows/ -v
-          dart run msix:create
+          flutter build windows --release --split-debug-info=./build/Debug_Symbols/Windows/ -v
         shell: powershell
+      # Disabled: `--obfuscate` and `dart run msix:create`
 
       - name: Move MSIX Package
         run: |

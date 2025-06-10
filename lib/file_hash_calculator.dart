@@ -62,14 +62,12 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
       });
 
       await sendNotification(
-        title:
-            AppLocalizations.of(
-              navigatorKey.currentContext!,
-            )!.file_hash_calculator,
-        subtitle:
-            AppLocalizations.of(
-              navigatorKey.currentContext!,
-            )!.bitscoper_cyber_toolbox,
+        title: AppLocalizations.of(
+          navigatorKey.currentContext!,
+        )!.file_hash_calculator,
+        subtitle: AppLocalizations.of(
+          navigatorKey.currentContext!,
+        )!.bitscoper_cyber_toolbox,
         body: AppLocalizations.of(navigatorKey.currentContext!)!.calculated,
         payload: "File_Hash_Calculator",
       );
@@ -94,10 +92,9 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title:
-            AppLocalizations.of(
-              navigatorKey.currentContext!,
-            )!.file_hash_calculator,
+        title: AppLocalizations.of(
+          navigatorKey.currentContext!,
+        )!.file_hash_calculator,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32),
@@ -118,19 +115,18 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
                       .pickFiles(
                         type: FileType.any,
                         allowMultiple: true,
-                        dialogTitle:
-                            AppLocalizations.of(
-                              navigatorKey.currentContext!,
-                            )!.select_files,
+                        dialogTitle: AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.select_files,
                       );
 
                   if (result != null) {
-                    List<File> selectedFiles =
-                        result.paths.where((String? path) => path != null).map((
-                          String? path,
-                        ) {
+                    List<File> selectedFiles = result.paths
+                        .where((String? path) => path != null)
+                        .map((String? path) {
                           return File(path!);
-                        }).toList();
+                        })
+                        .toList();
 
                     for (File file in selectedFiles) {
                       files.add(file.readAsBytesSync());

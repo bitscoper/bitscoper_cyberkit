@@ -1,6 +1,6 @@
 /* By Abdullah As-Sadeed */
 
-import "dart:convert";
+import 'dart:convert';
 import 'package:b/b.dart';
 import 'package:bitscoper_cyber_toolbox/application_toolbar.dart';
 import 'package:bitscoper_cyber_toolbox/copy_to_clipboard.dart';
@@ -88,14 +88,12 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
                 keyboardType: TextInputType.multiline,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText:
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.a_multiline_string,
-                  hintText:
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.abdullah_as_sadeed,
+                  labelText: AppLocalizations.of(
+                    navigatorKey.currentContext!,
+                  )!.a_multiline_string,
+                  hintText: AppLocalizations.of(
+                    navigatorKey.currentContext!,
+                  )!.abdullah_as_sadeed,
                 ),
                 showCursor: true,
                 maxLines: null,
@@ -228,42 +226,39 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
               )
             else
               Column(
-                children:
-                    bases.entries.map((MapEntry<String, String> entry) {
-                      String result = '';
+                children: bases.entries.map((MapEntry<String, String> entry) {
+                  String result = '';
 
-                      try {
-                        final converter = BaseConversion(
-                          from: base64,
-                          to: entry.value,
-                          zeroPadding: true,
-                        );
-                        result = converter(_stringAsBase64);
-                      } catch (error) {
-                        showMessageDialog(
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.error,
-                          error.toString(),
-                        );
-                      }
+                  try {
+                    final converter = BaseConversion(
+                      from: base64,
+                      to: entry.value,
+                      zeroPadding: true,
+                    );
+                    result = converter(_stringAsBase64);
+                  } catch (error) {
+                    showMessageDialog(
+                      AppLocalizations.of(navigatorKey.currentContext!)!.error,
+                      error.toString(),
+                    );
+                  }
 
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: Card(
-                          child: ListTile(
-                            title: Text(entry.key),
-                            subtitle: Text(result),
-                            trailing: IconButton(
-                              icon: const Icon(Icons.copy_rounded),
-                              onPressed: () {
-                                copyToClipBoard(entry.key, result);
-                              },
-                            ),
-                          ),
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Card(
+                      child: ListTile(
+                        title: Text(entry.key),
+                        subtitle: Text(result),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.copy_rounded),
+                          onPressed: () {
+                            copyToClipBoard(entry.key, result);
+                          },
                         ),
-                      );
-                    }).toList(),
+                      ),
+                    ),
+                  );
+                }).toList(),
               ),
           ],
         ),
