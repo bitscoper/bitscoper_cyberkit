@@ -23,6 +23,11 @@ class PingResult {
 }
 
 class PingerPageState extends State<PingerPage> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _hostEditingController = TextEditingController();
 
@@ -38,14 +43,13 @@ class PingerPageState extends State<PingerPage> {
         });
 
         while (_isPinging) {
-          final String response =
-              (
-                await Ping(
-                  _hostEditingController.text.trim(),
-                  encoding: const Utf8Codec(),
-                  count: 1,
-                ).stream.first,
-              ).toString();
+          final String response = (
+            await Ping(
+              _hostEditingController.text.trim(),
+              encoding: const Utf8Codec(),
+              count: 1,
+            ).stream.first,
+          ).toString();
 
           final RegExp expression = RegExp(
             r'ip:(.*?), ttl:(.*?), time:(.*?) ms',
@@ -106,10 +110,9 @@ class PingerPageState extends State<PingerPage> {
                     keyboardType: TextInputType.url,
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
-                      labelText:
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.a_host_or_ip_address,
+                      labelText: AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.a_host_or_ip_address,
                       hintText: 'bitscoper.dev',
                     ),
                     showCursor: true,
@@ -132,12 +135,11 @@ class PingerPageState extends State<PingerPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       ElevatedButton(
-                        onPressed:
-                            _isPinging
-                                ? null
-                                : () async {
-                                  await ping();
-                                },
+                        onPressed: _isPinging
+                            ? null
+                            : () async {
+                                await ping();
+                              },
                         child: Text(
                           AppLocalizations.of(
                             navigatorKey.currentContext!,
@@ -145,14 +147,13 @@ class PingerPageState extends State<PingerPage> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed:
-                            _isPinging
-                                ? () {
-                                  setState(() {
-                                    _isPinging = false;
-                                  });
-                                }
-                                : null,
+                        onPressed: _isPinging
+                            ? () {
+                                setState(() {
+                                  _isPinging = false;
+                                });
+                              }
+                            : null,
                         child: Text(
                           AppLocalizations.of(
                             navigatorKey.currentContext!,
@@ -176,11 +177,10 @@ class PingerPageState extends State<PingerPage> {
                     itemCount: _results.length,
                     nodePositionBuilder: (BuildContext context, int index) => 0,
                     connectionDirection: ConnectionDirection.before,
-                    indicatorBuilder:
-                        (BuildContext context, int index) =>
-                            OutlinedDotIndicator(
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
+                    indicatorBuilder: (BuildContext context, int index) =>
+                        OutlinedDotIndicator(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                     connectorBuilder:
                         (BuildContext context, int index, ConnectorType type) =>
                             SolidLineConnector(

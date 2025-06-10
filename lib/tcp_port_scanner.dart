@@ -57,10 +57,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
             .asStream()
             .transform(
               StreamTransformer.fromHandlers(
-                handleData: (
-                  TcpScannerTaskReport report,
-                  EventSink<Object?> sink,
-                ) {
+                handleData: (TcpScannerTaskReport report, EventSink<Object?> sink) {
                   setState(() {
                     _openPorts = report.openPorts.cast<int>();
                     _openPorts.sort();
@@ -88,18 +85,15 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                   sink.close();
 
                   await sendNotification(
-                    title:
-                        AppLocalizations.of(
-                          navigatorKey.currentContext!,
-                        )!.tcp_port_scanner,
-                    subtitle:
-                        AppLocalizations.of(
-                          navigatorKey.currentContext!,
-                        )!.bitscoper_cyber_toolbox,
-                    body:
-                        AppLocalizations.of(
-                          navigatorKey.currentContext!,
-                        )!.scanned,
+                    title: AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.tcp_port_scanner,
+                    subtitle: AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.bitscoper_cyber_toolbox,
+                    body: AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.scanned,
                     payload: "TCP_Port_Scanner",
                   );
                 },
@@ -145,8 +139,9 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
 
     return Scaffold(
       appBar: ApplicationToolBar(
-        title:
-            AppLocalizations.of(navigatorKey.currentContext!)!.tcp_port_scanner,
+        title: AppLocalizations.of(
+          navigatorKey.currentContext!,
+        )!.tcp_port_scanner,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32),
@@ -162,10 +157,9 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                     keyboardType: TextInputType.url,
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
-                      labelText:
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.a_host_or_ip_address,
+                      labelText: AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.a_host_or_ip_address,
                       hintText: 'bitscoper.dev',
                     ),
                     showCursor: true,
@@ -186,19 +180,18 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                   ),
                   const SizedBox(height: 16),
                   Center(
-                    child:
-                        _isScanning
-                            ? const CircularProgressIndicator()
-                            : ElevatedButton(
-                              onPressed: () async {
-                                await _scanTCPPorts();
-                              },
-                              child: Text(
-                                AppLocalizations.of(
-                                  navigatorKey.currentContext!,
-                                )!.scan,
-                              ),
+                    child: _isScanning
+                        ? const CircularProgressIndicator()
+                        : ElevatedButton(
+                            onPressed: () async {
+                              await _scanTCPPorts();
+                            },
+                            child: Text(
+                              AppLocalizations.of(
+                                navigatorKey.currentContext!,
+                              )!.scan,
                             ),
+                          ),
                   ),
                 ],
               ),

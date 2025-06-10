@@ -50,14 +50,12 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
         });
 
         await sendNotification(
-          title:
-              AppLocalizations.of(
-                navigatorKey.currentContext!,
-              )!.whois_retriever,
-          subtitle:
-              AppLocalizations.of(
-                navigatorKey.currentContext!,
-              )!.bitscoper_cyber_toolbox,
+          title: AppLocalizations.of(
+            navigatorKey.currentContext!,
+          )!.whois_retriever,
+          subtitle: AppLocalizations.of(
+            navigatorKey.currentContext!,
+          )!.bitscoper_cyber_toolbox,
           body: AppLocalizations.of(navigatorKey.currentContext!)!.retrieved,
           payload: "WHOIS_Retriever",
         );
@@ -85,8 +83,9 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title:
-            AppLocalizations.of(navigatorKey.currentContext!)!.whois_retriever,
+        title: AppLocalizations.of(
+          navigatorKey.currentContext!,
+        )!.whois_retriever,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32),
@@ -102,10 +101,9 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
                     keyboardType: TextInputType.url,
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
-                      labelText:
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.a_domain_name,
+                      labelText: AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.a_domain_name,
                       hintText: 'bitscoper.dev',
                     ),
                     showCursor: true,
@@ -127,12 +125,11 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
                   const SizedBox(height: 16),
                   Center(
                     child: ElevatedButton(
-                      onPressed:
-                          _isRetrieving
-                              ? null
-                              : () {
-                                _retrieveWHOIS();
-                              },
+                      onPressed: _isRetrieving
+                          ? null
+                          : () {
+                              _retrieveWHOIS();
+                            },
                       child: Text(
                         AppLocalizations.of(
                           navigatorKey.currentContext!,
@@ -149,15 +146,14 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
             else
               Card(
                 child: Column(
-                  children:
-                      _whoisInformation.entries.map((
-                        MapEntry<String, String> entry,
-                      ) {
-                        return ListTile(
-                          title: Text(entry.key),
-                          subtitle: Text(entry.value),
-                        );
-                      }).toList(),
+                  children: _whoisInformation.entries.map((
+                    MapEntry<String, String> entry,
+                  ) {
+                    return ListTile(
+                      title: Text(entry.key),
+                      subtitle: Text(entry.value),
+                    );
+                  }).toList(),
                 ),
               ),
           ],

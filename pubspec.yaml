@@ -3,14 +3,15 @@
 name: bitscoper_cyber_toolbox
 description: Bitscoper Cyber ToolBox
 publish_to: none
-version: 12.1.4+25
+version: 12.1.5+26
 
 environment:
-  sdk: ">=3.7.2"
+  sdk: ">=3.8.0"
 
 dependencies:
   async: any
   b: null
+  connectivity_plus: null
   crypto: null
   dart_ping: null
   dart_ping_ios: null
@@ -29,6 +30,7 @@ dependencies:
   http: null
   intl: any
   morse_code_translator: null
+  network_info_plus: null
   ogp_data_extract: null
   package_info_plus: null
   qr_flutter: null
@@ -98,13 +100,12 @@ msix_config:
   languages: en-US
   execution_alias: Bitscoper_Cyber_ToolBox
   enable_at_startup: false
-  capabilities:
-    internetClient, internetClientServer, privateNetworkClientServer,
+  capabilities: internetClient, internetClientServer, privateNetworkClientServer,
     removableStorage, wiFiControl
   architecture: x64
   store: true
   build_windows: true
   windows_build_args: --release --obfuscate --split-debug-info=./build/Debug_Symbols/Windows/
   debug: false
-  msix_version: 12.1.4.0
+  msix_version: 12.1.5.0
   output_name: Bitscoper_Cyber_ToolBox

@@ -41,14 +41,12 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
         );
 
         await sendNotification(
-          title:
-              AppLocalizations.of(
-                navigatorKey.currentContext!,
-              )!.open_graph_protocol_data_extractor,
-          subtitle:
-              AppLocalizations.of(
-                navigatorKey.currentContext!,
-              )!.bitscoper_cyber_toolbox,
+          title: AppLocalizations.of(
+            navigatorKey.currentContext!,
+          )!.open_graph_protocol_data_extractor,
+          subtitle: AppLocalizations.of(
+            navigatorKey.currentContext!,
+          )!.bitscoper_cyber_toolbox,
           body: AppLocalizations.of(navigatorKey.currentContext!)!.extracted,
           payload: "Open_Graph_Protocol_Data_Extractor",
         );
@@ -91,10 +89,9 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title:
-            AppLocalizations.of(
-              navigatorKey.currentContext!,
-            )!.open_graph_protocol_data_extractor,
+        title: AppLocalizations.of(
+          navigatorKey.currentContext!,
+        )!.open_graph_protocol_data_extractor,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32),
@@ -110,10 +107,9 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
                     keyboardType: TextInputType.url,
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
-                      labelText:
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.a_host_or_ip_address,
+                      labelText: AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.a_host_or_ip_address,
                       hintText: 'https://bitscoper.dev/',
                     ),
                     showCursor: true,
@@ -135,12 +131,11 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
                   const SizedBox(height: 16),
                   Center(
                     child: ElevatedButton(
-                      onPressed:
-                          _isRetrieving
-                              ? null
-                              : () {
-                                _retrieveOGPData();
-                              },
+                      onPressed: _isRetrieving
+                          ? null
+                          : () {
+                              _retrieveOGPData();
+                            },
                       child: Text(
                         AppLocalizations.of(
                           navigatorKey.currentContext!,
@@ -154,81 +149,55 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
             const SizedBox(height: 16),
             if (_isRetrieving)
               const Center(child: CircularProgressIndicator())
-            else
-              _ogpData != null
-                  ? Column(
-                    children: <Widget>[
-                      _buildCard('URL', _ogpData!.url),
-                      _buildCard('Type', _ogpData!.type),
-                      _buildCard('Title', _ogpData!.title),
-                      _buildCard('Description', _ogpData!.description),
-                      _buildCard('Image', _ogpData!.image),
-                      _buildCard(
-                        'Image (Secure URL)',
-                        _ogpData!.imageSecureUrl,
-                      ),
-                      _buildCard('Image Type', _ogpData!.imageType),
-                      _buildCard(
-                        'Image Width',
-                        _ogpData!.imageWidth?.toString(),
-                      ),
-                      _buildCard(
-                        'Image Height',
-                        _ogpData!.imageHeight?.toString(),
-                      ),
-                      _buildCard('Image Alt', _ogpData!.imageAlt),
-                      _buildCard('Site Name', _ogpData!.siteName),
-                      _buildCard('Determiner', _ogpData!.determiner),
-                      _buildCard('Locale', _ogpData!.locale),
-                      _buildCard(
-                        'Locale (Alternate)',
-                        _ogpData!.localeAlternate,
-                      ),
-                      _buildCard('Latitude', _ogpData!.latitude?.toString()),
-                      _buildCard('Longitude', _ogpData!.longitude?.toString()),
-                      _buildCard('Street Address', _ogpData!.streetAddress),
-                      _buildCard('Locality', _ogpData!.locality),
-                      _buildCard('Region', _ogpData!.region),
-                      _buildCard('Postal Code', _ogpData!.postalCode),
-                      _buildCard('Country Name', _ogpData!.countryName),
-                      _buildCard('Email Address', _ogpData!.email),
-                      _buildCard('Phone Number', _ogpData!.phoneNumber),
-                      _buildCard('Fax Number', _ogpData!.faxNumber),
-                      _buildCard('Video', _ogpData!.video),
-                      _buildCard(
-                        'Video (Secure URL)',
-                        _ogpData!.videoSecureUrl,
-                      ),
-                      _buildCard(
-                        'Video Height',
-                        _ogpData!.videoHeight?.toString(),
-                      ),
-                      _buildCard(
-                        'Video Width',
-                        _ogpData!.videoWidth?.toString(),
-                      ),
-                      _buildCard('Video Type', _ogpData!.videoType),
-                      _buildCard('Audio', _ogpData!.audio),
-                      _buildCard(
-                        'Audio (Secure URL)',
-                        _ogpData!.audioSecureUrl,
-                      ),
-                      _buildCard('Audio Title', _ogpData!.audioTitle),
-                      _buildCard('Audio Artist', _ogpData!.audioArtist),
-                      _buildCard('Audio Album', _ogpData!.audioAlbum),
-                      _buildCard('Audio Type', _ogpData!.audioType),
-                      _buildCard(
-                        'Facebook Administrators',
-                        _ogpData!.fbAdmins is List<String>
-                            ? (_ogpData!.fbAdmins as List<String>).join(', ')
-                            : _ogpData!.fbAdmins,
-                      ),
-                      _buildCard('Facebook App ID', _ogpData!.fbAppId),
-                      _buildCard('Twitter Card', _ogpData!.twitterCard),
-                      _buildCard('Twitter Site', _ogpData!.twitterSite),
-                    ],
-                  )
-                  : SizedBox(),
+            else if (_ogpData != null)
+              Column(
+                children: <Widget>[
+                  _buildCard('URL', _ogpData!.url),
+                  _buildCard('Type', _ogpData!.type),
+                  _buildCard('Title', _ogpData!.title),
+                  _buildCard('Description', _ogpData!.description),
+                  _buildCard('Image', _ogpData!.image),
+                  _buildCard('Image (Secure URL)', _ogpData!.imageSecureUrl),
+                  _buildCard('Image Type', _ogpData!.imageType),
+                  _buildCard('Image Width', _ogpData!.imageWidth?.toString()),
+                  _buildCard('Image Height', _ogpData!.imageHeight?.toString()),
+                  _buildCard('Image Alt', _ogpData!.imageAlt),
+                  _buildCard('Site Name', _ogpData!.siteName),
+                  _buildCard('Determiner', _ogpData!.determiner),
+                  _buildCard('Locale', _ogpData!.locale),
+                  _buildCard('Locale (Alternate)', _ogpData!.localeAlternate),
+                  _buildCard('Latitude', _ogpData!.latitude?.toString()),
+                  _buildCard('Longitude', _ogpData!.longitude?.toString()),
+                  _buildCard('Street Address', _ogpData!.streetAddress),
+                  _buildCard('Locality', _ogpData!.locality),
+                  _buildCard('Region', _ogpData!.region),
+                  _buildCard('Postal Code', _ogpData!.postalCode),
+                  _buildCard('Country Name', _ogpData!.countryName),
+                  _buildCard('Email Address', _ogpData!.email),
+                  _buildCard('Phone Number', _ogpData!.phoneNumber),
+                  _buildCard('Fax Number', _ogpData!.faxNumber),
+                  _buildCard('Video', _ogpData!.video),
+                  _buildCard('Video (Secure URL)', _ogpData!.videoSecureUrl),
+                  _buildCard('Video Height', _ogpData!.videoHeight?.toString()),
+                  _buildCard('Video Width', _ogpData!.videoWidth?.toString()),
+                  _buildCard('Video Type', _ogpData!.videoType),
+                  _buildCard('Audio', _ogpData!.audio),
+                  _buildCard('Audio (Secure URL)', _ogpData!.audioSecureUrl),
+                  _buildCard('Audio Title', _ogpData!.audioTitle),
+                  _buildCard('Audio Artist', _ogpData!.audioArtist),
+                  _buildCard('Audio Album', _ogpData!.audioAlbum),
+                  _buildCard('Audio Type', _ogpData!.audioType),
+                  _buildCard(
+                    'Facebook Administrators',
+                    _ogpData!.fbAdmins is List<String>
+                        ? (_ogpData!.fbAdmins as List<String>).join(', ')
+                        : _ogpData!.fbAdmins,
+                  ),
+                  _buildCard('Facebook App ID', _ogpData!.fbAppId),
+                  _buildCard('Twitter Card', _ogpData!.twitterCard),
+                  _buildCard('Twitter Site', _ogpData!.twitterSite),
+                ],
+              ),
           ],
         ),
       ),

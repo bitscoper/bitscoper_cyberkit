@@ -47,8 +47,9 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
         });
 
         for (
-          int iteration =
-              int.tryParse(_lowerLimitEditingController.text.trim())!;
+          int iteration = int.tryParse(
+            _lowerLimitEditingController.text.trim(),
+          )!;
           iteration <= int.tryParse(_upperLimitEditingController.text.trim())!;
           iteration++
         ) {
@@ -79,14 +80,12 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
         }
 
         await sendNotification(
-          title:
-              AppLocalizations.of(
-                navigatorKey.currentContext!,
-              )!.series_uri_crawler,
-          subtitle:
-              AppLocalizations.of(
-                navigatorKey.currentContext!,
-              )!.bitscoper_cyber_toolbox,
+          title: AppLocalizations.of(
+            navigatorKey.currentContext!,
+          )!.series_uri_crawler,
+          subtitle: AppLocalizations.of(
+            navigatorKey.currentContext!,
+          )!.bitscoper_cyber_toolbox,
           body: AppLocalizations.of(navigatorKey.currentContext!)!.crawled,
           payload: "Series_URI_Crawler",
         );
@@ -117,10 +116,9 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title:
-            AppLocalizations.of(
-              navigatorKey.currentContext!,
-            )!.series_uri_crawler,
+        title: AppLocalizations.of(
+          navigatorKey.currentContext!,
+        )!.series_uri_crawler,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32),
@@ -139,10 +137,9 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                           controller: _uriPrefixEditingController,
                           keyboardType: TextInputType.url,
                           decoration: InputDecoration(
-                            labelText:
-                                AppLocalizations.of(
-                                  navigatorKey.currentContext!,
-                                )!.uri_prefix,
+                            labelText: AppLocalizations.of(
+                              navigatorKey.currentContext!,
+                            )!.uri_prefix,
                             hintText: 'https://bitscoper.dev/publication-',
                           ),
                           showCursor: true,
@@ -169,10 +166,9 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                           controller: _uriSuffixEditingController,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
-                            labelText:
-                                AppLocalizations.of(
-                                  navigatorKey.currentContext!,
-                                )!.uri_suffix,
+                            labelText: AppLocalizations.of(
+                              navigatorKey.currentContext!,
+                            )!.uri_suffix,
                             hintText: '.php',
                           ),
                           showCursor: true,
@@ -195,10 +191,9 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                           controller: _lowerLimitEditingController,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
-                            labelText:
-                                AppLocalizations.of(
-                                  navigatorKey.currentContext!,
-                                )!.lower_limit,
+                            labelText: AppLocalizations.of(
+                              navigatorKey.currentContext!,
+                            )!.lower_limit,
                             hintText: '1',
                           ),
                           showCursor: true,
@@ -239,10 +234,9 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                           controller: _upperLimitEditingController,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
-                            labelText:
-                                AppLocalizations.of(
-                                  navigatorKey.currentContext!,
-                                )!.upper_limit,
+                            labelText: AppLocalizations.of(
+                              navigatorKey.currentContext!,
+                            )!.upper_limit,
                             hintText: '100',
                           ),
                           showCursor: true,
@@ -284,12 +278,11 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       ElevatedButton(
-                        onPressed:
-                            _isCrawling
-                                ? null
-                                : () {
-                                  crawl();
-                                },
+                        onPressed: _isCrawling
+                            ? null
+                            : () {
+                                crawl();
+                              },
                         child: Text(
                           AppLocalizations.of(
                             navigatorKey.currentContext!,
@@ -297,14 +290,13 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed:
-                            _isCrawling
-                                ? () {
-                                  setState(() {
-                                    _isCrawling = false;
-                                  });
-                                }
-                                : null,
+                        onPressed: _isCrawling
+                            ? () {
+                                setState(() {
+                                  _isCrawling = false;
+                                });
+                              }
+                            : null,
                         child: Text(
                           AppLocalizations.of(
                             navigatorKey.currentContext!,
