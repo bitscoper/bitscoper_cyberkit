@@ -7,6 +7,7 @@ import 'package:bitscoper_cyber_toolbox/file_hash_calculator.dart';
 import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
 import 'package:bitscoper_cyber_toolbox/main.dart';
 import 'package:bitscoper_cyber_toolbox/morse_code_translator.dart';
+import 'package:bitscoper_cyber_toolbox/network_information_viewer.dart';
 import 'package:bitscoper_cyber_toolbox/open_graph_protocol_data_extractor.dart';
 import 'package:bitscoper_cyber_toolbox/pinger.dart';
 import 'package:bitscoper_cyber_toolbox/qr_code_generator.dart';
@@ -16,8 +17,8 @@ import 'package:bitscoper_cyber_toolbox/string_hash_calculator.dart';
 import 'package:bitscoper_cyber_toolbox/tcp_port_scanner.dart';
 import 'package:bitscoper_cyber_toolbox/version_checker.dart';
 import 'package:bitscoper_cyber_toolbox/whois_retriever.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class _ToolCardWidget extends StatelessWidget {
@@ -152,14 +153,20 @@ class HomePage extends StatelessWidget {
         Icons.domain_rounded,
         const WHOISRetrieverPage(),
       ),
+      (
+        AppLocalizations.of(
+          navigatorKey.currentContext!,
+        )!.wifi_information_viewer,
+        Icons.network_check_rounded,
+        const WiFiInformationViewerPage(),
+      ),
     ];
 
     return Scaffold(
       appBar: ApplicationToolBar(
-        title:
-            AppLocalizations.of(
-              navigatorKey.currentContext!,
-            )!.bitscoper_cyber_toolbox,
+        title: AppLocalizations.of(
+          navigatorKey.currentContext!,
+        )!.bitscoper_cyber_toolbox,
       ),
       drawer: Drawer(
         child: ListView(
@@ -175,18 +182,17 @@ class HomePage extends StatelessWidget {
                   ),
                   FutureBuilder<String>(
                     future: getVersion(),
-                    builder: (
-                      BuildContext context,
-                      AsyncSnapshot<String> snapshot,
-                    ) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const CircularProgressIndicator();
-                      } else if (snapshot.hasError) {
-                        return Text(snapshot.error.toString());
-                      } else {
-                        return Text(snapshot.data ?? '');
-                      }
-                    },
+                    builder:
+                        (BuildContext context, AsyncSnapshot<String> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const CircularProgressIndicator();
+                          } else if (snapshot.hasError) {
+                            return Text(snapshot.error.toString());
+                          } else {
+                            return Text(snapshot.data ?? '');
+                          }
+                        },
                   ),
                 ],
               ),

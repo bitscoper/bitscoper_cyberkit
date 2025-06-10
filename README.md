@@ -109,7 +109,7 @@ Web_Application --> My_Server[My Server]
     </tr>
     <tr>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Bitscoper_Cyber_ToolBox-12.1.4-x64.AppImage">Bitscoper_Cyber_ToolBox-12.1.4-x64.AppImage</a>
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Bitscoper_Cyber_ToolBox-12.1.5-x64.AppImage">Bitscoper_Cyber_ToolBox-12.1.5-x64.AppImage</a>
       </td>
     </tr>
     <tr>
@@ -211,8 +211,7 @@ Web_Application --> My_Server[My Server]
 > [!IMPORTANT]
 > Versions submitted to Google Play and Microsoft Store may vary and be delayed.
 
-> [!CAUTION]
-> \*\* Windows builds are [failing](https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/actions/) due to [AOT Compilation Error with flutter_local_notifications](https://github.com/MaikuB/flutter_local_notifications/issues/2615#issuecomment-2890925149).
+> [!CAUTION] > \*\* Windows builds are [failing](https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/actions/) due to [AOT Compilation Error with flutter_local_notifications](https://github.com/MaikuB/flutter_local_notifications/issues/2615#issuecomment-2890925149).
 
 ### From GHCR
 
