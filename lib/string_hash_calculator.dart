@@ -77,7 +77,7 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
         )!.string_hash_calculator,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(32.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -114,7 +114,7 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
                 },
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 16.0),
             if (_stringEditingController.text.isEmpty)
               Center(
                 child: Text(
@@ -129,7 +129,7 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
                 children: <Widget>[
                   for (MapEntry<String, dynamic> entry in _hashValues.entries)
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
+                      padding: const EdgeInsets.only(bottom: 16.0),
                       child: Card(
                         child: ListTile(
                           title: Text(entry.key),

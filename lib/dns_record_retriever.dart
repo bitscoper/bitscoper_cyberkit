@@ -118,7 +118,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
         )!.dns_record_retriever,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(32.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -152,7 +152,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                       retrieveDNSRecord();
                     },
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 16.0),
                   DropdownButtonFormField<DNSProvider>(
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(
@@ -178,7 +178,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                         })
                         .toList(),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 16.0),
                   Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -215,28 +215,45 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                 ],
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 16.0),
             if (_isRetrieving)
               Center(
                 child: Column(
                   children: <Widget>[
                     StreamBuilder<String>(
                       stream: _recordTypeController.stream,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData && snapshot.data != null) {
-                          return Text(
-                            '${AppLocalizations.of(navigatorKey.currentContext!)!.retrieving} ${snapshot.data} ${AppLocalizations.of(navigatorKey.currentContext!)!.records}',
-                          );
-                        } else {
-                          return Text(
-                            AppLocalizations.of(
-                              navigatorKey.currentContext!,
-                            )!.wait,
-                          );
-                        }
-                      },
+                      builder:
+                          (
+                            BuildContext context,
+                            AsyncSnapshot<String> snapshot,
+                          ) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Text(
+                                AppLocalizations.of(
+                                  navigatorKey.currentContext!,
+                                )!.wait,
+                              );
+                            } else if (snapshot.hasData &&
+                                snapshot.data!.isNotEmpty) {
+                              return Text(
+                                '${AppLocalizations.of(navigatorKey.currentContext!)!.retrieving} ${snapshot.data} ${AppLocalizations.of(navigatorKey.currentContext!)!.records}',
+                              );
+                            } else if (snapshot.hasError) {
+                              showMessageDialog(
+                                AppLocalizations.of(
+                                  navigatorKey.currentContext!,
+                                )!.error,
+                                snapshot.toString(),
+                              );
+
+                              return const SizedBox();
+                            } else {
+                              return const SizedBox();
+                            }
+                          },
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 16.0),
                     const CircularProgressIndicator(),
                   ],
                 ),

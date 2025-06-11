@@ -97,7 +97,7 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
         )!.file_hash_calculator,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(32.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -137,7 +137,7 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
                 },
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 16.0),
             if (!_isCalculating && _hashValues.isEmpty)
               Center(
                 child: Text(
@@ -154,7 +154,7 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
                 children: <Widget>[
                   for (Map<String, dynamic> hashValue in _hashValues)
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
+                      padding: const EdgeInsets.only(bottom: 16.0),
                       child: Card(
                         child: Column(
                           children: <Widget>[

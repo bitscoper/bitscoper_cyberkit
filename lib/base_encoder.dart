@@ -77,7 +77,7 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
         title: AppLocalizations.of(navigatorKey.currentContext!)!.base_encoder,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(32.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -114,7 +114,7 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
                 },
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 16.0),
             if (_stringEditingController.text.isEmpty)
               Center(
                 child: Column(
@@ -125,97 +125,97 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
                       )!.start_typing_a_string_to_encode_it_into_the_bases,
                       textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 8.0),
                     const Wrap(
                       alignment: WrapAlignment.center,
                       children: <Widget>[
                         Card(
                           child: Padding(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(8.0),
                             child: Text('Binary (Base2)'),
                           ),
                         ),
                         Card(
                           child: Padding(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(8.0),
                             child: Text('Ternary (Base3)'),
                           ),
                         ),
                         Card(
                           child: Padding(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(8.0),
                             child: Text('Quaternary (Base4)'),
                           ),
                         ),
                         Card(
                           child: Padding(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(8.0),
                             child: Text('Quinary (Base5)'),
                           ),
                         ),
                         Card(
                           child: Padding(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(8.0),
                             child: Text('Senary (Base6)'),
                           ),
                         ),
                         Card(
                           child: Padding(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(8.0),
                             child: Text('Octal (Base8)'),
                           ),
                         ),
                         Card(
                           child: Padding(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(8.0),
                             child: Text('Decimal (Base10)'),
                           ),
                         ),
                         Card(
                           child: Padding(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(8.0),
                             child: Text('Duodecimal (Base12)'),
                           ),
                         ),
                         Card(
                           child: Padding(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(8.0),
                             child: Text('Hexadecimal (Base16)'),
                           ),
                         ),
                         Card(
                           child: Padding(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(8.0),
                             child: Text('Base32'),
                           ),
                         ),
                         Card(
                           child: Padding(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(8.0),
                             child: Text('Base32Hex'),
                           ),
                         ),
                         Card(
                           child: Padding(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(8.0),
                             child: Text('Base36'),
                           ),
                         ),
                         Card(
                           child: Padding(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(8.0),
                             child: Text('Base58'),
                           ),
                         ),
                         Card(
                           child: Padding(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(8.0),
                             child: Text('Base62'),
                           ),
                         ),
                         Card(
                           child: Padding(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(8.0),
                             child: Text('Base64'),
                           ),
                         ),

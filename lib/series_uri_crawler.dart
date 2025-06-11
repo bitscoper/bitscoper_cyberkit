@@ -121,7 +121,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
         )!.series_uri_crawler,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(32.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -159,7 +159,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                           },
                         ),
                       ),
-                      const SizedBox(width: 16),
+                      const SizedBox(width: 16.0),
                       Expanded(
                         flex: 1,
                         child: TextFormField(
@@ -228,7 +228,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                           },
                         ),
                       ),
-                      const SizedBox(width: 16),
+                      const SizedBox(width: 16.0),
                       Expanded(
                         child: TextFormField(
                           controller: _upperLimitEditingController,
@@ -273,7 +273,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 16.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
@@ -308,7 +308,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                 ],
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 16.0),
             Column(
               children: <Widget>[
                 for (MapEntry<String, dynamic> entry in webPages.entries)
@@ -335,10 +335,13 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                       ),
                     ),
                   ),
-                if (_isCrawling) ...[
-                  const SizedBox(height: 8),
-                  const Center(child: CircularProgressIndicator()),
-                ],
+                if (_isCrawling)
+                  const Column(
+                    children: [
+                      SizedBox(height: 8.0),
+                      Center(child: CircularProgressIndicator()),
+                    ],
+                  ),
               ],
             ),
           ],

@@ -97,7 +97,7 @@ class PingerPageState extends State<PingerPage> {
         title: AppLocalizations.of(navigatorKey.currentContext!)!.pinger,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(32.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -130,7 +130,7 @@ class PingerPageState extends State<PingerPage> {
                       await ping();
                     },
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 16.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
@@ -165,11 +165,14 @@ class PingerPageState extends State<PingerPage> {
                 ],
               ),
             ),
-            const SizedBox(height: 16),
-            if (_isPinging) ...[
-              const Center(child: CircularProgressIndicator()),
-              const SizedBox(height: 16),
-            ],
+            const SizedBox(height: 16.0),
+            if (_isPinging)
+              const Column(
+                children: [
+                  Center(child: CircularProgressIndicator()),
+                  SizedBox(height: 16.0),
+                ],
+              ),
             if (_results.isNotEmpty)
               Expanded(
                 child: Timeline.tileBuilder(
@@ -186,7 +189,7 @@ class PingerPageState extends State<PingerPage> {
                             SolidLineConnector(
                               color: Theme.of(context).colorScheme.primary,
                             ),
-                    contentsBuilder: (context, index) {
+                    contentsBuilder: (BuildContext context, int index) {
                       final PingResult result = _results[index];
 
                       return Padding(

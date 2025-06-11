@@ -100,7 +100,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
         )!.qr_code_generator,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(32.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -141,7 +141,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                 },
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 16.0),
             Row(
               children: <Widget>[
                 Expanded(
@@ -176,7 +176,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                     },
                   ),
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 16.0),
                 Expanded(
                   flex: 1,
                   child: DropdownButtonFormField(
@@ -229,7 +229,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 16.0),
             Row(
               children: <Widget>[
                 Expanded(
@@ -266,7 +266,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                     },
                   ),
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 16.0),
                 Expanded(
                   flex: 1,
                   child: DropdownButtonFormField(
@@ -303,12 +303,12 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 16.0),
             Text(
               AppLocalizations.of(navigatorKey.currentContext!)!.colors,
               style: Theme.of(context).textTheme.labelMedium,
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 8.0),
             Row(
               children: <Widget>[
                 Expanded(
@@ -347,7 +347,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                     ),
                   ),
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 16.0),
                 Expanded(
                   flex: 1,
                   child: GestureDetector(
@@ -384,7 +384,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                     ),
                   ),
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 16.0),
                 Expanded(
                   flex: 2,
                   child: GestureDetector(
@@ -423,7 +423,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 16.0),
             Row(
               children: <Widget>[
                 Expanded(
@@ -460,7 +460,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                     },
                   ),
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 16.0),
                 Expanded(
                   flex: 1,
                   child: TextFormField(

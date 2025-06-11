@@ -88,7 +88,7 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
         )!.whois_retriever,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(32.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -122,7 +122,7 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
                       _retrieveWHOIS();
                     },
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 16.0),
                   Center(
                     child: ElevatedButton(
                       onPressed: _isRetrieving
@@ -140,7 +140,7 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
                 ],
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 16.0),
             if (_isRetrieving)
               const Center(child: CircularProgressIndicator())
             else
