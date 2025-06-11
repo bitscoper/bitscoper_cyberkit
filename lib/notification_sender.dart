@@ -114,7 +114,7 @@ Future<void> sendNotification({
         styleInformation: const DefaultStyleInformation(true, true),
         colorized: true,
         icon: androidMonochromeIconName,
-        largeIcon: DrawableResourceAndroidBitmap(androidIconName), // TODO: Test
+        largeIcon: DrawableResourceAndroidBitmap(androidIconName),
         subText: subtitle,
         showWhen: true,
         when: DateTime.now().millisecondsSinceEpoch,

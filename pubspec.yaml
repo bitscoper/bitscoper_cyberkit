@@ -31,8 +31,10 @@ dependencies:
   intl: any
   morse_code_translator: null
   network_info_plus: null
+  network_tools_flutter: null
   ogp_data_extract: null
   package_info_plus: null
+  path_provider: null
   qr_flutter: null
   quick_actions: null
   tcp_scanner: null

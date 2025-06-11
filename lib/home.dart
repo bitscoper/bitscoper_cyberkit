@@ -6,8 +6,8 @@ import 'package:bitscoper_cyber_toolbox/dns_record_retriever.dart';
 import 'package:bitscoper_cyber_toolbox/file_hash_calculator.dart';
 import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
 import 'package:bitscoper_cyber_toolbox/main.dart';
+import 'package:bitscoper_cyber_toolbox/mdns_scanner.dart';
 import 'package:bitscoper_cyber_toolbox/morse_code_translator.dart';
-import 'package:bitscoper_cyber_toolbox/network_information_viewer.dart';
 import 'package:bitscoper_cyber_toolbox/open_graph_protocol_data_extractor.dart';
 import 'package:bitscoper_cyber_toolbox/pinger.dart';
 import 'package:bitscoper_cyber_toolbox/qr_code_generator.dart';
@@ -17,6 +17,7 @@ import 'package:bitscoper_cyber_toolbox/string_hash_calculator.dart';
 import 'package:bitscoper_cyber_toolbox/tcp_port_scanner.dart';
 import 'package:bitscoper_cyber_toolbox/version_checker.dart';
 import 'package:bitscoper_cyber_toolbox/whois_retriever.dart';
+import 'package:bitscoper_cyber_toolbox/wifi_information_viewer.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -43,12 +44,12 @@ class _ToolCardWidget extends StatelessWidget {
           );
         },
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(icon, size: 32),
-              const SizedBox(height: 12),
+              const SizedBox(height: 16.0 * 0.75), // 12.0
               Text(
                 title,
                 style: Theme.of(context).textTheme.titleMedium,
@@ -73,7 +74,7 @@ class HomePage extends StatelessWidget {
   });
 
   int _getCrossAxisCount(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    final double width = MediaQuery.of(context).size.width;
 
     if (width > 1200) {
       return MediaQuery.of(context).orientation == Orientation.portrait ? 6 : 8;
@@ -87,6 +88,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tools = [
+      (
+        // AppLocalizations.of(navigatorKey.currentContext!)!.mdns_scanner,
+        "mDNS Scanner",
+        Icons.scanner_rounded,
+        const MDNSScannerPage(),
+      ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.tcp_port_scanner,
         Icons.radar_rounded,

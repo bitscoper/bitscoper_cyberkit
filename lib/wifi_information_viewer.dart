@@ -73,7 +73,7 @@ class WiFiInformationViewerPageState extends State<WiFiInformationViewerPage> {
 
   Widget _informationCard(String label, String? value) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.only(bottom: 8.0),
       child: Card(
         child: ListTile(
           title: Text(label),
@@ -108,7 +108,7 @@ class WiFiInformationViewerPageState extends State<WiFiInformationViewerPage> {
           ? Center(
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.all(32),
+                  padding: const EdgeInsets.all(32.0),
                   child: CircularProgressIndicator(),
                 ),
               ),
@@ -116,11 +116,10 @@ class WiFiInformationViewerPageState extends State<WiFiInformationViewerPage> {
           : networkConnectivityResult!.contains(ConnectivityResult.wifi)
           ? SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(32),
+                padding: const EdgeInsets.all(32.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const SizedBox(height: 16),
                     _informationCard(
                       AppLocalizations.of(
                         navigatorKey.currentContext!,
@@ -170,7 +169,7 @@ class WiFiInformationViewerPageState extends State<WiFiInformationViewerPage> {
           : Center(
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.all(32),
+                  padding: const EdgeInsets.all(32.0),
                   child: Text(
                     AppLocalizations.of(
                       navigatorKey.currentContext!,

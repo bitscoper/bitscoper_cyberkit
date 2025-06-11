@@ -232,7 +232,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get quartile => 'তিন চতুর্থাংশ';
 
   @override
-  String get records => 'রেকর্ডস';
+  String get records => 'রেকর্ডস ...';
 
   @override
   String get retrieve => 'রিট্রিভ';
@@ -343,7 +343,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get version => 'সংস্করণ';
 
   @override
-  String get wait => 'অপেক্ষা করুন';
+  String get wait => 'অপেক্ষা করুন ...';
 
   @override
   String get whois_retriever => 'হুইস রিট্রিভার';

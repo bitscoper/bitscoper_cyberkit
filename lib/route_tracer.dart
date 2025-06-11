@@ -26,7 +26,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
       ),
       body: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(32),
+          padding: const EdgeInsets.all(32.0),
           child: Text(
             AppLocalizations.of(
               navigatorKey.currentContext!,
@@ -88,7 +88,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
 //     BuildContext context,
 //   ) {
 //     return SingleChildScrollView(
-//       padding: const EdgeInsets.all(32),
+//       padding: const EdgeInsets.all(32.0),
 //       child: Column(
 //         crossAxisAlignment: CrossAxisAlignment.start,
 //         children: <Widget>[
@@ -121,7 +121,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
 //                   },
 //                 ),
 //                 const SizedBox(
-//                   height: 16,
+//                   height: 16.0,
 //                 ),
 //                 Row(
 //                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -146,7 +146,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
 //             ),
 //           ),
 //           const SizedBox(
-//             height: 16,
+//             height: 16.0,
 //           ),
 //           Column(
 //             crossAxisAlignment: CrossAxisAlignment.start,
@@ -162,7 +162,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
 //                 ),
 //               if (isTracing) ...[
 //                 const SizedBox(
-//                   height: 16,
+//                   height: 16.0,
 //                 ),
 //                 const Center(
 //                   child: CircularProgressIndicator(),

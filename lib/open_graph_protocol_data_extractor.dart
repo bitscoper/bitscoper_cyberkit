@@ -94,7 +94,7 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
         )!.open_graph_protocol_data_extractor,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(32.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -128,7 +128,7 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
                       _retrieveOGPData();
                     },
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 16.0),
                   Center(
                     child: ElevatedButton(
                       onPressed: _isRetrieving
@@ -146,7 +146,7 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
                 ],
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 16.0),
             if (_isRetrieving)
               const Center(child: CircularProgressIndicator())
             else if (_ogpData != null)

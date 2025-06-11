@@ -48,8 +48,14 @@
 		<key>UIStatusBarHidden</key>
 		<false />
 		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-		<string>Your location is needed by Wi-Fi Information Viewer.</string>
+		<string>Your location is required by Subnet Scanner and Wi-Fi Information Viewer.</string>
 		<key>NSLocationWhenInUseUsageDescription</key>
-		<string>Your location is needed by Wi-Fi Information Viewer.</string>
+		<string>Your location is required by Subnet Scanner and Wi-Fi Information Viewer.</string>
+		<key>NSLocalNetworkUsageDescription</key>
+		<string>Local network information is required by mDNS Scanner.</string>
+		<key>NSBonjourServices</key>
+		<array>
+			<string>_http._tcp</string>
+		</array>
 	</dict>
 </plist>
