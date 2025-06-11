@@ -534,7 +534,7 @@ abstract class AppLocalizations {
   /// No description provided for @records.
   ///
   /// In en, this message translates to:
-  /// **'records'**
+  /// **'Records ...'**
   String get records;
 
   /// No description provided for @retrieve.
@@ -740,7 +740,7 @@ abstract class AppLocalizations {
   /// No description provided for @wait.
   ///
   /// In en, this message translates to:
-  /// **'Wait'**
+  /// **'Wait ...'**
   String get wait;
 
   /// No description provided for @whois_retriever.

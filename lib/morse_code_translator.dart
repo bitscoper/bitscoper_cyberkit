@@ -97,7 +97,7 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
         )!.morse_code_translator,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(32.0),
         child: Column(
           children: [
             Form(
@@ -139,7 +139,7 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
                 ],
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 16.0),
             Form(
               key: _morseCodeFormKey,
               child: TextFormField(

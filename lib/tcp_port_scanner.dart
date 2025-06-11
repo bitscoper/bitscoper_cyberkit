@@ -144,7 +144,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
         )!.tcp_port_scanner,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(32.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -178,7 +178,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                       await _scanTCPPorts();
                     },
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 16.0),
                   Center(
                     child: _isScanning
                         ? const CircularProgressIndicator()
@@ -196,7 +196,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                 ],
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 16.0),
             if (!_isScanning)
               Column(
                 children: <Widget>[
@@ -215,7 +215,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                         ),
                     ],
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 16.0),
                   Text(_scanInformation),
                 ],
               ),

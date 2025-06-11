@@ -231,7 +231,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get quartile => 'Quartile';
 
   @override
-  String get records => 'records';
+  String get records => 'Records ...';
 
   @override
   String get retrieve => 'Retrieve';
@@ -341,7 +341,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get version => 'Version';
 
   @override
-  String get wait => 'Wait';
+  String get wait => 'Wait ...';
 
   @override
   String get whois_retriever => 'WHOIS Retriever';
