@@ -246,10 +246,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get route_tracer => 'Route Tracer';
 
   @override
-  String get route_tracer_apology =>
-      'Apologies, Route Tracer is currently unavailable due to build errors.';
-
-  @override
   String get scan => 'Scan';
 
   @override
@@ -311,6 +307,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get toggle_theme => 'Toggle Theme';
+
+  @override
+  String get trace => 'Trace';
 
   @override
   String get true_ => 'True';
