@@ -3,6 +3,7 @@
 import "dart:core";
 import "package:flutter_local_notifications/flutter_local_notifications.dart";
 import "package:flutter/material.dart";
+import "package:uuid/uuid.dart";
 
 Future<void> sendNotification({
   required final String title,
@@ -13,6 +14,7 @@ Future<void> sendNotification({
   final String iconPath = "assets/icon/icon.png";
   final String androidMonochromeIconName = "icon_monochrome";
   final String androidIconName = "icon";
+  final String windowsIconPath = "assets/icon/icon.ico";
   final String linuxSoundTheme = "bell-window-system";
   final String linuxActionName = "default_linux_notification_action_name";
 
@@ -49,8 +51,10 @@ Future<void> sendNotification({
       WindowsInitializationSettings(
         appUserModelId: "18862TeleChirkut.BitscoperCyberToolBox",
         appName: "Bitscoper Cyber Toolbox",
-        iconPath: iconPath, // TODO: Test
-        guid: "default_windows_notification_action_guid",
+        iconPath: WindowsImage.getAssetUri(
+          windowsIconPath,
+        ).toString(), // FIXME: Debug
+        guid: Uuid().v4(),
       );
 
   final InitializationSettings initializationSettings = InitializationSettings(
@@ -77,11 +81,11 @@ Future<void> sendNotification({
   //   NotificationAppLaunchDetails? applicationLaunchDetails,
   // ) {
   //   if (applicationLaunchDetails?.didNotificationLaunchApp ?? false) {
-  //     final String? payload =
+  //     final String? responsePayload =
   //         applicationLaunchDetails?.notificationResponse?.payload;
 
-  //     if (payload != null) {
-  //       debugPrint(payload);
+  //     if (responsePayload != null) {
+  //       debugPrint(responsePayload);
   //     }
   //   }
   // });

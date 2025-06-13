@@ -13,7 +13,7 @@ jobs:
       contents: read
     steps:
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2.19.0
+        uses: subosito/flutter-action@v2.20.0
         with:
           channel: stable
 
@@ -87,7 +87,7 @@ jobs:
       contents: read
     steps:
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2.19.0
+        uses: subosito/flutter-action@v2.20.0
         with:
           channel: stable
 
@@ -177,7 +177,7 @@ jobs:
       contents: read
     steps:
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2.19.0
+        uses: subosito/flutter-action@v2.20.0
         with:
           channel: stable
 
@@ -212,7 +212,7 @@ jobs:
       contents: read
     steps:
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2.19.0
+        uses: subosito/flutter-action@v2.20.0
         with:
           channel: stable
 
@@ -256,7 +256,7 @@ jobs:
       contents: read
     steps:
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2.19.0
+        uses: subosito/flutter-action@v2.20.0
         with:
           channel: stable
 
@@ -308,7 +308,7 @@ jobs:
       contents: read
     steps:
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2.19.0
+        uses: subosito/flutter-action@v2.20.0
         with:
           channel: stable
 
@@ -341,7 +341,7 @@ jobs:
         build-for-macos,
         build-for-ios,
         # build-for-windows,
-        build-for-web,
+        # build-for-web,
       ]
     runs-on: ubuntu-latest
     permissions:
@@ -371,7 +371,7 @@ jobs:
           zip -r ./iOS_Executable_Debug_Symbols.zip ./iOS_Executable_Debug_Symbols/*
           # zip -r ./IPA_Debug_Symbols.zip ./IPA_Debug_Symbols/*
           # zip -r ./Windows_x64_Debug_Symbols.zip ./Windows_x64_Debug_Symbols/*
-          zip -r ./Web_Application.zip ./Web_Application/*
+          # zip -r ./Web_Application.zip ./Web_Application/*
         shell: bash
 
       - name: Get Version
