@@ -107,74 +107,66 @@ class WiFiInformationViewerPageState extends State<WiFiInformationViewerPage> {
       body: networkConnectivityResult == null
           ? Center(
               child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(32.0),
-                  child: CircularProgressIndicator(),
-                ),
+                padding: const EdgeInsets.all(32.0),
+                child: CircularProgressIndicator(),
               ),
             )
           : networkConnectivityResult!.contains(ConnectivityResult.wifi)
           ? SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(32.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    _informationCard(
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.service_set_identifier_ssid,
-                      _ssid,
-                    ),
-                    _informationCard(
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.basic_service_set_identifier_bssid,
-                      _bssid,
-                    ),
-                    _informationCard(
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.internet_protocol_version_4_ipv4_address,
-                      _ipAddress,
-                    ),
-                    _informationCard(
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.internet_protocol_version_6_ipv6_address,
-                      _ipV6Address,
-                    ),
-                    _informationCard(
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.subnet_mask,
-                      _subnetMask,
-                    ),
-                    _informationCard(
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.broadcast_address,
-                      _broadcast,
-                    ),
-                    _informationCard(
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.gateway,
-                      _gatewayIPAddress,
-                    ),
-                  ],
-                ),
+              padding: const EdgeInsets.all(32.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  _informationCard(
+                    AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.service_set_identifier_ssid,
+                    _ssid,
+                  ),
+                  _informationCard(
+                    AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.basic_service_set_identifier_bssid,
+                    _bssid,
+                  ),
+                  _informationCard(
+                    AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.internet_protocol_version_4_ipv4_address,
+                    _ipAddress,
+                  ),
+                  _informationCard(
+                    AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.internet_protocol_version_6_ipv6_address,
+                    _ipV6Address,
+                  ),
+                  _informationCard(
+                    AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.subnet_mask,
+                    _subnetMask,
+                  ),
+                  _informationCard(
+                    AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.broadcast_address,
+                    _broadcast,
+                  ),
+                  _informationCard(
+                    AppLocalizations.of(navigatorKey.currentContext!)!.gateway,
+                    _gatewayIPAddress,
+                  ),
+                ],
               ),
             )
           : Center(
               child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(32.0),
-                  child: Text(
-                    AppLocalizations.of(
-                      navigatorKey.currentContext!,
-                    )!.wifi_is_disconnected,
-                  ),
+                padding: const EdgeInsets.all(32.0),
+                child: Text(
+                  AppLocalizations.of(
+                    navigatorKey.currentContext!,
+                  )!.wifi_is_disconnected,
                 ),
               ),
             ),

@@ -247,10 +247,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get route_tracer => 'রুট ট্রেসার';
 
   @override
-  String get route_tracer_apology =>
-      'দুঃখিত, বিল্ড ত্রুটির কারণে বর্তমানে রুট ট্রেসার ব্যবহারযোগ্য না।';
-
-  @override
   String get scan => 'স্ক্যান';
 
   @override
@@ -313,6 +309,9 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get toggle_theme => 'থিম পরিবর্তন';
+
+  @override
+  String get trace => 'ট্রেস';
 
   @override
   String get true_ => 'হ্যাঁ';

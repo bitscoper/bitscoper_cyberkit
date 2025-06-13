@@ -160,71 +160,65 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
     return Scaffold(
       appBar: ApplicationToolBar(title: "mDNS Scanner"),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  ElevatedButton(
-                    onPressed: _isScanning
-                        ? null
-                        : () {
-                            _scanMDNS();
-                          },
-                    child: Text(
-                      AppLocalizations.of(navigatorKey.currentContext!)!.scan,
-                    ),
+        padding: const EdgeInsets.all(32.0),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: _isScanning
+                      ? null
+                      : () {
+                          _scanMDNS();
+                        },
+                  child: Text(
+                    AppLocalizations.of(navigatorKey.currentContext!)!.scan,
                   ),
-                  ElevatedButton(
-                    onPressed: _isScanning
-                        ? () {
-                            setState(() {
-                              _isScanning = false;
-                            });
-                          }
-                        : null,
-                    child: Text(
-                      AppLocalizations.of(navigatorKey.currentContext!)!.stop,
-                    ),
+                ),
+                ElevatedButton(
+                  onPressed: _isScanning
+                      ? () {
+                          setState(() {
+                            _isScanning = false;
+                          });
+                        }
+                      : null,
+                  child: Text(
+                    AppLocalizations.of(navigatorKey.currentContext!)!.stop,
                   ),
-                ],
-              ),
-              const SizedBox(height: 16.0),
-              if (_isScanning)
-                Column(children: [Center(child: CircularProgressIndicator())]),
-              FutureBuilder<List<Widget>>(
-                future: Future.wait(hosts.map(_buildInformationCard)),
-                builder:
-                    (
-                      BuildContext context,
-                      AsyncSnapshot<List<Widget>> snapshot,
-                    ) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasData &&
-                          snapshot.data!.isNotEmpty) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: snapshot.data!,
-                        );
-                      } else if (snapshot.hasError) {
-                        showMessageDialog(
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.error,
-                          snapshot.error.toString(),
-                        );
+                ),
+              ],
+            ),
+            const SizedBox(height: 16.0),
+            if (_isScanning)
+              Column(children: [Center(child: CircularProgressIndicator())]),
+            FutureBuilder<List<Widget>>(
+              future: Future.wait(hosts.map(_buildInformationCard)),
+              builder:
+                  (BuildContext context, AsyncSnapshot<List<Widget>> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: snapshot.data!,
+                      );
+                    } else if (snapshot.hasError) {
+                      showMessageDialog(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.error,
+                        snapshot.error.toString(),
+                      );
 
-                        return const SizedBox();
-                      } else {
-                        return const SizedBox();
-                      }
-                    },
-              ),
-            ],
-          ),
+                      return const SizedBox();
+                    } else {
+                      return const SizedBox();
+                    }
+                  },
+            ),
+          ],
         ),
       ),
     );
