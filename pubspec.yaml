@@ -25,6 +25,9 @@ dependencies:
     sdk: flutter
   flutter_native_splash: null
   flutter_staggered_grid_view: null
+  flutter_traceroute:
+    git:
+      url: https://github.com/Koizeay/flutter_traceroute.git
   google_fonts: null
   html: null
   http: null
@@ -102,7 +105,8 @@ msix_config:
   languages: en-US
   execution_alias: Bitscoper_Cyber_ToolBox
   enable_at_startup: false
-  capabilities: internetClient, internetClientServer, privateNetworkClientServer,
+  capabilities:
+    internetClient, internetClientServer, privateNetworkClientServer,
     removableStorage, wiFiControl
   architecture: x64
   store: true

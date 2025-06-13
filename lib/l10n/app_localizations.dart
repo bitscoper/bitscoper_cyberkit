@@ -561,12 +561,6 @@ abstract class AppLocalizations {
   /// **'Route Tracer'**
   String get route_tracer;
 
-  /// No description provided for @route_tracer_apology.
-  ///
-  /// In en, this message translates to:
-  /// **'Apologies, Route Tracer is currently unavailable due to build errors.'**
-  String get route_tracer_apology;
-
   /// No description provided for @scan.
   ///
   /// In en, this message translates to:
@@ -682,6 +676,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Toggle Theme'**
   String get toggle_theme;
+
+  /// No description provided for @trace.
+  ///
+  /// In en, this message translates to:
+  /// **'Trace'**
+  String get trace;
 
   /// No description provided for @true_.
   ///
