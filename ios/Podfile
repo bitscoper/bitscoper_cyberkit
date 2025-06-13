@@ -41,5 +41,5 @@ post_install do |installer|
   end
 end
 
-pod 'SimplePing', :git => 'https://github.com/youssef-fk/SimplePing.git'
-pod 'SimpleTracer', :git => 'https://github.com/youssef-fk/SimpleTracer.git'
+pod 'SimplePing', :git => 'https://github.com/Koizeay/SimplePing.git'
+pod 'SimpleTracer', :git => 'https://github.com/Koizeay/SimpleTracer.git'
