@@ -58,7 +58,7 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
-    }
+    } finally {}
   }
 
   @override

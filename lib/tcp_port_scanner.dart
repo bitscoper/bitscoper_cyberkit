@@ -174,8 +174,8 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                       return null;
                     },
                     onChanged: (String value) {},
-                    onFieldSubmitted: (String value) async {
-                      await _scanTCPPorts();
+                    onFieldSubmitted: (String value) {
+                      _scanTCPPorts();
                     },
                   ),
                   const SizedBox(height: 16.0),
@@ -201,17 +201,21 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
               Column(
                 children: <Widget>[
                   Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
+                    spacing: 8.0,
+                    runSpacing: 8.0,
                     children: <Widget>[
                       for (int port in _openPorts)
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4),
-                            border: Border.all(color: Colors.grey),
+                        Chip(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
-                          child: Text(numberFormat.format(port)),
+                          padding: const EdgeInsets.only(
+                            top: 8.0,
+                            right: 4.0,
+                            bottom: 8.0,
+                            left: 4.0,
+                          ),
+                          label: Text(numberFormat.format(port)),
                         ),
                     ],
                   ),
