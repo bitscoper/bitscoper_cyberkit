@@ -77,7 +77,11 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ApplicationToolBar(title: "IPv4 Subnet Scanner"),
+      appBar: ApplicationToolBar(
+        title: AppLocalizations.of(
+          navigatorKey.currentContext!,
+        )!.ipv4_subnet_scanner,
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32.0),
         child: Column(
@@ -92,14 +96,18 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
                     keyboardType: TextInputType.url,
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
-                      labelText: "An IPv4 Subnet",
-                      hintText: '1.1.1',
+                      labelText: AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.an_ipv4_subnet,
+                      hintText: "1.1.1",
                     ),
                     showCursor: true,
                     maxLines: 1,
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return "Enter an IPv4 subnet!";
+                        return AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.enter_an_ipv4_subnet;
                       }
                       return null;
                     },

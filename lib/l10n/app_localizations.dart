@@ -128,6 +128,12 @@ abstract class AppLocalizations {
   /// **'Abdullah As-Sadeed'**
   String get abdullah_as_sadeed;
 
+  /// No description provided for @an_ipv4_subnet.
+  ///
+  /// In en, this message translates to:
+  /// **'An IPv4 Subnet'**
+  String get an_ipv4_subnet;
+
   /// No description provided for @automatic.
   ///
   /// In en, this message translates to:
@@ -326,6 +332,12 @@ abstract class AppLocalizations {
   /// **'Enter an Integer!'**
   String get enter_an_integer;
 
+  /// No description provided for @enter_an_ipv4_subnet.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an IPv4 subnet!'**
+  String get enter_an_ipv4_subnet;
+
   /// No description provided for @enter_an_upper_limit.
   ///
   /// In en, this message translates to:
@@ -434,6 +446,12 @@ abstract class AppLocalizations {
   /// **'Internet Protocol Version 6 (IPv6) Address'**
   String get internet_protocol_version_6_ipv6_address;
 
+  /// No description provided for @ipv4_subnet_scanner.
+  ///
+  /// In en, this message translates to:
+  /// **'IPv4 Subnet Scanner'**
+  String get ipv4_subnet_scanner;
+
   /// No description provided for @it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records.
   ///
   /// In en, this message translates to:
@@ -458,6 +476,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Lower Limit'**
   String get lower_limit;
+
+  /// No description provided for @mdns_scanner.
+  ///
+  /// In en, this message translates to:
+  /// **'mDNS Scanner'**
+  String get mdns_scanner;
 
   /// No description provided for @medium.
   ///

@@ -24,6 +24,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get abdullah_as_sadeed => 'আবদুল্লাহ আস-সাদীদ';
 
   @override
+  String get an_ipv4_subnet => 'একটা IPv4 সাবনেট';
+
+  @override
   String get automatic => 'স্বয়ংক্রিয়';
 
   @override
@@ -125,6 +128,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get enter_an_integer => 'একটা পূর্ণসংখ্যা লিখুন!';
 
   @override
+  String get enter_an_ipv4_subnet => 'একটা IPv4 সাবনেট লিখুন!';
+
+  @override
   String get enter_an_upper_limit => 'একটা উচ্চ সীমা লিখুন!';
 
   @override
@@ -181,6 +187,9 @@ class AppLocalizationsBn extends AppLocalizations {
       'ইন্টারনেট প্রোটোকল সংস্করণ ৬ (IPv6) অ্যাড্রেস';
 
   @override
+  String get ipv4_subnet_scanner => 'IPv4 সাবনেট স্ক্যানার';
+
+  @override
   String
   get it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records =>
       'সম্ভাব্য সকল ধরনের ফরওয়ার্ড ও রিভার্স রেকর্ডস রিট্রিভ করতে সময়ের প্রয়োজন।';
@@ -193,6 +202,9 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get lower_limit => 'নিম্ন সীমা';
+
+  @override
+  String get mdns_scanner => 'mDNS স্ক্যানার';
 
   @override
   String get medium => 'মধ্যম';
