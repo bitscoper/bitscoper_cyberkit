@@ -57,15 +57,73 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
         title: Text(mdnsInformation!.mdnsName),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Name / Target: ${mdnsInformation.mdnsName}'),
-            Text(
-              'Domain Name / Bundle Identifier: ${mdnsInformation.mdnsDomainName}',
+          children: <Widget>[
+            Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Name / Target: ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(text: mdnsInformation.mdnsName),
+                ],
+              ),
             ),
-            Text('Service Target: ${mdnsInformation.mdnsSrvTarget}'),
-            Text('Address: ${host.address}'),
-            Text('Port: ${mdnsInformation.mdnsPort}'),
-            Text('Service Type: ${mdnsInformation.mdnsServiceType}'),
+            Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Domain Name / Bundle Identifier: ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(text: mdnsInformation.mdnsDomainName),
+                ],
+              ),
+            ),
+            Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Service Target: ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(text: mdnsInformation.mdnsSrvTarget),
+                ],
+              ),
+            ),
+            Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Address: ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(text: host.address),
+                ],
+              ),
+            ),
+            Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Port: ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(text: '${mdnsInformation.mdnsPort}'),
+                ],
+              ),
+            ),
+            Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Service Type: ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(text: mdnsInformation.mdnsServiceType),
+                ],
+              ),
+            ),
             SizedBox(height: 8.0),
             Card(
               color: Theme.of(navigatorKey.currentContext!).hoverColor,
@@ -73,16 +131,63 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                 title: Text("PTR Record"),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Name: ${mdnsInformation.ptrResourceRecord.name}"),
-                    Text(
-                      "Domain Name: ${mdnsInformation.ptrResourceRecord.domainName}",
+                  children: <Widget>[
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Name: ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: mdnsInformation.ptrResourceRecord.name,
+                          ),
+                        ],
+                      ),
                     ),
-                    Text(
-                      "Record Type: ${mdnsInformation.ptrResourceRecord.resourceRecordType}",
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Domain Name: ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: mdnsInformation.ptrResourceRecord.domainName,
+                          ),
+                        ],
+                      ),
                     ),
-                    Text(
-                      'Validity: ${DateFormat('MMMM dd, yyyy hh:mm:ss a').format(DateTime.fromMillisecondsSinceEpoch(mdnsInformation.txtResourceRecord.validUntil))}',
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Record Type: ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text:
+                                "${mdnsInformation.ptrResourceRecord.resourceRecordType}",
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Validity: ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: DateFormat('MMMM dd, yyyy hh:mm:ss a').format(
+                              DateTime.fromMillisecondsSinceEpoch(
+                                mdnsInformation.txtResourceRecord.validUntil,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -94,19 +199,103 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                 title: Text("SRV Record"),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Name: ${mdnsInformation.srvResourceRecord.name}"),
-                    Text("Target: ${mdnsInformation.srvResourceRecord.target}"),
-                    Text("Port: ${mdnsInformation.srvResourceRecord.port}"),
-                    Text(
-                      "Priority: ${mdnsInformation.srvResourceRecord.priority}",
+                  children: <Widget>[
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Name: ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: mdnsInformation.srvResourceRecord.name,
+                          ),
+                        ],
+                      ),
                     ),
-                    Text("Weight: ${mdnsInformation.srvResourceRecord.weight}"),
-                    Text(
-                      "Record Type: ${mdnsInformation.srvResourceRecord.resourceRecordType}",
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Target: ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: mdnsInformation.srvResourceRecord.target,
+                          ),
+                        ],
+                      ),
                     ),
-                    Text(
-                      'Validity: ${DateFormat('MMMM dd, yyyy hh:mm:ss a').format(DateTime.fromMillisecondsSinceEpoch(mdnsInformation.txtResourceRecord.validUntil))}',
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Port: ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: "${mdnsInformation.srvResourceRecord.port}",
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Priority: ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text:
+                                "${mdnsInformation.srvResourceRecord.priority}",
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Weight: ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: "${mdnsInformation.srvResourceRecord.weight}",
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Record Type: ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text:
+                                "${mdnsInformation.srvResourceRecord.resourceRecordType}",
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Validity: ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: DateFormat('MMMM dd, yyyy hh:mm:ss a').format(
+                              DateTime.fromMillisecondsSinceEpoch(
+                                mdnsInformation.txtResourceRecord.validUntil,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -119,26 +308,65 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                   title: Text("TXT Record"),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Name: ${mdnsInformation.txtResourceRecord.name}"),
-                      Text(
-                        "Record Type: ${mdnsInformation.txtResourceRecord.resourceRecordType}",
+                    children: <Widget>[
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Name: ",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            TextSpan(
+                              text: mdnsInformation.txtResourceRecord.name,
+                            ),
+                          ],
+                        ),
                       ),
-                      Text(
-                        'Validity: ${DateFormat('MMMM dd, yyyy hh:mm:ss a').format(DateTime.fromMillisecondsSinceEpoch(mdnsInformation.txtResourceRecord.validUntil))}',
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Record Type: ",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            TextSpan(
+                              text:
+                                  "${mdnsInformation.txtResourceRecord.resourceRecordType}",
+                            ),
+                          ],
+                        ),
                       ),
-                      Column(
-                        children: [
-                          const SizedBox(height: 8.0),
-                          Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Text(
-                                mdnsInformation.txtResourceRecord.text,
-                              ),
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Validity: ",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            TextSpan(
+                              text: DateFormat('MMMM dd, yyyy hh:mm:ss a')
+                                  .format(
+                                    DateTime.fromMillisecondsSinceEpoch(
+                                      mdnsInformation
+                                          .txtResourceRecord
+                                          .validUntil,
+                                    ),
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: ListTile(
+                            title: Text("Value"),
+                            subtitle: Text(
+                              mdnsInformation.txtResourceRecord.text,
                             ),
                           ),
-                        ],
+                        ),
                       ),
                     ],
                   ),
@@ -158,11 +386,14 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ApplicationToolBar(title: "mDNS Scanner"),
+      appBar: ApplicationToolBar(
+        title: AppLocalizations.of(navigatorKey.currentContext!)!.mdns_scanner,
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32.0),
         child: Column(
-          children: [
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
@@ -192,7 +423,10 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
             ),
             const SizedBox(height: 16.0),
             if (_isScanning)
-              Column(children: [Center(child: CircularProgressIndicator())]),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[Center(child: CircularProgressIndicator())],
+              ),
             FutureBuilder<List<Widget>>(
               future: Future.wait(hosts.map(_buildInformationCard)),
               builder:

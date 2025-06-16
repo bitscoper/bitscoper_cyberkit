@@ -47,8 +47,9 @@ class _ToolCardWidget extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
-            children: [
+            children: <Widget>[
               Icon(icon, size: 32),
               const SizedBox(height: 16.0 * 0.75), // 12.0
               Text(
@@ -186,7 +187,7 @@ class HomePage extends StatelessWidget {
             DrawerHeader(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: <Widget>[
                   Text(
                     AppLocalizations.of(
                       navigatorKey.currentContext!,
