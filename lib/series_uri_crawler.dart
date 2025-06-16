@@ -38,7 +38,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
   bool _isCrawling = false;
   Map<String, String> webPages = {};
 
-  Future<void> crawl() async {
+  Future<void> _crawl() async {
     if (_formKey.currentState!.validate()) {
       try {
         setState(() {
@@ -155,7 +155,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                           },
                           onChanged: (String value) {},
                           onFieldSubmitted: (String value) {
-                            crawl();
+                            _crawl();
                           },
                         ),
                       ),
@@ -178,7 +178,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                           // ) {},
                           onChanged: (String value) {},
                           onFieldSubmitted: (String value) {
-                            crawl();
+                            _crawl();
                           },
                         ),
                       ),
@@ -224,7 +224,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                           },
                           onChanged: (String value) {},
                           onFieldSubmitted: (String value) {
-                            crawl();
+                            _crawl();
                           },
                         ),
                       ),
@@ -267,7 +267,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                           },
                           onChanged: (String value) {},
                           onFieldSubmitted: (String value) {
-                            crawl();
+                            _crawl();
                           },
                         ),
                       ),
@@ -281,7 +281,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                         onPressed: _isCrawling
                             ? null
                             : () {
-                                crawl();
+                                _crawl();
                               },
                         child: Text(
                           AppLocalizations.of(

@@ -14,6 +14,7 @@ import 'package:bitscoper_cyber_toolbox/qr_code_generator.dart';
 import 'package:bitscoper_cyber_toolbox/route_tracer.dart';
 import 'package:bitscoper_cyber_toolbox/series_uri_crawler.dart';
 import 'package:bitscoper_cyber_toolbox/string_hash_calculator.dart';
+import 'package:bitscoper_cyber_toolbox/ipv4_subnet_scanner.dart';
 import 'package:bitscoper_cyber_toolbox/tcp_port_scanner.dart';
 import 'package:bitscoper_cyber_toolbox/version_checker.dart';
 import 'package:bitscoper_cyber_toolbox/whois_retriever.dart';
@@ -36,7 +37,7 @@ class _ToolCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: InkWell(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(8.0),
         onTap: () {
           Navigator.push(
             context,
@@ -88,6 +89,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tools = [
+      (
+        // AppLocalizations.of(navigatorKey.currentContext!)!.ipv4_subnet_scanner,
+        "IPv4 Subnet Scanner",
+        Icons.scanner_rounded,
+        const IPv4SubnetScannerPage(),
+      ),
       (
         // AppLocalizations.of(navigatorKey.currentContext!)!.mdns_scanner,
         "mDNS Scanner",

@@ -34,7 +34,7 @@ class PingerPageState extends State<PingerPage> {
   bool _isPinging = false;
   List<PingResult> _results = [];
 
-  Future<void> ping() async {
+  Future<void> _ping() async {
     if (_formKey.currentState!.validate()) {
       try {
         setState(() {
@@ -126,8 +126,8 @@ class PingerPageState extends State<PingerPage> {
                       return null;
                     },
                     onChanged: (String value) {},
-                    onFieldSubmitted: (String value) async {
-                      await ping();
+                    onFieldSubmitted: (String value) {
+                      _ping();
                     },
                   ),
                   const SizedBox(height: 16.0),
@@ -138,7 +138,7 @@ class PingerPageState extends State<PingerPage> {
                         onPressed: _isPinging
                             ? null
                             : () async {
-                                await ping();
+                                await _ping();
                               },
                         child: Text(
                           AppLocalizations.of(

@@ -58,7 +58,7 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
-    }
+    } finally {}
   }
 
   void _decodeMorseCode() {
@@ -77,7 +77,7 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
-    }
+    } finally {}
   }
 
   @override

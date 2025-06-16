@@ -57,7 +57,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
           AppLocalizations.of(navigatorKey.currentContext!)!.error,
           error.toString(),
         );
-      }
+      } finally {}
     }
   }
 

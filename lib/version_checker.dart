@@ -68,5 +68,5 @@ Future<void> checkVersion() async {
       AppLocalizations.of(navigatorKey.currentContext!)!.error,
       error.toString(),
     );
-  }
+  } finally {}
 }

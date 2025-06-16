@@ -327,7 +327,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                         height: 32,
                         decoration: BoxDecoration(
                           border: Border.all(width: 1, color: Colors.grey),
-                          borderRadius: BorderRadius.circular(4),
+                          borderRadius: BorderRadius.circular(8.0),
                           color: _eyeColor,
                         ),
                         child: Center(
@@ -364,7 +364,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                         height: 32,
                         decoration: BoxDecoration(
                           border: Border.all(width: 1, color: Colors.grey),
-                          borderRadius: BorderRadius.circular(4),
+                          borderRadius: BorderRadius.circular(8.0),
                           color: _dataModuleColor,
                         ),
                         child: Center(
@@ -401,7 +401,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                         height: 32,
                         decoration: BoxDecoration(
                           border: Border.all(width: 1, color: Colors.grey),
-                          borderRadius: BorderRadius.circular(4),
+                          borderRadius: BorderRadius.circular(8.0),
                           color: _backgroundColor,
                         ),
                         child: Center(
