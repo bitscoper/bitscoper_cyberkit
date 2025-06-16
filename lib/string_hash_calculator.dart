@@ -126,6 +126,7 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
               )
             else
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   for (MapEntry<String, dynamic> entry in _hashValues.entries)
                     Padding(

@@ -104,6 +104,7 @@ class PingerPageState extends State<PingerPage> {
             Form(
               key: _formKey,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   TextFormField(
                     controller: _hostEditingController,
@@ -168,7 +169,8 @@ class PingerPageState extends State<PingerPage> {
             const SizedBox(height: 16.0),
             if (_isPinging)
               const Column(
-                children: [
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
                   Center(child: CircularProgressIndicator()),
                   SizedBox(height: 16.0),
                 ],

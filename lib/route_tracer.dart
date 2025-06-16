@@ -97,6 +97,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
         child: Form(
           key: _formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               TextFormField(
                 controller: _hostEditingController,
@@ -156,7 +157,8 @@ class RouteTracerPageState extends State<RouteTracerPage> {
                     ),
                   if (_isTracing)
                     Column(
-                      children: [
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
                         const SizedBox(height: 16.0),
                         const Center(child: CircularProgressIndicator()),
                       ],
