@@ -95,6 +95,7 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
             Form(
               key: _formKey,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   TextFormField(
                     controller: _domainNameEditingController,
@@ -146,6 +147,7 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
             else
               Card(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: _whoisInformation.entries.map((
                     MapEntry<String, String> entry,
                   ) {

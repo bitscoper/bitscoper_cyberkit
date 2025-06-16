@@ -1,7 +1,7 @@
 # By Abdullah As-Sadeed
 
 name: bitscoper_cyber_toolbox
-description: Bitscoper Cyber ToolBox
+description: A Flutter application consisting of IPv4 Subnet Scanner, mDNS Scanner, TCP Port Scanner, Route Tracer, Pinger, File Hash Calculator, String Hash Calculator, Base Encoder, Morse Code Translator, QR Code Generator, Open Graph Protocol Data Extractor, Series URI Crawler, DNS Record Retriever, and WHOIS Retriever.
 publish_to: none
 version: 12.1.5+26
 

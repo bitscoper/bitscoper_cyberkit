@@ -101,6 +101,7 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
             Form(
               key: _formKey,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   TextFormField(
                     controller: _hostEditingController,
@@ -151,6 +152,7 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
               const Center(child: CircularProgressIndicator())
             else if (_ogpData != null)
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   _buildCard('URL', _ogpData!.url),
                   _buildCard('Type', _ogpData!.type),

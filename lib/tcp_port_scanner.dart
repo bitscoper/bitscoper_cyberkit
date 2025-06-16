@@ -151,6 +151,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
             Form(
               key: _formKey,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   TextFormField(
                     controller: _hostEditingController,
@@ -199,6 +200,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
             const SizedBox(height: 16.0),
             if (!_isScanning)
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Wrap(
                     spacing: 8.0,

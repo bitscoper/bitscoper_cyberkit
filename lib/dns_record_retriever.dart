@@ -125,6 +125,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
             Form(
               key: _formKey,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   TextFormField(
                     controller: _hostEditingController,
@@ -219,6 +220,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
             if (_isRetrieving)
               Center(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     StreamBuilder<String>(
                       stream: _recordTypeController.stream,
@@ -269,6 +271,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                       ),
                     )
                   : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: _records.map((record) {
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 8),

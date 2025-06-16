@@ -99,7 +99,8 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32.0),
         child: Column(
-          children: [
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
             Form(
               key: _stringFormKey,
               child: Column(

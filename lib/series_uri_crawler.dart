@@ -128,6 +128,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
             Form(
               key: _formKey,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(
                     children: <Widget>[
@@ -310,6 +311,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
             ),
             const SizedBox(height: 16.0),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 for (MapEntry<String, dynamic> entry in webPages.entries)
                   Padding(
@@ -337,7 +339,8 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                   ),
                 if (_isCrawling)
                   const Column(
-                    children: [
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
                       SizedBox(height: 8.0),
                       Center(child: CircularProgressIndicator()),
                     ],

@@ -512,6 +512,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
               ),
               child: Center(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     if (_stringEditingController.text.isNotEmpty)
                       QrImageView(

@@ -90,6 +90,7 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
             Form(
               key: _formKey,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   TextFormField(
                     controller: _subnetEditingController,
@@ -153,7 +154,8 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
             ),
             if (_isScanning)
               Column(
-                children: [
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
                   const SizedBox(height: 16.0),
                   const Center(child: CircularProgressIndicator()),
                 ],

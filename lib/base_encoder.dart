@@ -118,6 +118,7 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
             if (_stringEditingController.text.isEmpty)
               Center(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
                       AppLocalizations.of(
@@ -226,6 +227,7 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
               )
             else
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: bases.entries.map((MapEntry<String, String> entry) {
                   String result = '';
 

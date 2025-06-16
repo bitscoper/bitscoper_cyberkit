@@ -151,12 +151,14 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
               const Center(child: CircularProgressIndicator())
             else
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   for (Map<String, dynamic> hashValue in _hashValues)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 16.0),
                       child: Card(
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             ListTile(
                               title: Center(
