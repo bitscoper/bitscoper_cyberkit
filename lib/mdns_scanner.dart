@@ -62,7 +62,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
               TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Name / Target: ',
+                    text:
+                        "${AppLocalizations.of(navigatorKey.currentContext!)!.name_or_target}: ",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   TextSpan(text: mdnsInformation.mdnsName),
@@ -73,7 +74,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
               TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Domain Name / Bundle Identifier: ',
+                    text:
+                        "${AppLocalizations.of(navigatorKey.currentContext!)!.domain_name_or_bundle_identifier}: ",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   TextSpan(text: mdnsInformation.mdnsDomainName),
@@ -84,7 +86,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
               TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Service Target: ',
+                    text:
+                        "${AppLocalizations.of(navigatorKey.currentContext!)!.service_target}: ",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   TextSpan(text: mdnsInformation.mdnsSrvTarget),
@@ -95,7 +98,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
               TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Address: ',
+                    text:
+                        "${AppLocalizations.of(navigatorKey.currentContext!)!.address}: ",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   TextSpan(text: host.address),
@@ -106,7 +110,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
               TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Port: ',
+                    text:
+                        "${AppLocalizations.of(navigatorKey.currentContext!)!.port}: ",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   TextSpan(text: '${mdnsInformation.mdnsPort}'),
@@ -117,7 +122,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
               TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Service Type: ',
+                    text:
+                        "${AppLocalizations.of(navigatorKey.currentContext!)!.service_type}: ",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   TextSpan(text: mdnsInformation.mdnsServiceType),
@@ -128,7 +134,9 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
             Card(
               color: Theme.of(navigatorKey.currentContext!).hoverColor,
               child: ListTile(
-                title: Text("PTR Record"),
+                title: Text(
+                  AppLocalizations.of(navigatorKey.currentContext!)!.ptr_record,
+                ),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -136,7 +144,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: "Name: ",
+                            text:
+                                "${AppLocalizations.of(navigatorKey.currentContext!)!.name}: ",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
@@ -149,7 +158,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: "Domain Name: ",
+                            text:
+                                "${AppLocalizations.of(navigatorKey.currentContext!)!.domain_name}: ",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
@@ -162,7 +172,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: "Record Type: ",
+                            text:
+                                "${AppLocalizations.of(navigatorKey.currentContext!)!.record_type}: ",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
@@ -176,7 +187,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: "Validity: ",
+                            text:
+                                "${AppLocalizations.of(navigatorKey.currentContext!)!.validity}: ",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
@@ -196,7 +208,9 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
             Card(
               color: Theme.of(navigatorKey.currentContext!).hoverColor,
               child: ListTile(
-                title: Text("SRV Record"),
+                title: Text(
+                  AppLocalizations.of(navigatorKey.currentContext!)!.srv_record,
+                ),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -204,7 +218,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: "Name: ",
+                            text:
+                                "${AppLocalizations.of(navigatorKey.currentContext!)!.name}: ",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
@@ -217,7 +232,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: "Target: ",
+                            text:
+                                "${AppLocalizations.of(navigatorKey.currentContext!)!.target}: ",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
@@ -230,7 +246,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: "Port: ",
+                            text:
+                                "${AppLocalizations.of(navigatorKey.currentContext!)!.port}: ",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
@@ -243,7 +260,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: "Priority: ",
+                            text:
+                                "${AppLocalizations.of(navigatorKey.currentContext!)!.priority}: ",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
@@ -257,7 +275,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: "Weight: ",
+                            text:
+                                "${AppLocalizations.of(navigatorKey.currentContext!)!.weight}: ",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
@@ -270,7 +289,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: "Record Type: ",
+                            text:
+                                "${AppLocalizations.of(navigatorKey.currentContext!)!.record_type}: ",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
@@ -284,7 +304,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: "Validity: ",
+                            text:
+                                "${AppLocalizations.of(navigatorKey.currentContext!)!.validity}: ",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
@@ -305,7 +326,11 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
               Card(
                 color: Theme.of(navigatorKey.currentContext!).hoverColor,
                 child: ListTile(
-                  title: Text("TXT Record"),
+                  title: Text(
+                    AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.txt_record,
+                  ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -313,7 +338,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: "Name: ",
+                              text:
+                                  "${AppLocalizations.of(navigatorKey.currentContext!)!.name}: ",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             TextSpan(
@@ -326,7 +352,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: "Record Type: ",
+                              text:
+                                  "${AppLocalizations.of(navigatorKey.currentContext!)!.record_type}: ",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             TextSpan(
@@ -340,7 +367,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: "Validity: ",
+                              text:
+                                  "${AppLocalizations.of(navigatorKey.currentContext!)!.validity}: ",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             TextSpan(
@@ -361,7 +389,11 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: ListTile(
-                            title: Text("Value"),
+                            title: Text(
+                              AppLocalizations.of(
+                                navigatorKey.currentContext!,
+                              )!.value,
+                            ),
                             subtitle: Text(
                               mdnsInformation.txtResourceRecord.text,
                             ),

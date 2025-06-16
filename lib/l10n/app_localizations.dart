@@ -128,6 +128,12 @@ abstract class AppLocalizations {
   /// **'Abdullah As-Sadeed'**
   String get abdullah_as_sadeed;
 
+  /// No description provided for @address.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get address;
+
   /// No description provided for @an_ipv4_subnet.
   ///
   /// In en, this message translates to:
@@ -271,6 +277,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'DNS Record Retriever'**
   String get dns_record_retriever;
+
+  /// No description provided for @domain_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Domain Name'**
+  String get domain_name;
+
+  /// No description provided for @domain_name_or_bundle_identifier.
+  ///
+  /// In en, this message translates to:
+  /// **'Domain Name / Bundle Identifier'**
+  String get domain_name_or_bundle_identifier;
 
   /// No description provided for @elapsed_time.
   ///
@@ -507,6 +525,18 @@ abstract class AppLocalizations {
   /// **'Morse Code Translator'**
   String get morse_code_translator;
 
+  /// No description provided for @name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get name;
+
+  /// No description provided for @name_or_target.
+  ///
+  /// In en, this message translates to:
+  /// **'Name / Target'**
+  String get name_or_target;
+
   /// No description provided for @ok.
   ///
   /// In en, this message translates to:
@@ -537,11 +567,29 @@ abstract class AppLocalizations {
   /// **'Pinger'**
   String get pinger;
 
+  /// No description provided for @port.
+  ///
+  /// In en, this message translates to:
+  /// **'Port'**
+  String get port;
+
+  /// No description provided for @priority.
+  ///
+  /// In en, this message translates to:
+  /// **'Priority'**
+  String get priority;
+
   /// No description provided for @privacy_policy.
   ///
   /// In en, this message translates to:
   /// **'Privacy Policy'**
   String get privacy_policy;
+
+  /// No description provided for @ptr_record.
+  ///
+  /// In en, this message translates to:
+  /// **'PTR Record'**
+  String get ptr_record;
 
   /// No description provided for @qr_code_generator.
   ///
@@ -554,6 +602,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Quartile'**
   String get quartile;
+
+  /// No description provided for @record_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Record Type'**
+  String get record_type;
 
   /// No description provided for @records.
   ///
@@ -634,6 +688,18 @@ abstract class AppLocalizations {
   /// **'Service Set Identifier (SSID)'**
   String get service_set_identifier_ssid;
 
+  /// No description provided for @service_target.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Target'**
+  String get service_target;
+
+  /// No description provided for @service_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Type'**
+  String get service_type;
+
   /// No description provided for @source_code.
   ///
   /// In en, this message translates to:
@@ -645,6 +711,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Square'**
   String get square;
+
+  /// No description provided for @srv_record.
+  ///
+  /// In en, this message translates to:
+  /// **'SRV Record'**
+  String get srv_record;
 
   /// No description provided for @start_typing_a_string_to_calculate_its_md5_sha1_sha224_sha256_sha384_sha512_hashes.
   ///
@@ -683,6 +755,12 @@ abstract class AppLocalizations {
   /// **'Subnet Mask'**
   String get subnet_mask;
 
+  /// No description provided for @target.
+  ///
+  /// In en, this message translates to:
+  /// **'Target'**
+  String get target;
+
   /// No description provided for @tcp_port_scanner.
   ///
   /// In en, this message translates to:
@@ -718,6 +796,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'TTL'**
   String get ttl;
+
+  /// No description provided for @txt_record.
+  ///
+  /// In en, this message translates to:
+  /// **'TXT Record'**
+  String get txt_record;
 
   /// No description provided for @up_to_date.
   ///
@@ -755,6 +839,18 @@ abstract class AppLocalizations {
   /// **'URI Suffix'**
   String get uri_suffix;
 
+  /// No description provided for @validity.
+  ///
+  /// In en, this message translates to:
+  /// **'Validity'**
+  String get validity;
+
+  /// No description provided for @value.
+  ///
+  /// In en, this message translates to:
+  /// **'Value'**
+  String get value;
+
   /// No description provided for @version.
   ///
   /// In en, this message translates to:
@@ -766,6 +862,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Wait ...'**
   String get wait;
+
+  /// No description provided for @weight.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight'**
+  String get weight;
 
   /// No description provided for @whois_retriever.
   ///

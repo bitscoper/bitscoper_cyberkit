@@ -47,7 +47,7 @@ class _ToolCardWidget extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Icon(icon, size: 32),
@@ -322,7 +322,8 @@ class HomePage extends StatelessWidget {
           crossAxisSpacing: 16,
           itemCount: tools.length,
           itemBuilder: (BuildContext context, int index) {
-            final (title, icon, page) = tools[index];
+            final (String title, IconData icon, StatefulWidget page) =
+                tools[index];
 
             return _ToolCardWidget(title: title, icon: icon, page: page);
           },
