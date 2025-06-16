@@ -68,7 +68,7 @@ class WiFiInformationViewerPageState extends State<WiFiInformationViewerPage> {
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
-    }
+    } finally {}
   }
 
   Widget _informationCard(String label, String? value) {

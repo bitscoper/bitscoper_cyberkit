@@ -60,7 +60,7 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
-    }
+    } finally {}
   }
 
   @override
@@ -241,7 +241,7 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
                       AppLocalizations.of(navigatorKey.currentContext!)!.error,
                       error.toString(),
                     );
-                  }
+                  } finally {}
 
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 8),
