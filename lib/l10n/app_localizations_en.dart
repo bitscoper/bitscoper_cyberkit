@@ -24,6 +24,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get abdullah_as_sadeed => 'Abdullah As-Sadeed';
 
   @override
+  String get address => 'Address';
+
+  @override
   String get an_ipv4_subnet => 'An IPv4 Subnet';
 
   @override
@@ -95,6 +98,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dns_record_retriever => 'DNS Record Retriever';
+
+  @override
+  String get domain_name => 'Domain Name';
+
+  @override
+  String get domain_name_or_bundle_identifier =>
+      'Domain Name / Bundle Identifier';
 
   @override
   String get elapsed_time => 'Elapsed Time';
@@ -218,6 +228,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get morse_code_translator => 'Morse Code Translator';
 
   @override
+  String get name => 'Name';
+
+  @override
+  String get name_or_target => 'Name / Target';
+
+  @override
   String get ok => 'OK';
 
   @override
@@ -234,13 +250,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pinger => 'Pinger';
 
   @override
+  String get port => 'Port';
+
+  @override
+  String get priority => 'Priority';
+
+  @override
   String get privacy_policy => 'Privacy Policy';
+
+  @override
+  String get ptr_record => 'PTR Record';
 
   @override
   String get qr_code_generator => 'QR Code Generator';
 
   @override
   String get quartile => 'Quartile';
+
+  @override
+  String get record_type => 'Record Type';
 
   @override
   String get records => 'Records ...';
@@ -284,10 +312,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get service_set_identifier_ssid => 'Service Set Identifier (SSID)';
 
   @override
+  String get service_target => 'Service Target';
+
+  @override
+  String get service_type => 'Service Type';
+
+  @override
   String get source_code => 'Source Code';
 
   @override
   String get square => 'Square';
+
+  @override
+  String get srv_record => 'SRV Record';
 
   @override
   String
@@ -312,6 +349,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get subnet_mask => 'Subnet Mask';
 
   @override
+  String get target => 'Target';
+
+  @override
   String get tcp_port_scanner => 'TCP Port Scanner';
 
   @override
@@ -328,6 +368,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ttl => 'TTL';
+
+  @override
+  String get txt_record => 'TXT Record';
 
   @override
   String get up_to_date => 'Up to Date';
@@ -349,10 +392,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get uri_suffix => 'URI Suffix';
 
   @override
+  String get validity => 'Validity';
+
+  @override
+  String get value => 'Value';
+
+  @override
   String get version => 'Version';
 
   @override
   String get wait => 'Wait ...';
+
+  @override
+  String get weight => 'Weight';
 
   @override
   String get whois_retriever => 'WHOIS Retriever';

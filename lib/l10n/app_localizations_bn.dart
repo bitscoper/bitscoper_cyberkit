@@ -24,6 +24,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get abdullah_as_sadeed => 'আবদুল্লাহ আস-সাদীদ';
 
   @override
+  String get address => 'অ্যাড্রেস';
+
+  @override
   String get an_ipv4_subnet => 'একটা IPv4 সাবনেট';
 
   @override
@@ -95,6 +98,13 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get dns_record_retriever => 'ডিএনএস রেকর্ড রিট্রিভার';
+
+  @override
+  String get domain_name => 'ডোমেইন নেইম';
+
+  @override
+  String get domain_name_or_bundle_identifier =>
+      'ডোমেইন নেইম / বান্ডেল আইডেন্টিফায়ার';
 
   @override
   String get elapsed_time => 'সময়';
@@ -204,7 +214,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get lower_limit => 'নিম্ন সীমা';
 
   @override
-  String get mdns_scanner => 'mDNS স্ক্যানার';
+  String get mdns_scanner => 'এমডিএনএস স্ক্যানার';
 
   @override
   String get medium => 'মধ্যম';
@@ -217,6 +227,12 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get morse_code_translator => 'মোর্স কোড ট্রান্সলেটর';
+
+  @override
+  String get name => 'নেইম';
+
+  @override
+  String get name_or_target => 'নেইম / টার্গেট';
 
   @override
   String get ok => 'ঠিক আছে';
@@ -235,13 +251,25 @@ class AppLocalizationsBn extends AppLocalizations {
   String get pinger => 'পিংগার';
 
   @override
+  String get port => 'পোর্ট';
+
+  @override
+  String get priority => 'অগ্রাধিকার';
+
+  @override
   String get privacy_policy => 'গোপনীয়তা নীতি';
+
+  @override
+  String get ptr_record => 'পিটিআর রেকর্ড';
 
   @override
   String get qr_code_generator => 'কিউআর কোড জেনারেটর';
 
   @override
   String get quartile => 'তিন চতুর্থাংশ';
+
+  @override
+  String get record_type => 'রেকর্ড টাইপ';
 
   @override
   String get records => 'রেকর্ডস ...';
@@ -286,10 +314,19 @@ class AppLocalizationsBn extends AppLocalizations {
       'সার্ভিস সেট আইডেন্টিফায়ার (এসএসএইডি)';
 
   @override
+  String get service_target => 'সার্ভিস টার্গেট';
+
+  @override
+  String get service_type => 'সার্ভিস টাইপ';
+
+  @override
   String get source_code => 'সোর্স কোড';
 
   @override
   String get square => 'বর্গাকার';
+
+  @override
+  String get srv_record => 'এসআরভি রেকর্ড';
 
   @override
   String
@@ -314,6 +351,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get subnet_mask => 'সাবনেট মাস্ক';
 
   @override
+  String get target => 'টার্গেট';
+
+  @override
   String get tcp_port_scanner => 'টিসিপি পোর্ট স্ক্যানার';
 
   @override
@@ -330,6 +370,9 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get ttl => 'টিটিএল';
+
+  @override
+  String get txt_record => 'টিএক্সটি রেকর্ড';
 
   @override
   String get up_to_date => 'আপ টু ডেট';
@@ -351,10 +394,19 @@ class AppLocalizationsBn extends AppLocalizations {
   String get uri_suffix => 'ইউআরআইয়ের প্রত্যয়';
 
   @override
+  String get validity => 'মেয়াদ';
+
+  @override
+  String get value => 'মান';
+
+  @override
   String get version => 'সংস্করণ';
 
   @override
   String get wait => 'অপেক্ষা করুন ...';
+
+  @override
+  String get weight => 'ওয়েট';
 
   @override
   String get whois_retriever => 'হুইস রিট্রিভার';
