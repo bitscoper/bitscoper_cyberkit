@@ -90,15 +90,13 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final tools = [
       (
-        // AppLocalizations.of(navigatorKey.currentContext!)!.ipv4_subnet_scanner,
-        "IPv4 Subnet Scanner",
-        Icons.scanner_rounded,
+        AppLocalizations.of(navigatorKey.currentContext!)!.ipv4_subnet_scanner,
+        Icons.lan_rounded,
         const IPv4SubnetScannerPage(),
       ),
       (
-        // AppLocalizations.of(navigatorKey.currentContext!)!.mdns_scanner,
-        "mDNS Scanner",
-        Icons.scanner_rounded,
+        AppLocalizations.of(navigatorKey.currentContext!)!.mdns_scanner,
+        Icons.stream_rounded,
         const MDNSScannerPage(),
       ),
       (

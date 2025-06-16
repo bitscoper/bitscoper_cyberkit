@@ -24,6 +24,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get abdullah_as_sadeed => 'Abdullah As-Sadeed';
 
   @override
+  String get an_ipv4_subnet => 'An IPv4 Subnet';
+
+  @override
   String get automatic => 'Automatic';
 
   @override
@@ -124,6 +127,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enter_an_integer => 'Enter an Integer!';
 
   @override
+  String get enter_an_ipv4_subnet => 'Enter an IPv4 subnet!';
+
+  @override
   String get enter_an_upper_limit => 'Enter an Upper Limit!';
 
   @override
@@ -180,6 +186,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Internet Protocol Version 6 (IPv6) Address';
 
   @override
+  String get ipv4_subnet_scanner => 'IPv4 Subnet Scanner';
+
+  @override
   String
   get it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records =>
       'It takes time to retrieve all possible types of forward and reverse records.';
@@ -192,6 +201,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get lower_limit => 'Lower Limit';
+
+  @override
+  String get mdns_scanner => 'mDNS Scanner';
 
   @override
   String get medium => 'Medium';
