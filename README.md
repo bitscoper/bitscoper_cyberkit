@@ -8,7 +8,7 @@
 
 # Bitscoper Cyber ToolBox
 
-A Flutter application consisting of IPv4 Subnet Scanner, mDNS Scanner, TCP Port Scanner, Route Tracer, Pinger, File Hash Calculator, String Hash Calculator, Base Encoder, Morse Code Translator, QR Code Generator, Open Graph Protocol Data Extractor, Series URI Crawler, DNS Record Retriever, and WHOIS Retriever.
+A Flutter application consisting of IPv4 Subnet Scanner, mDNS Scanner, TCP Port Scanner, Route Tracer, Pinger, File Hash Calculator, String Hash Calculator, Base Encoder, Morse Code Translator, QR Code Generator, Open Graph Protocol Data Extractor, Series URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Information Viewer.
 
 [![Build, Release, and Deploy](https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/actions/workflows/Build,%20Release,%20and%20Deploy.yaml/badge.svg)](https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/actions/workflows/Build,%20Release,%20and%20Deploy.yaml)
 
@@ -109,7 +109,7 @@ Web_Application --> My_Server[My Server]
     </tr>
     <tr>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Bitscoper_Cyber_ToolBox-12.1.5-x64.AppImage">Bitscoper_Cyber_ToolBox-12.1.5-x64.AppImage</a>
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Bitscoper_Cyber_ToolBox-15.0.0-x64.AppImage">Bitscoper_Cyber_ToolBox-15.0.0-x64.AppImage</a>
       </td>
     </tr>
     <tr>
@@ -291,7 +291,7 @@ Generates QR (Quick Response) Code from a string.
 
 ### 11. Open Graph Protocol Data Extractor
 
-Extracts Open Graph Protocol (OGP) data of an webpage.
+Extracts Open Graph Protocol (OGP) data of a webpage.
 
 ### 12. Series URI Crawler
 
@@ -304,6 +304,10 @@ Retrieves A, AAAA, ANY, CAA, CDS, CERT, CNAME, DNAME, DNSKEY, DS, HINFO, IPSECKE
 ### 14. WHOIS Retriever
 
 Retrieves WHOIS information about a domain name.
+
+### 15. Wi-Fi Information Viewer
+
+Displays information about the currently connected Wi-Fi network.
 
 ## Using Podman / Docker Locally on Linux
 
