@@ -2,7 +2,7 @@
 
 import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
 import 'package:bitscoper_cyber_toolbox/main.dart';
-import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
+import 'package:bitscoper_cyber_toolbox/commons/message_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:package_info_plus/package_info_plus.dart';

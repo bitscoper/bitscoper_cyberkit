@@ -2,11 +2,11 @@
 
 import 'dart:convert';
 import 'package:b/b.dart';
-import 'package:bitscoper_cyber_toolbox/application_toolbar.dart';
-import 'package:bitscoper_cyber_toolbox/copy_to_clipboard.dart';
+import 'package:bitscoper_cyber_toolbox/commons/application_toolbar.dart';
+import 'package:bitscoper_cyber_toolbox/commons/copy_to_clipboard.dart';
+import 'package:bitscoper_cyber_toolbox/commons/message_dialog.dart';
 import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
 import 'package:bitscoper_cyber_toolbox/main.dart';
-import 'package:bitscoper_cyber_toolbox/message_dialog.dart';
 import 'package:flutter/material.dart';
 
 class BaseEncoderPage extends StatefulWidget {
