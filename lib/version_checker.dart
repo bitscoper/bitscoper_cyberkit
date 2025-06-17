@@ -21,13 +21,17 @@ Future<void> checkVersion() async {
   try {
     Navigator.of(navigatorKey.currentContext!).pop();
 
-    ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
-      SnackBar(
-        content: Text(
-          AppLocalizations.of(navigatorKey.currentContext!)!.checking_version,
-        ),
+    final ScaffoldMessengerState scaffoldMessenger = ScaffoldMessenger.of(
+      navigatorKey.currentContext!,
+    );
+
+    final SnackBar snackBar = SnackBar(
+      content: Text(
+        AppLocalizations.of(navigatorKey.currentContext!)!.checking_version,
       ),
     );
+
+    scaffoldMessenger.showSnackBar(snackBar);
 
     final response = await http.get(
       Uri.parse(
@@ -45,11 +49,15 @@ Future<void> checkVersion() async {
       final String localVersionShort = skipBuildNumber(localVersion);
 
       if (remoteVersionShort != localVersionShort) {
+        scaffoldMessenger.hideCurrentSnackBar();
+
         showMessageDialog(
           AppLocalizations.of(navigatorKey.currentContext!)!.available_update,
-          "${AppLocalizations.of(navigatorKey.currentContext!)!.latest_version}: $remoteVersion\n${AppLocalizations.of(navigatorKey.currentContext!)!.your_version}: $localVersion",
+          "${AppLocalizations.of(navigatorKey.currentContext!)!.latest_version}: $remoteVersionShort\n${AppLocalizations.of(navigatorKey.currentContext!)!.your_version}: $localVersion",
         );
       } else {
+        scaffoldMessenger.hideCurrentSnackBar();
+
         showMessageDialog(
           AppLocalizations.of(navigatorKey.currentContext!)!.up_to_date,
           AppLocalizations.of(
@@ -58,12 +66,16 @@ Future<void> checkVersion() async {
         );
       }
     } else {
+      scaffoldMessenger.hideCurrentSnackBar();
+
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         response.statusCode.toString(),
       );
     }
   } catch (error) {
+    ScaffoldMessenger.of(navigatorKey.currentContext!).hideCurrentSnackBar();
+
     showMessageDialog(
       AppLocalizations.of(navigatorKey.currentContext!)!.error,
       error.toString(),
