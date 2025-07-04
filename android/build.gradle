@@ -1,3 +1,5 @@
+// By Abdullah As-Sadeed
+
 allprojects {
     repositories {
         google()
