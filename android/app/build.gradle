@@ -38,12 +38,12 @@ android {
     compileOptions {
         coreLibraryDesugaringEnabled true
 
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_24
+        targetCompatibility JavaVersion.VERSION_24
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '24'
     }
 
     sourceSets {
@@ -58,6 +58,7 @@ android {
         versionName flutterVersionName
 
         minSdkVersion 30
+        // Android 11
     }
 
 signingConfigs {

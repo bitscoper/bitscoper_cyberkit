@@ -178,7 +178,7 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
                                   trailing: IconButton(
                                     icon: const Icon(Icons.copy_rounded),
                                     onPressed: () {
-                                      copyToClipBoard(
+                                      copyToClipboard(
                                         "${entry.key} ${AppLocalizations.of(navigatorKey.currentContext!)!.hash}",
                                         entry.value,
                                       );

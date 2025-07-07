@@ -83,7 +83,7 @@ class WiFiInformationViewerPageState extends State<WiFiInformationViewerPage> {
               : IconButton(
                   icon: const Icon(Icons.copy_rounded),
                   onPressed: () {
-                    copyToClipBoard(label, value);
+                    copyToClipboard(label, value);
                   },
                 ),
         ),
