@@ -326,7 +326,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                         trailing: IconButton(
                           icon: const Icon(Icons.copy_rounded),
                           onPressed: () {
-                            copyToClipBoard(
+                            copyToClipboard(
                               AppLocalizations.of(
                                 navigatorKey.currentContext!,
                               )!.uri,
