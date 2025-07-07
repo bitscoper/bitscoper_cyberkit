@@ -71,7 +71,7 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
         trailing: IconButton(
           icon: const Icon(Icons.copy_rounded),
           onPressed: () {
-            copyToClipBoard(title, value ?? 'N/A');
+            copyToClipboard(title, value ?? 'N/A');
           },
         ),
       ),

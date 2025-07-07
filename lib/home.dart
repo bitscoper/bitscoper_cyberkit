@@ -1,6 +1,7 @@
 /* By Abdullah As-Sadeed */
 
 import 'package:bitscoper_cyber_toolbox/commons/application_toolbar.dart';
+import 'package:bitscoper_cyber_toolbox/commons/permission_requester.dart';
 import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
 import 'package:bitscoper_cyber_toolbox/main.dart';
 import 'package:bitscoper_cyber_toolbox/tool_pages/base_encoder.dart';
@@ -21,15 +22,19 @@ import 'package:bitscoper_cyber_toolbox/tool_pages/wifi_information_viewer.dart'
 import 'package:bitscoper_cyber_toolbox/version_checker.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class _ToolCardWidget extends StatelessWidget {
-  final String title;
   final IconData icon;
+  final String title;
+  final List<Permission?> permissionList;
   final Widget page;
+
   const _ToolCardWidget({
-    required this.title,
     required this.icon,
+    required this.title,
+    required this.permissionList,
     required this.page,
   });
 
@@ -39,10 +44,33 @@ class _ToolCardWidget extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(8.0),
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (BuildContext context) => page),
-          );
+          if (permissionList.isEmpty) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => page),
+            );
+
+            return;
+          }
+
+          int grantedCount = 0;
+          bool navigationTriggered = false;
+
+          for (final permission in permissionList.whereType<Permission>()) {
+            requestPermission(permission, () {
+              grantedCount++;
+
+              if (grantedCount == permissionList.length &&
+                  !navigationTriggered) {
+                navigationTriggered = true;
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (BuildContext context) => page),
+                );
+              }
+            });
+          }
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
@@ -89,35 +117,45 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tools = [
+    final List<(String, IconData, List<Permission?>, StatefulWidget)> tools = [
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.ipv4_subnet_scanner,
         Icons.lan_rounded,
+        [],
         const IPv4SubnetScannerPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.mdns_scanner,
         Icons.stream_rounded,
+        [],
         const MDNSScannerPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.tcp_port_scanner,
         Icons.radar_rounded,
+        [],
         const TCPPortScannerPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.route_tracer,
         Icons.track_changes_rounded,
+        [],
         const RouteTracerPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.pinger,
         Icons.network_ping_rounded,
+        [],
         const PingerPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.file_hash_calculator,
         Icons.file_present_rounded,
+        [
+          Permission.storage,
+          Permission.manageExternalStorage,
+          Permission.mediaLibrary,
+        ],
         const FileHashCalculatorPage(),
       ),
       (
@@ -125,11 +163,13 @@ class HomePage extends StatelessWidget {
           navigatorKey.currentContext!,
         )!.string_hash_calculator,
         Icons.text_snippet_rounded,
+        [],
         const StringHashCalculatorPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.base_encoder,
         Icons.numbers_rounded,
+        [],
         const BaseEncoderPage(),
       ),
       (
@@ -137,11 +177,13 @@ class HomePage extends StatelessWidget {
           navigatorKey.currentContext!,
         )!.morse_code_translator,
         Icons.text_fields_rounded,
+        [],
         const MorseCodeTranslatorPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.qr_code_generator,
         Icons.qr_code_rounded,
+        [],
         const QRCodeGeneratorPage(),
       ),
       (
@@ -149,21 +191,25 @@ class HomePage extends StatelessWidget {
           navigatorKey.currentContext!,
         )!.open_graph_protocol_data_extractor,
         Icons.share_rounded,
+        [],
         const OGPDataExtractorPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.series_uri_crawler,
         Icons.web_rounded,
+        [],
         const SeriesURICrawlerPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.dns_record_retriever,
         Icons.dns_rounded,
+        [],
         const DNSRecordRetrieverPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.whois_retriever,
         Icons.domain_rounded,
+        [],
         const WHOISRetrieverPage(),
       ),
       (
@@ -171,6 +217,7 @@ class HomePage extends StatelessWidget {
           navigatorKey.currentContext!,
         )!.wifi_information_viewer,
         Icons.network_check_rounded,
+        [Permission.location, Permission.locationWhenInUse],
         const WiFiInformationViewerPage(),
       ),
     ];
@@ -322,10 +369,19 @@ class HomePage extends StatelessWidget {
           crossAxisSpacing: 16,
           itemCount: tools.length,
           itemBuilder: (BuildContext context, int index) {
-            final (String title, IconData icon, StatefulWidget page) =
-                tools[index];
+            final (
+              String title,
+              IconData icon,
+              List<Permission?> permissionList,
+              StatefulWidget page,
+            ) = tools[index];
 
-            return _ToolCardWidget(title: title, icon: icon, page: page);
+            return _ToolCardWidget(
+              title: title,
+              icon: icon,
+              permissionList: permissionList,
+              page: page,
+            );
           },
         ),
       ),

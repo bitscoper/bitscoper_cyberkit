@@ -138,7 +138,7 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
                           trailing: IconButton(
                             icon: const Icon(Icons.copy_rounded),
                             onPressed: () {
-                              copyToClipBoard(
+                              copyToClipboard(
                                 "${entry.key} ${AppLocalizations.of(navigatorKey.currentContext!)!.hash}",
                                 entry.value,
                               );
