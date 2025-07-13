@@ -153,7 +153,6 @@ class HomePage extends StatelessWidget {
         Icons.file_present_rounded,
         [
           Permission.storage,
-          Permission.manageExternalStorage,
           Permission.mediaLibrary,
         ],
         const FileHashCalculatorPage(),
