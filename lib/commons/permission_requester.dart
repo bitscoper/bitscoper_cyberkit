@@ -1,6 +1,8 @@
 /* By Abdullah As-Sadeed */
 
 import 'package:bitscoper_cyber_toolbox/commons/message_dialog.dart';
+import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
+import 'package:bitscoper_cyber_toolbox/main.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 Future<PermissionStatus> requestPermission(
@@ -10,10 +12,14 @@ Future<PermissionStatus> requestPermission(
   PermissionStatus permissionStatus = PermissionStatus.denied;
 
   try {
-    final String permissionName = permission.toString().replaceFirst(
-      'Permission.',
-      '',
-    );
+    final String permissionName = permission
+        .toString()
+        .split('.')
+        .last
+        .replaceAllMapped(
+          RegExp(r'([A-Z])'),
+          (Match match) => ' ${match.group(0)!.toLowerCase()}',
+        );
 
     showMessageDialog(
       'Permission',
@@ -36,7 +42,7 @@ Future<PermissionStatus> requestPermission(
                 onOK: () async {
                   if (!await openAppSettings()) {
                     showMessageDialog(
-                      "Error",
+                      AppLocalizations.of(navigatorKey.currentContext!)!.error,
                       'The application settings could not be opened in the system settings!',
                     );
                   }
@@ -67,7 +73,10 @@ Future<PermissionStatus> requestPermission(
 
     return permissionStatus;
   } catch (error) {
-    showMessageDialog("Error", error.toString());
+    showMessageDialog(
+      AppLocalizations.of(navigatorKey.currentContext!)!.error,
+      error.toString(),
+    );
 
     return permissionStatus;
   } finally {}

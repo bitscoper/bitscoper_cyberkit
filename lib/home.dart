@@ -5,6 +5,7 @@ import 'package:bitscoper_cyber_toolbox/commons/permission_requester.dart';
 import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
 import 'package:bitscoper_cyber_toolbox/main.dart';
 import 'package:bitscoper_cyber_toolbox/tool_pages/base_encoder.dart';
+import 'package:bitscoper_cyber_toolbox/tool_pages/cvss_calculator.dart';
 import 'package:bitscoper_cyber_toolbox/tool_pages/dns_record_retriever.dart';
 import 'package:bitscoper_cyber_toolbox/tool_pages/file_hash_calculator.dart';
 import 'package:bitscoper_cyber_toolbox/tool_pages/ipv4_subnet_scanner.dart';
@@ -151,10 +152,7 @@ class HomePage extends StatelessWidget {
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.file_hash_calculator,
         Icons.file_present_rounded,
-        [
-          Permission.storage,
-          Permission.mediaLibrary,
-        ],
+        [Permission.storage, Permission.mediaLibrary],
         const FileHashCalculatorPage(),
       ),
       (
@@ -164,6 +162,12 @@ class HomePage extends StatelessWidget {
         Icons.text_snippet_rounded,
         [],
         const StringHashCalculatorPage(),
+      ),
+      (
+        "CVSS Calculator",
+        Icons.security_rounded,
+        [],
+        const CVSSCalculatorPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.base_encoder,

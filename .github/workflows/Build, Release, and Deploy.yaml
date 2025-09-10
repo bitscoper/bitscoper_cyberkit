@@ -13,7 +13,7 @@ jobs:
       contents: read
     steps:
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2.20.0
+        uses: subosito/flutter-action@v2.21.0
         with:
           channel: stable
 
@@ -28,7 +28,7 @@ jobs:
         shell: bash
 
       - name: Checkout Repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
 
       - name: Get Dependencies
         run: flutter pub get -v
@@ -87,7 +87,7 @@ jobs:
       contents: read
     steps:
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2.20.0
+        uses: subosito/flutter-action@v2.21.0
         with:
           channel: stable
 
@@ -96,7 +96,7 @@ jobs:
         shell: bash
 
       - name: Checkout Repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
 
       - name: Get Dependencies
         run: flutter pub get -v
@@ -177,7 +177,7 @@ jobs:
       contents: read
     steps:
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2.20.0
+        uses: subosito/flutter-action@v2.21.0
         with:
           channel: stable
 
@@ -185,7 +185,7 @@ jobs:
         run: flutter doctor -v
 
       - name: Checkout Repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
 
       - name: Get Dependencies
         run: flutter pub get -v
@@ -212,7 +212,7 @@ jobs:
       contents: read
     steps:
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2.20.0
+        uses: subosito/flutter-action@v2.21.0
         with:
           channel: stable
 
@@ -220,7 +220,7 @@ jobs:
         run: flutter doctor -v
 
       - name: Checkout Repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
 
       - name: Get Dependencies
         run: flutter pub get -v
@@ -256,7 +256,7 @@ jobs:
       contents: read
     steps:
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2.20.0
+        uses: subosito/flutter-action@v2.21.0
         with:
           channel: stable
 
@@ -265,7 +265,7 @@ jobs:
         shell: powershell
 
       - name: Checkout Repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
 
       - name: Get Dependencies
         run: flutter pub get -v
@@ -306,7 +306,7 @@ jobs:
       contents: read
     steps:
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2.20.0
+        uses: subosito/flutter-action@v2.21.0
         with:
           channel: stable
 
@@ -315,7 +315,7 @@ jobs:
         shell: bash
 
       - name: Checkout Repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
 
       - name: Get Dependencies
         run: flutter pub get -v
@@ -346,10 +346,10 @@ jobs:
       contents: write
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
 
       - name: Download All Artifacts
-        uses: actions/download-artifact@v4.3.0
+        uses: actions/download-artifact@v5.0.0
 
       - name: Archive Build Artifacts and Debug Symbols
         run: |
@@ -392,7 +392,7 @@ jobs:
         shell: bash
 
       - name: Create Release
-        uses: ncipollo/release-action@v1.16.0
+        uses: ncipollo/release-action@v1.20.0
         with:
           artifacts: |
             ./*.zip
@@ -409,7 +409,7 @@ jobs:
       packages: write
     steps:
       - name: Install Python
-        uses: actions/setup-python@v5.6.0
+        uses: actions/setup-python@v6.0.0
         with:
           python-version: "3.13"
 
@@ -424,7 +424,7 @@ jobs:
         shell: bash
 
       - name: Checkout Repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
 
       - name: Build and Push Docker Image to GHCR
         run: |
@@ -452,7 +452,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
 
       - name: Setup SSH key
         uses: webfactory/ssh-agent@v0.9.1
@@ -462,15 +462,15 @@ jobs:
       - name: Execution
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} << 'EOF'
-            cd /var/internet_server/bitscoper.dev/out_site/Bitscoper_Cyber_ToolBox/
+            cd /var/www/clients/client1/web1/web/Bitscoper_Cyber_ToolBox/
             rm -rf ./Application/
             wget https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Web_Application.zip
             unzip ./Web_Application.zip
             rm -rf ./Web_Application.zip
             mv ./Web_Application/ ./Application/
-            chown -R nobody:nobody /var/internet_server/
-            chmod -R 755 /var/internet_server/
-            systemctl restart openlitespeed.service
+            chown -R web1:client1 /var/www/clients/client1/web1/web/
+            chmod -R 755 /var/www/clients/client1/web1/web/
+            systemctl restart apache2.service
             exit
           EOF
         shell: bash
