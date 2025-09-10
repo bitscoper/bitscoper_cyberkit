@@ -8,7 +8,7 @@
 
 # Bitscoper Cyber ToolBox
 
-A Flutter application consisting of IPv4 Subnet Scanner, mDNS Scanner, TCP Port Scanner, Route Tracer, Pinger, File Hash Calculator, String Hash Calculator, Base Encoder, Morse Code Translator, QR Code Generator, Open Graph Protocol Data Extractor, Series URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Information Viewer.
+A Flutter application consisting of IPv4 Subnet Scanner, mDNS Scanner, TCP Port Scanner, Route Tracer, Pinger, File Hash Calculator, String Hash Calculator, CVSS Calculator, Base Encoder, Morse Code Translator, QR Code Generator, Open Graph Protocol Data Extractor, Series URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Information Viewer.
 
 [![Build, Release, and Deploy](https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/actions/workflows/Build,%20Release,%20and%20Deploy.yaml/badge.svg)](https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/actions/workflows/Build,%20Release,%20and%20Deploy.yaml)
 
@@ -109,7 +109,7 @@ Web_Application --> My_Server[My Server]
     </tr>
     <tr>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Bitscoper_Cyber_ToolBox-15.1.2-x64.AppImage">Bitscoper_Cyber_ToolBox-15.1.2-x64.AppImage</a>
+        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Bitscoper_Cyber_ToolBox-16.0.0-x64.AppImage">Bitscoper_Cyber_ToolBox-16.0.0-x64.AppImage</a>
       </td>
     </tr>
     <tr>
@@ -277,35 +277,39 @@ Calculates MD5, SHA1, SHA224, SHA256, SHA384, and SHA512 hashes of files.
 
 Calculates MD5, SHA1, SHA224, SHA256, SHA384, and SHA512 hashes of a string.
 
-### 8. Base Encoder
+### 8. CVSS Calculator
+
+Uses Common Vulnerability Scoring System (CVSS) v3.1 to calculate base score of exploitability.
+
+### 9. Base Encoder
 
 Encodes a string into binary (Base2), ternary (Base3), quaternary (Base4), quinary (Base5), senary (Base6), octal (Base8), decimal (Base10), duodecimal (Base12), hexadecimal (Base16), Base32, Base32Hex, Base36, Base58, Base62, and Base64.
 
-### 9. Morse Code Translator
+### 10. Morse Code Translator
 
 Translates English to Morse code and vice versa.
 
-### 10. QR Code Generator
+### 11. QR Code Generator
 
 Generates QR (Quick Response) Code from a string.
 
-### 11. Open Graph Protocol Data Extractor
+### 12. Open Graph Protocol Data Extractor
 
 Extracts Open Graph Protocol (OGP) data of a webpage.
 
-### 12. Series URI Crawler
+### 13. Series URI Crawler
 
 Crawls the available webpages in series by number and lists the available ones.
 
-### 13. DNS Record Retriever
+### 14. DNS Record Retriever
 
 Retrieves A, AAAA, ANY, CAA, CDS, CERT, CNAME, DNAME, DNSKEY, DS, HINFO, IPSECKEY, NSEC, NSEC3PARAM, NAPTR, PTR, RP, RRSIG, SOA, SPF, SRV, SSHFP, TLSA, WKS, TXT, NS, and MX records of a domain name (forward) or an IP address (reverse).
 
-### 14. WHOIS Retriever
+### 15. WHOIS Retriever
 
 Retrieves WHOIS information about a domain name.
 
-### 15. Wi-Fi Information Viewer
+### 16. Wi-Fi Information Viewer
 
 Displays information about the currently connected Wi-Fi network.
 

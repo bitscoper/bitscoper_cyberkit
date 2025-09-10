@@ -143,6 +143,7 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
                                 entry.value,
                               );
                             },
+                            tooltip: 'Copy to Clipboard',
                           ),
                         ),
                       ),
