@@ -333,6 +333,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                               entry.key,
                             );
                           },
+                          tooltip: 'Copy to Clipboard',
                         ),
                       ),
                     ),

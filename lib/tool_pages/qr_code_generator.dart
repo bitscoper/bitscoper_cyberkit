@@ -168,7 +168,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                         ),
                       ),
                     ],
-                    value: _version,
+                    initialValue: _version,
                     onChanged: (int? value) {
                       setState(() {
                         _version = value!;
@@ -219,7 +219,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                         ),
                       ),
                     ],
-                    value: _errorCorrectionLevel,
+                    initialValue: _errorCorrectionLevel,
                     onChanged: (int? value) {
                       setState(() {
                         _errorCorrectionLevel = value!;
@@ -258,7 +258,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                         ),
                       ),
                     ],
-                    value: _eyeShape,
+                    initialValue: _eyeShape,
                     onChanged: (QrEyeShape? value) {
                       setState(() {
                         _eyeShape = value!;
@@ -293,7 +293,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                         ),
                       ),
                     ],
-                    value: _dataModuleShape,
+                    initialValue: _dataModuleShape,
                     onChanged: (QrDataModuleShape? value) {
                       setState(() {
                         _dataModuleShape = value!;
@@ -452,7 +452,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                         ),
                       ),
                     ],
-                    value: _gapless,
+                    initialValue: _gapless,
                     onChanged: (Object? value) {
                       setState(() {
                         _gapless = value as bool;

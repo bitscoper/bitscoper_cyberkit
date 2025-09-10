@@ -183,6 +183,7 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
                                         entry.value,
                                       );
                                     },
+                                    tooltip: 'Copy to Clipboard',
                                   ),
                                 ),
                           ],

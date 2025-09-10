@@ -256,6 +256,7 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
                           onPressed: () {
                             copyToClipboard(entry.key, result);
                           },
+                          tooltip: 'Copy to Clipboard',
                         ),
                       ),
                     ),

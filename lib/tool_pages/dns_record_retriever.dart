@@ -160,7 +160,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                         navigatorKey.currentContext!,
                       )!.dns_provider,
                     ),
-                    value: _recordProvider,
+                    initialValue: _recordProvider,
                     onChanged: (DNSProvider? newValue) {
                       setState(() {
                         _recordProvider = newValue!;
@@ -287,6 +287,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                                     record.record,
                                   );
                                 },
+                                tooltip: 'Copy to Clipboard',
                               ),
                             ),
                           ),
