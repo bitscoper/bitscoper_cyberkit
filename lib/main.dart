@@ -1,6 +1,5 @@
 /* By Abdullah As-Sadeed */
 
-import 'package:bitscoper_cyber_toolbox/commons/message_dialog.dart';
 import 'package:bitscoper_cyber_toolbox/home.dart';
 import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
 import 'package:flutter/foundation.dart';
