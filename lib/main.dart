@@ -79,12 +79,7 @@ class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
       ]);
     }
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      showMessageDialog(
-        "Attention",
-        "The application displays error messages as caught.",
-      );
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {});
   }
 
   void _changeLocale(Locale locale) {
