@@ -371,10 +371,11 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                               ),
                             ),
                           ),
+                          SizedBox(height: 4.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SelectableText(_vectorString),
+                              Flexible(child: SelectableText(_vectorString)),
                               IconButton(
                                 icon: const Icon(Icons.copy, size: 16),
                                 onPressed: () {
