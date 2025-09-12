@@ -232,134 +232,163 @@ class HomePage extends StatelessWidget {
         )!.bitscoper_cyber_toolbox,
       ),
       drawer: Drawer(
-        child: ListView(
+        child: Column(
           children: <Widget>[
-            DrawerHeader(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            Expanded(
+              child: ListView(
                 children: <Widget>[
-                  Text(
-                    AppLocalizations.of(
-                      navigatorKey.currentContext!,
-                    )!.bitscoper_cyber_toolbox,
+                  DrawerHeader(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.bitscoper_cyber_toolbox,
+                        ),
+                        FutureBuilder<String>(
+                          future: getVersion(),
+                          builder:
+                              (
+                                BuildContext context,
+                                AsyncSnapshot<String> snapshot,
+                              ) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const CircularProgressIndicator();
+                                } else if (snapshot.hasError) {
+                                  return Text(snapshot.error.toString());
+                                } else {
+                                  return Text(snapshot.data ?? '');
+                                }
+                              },
+                        ),
+                      ],
+                    ),
                   ),
-                  FutureBuilder<String>(
-                    future: getVersion(),
-                    builder:
-                        (BuildContext context, AsyncSnapshot<String> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const CircularProgressIndicator();
-                          } else if (snapshot.hasError) {
-                            return Text(snapshot.error.toString());
-                          } else {
-                            return Text(snapshot.data ?? '');
-                          }
-                        },
+                  ListTile(
+                    title: Text(
+                      AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.change_language,
+                    ),
+                    leading: const Icon(Icons.language_rounded),
+                    onTap: () {
+                      Locale currentLocale = Localizations.localeOf(context);
+                      if (currentLocale.languageCode == 'en') {
+                        changeLocale(const Locale('bn'));
+                      } else {
+                        changeLocale(const Locale('en'));
+                      }
+                    },
+                  ),
+                  ListTile(
+                    title: Text(
+                      AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.toggle_theme,
+                    ),
+                    leading: const Icon(Icons.dark_mode_rounded),
+                    onTap: () {
+                      toggleTheme();
+                    },
+                  ),
+                  ListTile(
+                    title: Text(
+                      AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.check_version,
+                    ),
+                    leading: const Icon(Icons.update_rounded),
+                    onTap: () {
+                      checkVersion();
+                    },
+                  ),
+                  const Divider(),
+                  ListTile(
+                    title: Text(
+                      AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.microsoft_store,
+                    ),
+                    leading: const Icon(Icons.shop_2_rounded),
+                    onTap: () {
+                      launchUrl(
+                        Uri.parse(
+                          'https://apps.microsoft.com/detail/9n6r5lxczxl6',
+                        ),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    title: Text(
+                      AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.google_play,
+                    ),
+                    leading: const Icon(Icons.shop_rounded),
+                    onTap: () {
+                      launchUrl(
+                        Uri.parse(
+                          'https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox',
+                        ),
+                      );
+                    },
+                  ),
+                  const Divider(),
+                  ListTile(
+                    title: Text(
+                      AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.source_code,
+                    ),
+                    leading: const Icon(Icons.code_rounded),
+                    onTap: () {
+                      launchUrl(
+                        Uri.parse(
+                          'https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/',
+                        ),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    title: Text(
+                      AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.developer,
+                    ),
+                    leading: const Icon(Icons.person_rounded),
+                    onTap: () {
+                      launchUrl(Uri.parse('https://bitscoper.dev/'));
+                    },
+                  ),
+                  ListTile(
+                    title: Text(
+                      AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.privacy_policy,
+                    ),
+                    leading: const Icon(Icons.privacy_tip_rounded),
+                    onTap: () {
+                      launchUrl(
+                        Uri.parse(
+                          'https://bitscoper.dev/Bitscoper_Cyber_ToolBox/Privacy_Policy.html',
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
             ),
-            ListTile(
-              title: Text(
-                AppLocalizations.of(
-                  navigatorKey.currentContext!,
-                )!.change_language,
+            // FOOTER here, always at bottom
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Center(
+                child: Text(
+                  'The application displays error messages as caught.',
+                  textAlign: TextAlign.center,
+                ),
               ),
-              leading: const Icon(Icons.language_rounded),
-              onTap: () {
-                Locale currentLocale = Localizations.localeOf(context);
-                if (currentLocale.languageCode == 'en') {
-                  changeLocale(const Locale('bn'));
-                } else {
-                  changeLocale(const Locale('en'));
-                }
-              },
-            ),
-            ListTile(
-              title: Text(
-                AppLocalizations.of(navigatorKey.currentContext!)!.toggle_theme,
-              ),
-              leading: const Icon(Icons.dark_mode_rounded),
-              onTap: () {
-                toggleTheme();
-              },
-            ),
-            ListTile(
-              title: Text(
-                AppLocalizations.of(
-                  navigatorKey.currentContext!,
-                )!.check_version,
-              ),
-              leading: const Icon(Icons.update_rounded),
-              onTap: () {
-                checkVersion();
-              },
-            ),
-            const Divider(),
-            ListTile(
-              title: Text(
-                AppLocalizations.of(
-                  navigatorKey.currentContext!,
-                )!.microsoft_store,
-              ),
-              leading: const Icon(Icons.shop_2_rounded),
-              onTap: () {
-                launchUrl(
-                  Uri.parse('https://apps.microsoft.com/detail/9n6r5lxczxl6'),
-                );
-              },
-            ),
-            ListTile(
-              title: Text(
-                AppLocalizations.of(navigatorKey.currentContext!)!.google_play,
-              ),
-              leading: const Icon(Icons.shop_rounded),
-              onTap: () {
-                launchUrl(
-                  Uri.parse(
-                    'https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox',
-                  ),
-                );
-              },
-            ),
-            const Divider(),
-            ListTile(
-              title: Text(
-                AppLocalizations.of(navigatorKey.currentContext!)!.source_code,
-              ),
-              leading: const Icon(Icons.code_rounded),
-              onTap: () {
-                launchUrl(
-                  Uri.parse(
-                    'https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/',
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text(
-                AppLocalizations.of(navigatorKey.currentContext!)!.developer,
-              ),
-              leading: const Icon(Icons.person_rounded),
-              onTap: () {
-                launchUrl(Uri.parse('https://bitscoper.dev/'));
-              },
-            ),
-            ListTile(
-              title: Text(
-                AppLocalizations.of(
-                  navigatorKey.currentContext!,
-                )!.privacy_policy,
-              ),
-              leading: const Icon(Icons.privacy_tip_rounded),
-              onTap: () {
-                launchUrl(
-                  Uri.parse(
-                    'https://bitscoper.dev/Bitscoper_Cyber_ToolBox/Privacy_Policy.html',
-                  ),
-                );
-              },
             ),
           ],
         ),
