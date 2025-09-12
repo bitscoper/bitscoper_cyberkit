@@ -385,7 +385,7 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Center(
                 child: Text(
-                  'The application displays error messages as caught.',
+                  'The application displays error messages as caught.', // TODO:Localisation
                   textAlign: TextAlign.center,
                 ),
               ),
