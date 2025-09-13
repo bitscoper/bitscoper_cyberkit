@@ -85,7 +85,9 @@ class WiFiInformationViewerPageState extends State<WiFiInformationViewerPage> {
                   onPressed: () {
                     copyToClipboard(label, value);
                   },
-                  tooltip: 'Copy to Clipboard',
+                  tooltip: AppLocalizations.of(
+                    navigatorKey.currentContext!,
+                  )!.copy_to_clipboard,
                 ),
         ),
       ),

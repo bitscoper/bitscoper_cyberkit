@@ -164,7 +164,7 @@ class HomePage extends StatelessWidget {
         const StringHashCalculatorPage(),
       ),
       (
-        "CVSS Calculator",
+        AppLocalizations.of(navigatorKey.currentContext!)!.cvss_calculator,
         Icons.security_rounded,
         [],
         const CVSSCalculatorPage(),
@@ -385,7 +385,9 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Center(
                 child: Text(
-                  'The application displays error messages as caught.', // TODO:Localisation
+                  AppLocalizations.of(
+                    navigatorKey.currentContext!,
+                  )!.the_application_displays_error_messages_as_caught,
                   textAlign: TextAlign.center,
                 ),
               ),

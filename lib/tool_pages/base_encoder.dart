@@ -256,7 +256,9 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
                           onPressed: () {
                             copyToClipboard(entry.key, result);
                           },
-                          tooltip: 'Copy to Clipboard',
+                          tooltip: AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.copy_to_clipboard,
                         ),
                       ),
                     ),
@@ -270,4 +272,4 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
   }
 }
 
-// TODO: Add Bulk Save Button
+// TODO: Add Save Button

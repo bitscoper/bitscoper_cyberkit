@@ -82,4 +82,4 @@ Future<PermissionStatus> requestPermission(
   } finally {}
 }
 
-// TODO: Localisation
+// TODO: Localization

@@ -73,7 +73,9 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
           onPressed: () {
             copyToClipboard(title, value ?? 'N/A');
           },
-          tooltip: 'Copy to Clipboard',
+          tooltip: AppLocalizations.of(
+            navigatorKey.currentContext!,
+          )!.copy_to_clipboard,
         ),
       ),
     );

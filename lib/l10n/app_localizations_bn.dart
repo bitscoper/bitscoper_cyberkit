@@ -30,7 +30,16 @@ class AppLocalizationsBn extends AppLocalizations {
   String get an_ipv4_subnet => 'একটা IPv4 সাবনেট';
 
   @override
+  String get attack_complexity => 'অ্যাটাকের জটিলতা';
+
+  @override
+  String get attack_vector => 'অ্যাটাক ভেক্টর';
+
+  @override
   String get automatic => 'স্বয়ংক্রিয়';
+
+  @override
+  String get availability_impact => 'অ্যাভেইলেবিলিটির ওপর প্রভাব';
 
   @override
   String get available_update => 'অ্যাভেইলেবল আপডেট';
@@ -73,13 +82,26 @@ class AppLocalizationsBn extends AppLocalizations {
   String get colors => 'রঙগুলো';
 
   @override
+  String get common_vulnerability_scoring_system_v3_1_base_score =>
+      'কমন ভালনারেবিলিটি স্কোরিং সিস্টেম v3.1 বেইস স্কোর';
+
+  @override
+  String get confidentiality_impact => 'গোপনীয়তার ওপর প্রভাব';
+
+  @override
   String get copied_to_clipboard => 'ক্লিপবোর্ডে কপি করা হয়েছে।';
+
+  @override
+  String get copy_to_clipboard => 'ক্লিপবোর্ডে কপি করুন';
 
   @override
   String get crawl => 'ক্রল';
 
   @override
   String get crawled => 'ক্রলড';
+
+  @override
+  String get cvss_calculator => 'সিভিএসএস ক্যালকুলেটর';
 
   @override
   String get data => 'তথ্য';
@@ -189,6 +211,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get high => 'উচ্চ';
 
   @override
+  String get integrity_impact => 'ইনটিগ্রিটির ওপর প্রভাব';
+
+  @override
   String get internet_protocol_version_4_ipv4_address =>
       'ইন্টারনেট প্রোটোকল সংস্করণ ৪ (IPv4) অ্যাড্রেস';
 
@@ -260,6 +285,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get privacy_policy => 'গোপনীয়তা নীতি';
 
   @override
+  String get privileges_required => 'প্রয়োজনীয় প্রিভিলেজেস';
+
+  @override
   String get ptr_record => 'পিটিআর রেকর্ড';
 
   @override
@@ -294,6 +322,9 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get scanned_ports => 'স্ক্যানড পোর্টের সংখ্যা';
+
+  @override
+  String get scope => 'স্কোপ';
 
   @override
   String get select => 'নির্বাচন';
@@ -357,6 +388,10 @@ class AppLocalizationsBn extends AppLocalizations {
   String get tcp_port_scanner => 'টিসিপি পোর্ট স্ক্যানার';
 
   @override
+  String get the_application_displays_error_messages_as_caught =>
+      'অ্যাপ্লিকেশনটা ঠিক যেভাবে ত্রুটির সম্মুখীন হয়, ঠিক সেভাবেই মেসেজগুলো দেখায়।';
+
+  @override
   String get time => 'সময়';
 
   @override
@@ -394,10 +429,16 @@ class AppLocalizationsBn extends AppLocalizations {
   String get uri_suffix => 'ইউআরআইয়ের প্রত্যয়';
 
   @override
+  String get user_interaction => 'ব্যবহারকারীর ইন্টার‍্যাকশন';
+
+  @override
   String get validity => 'মেয়াদ';
 
   @override
   String get value => 'মান';
+
+  @override
+  String get vector_string => 'ভেক্টর স্ট্রিং';
 
   @override
   String get version => 'সংস্করণ';
