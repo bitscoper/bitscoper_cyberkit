@@ -143,7 +143,9 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
                                 entry.value,
                               );
                             },
-                            tooltip: 'Copy to Clipboard',
+                            tooltip: AppLocalizations.of(
+                              navigatorKey.currentContext!,
+                            )!.copy_to_clipboard,
                           ),
                         ),
                       ),
@@ -157,4 +159,4 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
   }
 }
 
-// TODO: Add Bulk Save Button
+// TODO: Add Save Button

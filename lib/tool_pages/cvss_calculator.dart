@@ -134,7 +134,11 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ApplicationToolBar(title: "CVSS Calculator"),
+      appBar: ApplicationToolBar(
+        title: AppLocalizations.of(
+          navigatorKey.currentContext!,
+        )!.cvss_calculator,
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32.0),
         child: Column(
@@ -142,7 +146,9 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
           children: <Widget>[
             Center(
               child: Text(
-                "Common Vulnerability Scoring System (CVSS)\nv3.1 Base Score",
+                AppLocalizations.of(
+                  navigatorKey.currentContext!,
+                )!.common_vulnerability_scoring_system_v3_1_base_score,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
@@ -167,8 +173,10 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                         child: Text(_formatEnumName(vector)),
                       );
                     }).toList(),
-                    decoration: const InputDecoration(
-                      labelText: 'Attack Vector',
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.attack_vector,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -188,8 +196,10 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                         child: Text(_formatEnumName(complexity)),
                       );
                     }).toList(),
-                    decoration: const InputDecoration(
-                      labelText: 'Attack Complexity',
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.attack_complexity,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -209,8 +219,10 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                         child: Text(_formatEnumName(privileges)),
                       );
                     }).toList(),
-                    decoration: const InputDecoration(
-                      labelText: 'Privileges Required',
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.privileges_required,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -235,8 +247,10 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                           );
                         })
                         .toList(),
-                    decoration: const InputDecoration(
-                      labelText: 'User Interaction',
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.user_interaction,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -254,7 +268,11 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                         child: Text(_formatEnumName(scope)),
                       );
                     }).toList(),
-                    decoration: const InputDecoration(labelText: 'Scope'),
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.scope,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   DropdownButtonFormField<ConfidentialityImpact>(
@@ -278,8 +296,10 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                           );
                         })
                         .toList(),
-                    decoration: const InputDecoration(
-                      labelText: 'Confidentiality Impact',
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.confidentiality_impact,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -304,8 +324,10 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                           );
                         })
                         .toList(),
-                    decoration: const InputDecoration(
-                      labelText: 'Integrity Impact',
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.integrity_impact,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -330,8 +352,10 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                           );
                         })
                         .toList(),
-                    decoration: const InputDecoration(
-                      labelText: 'Availability Impact',
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.availability_impact,
                     ),
                   ),
                   const SizedBox(height: 32),
@@ -380,11 +404,15 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                                 icon: const Icon(Icons.copy, size: 16),
                                 onPressed: () {
                                   copyToClipboard(
-                                    "Vector string",
+                                    AppLocalizations.of(
+                                      navigatorKey.currentContext!,
+                                    )!.vector_string,
                                     _vectorString,
                                   );
                                 },
-                                tooltip: 'Copy to Clipboard',
+                                tooltip: AppLocalizations.of(
+                                  navigatorKey.currentContext!,
+                                )!.copy_to_clipboard,
                               ),
                             ],
                           ),
@@ -401,5 +429,3 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
     );
   }
 }
-
-// TODO: Localisation
