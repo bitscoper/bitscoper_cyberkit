@@ -333,7 +333,9 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                               entry.key,
                             );
                           },
-                          tooltip: 'Copy to Clipboard',
+                          tooltip: AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.copy_to_clipboard,
                         ),
                       ),
                     ),
@@ -355,4 +357,4 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
   }
 }
 
-// TODO: Add Bulk Save Button
+// TODO: Add Save Button

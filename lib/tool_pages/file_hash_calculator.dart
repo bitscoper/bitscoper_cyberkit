@@ -183,7 +183,9 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
                                         entry.value,
                                       );
                                     },
-                                    tooltip: 'Copy to Clipboard',
+                                    tooltip: AppLocalizations.of(
+                                      navigatorKey.currentContext!,
+                                    )!.copy_to_clipboard,
                                   ),
                                 ),
                           ],
@@ -199,4 +201,4 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
   }
 }
 
-// TODO: Add Bulk Save Button
+// TODO: Add Save Button

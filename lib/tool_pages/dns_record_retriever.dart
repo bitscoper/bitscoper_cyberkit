@@ -287,7 +287,9 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                                     record.record,
                                   );
                                 },
-                                tooltip: 'Copy to Clipboard',
+                                tooltip: AppLocalizations.of(
+                                  navigatorKey.currentContext!,
+                                )!.copy_to_clipboard,
                               ),
                             ),
                           ),
@@ -301,4 +303,4 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
   }
 }
 
-// TODO: Add Bulk Save Button
+// TODO: Add Save Button

@@ -30,7 +30,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get an_ipv4_subnet => 'An IPv4 Subnet';
 
   @override
+  String get attack_complexity => 'Attack Complexity';
+
+  @override
+  String get attack_vector => 'Attack Vector';
+
+  @override
   String get automatic => 'Automatic';
+
+  @override
+  String get availability_impact => 'Availability Impact';
 
   @override
   String get available_update => 'Available Update';
@@ -73,13 +82,26 @@ class AppLocalizationsEn extends AppLocalizations {
   String get colors => 'Colors';
 
   @override
+  String get common_vulnerability_scoring_system_v3_1_base_score =>
+      'Common Vulnerability Scoring System v3.1 Base Score';
+
+  @override
+  String get confidentiality_impact => 'Confidentiality Impact';
+
+  @override
   String get copied_to_clipboard => 'has been copied to clipboard.';
+
+  @override
+  String get copy_to_clipboard => 'Copy to Clipboard';
 
   @override
   String get crawl => 'Crawl';
 
   @override
   String get crawled => 'Crawled';
+
+  @override
+  String get cvss_calculator => 'CVSS Calculator';
 
   @override
   String get data => 'Data';
@@ -188,6 +210,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get high => 'High';
 
   @override
+  String get integrity_impact => 'Integrity Impact';
+
+  @override
   String get internet_protocol_version_4_ipv4_address =>
       'Internet Protocol Version 4 (IPv4) Address';
 
@@ -259,6 +284,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get privacy_policy => 'Privacy Policy';
 
   @override
+  String get privileges_required => 'Privileges Required';
+
+  @override
   String get ptr_record => 'PTR Record';
 
   @override
@@ -293,6 +321,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get scanned_ports => 'Scanned Ports';
+
+  @override
+  String get scope => 'Scope';
 
   @override
   String get select => 'Select';
@@ -355,6 +386,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tcp_port_scanner => 'TCP Port Scanner';
 
   @override
+  String get the_application_displays_error_messages_as_caught =>
+      'The application displays error messages as caught.';
+
+  @override
   String get time => 'Time';
 
   @override
@@ -392,10 +427,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get uri_suffix => 'URI Suffix';
 
   @override
+  String get user_interaction => 'User Interaction';
+
+  @override
   String get validity => 'Validity';
 
   @override
   String get value => 'Value';
+
+  @override
+  String get vector_string => 'Vector string';
 
   @override
   String get version => 'Version';

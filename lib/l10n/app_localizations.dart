@@ -140,11 +140,29 @@ abstract class AppLocalizations {
   /// **'An IPv4 Subnet'**
   String get an_ipv4_subnet;
 
+  /// No description provided for @attack_complexity.
+  ///
+  /// In en, this message translates to:
+  /// **'Attack Complexity'**
+  String get attack_complexity;
+
+  /// No description provided for @attack_vector.
+  ///
+  /// In en, this message translates to:
+  /// **'Attack Vector'**
+  String get attack_vector;
+
   /// No description provided for @automatic.
   ///
   /// In en, this message translates to:
   /// **'Automatic'**
   String get automatic;
+
+  /// No description provided for @availability_impact.
+  ///
+  /// In en, this message translates to:
+  /// **'Availability Impact'**
+  String get availability_impact;
 
   /// No description provided for @available_update.
   ///
@@ -224,11 +242,29 @@ abstract class AppLocalizations {
   /// **'Colors'**
   String get colors;
 
+  /// No description provided for @common_vulnerability_scoring_system_v3_1_base_score.
+  ///
+  /// In en, this message translates to:
+  /// **'Common Vulnerability Scoring System v3.1 Base Score'**
+  String get common_vulnerability_scoring_system_v3_1_base_score;
+
+  /// No description provided for @confidentiality_impact.
+  ///
+  /// In en, this message translates to:
+  /// **'Confidentiality Impact'**
+  String get confidentiality_impact;
+
   /// No description provided for @copied_to_clipboard.
   ///
   /// In en, this message translates to:
   /// **'has been copied to clipboard.'**
   String get copied_to_clipboard;
+
+  /// No description provided for @copy_to_clipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy to Clipboard'**
+  String get copy_to_clipboard;
 
   /// No description provided for @crawl.
   ///
@@ -241,6 +277,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Crawled'**
   String get crawled;
+
+  /// No description provided for @cvss_calculator.
+  ///
+  /// In en, this message translates to:
+  /// **'CVSS Calculator'**
+  String get cvss_calculator;
 
   /// No description provided for @data.
   ///
@@ -452,6 +494,12 @@ abstract class AppLocalizations {
   /// **'High'**
   String get high;
 
+  /// No description provided for @integrity_impact.
+  ///
+  /// In en, this message translates to:
+  /// **'Integrity Impact'**
+  String get integrity_impact;
+
   /// No description provided for @internet_protocol_version_4_ipv4_address.
   ///
   /// In en, this message translates to:
@@ -585,6 +633,12 @@ abstract class AppLocalizations {
   /// **'Privacy Policy'**
   String get privacy_policy;
 
+  /// No description provided for @privileges_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Privileges Required'**
+  String get privileges_required;
+
   /// No description provided for @ptr_record.
   ///
   /// In en, this message translates to:
@@ -656,6 +710,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Scanned Ports'**
   String get scanned_ports;
+
+  /// No description provided for @scope.
+  ///
+  /// In en, this message translates to:
+  /// **'Scope'**
+  String get scope;
 
   /// No description provided for @select.
   ///
@@ -767,6 +827,12 @@ abstract class AppLocalizations {
   /// **'TCP Port Scanner'**
   String get tcp_port_scanner;
 
+  /// No description provided for @the_application_displays_error_messages_as_caught.
+  ///
+  /// In en, this message translates to:
+  /// **'The application displays error messages as caught.'**
+  String get the_application_displays_error_messages_as_caught;
+
   /// No description provided for @time.
   ///
   /// In en, this message translates to:
@@ -839,6 +905,12 @@ abstract class AppLocalizations {
   /// **'URI Suffix'**
   String get uri_suffix;
 
+  /// No description provided for @user_interaction.
+  ///
+  /// In en, this message translates to:
+  /// **'User Interaction'**
+  String get user_interaction;
+
   /// No description provided for @validity.
   ///
   /// In en, this message translates to:
@@ -850,6 +922,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Value'**
   String get value;
+
+  /// No description provided for @vector_string.
+  ///
+  /// In en, this message translates to:
+  /// **'Vector string'**
+  String get vector_string;
 
   /// No description provided for @version.
   ///
