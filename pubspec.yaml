@@ -35,7 +35,7 @@ dependencies:
   intl: any
   morse_code_translator: null
   network_info_plus: null
-  network_tools_flutter: null
+  network_tools_flutter: 2.0.7 # Locked due to Two Call Stacks Being "Paused on Entry"
   ogp_data_extract: null
   package_info_plus: null
   path_provider: null
