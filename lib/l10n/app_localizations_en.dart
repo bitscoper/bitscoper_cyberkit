@@ -110,6 +110,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get data_module_shape => 'Data Module Shape';
 
   @override
+  String get denied => 'Denied';
+
+  @override
   String get developer => 'Developer';
 
   @override
@@ -232,6 +235,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get latest_version => 'Latest Version';
 
   @override
+  String get limited => 'Limited';
+
+  @override
   String get low => 'Low';
 
   @override
@@ -269,6 +275,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String get padding => 'Padding';
 
   @override
+  String get permanently_denied => 'Permanently Denied';
+
+  @override
+  String get permission => 'Permission';
+
+  @override
+  String get permission_is_denied => 'permission is denied';
+
+  @override
+  String get permission_is_limited => 'permission is limited';
+
+  @override
+  String get permission_is_permanently_denied =>
+      'permission is permanently denied';
+
+  @override
+  String get permission_is_provisional => 'permission is provisional';
+
+  @override
+  String get permission_is_restricted => 'permission is restricted';
+
+  @override
+  String get permission_will_be_used => 'permission will be used.';
+
+  @override
   String get ping => 'Ping';
 
   @override
@@ -287,6 +318,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get privileges_required => 'Privileges Required';
 
   @override
+  String get provisional => 'Provisional';
+
+  @override
   String get ptr_record => 'PTR Record';
 
   @override
@@ -300,6 +334,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get records => 'Records ...';
+
+  @override
+  String get restricted => 'Restricted';
 
   @override
   String get retrieve => 'Retrieve';
@@ -386,8 +423,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tcp_port_scanner => 'TCP Port Scanner';
 
   @override
+  String get the => 'The ';
+
+  @override
   String get the_application_displays_error_messages_as_caught =>
       'The application displays error messages as caught.';
+
+  @override
+  String get the_application_settings_could_not_be_opened_in_system_settings =>
+      'The application settings could not be opened in the system settings!';
 
   @override
   String get time => 'Time';
