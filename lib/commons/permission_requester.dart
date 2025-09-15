@@ -22,14 +22,14 @@ Future<PermissionStatus> requestPermission(
         );
 
     showMessageDialog(
-      'Permission',
-      'The "$permissionName" permission will be used.',
+      AppLocalizations.of(navigatorKey.currentContext!)!.permission,
+      '${AppLocalizations.of(navigatorKey.currentContext!)!.the}"$permissionName" ${AppLocalizations.of(navigatorKey.currentContext!)!.permission_will_be_used}',
       onOK: () async {
         permissionStatus = await permission
             .onDeniedCallback(() {
               showMessageDialog(
-                'Denied',
-                'The "$permissionName" permission is denied!',
+                AppLocalizations.of(navigatorKey.currentContext!)!.denied,
+                '${AppLocalizations.of(navigatorKey.currentContext!)!.the}"$permissionName" ${AppLocalizations.of(navigatorKey.currentContext!)!.permission_is_denied}!',
               );
             })
             .onGrantedCallback(() {
@@ -37,13 +37,17 @@ Future<PermissionStatus> requestPermission(
             })
             .onPermanentlyDeniedCallback(() async {
               showMessageDialog(
-                'Permanently Denied',
-                'The "$permissionName" permission is permanently denied!',
+                AppLocalizations.of(
+                  navigatorKey.currentContext!,
+                )!.permanently_denied,
+                '${AppLocalizations.of(navigatorKey.currentContext!)!.the}"$permissionName" ${AppLocalizations.of(navigatorKey.currentContext!)!.permission_is_permanently_denied}!',
                 onOK: () async {
                   if (!await openAppSettings()) {
                     showMessageDialog(
                       AppLocalizations.of(navigatorKey.currentContext!)!.error,
-                      'The application settings could not be opened in the system settings!',
+                      AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.the_application_settings_could_not_be_opened_in_system_settings,
                     );
                   }
                 },
@@ -51,20 +55,20 @@ Future<PermissionStatus> requestPermission(
             })
             .onRestrictedCallback(() {
               showMessageDialog(
-                'Restricted',
-                'The "$permissionName" permission is restricted!',
+                AppLocalizations.of(navigatorKey.currentContext!)!.restricted,
+                '${AppLocalizations.of(navigatorKey.currentContext!)!.the}"$permissionName" ${AppLocalizations.of(navigatorKey.currentContext!)!.permission_is_restricted}!',
               );
             })
             .onLimitedCallback(() {
               showMessageDialog(
-                'Limited',
-                'The "$permissionName" permission is limited!',
+                AppLocalizations.of(navigatorKey.currentContext!)!.limited,
+                '${AppLocalizations.of(navigatorKey.currentContext!)!.the}"$permissionName" ${AppLocalizations.of(navigatorKey.currentContext!)!.permission_is_limited}!',
               );
             })
             .onProvisionalCallback(() {
               showMessageDialog(
-                'Provisional',
-                'The "$permissionName" permission is provisional!',
+                AppLocalizations.of(navigatorKey.currentContext!)!.provisional,
+                '${AppLocalizations.of(navigatorKey.currentContext!)!.the}"$permissionName" ${AppLocalizations.of(navigatorKey.currentContext!)!.permission_is_provisional}!',
               );
             })
             .request();
@@ -81,5 +85,3 @@ Future<PermissionStatus> requestPermission(
     return permissionStatus;
   } finally {}
 }
-
-// TODO: Localization

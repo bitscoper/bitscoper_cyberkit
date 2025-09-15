@@ -296,6 +296,12 @@ abstract class AppLocalizations {
   /// **'Data Module Shape'**
   String get data_module_shape;
 
+  /// No description provided for @denied.
+  ///
+  /// In en, this message translates to:
+  /// **'Denied'**
+  String get denied;
+
   /// No description provided for @developer.
   ///
   /// In en, this message translates to:
@@ -531,6 +537,12 @@ abstract class AppLocalizations {
   /// **'Latest Version'**
   String get latest_version;
 
+  /// No description provided for @limited.
+  ///
+  /// In en, this message translates to:
+  /// **'Limited'**
+  String get limited;
+
   /// No description provided for @low.
   ///
   /// In en, this message translates to:
@@ -603,6 +615,54 @@ abstract class AppLocalizations {
   /// **'Padding'**
   String get padding;
 
+  /// No description provided for @permanently_denied.
+  ///
+  /// In en, this message translates to:
+  /// **'Permanently Denied'**
+  String get permanently_denied;
+
+  /// No description provided for @permission.
+  ///
+  /// In en, this message translates to:
+  /// **'Permission'**
+  String get permission;
+
+  /// No description provided for @permission_is_denied.
+  ///
+  /// In en, this message translates to:
+  /// **'permission is denied'**
+  String get permission_is_denied;
+
+  /// No description provided for @permission_is_limited.
+  ///
+  /// In en, this message translates to:
+  /// **'permission is limited'**
+  String get permission_is_limited;
+
+  /// No description provided for @permission_is_permanently_denied.
+  ///
+  /// In en, this message translates to:
+  /// **'permission is permanently denied'**
+  String get permission_is_permanently_denied;
+
+  /// No description provided for @permission_is_provisional.
+  ///
+  /// In en, this message translates to:
+  /// **'permission is provisional'**
+  String get permission_is_provisional;
+
+  /// No description provided for @permission_is_restricted.
+  ///
+  /// In en, this message translates to:
+  /// **'permission is restricted'**
+  String get permission_is_restricted;
+
+  /// No description provided for @permission_will_be_used.
+  ///
+  /// In en, this message translates to:
+  /// **'permission will be used.'**
+  String get permission_will_be_used;
+
   /// No description provided for @ping.
   ///
   /// In en, this message translates to:
@@ -639,6 +699,12 @@ abstract class AppLocalizations {
   /// **'Privileges Required'**
   String get privileges_required;
 
+  /// No description provided for @provisional.
+  ///
+  /// In en, this message translates to:
+  /// **'Provisional'**
+  String get provisional;
+
   /// No description provided for @ptr_record.
   ///
   /// In en, this message translates to:
@@ -668,6 +734,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Records ...'**
   String get records;
+
+  /// No description provided for @restricted.
+  ///
+  /// In en, this message translates to:
+  /// **'Restricted'**
+  String get restricted;
 
   /// No description provided for @retrieve.
   ///
@@ -827,11 +899,23 @@ abstract class AppLocalizations {
   /// **'TCP Port Scanner'**
   String get tcp_port_scanner;
 
+  /// No description provided for @the.
+  ///
+  /// In en, this message translates to:
+  /// **'The '**
+  String get the;
+
   /// No description provided for @the_application_displays_error_messages_as_caught.
   ///
   /// In en, this message translates to:
   /// **'The application displays error messages as caught.'**
   String get the_application_displays_error_messages_as_caught;
+
+  /// No description provided for @the_application_settings_could_not_be_opened_in_system_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'The application settings could not be opened in the system settings!'**
+  String get the_application_settings_could_not_be_opened_in_system_settings;
 
   /// No description provided for @time.
   ///

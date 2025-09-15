@@ -110,6 +110,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get data_module_shape => 'তথ্য মডিউলের আকৃতি';
 
   @override
+  String get denied => 'অননুমোদিত';
+
+  @override
   String get developer => 'ডেভেলপার';
 
   @override
@@ -233,6 +236,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get latest_version => 'সর্বশেষ সংস্করণ';
 
   @override
+  String get limited => 'সীমিত';
+
+  @override
   String get low => 'নিম্ন';
 
   @override
@@ -270,6 +276,33 @@ class AppLocalizationsBn extends AppLocalizations {
   String get padding => 'প্যাডিং';
 
   @override
+  String get permanently_denied => 'স্থায়ীভাবে অননুমোদিত';
+
+  @override
+  String get permission => 'অনুমতি';
+
+  @override
+  String get permission_is_denied => 'অনুমতিটা নাকচ করা হয়েছে';
+
+  @override
+  String get permission_is_limited => 'অনুমতিটা সীমিতভাবে মঞ্জুর করা হয়েছে';
+
+  @override
+  String get permission_is_permanently_denied =>
+      'অনুমতিটা স্থায়ীভাবে নাকচ করা রয়েছে';
+
+  @override
+  String get permission_is_provisional =>
+      'অনুমতিটা অস্থায়ীভাবে মঞ্জুর করা হয়েছে';
+
+  @override
+  String get permission_is_restricted =>
+      'অনুমতিটা সীমাবদ্ধভাবে মঞ্জুর করা হয়েছে';
+
+  @override
+  String get permission_will_be_used => 'অনুমতিটা ব্যবহার করা হবে।';
+
+  @override
   String get ping => 'পিং';
 
   @override
@@ -288,6 +321,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get privileges_required => 'প্রয়োজনীয় প্রিভিলেজেস';
 
   @override
+  String get provisional => 'অস্থায়ী';
+
+  @override
   String get ptr_record => 'পিটিআর রেকর্ড';
 
   @override
@@ -301,6 +337,9 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get records => 'রেকর্ডস ...';
+
+  @override
+  String get restricted => 'সীমাবদ্ধ';
 
   @override
   String get retrieve => 'রিট্রিভ';
@@ -388,8 +427,15 @@ class AppLocalizationsBn extends AppLocalizations {
   String get tcp_port_scanner => 'টিসিপি পোর্ট স্ক্যানার';
 
   @override
+  String get the => '';
+
+  @override
   String get the_application_displays_error_messages_as_caught =>
       'অ্যাপ্লিকেশনটা ঠিক যেভাবে ত্রুটির সম্মুখীন হয়, ঠিক সেভাবেই মেসেজগুলো দেখায়।';
+
+  @override
+  String get the_application_settings_could_not_be_opened_in_system_settings =>
+      'সিস্টেম সেটিংসে অ্যাপ্লিকেশন সেটিংস খোলা যায়নি!';
 
   @override
   String get time => 'সময়';
