@@ -366,13 +366,13 @@ flutter gen-l10n
 #### Generation
 
 ```sh
-keytool -genkey -v -keystore ~/Laboratory/Bitscoper\ CyberKit/KeyStore.jks -keyalg RSA -keysize 4096 -validity 10000 -alias Bitscoper_CyberKit
+keytool -genkey -v -keystore ~/Laboratory/Bitscoper_CyberKit/Android\ Key/KeyStore.jks -keyalg RSA -keysize 4096 -validity 10000 -alias Bitscoper_CyberKit
 ```
 
 #### Conversion to Base64
 
 ```sh
-base64 ~/Laboratory/Bitscoper\ CyberKit/KeyStore.jks > ~/Laboratory/Bitscoper\ CyberKit/KeyStore.b64
+base64 ~/Laboratory/Bitscoper_CyberKit/Android\ Key/KeyStore.jks > ~/Laboratory/Bitscoper_CyberKit/Android\ Key/KeyStore.b64
 ```
 
 > [!NOTE]
