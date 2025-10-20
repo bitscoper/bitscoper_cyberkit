@@ -6,7 +6,7 @@ publish_to: none
 version: 16.0.0+34
 
 environment:
-  sdk: ">=3.9.0"
+  sdk: ">=3.9.2"
 
 dependencies:
   async: any
