@@ -55,7 +55,7 @@ class AppLocalizationsBn extends AppLocalizations {
       'বেসিক সার্ভিস সেট আইডেন্টিফায়ার (বিএসএসআইডি)';
 
   @override
-  String get bitscoper_cyber_toolbox => 'বিটস্কোপার সাইবার টুলবক্স';
+  String get bitscoper_cyberkit => 'বিটস্কোপার সাইবারকিট';
 
   @override
   String get broadcast_address => 'ব্রডকাস্ট অ্যাড্রেস';

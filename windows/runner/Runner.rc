@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "Abdullah As-Sadeed" "\0"
-            VALUE "FileDescription", "bitscoper_cyber_toolbox" "\0"
+            VALUE "FileDescription", "bitscoper_cyberkit" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "bitscoper.bitscoper_cyber_toolbox" "\0"
+            VALUE "InternalName", "bitscoper.bitscoper_cyberkit" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 Abdullah As-Sadeed. All rights reserved." "\0"
-            VALUE "OriginalFilename", "bitscoper_cyber_toolbox.exe" "\0"
-            VALUE "ProductName", "bitscoper_cyber_toolbox" "\0"
+            VALUE "OriginalFilename", "bitscoper_cyberkit.exe" "\0"
+            VALUE "ProductName", "bitscoper_cyberkit" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

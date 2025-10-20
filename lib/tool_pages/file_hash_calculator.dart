@@ -1,12 +1,12 @@
 /* By Abdullah As-Sadeed */
 
 import 'dart:io';
-import 'package:bitscoper_cyber_toolbox/commons/application_toolbar.dart';
-import 'package:bitscoper_cyber_toolbox/commons/copy_to_clipboard.dart';
-import 'package:bitscoper_cyber_toolbox/commons/message_dialog.dart';
-import 'package:bitscoper_cyber_toolbox/commons/notification_sender.dart';
-import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
-import 'package:bitscoper_cyber_toolbox/main.dart';
+import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
+import 'package:bitscoper_cyberkit/commons/copy_to_clipboard.dart';
+import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
+import 'package:bitscoper_cyberkit/commons/notification_sender.dart';
+import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
+import 'package:bitscoper_cyberkit/main.dart';
 import 'package:crypto/crypto.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +67,7 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
         )!.file_hash_calculator,
         subtitle: AppLocalizations.of(
           navigatorKey.currentContext!,
-        )!.bitscoper_cyber_toolbox,
+        )!.bitscoper_cyberkit,
         body: AppLocalizations.of(navigatorKey.currentContext!)!.calculated,
         payload: "File_Hash_Calculator",
       );

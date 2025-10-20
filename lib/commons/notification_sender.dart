@@ -49,8 +49,8 @@ Future<void> sendNotification({
 
   final WindowsInitializationSettings windowsInitializationSettings =
       WindowsInitializationSettings(
-        appUserModelId: "18862TeleChirkut.BitscoperCyberToolBox",
-        appName: "Bitscoper Cyber Toolbox",
+        appUserModelId: "18862TeleChirkut.BitscoperCyberKit",
+        appName: "Bitscoper CyberKit",
         iconPath: WindowsImage.getAssetUri(
           windowsIconPath,
         ).toString(), // FIXME: Debug
@@ -143,7 +143,7 @@ Future<void> sendNotification({
       WindowsNotificationDetails(
         header: WindowsHeader(
           id: "windows_notification_header_identifier",
-          title: "Bitscoper Cyber Toolbox",
+          title: "Bitscoper CyberKit",
           arguments: payload,
           activation: WindowsHeaderActivation.foreground,
         ),

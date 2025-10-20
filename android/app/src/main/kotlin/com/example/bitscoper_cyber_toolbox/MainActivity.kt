@@ -1,4 +1,4 @@
-package bitscoper.bitscoper_cyber_toolbox
+package bitscoper.bitscoper_cyberkit
 
 import io.flutter.embedding.android.FlutterActivity
 

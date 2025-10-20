@@ -1,8 +1,8 @@
 /* By Abdullah As-Sadeed */
 
-import 'package:bitscoper_cyber_toolbox/commons/message_dialog.dart';
-import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
-import 'package:bitscoper_cyber_toolbox/main.dart';
+import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
+import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
+import 'package:bitscoper_cyberkit/main.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 Future<PermissionStatus> requestPermission(

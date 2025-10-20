@@ -1,7 +1,7 @@
 /* By Abdullah As-Sadeed */
 
-import 'package:bitscoper_cyber_toolbox/home.dart';
-import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
+import 'package:bitscoper_cyberkit/home.dart';
+import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,17 +27,17 @@ Future<void> main() async {
     enableDebugging: kDebugMode,
   );
 
-  runApp(const BitscoperCyberToolBox());
+  runApp(const BitscoperCyberKit());
 }
 
-class BitscoperCyberToolBox extends StatefulWidget {
-  const BitscoperCyberToolBox({super.key});
+class BitscoperCyberKit extends StatefulWidget {
+  const BitscoperCyberKit({super.key});
 
   @override
-  BitscoperCyberToolBoxState createState() => BitscoperCyberToolBoxState();
+  BitscoperCyberKitState createState() => BitscoperCyberKitState();
 }
 
-class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
+class BitscoperCyberKitState extends State<BitscoperCyberKit> {
   Locale _userLocale = const Locale('en');
 
   final ValueNotifier<bool> _isDarkTheme = ValueNotifier<bool>(false);
@@ -55,7 +55,7 @@ class BitscoperCyberToolBoxState extends State<BitscoperCyberToolBox> {
       quickActions.initialize((shortcutType) {
         if (shortcutType == 'source_code') {
           launchUrl(
-            Uri.parse('https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/'),
+            Uri.parse('https://github.com/bitscoper/Bitscoper_CyberKit/'),
           );
         }
       });

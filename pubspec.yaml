@@ -1,6 +1,6 @@
 # By Abdullah As-Sadeed
 
-name: bitscoper_cyber_toolbox
+name: bitscoper_cyberkit
 description: A Flutter application offering IPv4 Subnet Scanner, mDNS Scanner, TCP Port Scanner, Route Tracer, Pinger, File Hash Calculator, String Hash Calculator, CVSS Calculator, Base Encoder, Morse Code Translator, QR Code Generator, Open Graph Protocol Data Extractor, Series URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Information Viewer.
 publish_to: none
 version: 16.0.0+34
@@ -99,14 +99,14 @@ flutter_native_splash:
   web_image_mode: center
 
 msix_config:
-  display_name: Bitscoper Cyber ToolBox
-  identity_name: 18862TeleChirkut.BitscoperCyberToolBox
+  display_name: Bitscoper CyberKit
+  identity_name: 18862TeleChirkut.BitscoperCyberKit
   publisher_display_name: Bitscoper
   publisher: CN=37755377-8C56-44E3-8D7A-0F1AD45034D2
   logo_path: assets/icon/maskable_icon_x512.png
   trim_logo: false
   languages: en-US
-  execution_alias: Bitscoper_Cyber_ToolBox
+  execution_alias: Bitscoper_CyberKit
   enable_at_startup: false
   capabilities:
     internetClient, internetClientServer, privateNetworkClientServer,
@@ -117,4 +117,4 @@ msix_config:
   windows_build_args: --release --obfuscate --split-debug-info=./build/Debug_Symbols/Windows/
   debug: false
   msix_version: 16.0.0.0
-  output_name: Bitscoper_Cyber_ToolBox
+  output_name: Bitscoper_CyberKit

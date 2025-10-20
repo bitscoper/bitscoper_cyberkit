@@ -1,10 +1,10 @@
 /* By Abdullah As-Sadeed */
 
-import 'package:bitscoper_cyber_toolbox/commons/application_toolbar.dart';
-import 'package:bitscoper_cyber_toolbox/commons/copy_to_clipboard.dart';
-import 'package:bitscoper_cyber_toolbox/commons/message_dialog.dart';
-import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
-import 'package:bitscoper_cyber_toolbox/main.dart';
+import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
+import 'package:bitscoper_cyberkit/commons/copy_to_clipboard.dart';
+import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
+import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
+import 'package:bitscoper_cyberkit/main.dart';
 import 'package:flutter/material.dart';
 import 'package:cvss_vulnerability_scoring/cvss_vulnerability_scoring.dart';
 
