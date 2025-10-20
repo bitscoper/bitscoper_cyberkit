@@ -21,7 +21,7 @@ A Flutter application offering IPv4 Subnet Scanner, mDNS Scanner, TCP Port Scann
           </a>
         </td>
         <td>
-          <a href="https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyberkit">
+          <a href="https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox">
             <img src="3rd_Party_Service_Logos/Google_Play.png" height="48" alt="Google Play" />
           </a>
         </td>
@@ -122,7 +122,7 @@ Web_Application --> My_Server[My Server]
         <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Android_appbundle_Debug_Symbols.zip">ZIP</a>
       </td>
       <td rowspan="4">
-        <a href="https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyberkit">Google Play</a>
+        <a href="https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox">Google Play</a>
       </td>
     </tr>
     <tr>
