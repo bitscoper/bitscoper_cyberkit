@@ -3,4 +3,4 @@
 # By Abdullah As-Sadeed
 
 cd "$(dirname "$0")" || exit
-exec ./Bitscoper_Cyber_ToolBox
+exec ./Bitscoper_CyberKit

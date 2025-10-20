@@ -1,6 +1,6 @@
 {
-    "name": "bitscoper_cyber_toolbox",
-    "short_name": "bitscoper_cyber_toolbox",
+    "name": "bitscoper_cyberkit",
+    "short_name": "bitscoper_cyberkit",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#F0F8FF",

@@ -1,10 +1,10 @@
-# Contributing to Bitscoper Cyber ToolBox
+# Contributing to Bitscoper CyberKit
 
 Thank you for considering contributing to this project! We appreciate your time and effort. Please follow the guidelines below to ensure a smooth collaboration.
 
 ## Code of Conduct
 
-This project and everyone participating in it are governed by our [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to bitscoper@gmail.com.
+This project and everyone participating in it are governed by our [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to bitscoper@protonmail.com.
 
 ## How to Contribute
 

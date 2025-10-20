@@ -1,8 +1,8 @@
 /* By Abdullah As-Sadeed */
 
-import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
-import 'package:bitscoper_cyber_toolbox/main.dart';
-import 'package:bitscoper_cyber_toolbox/commons/message_dialog.dart';
+import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
+import 'package:bitscoper_cyberkit/main.dart';
+import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:package_info_plus/package_info_plus.dart';
@@ -35,7 +35,7 @@ Future<void> checkVersion() async {
 
     final response = await http.get(
       Uri.parse(
-        'https://raw.githubusercontent.com/bitscoper/Bitscoper_Cyber_ToolBox/refs/heads/main/pubspec.yaml',
+        'https://raw.githubusercontent.com/bitscoper/Bitscoper_CyberKit/refs/heads/main/pubspec.yaml',
       ),
     );
 

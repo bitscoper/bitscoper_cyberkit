@@ -188,11 +188,11 @@ abstract class AppLocalizations {
   /// **'Basic Service Set Identifier (BSSID)'**
   String get basic_service_set_identifier_bssid;
 
-  /// No description provided for @bitscoper_cyber_toolbox.
+  /// No description provided for @bitscoper_cyberkit.
   ///
   /// In en, this message translates to:
-  /// **'Bitscoper Cyber ToolBox'**
-  String get bitscoper_cyber_toolbox;
+  /// **'Bitscoper CyberKit'**
+  String get bitscoper_cyberkit;
 
   /// No description provided for @broadcast_address.
   ///

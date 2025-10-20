@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=Application
-Name=Bitscoper Cyber ToolBox
+Name=Bitscoper CyberKit
 Comment=A Flutter application offering IPv4 Subnet Scanner, mDNS Scanner, TCP Port Scanner, Route Tracer, Pinger, File Hash Calculator, String Hash Calculator, CVSS Calculator, Base Encoder, Morse Code Translator, QR Code Generator, Open Graph Protocol Data Extractor, Series URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Information Viewer.
-Icon=Bitscoper_Cyber_ToolBox
-Exec=Bitscoper_Cyber_ToolBox %u
+Icon=Bitscoper_CyberKit
+Exec=Bitscoper_CyberKit %u
 Terminal=false
 Categories=Utility;Network;
