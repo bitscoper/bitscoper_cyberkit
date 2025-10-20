@@ -1,11 +1,11 @@
 /* By Abdullah As-Sadeed */
 
-import 'package:bitscoper_cyber_toolbox/commons/application_toolbar.dart';
-import 'package:bitscoper_cyber_toolbox/commons/copy_to_clipboard.dart';
-import 'package:bitscoper_cyber_toolbox/commons/message_dialog.dart';
-import 'package:bitscoper_cyber_toolbox/commons/notification_sender.dart';
-import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
-import 'package:bitscoper_cyber_toolbox/main.dart';
+import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
+import 'package:bitscoper_cyberkit/commons/copy_to_clipboard.dart';
+import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
+import 'package:bitscoper_cyberkit/commons/notification_sender.dart';
+import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
+import 'package:bitscoper_cyberkit/main.dart';
 import 'package:flutter/material.dart';
 import 'package:ogp_data_extract/ogp_data_extract.dart';
 
@@ -46,7 +46,7 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
           )!.open_graph_protocol_data_extractor,
           subtitle: AppLocalizations.of(
             navigatorKey.currentContext!,
-          )!.bitscoper_cyber_toolbox,
+          )!.bitscoper_cyberkit,
           body: AppLocalizations.of(navigatorKey.currentContext!)!.extracted,
           payload: "Open_Graph_Protocol_Data_Extractor",
         );

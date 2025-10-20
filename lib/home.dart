@@ -1,26 +1,26 @@
 /* By Abdullah As-Sadeed */
 
-import 'package:bitscoper_cyber_toolbox/commons/application_toolbar.dart';
-import 'package:bitscoper_cyber_toolbox/commons/permission_requester.dart';
-import 'package:bitscoper_cyber_toolbox/l10n/app_localizations.dart';
-import 'package:bitscoper_cyber_toolbox/main.dart';
-import 'package:bitscoper_cyber_toolbox/tool_pages/base_encoder.dart';
-import 'package:bitscoper_cyber_toolbox/tool_pages/cvss_calculator.dart';
-import 'package:bitscoper_cyber_toolbox/tool_pages/dns_record_retriever.dart';
-import 'package:bitscoper_cyber_toolbox/tool_pages/file_hash_calculator.dart';
-import 'package:bitscoper_cyber_toolbox/tool_pages/ipv4_subnet_scanner.dart';
-import 'package:bitscoper_cyber_toolbox/tool_pages/mdns_scanner.dart';
-import 'package:bitscoper_cyber_toolbox/tool_pages/morse_code_translator.dart';
-import 'package:bitscoper_cyber_toolbox/tool_pages/open_graph_protocol_data_extractor.dart';
-import 'package:bitscoper_cyber_toolbox/tool_pages/pinger.dart';
-import 'package:bitscoper_cyber_toolbox/tool_pages/qr_code_generator.dart';
-import 'package:bitscoper_cyber_toolbox/tool_pages/route_tracer.dart';
-import 'package:bitscoper_cyber_toolbox/tool_pages/series_uri_crawler.dart';
-import 'package:bitscoper_cyber_toolbox/tool_pages/string_hash_calculator.dart';
-import 'package:bitscoper_cyber_toolbox/tool_pages/tcp_port_scanner.dart';
-import 'package:bitscoper_cyber_toolbox/tool_pages/whois_retriever.dart';
-import 'package:bitscoper_cyber_toolbox/tool_pages/wifi_information_viewer.dart';
-import 'package:bitscoper_cyber_toolbox/version_checker.dart';
+import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
+import 'package:bitscoper_cyberkit/commons/permission_requester.dart';
+import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
+import 'package:bitscoper_cyberkit/main.dart';
+import 'package:bitscoper_cyberkit/tool_pages/base_encoder.dart';
+import 'package:bitscoper_cyberkit/tool_pages/cvss_calculator.dart';
+import 'package:bitscoper_cyberkit/tool_pages/dns_record_retriever.dart';
+import 'package:bitscoper_cyberkit/tool_pages/file_hash_calculator.dart';
+import 'package:bitscoper_cyberkit/tool_pages/ipv4_subnet_scanner.dart';
+import 'package:bitscoper_cyberkit/tool_pages/mdns_scanner.dart';
+import 'package:bitscoper_cyberkit/tool_pages/morse_code_translator.dart';
+import 'package:bitscoper_cyberkit/tool_pages/open_graph_protocol_data_extractor.dart';
+import 'package:bitscoper_cyberkit/tool_pages/pinger.dart';
+import 'package:bitscoper_cyberkit/tool_pages/qr_code_generator.dart';
+import 'package:bitscoper_cyberkit/tool_pages/route_tracer.dart';
+import 'package:bitscoper_cyberkit/tool_pages/series_uri_crawler.dart';
+import 'package:bitscoper_cyberkit/tool_pages/string_hash_calculator.dart';
+import 'package:bitscoper_cyberkit/tool_pages/tcp_port_scanner.dart';
+import 'package:bitscoper_cyberkit/tool_pages/whois_retriever.dart';
+import 'package:bitscoper_cyberkit/tool_pages/wifi_information_viewer.dart';
+import 'package:bitscoper_cyberkit/version_checker.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -229,7 +229,7 @@ class HomePage extends StatelessWidget {
       appBar: ApplicationToolBar(
         title: AppLocalizations.of(
           navigatorKey.currentContext!,
-        )!.bitscoper_cyber_toolbox,
+        )!.bitscoper_cyberkit,
       ),
       drawer: Drawer(
         child: Column(
@@ -244,7 +244,7 @@ class HomePage extends StatelessWidget {
                         Text(
                           AppLocalizations.of(
                             navigatorKey.currentContext!,
-                          )!.bitscoper_cyber_toolbox,
+                          )!.bitscoper_cyberkit,
                         ),
                         FutureBuilder<String>(
                           future: getVersion(),
@@ -330,7 +330,7 @@ class HomePage extends StatelessWidget {
                     onTap: () {
                       launchUrl(
                         Uri.parse(
-                          'https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox',
+                          'https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyberkit',
                         ),
                       );
                     },
@@ -346,7 +346,7 @@ class HomePage extends StatelessWidget {
                     onTap: () {
                       launchUrl(
                         Uri.parse(
-                          'https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/',
+                          'https://github.com/bitscoper/Bitscoper_CyberKit/',
                         ),
                       );
                     },
@@ -372,7 +372,7 @@ class HomePage extends StatelessWidget {
                     onTap: () {
                       launchUrl(
                         Uri.parse(
-                          'https://bitscoper.dev/Bitscoper_Cyber_ToolBox/Privacy_Policy.html',
+                          'https://bitscoper.dev/Bitscoper_CyberKit/Privacy_Policy.html',
                         ),
                       );
                     },

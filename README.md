@@ -2,15 +2,15 @@
 > Any unlawful usage is strictly prohibited.
 
 <div align="center">
-  <img src="assets/icon/icon.png" height="128" alt="Bitscoper Cyber ToolBox" />
+  <img src="assets/icon/icon.png" height="128" alt="Bitscoper CyberKit" />
 </div>
 <div align="center">
 
-# Bitscoper Cyber ToolBox
+# Bitscoper CyberKit
 
 A Flutter application offering IPv4 Subnet Scanner, mDNS Scanner, TCP Port Scanner, Route Tracer, Pinger, File Hash Calculator, String Hash Calculator, CVSS Calculator, Base Encoder, Morse Code Translator, QR Code Generator, Open Graph Protocol Data Extractor, Series URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Information Viewer.
 
-[![Build, Release, and Deploy](https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/actions/workflows/Build,%20Release,%20and%20Deploy.yaml/badge.svg)](https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/actions/workflows/Build,%20Release,%20and%20Deploy.yaml)
+[![Build, Release, and Deploy](https://github.com/bitscoper/Bitscoper_CyberKit/actions/workflows/Build,%20Release,%20and%20Deploy.yaml/badge.svg)](https://github.com/bitscoper/Bitscoper_CyberKit/actions/workflows/Build,%20Release,%20and%20Deploy.yaml)
 
   <table>
     <tbody>
@@ -21,17 +21,17 @@ A Flutter application offering IPv4 Subnet Scanner, mDNS Scanner, TCP Port Scann
           </a>
         </td>
         <td>
-          <a href="https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox">
+          <a href="https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyberkit">
             <img src="3rd_Party_Service_Logos/Google_Play.png" height="48" alt="Google Play" />
           </a>
         </td>
         <td>
-          <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/pkgs/container/bitscoper_cyber_toolbox/">
+          <a href="https://github.com/bitscoper/Bitscoper_CyberKit/pkgs/container/bitscoper_cyberkit/">
             <img src="3rd_Party_Service_Logos/Docker.svg" height="48" alt="GHCR" />
           </a>
         </td>
         <td>
-          <a href="https://gallery.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyber_toolbox/">
+          <a href="https://gallery.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit/">
             <img src="3rd_Party_Service_Logos/Amazon_ECR.svg" height="48" alt="Amazon ECR" />
           </a>
         </td>
@@ -40,7 +40,7 @@ A Flutter application offering IPv4 Subnet Scanner, mDNS Scanner, TCP Port Scann
   </table>
 </div>
 
-## [Latest Release](https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/)
+## [Latest Release](https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/)
 
 <div align="center">
 
@@ -100,79 +100,79 @@ Web_Application --> My_Server[My Server]
     <tr>
       <th rowspan="2" colspan="2">Linux</th>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Linux_x64_Executable.zip">Linux_x64_Executable.zip</a>
+        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Linux_x64_Executable.zip">Linux_x64_Executable.zip</a>
       </td>
       <td rowspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Linux_x64_Debug_Symbols.zip">ZIP</a>
+        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Linux_x64_Debug_Symbols.zip">ZIP</a>
       </td>
       <td rowspan="2">-</td>
     </tr>
     <tr>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Bitscoper_Cyber_ToolBox-16.0.0-x64.AppImage">Bitscoper_Cyber_ToolBox-16.0.0-x64.AppImage</a>
+        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Bitscoper_CyberKit-16.0.0-x64.AppImage">Bitscoper_CyberKit-16.0.0-x64.AppImage</a>
       </td>
     </tr>
     <tr>
       <th rowspan="4" width="46">Android</th>
       <th>appbundle</th>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Android_appbundle.zip">Android_appbundle.zip</a>
+        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Android_appbundle.zip">Android_appbundle.zip</a>
       </td>
       <td>
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Android_appbundle_Debug_Symbols.zip">ZIP</a>
+        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Android_appbundle_Debug_Symbols.zip">ZIP</a>
       </td>
       <td rowspan="4">
-        <a href="https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox">Google Play</a>
+        <a href="https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyberkit">Google Play</a>
       </td>
     </tr>
     <tr>
       <th rowspan="3">APK</th>
       <td rowspan="2">ARM</td>
       <td>
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/APK_ARMEABI_V7A.zip">APK_ARMEABI_V7A.zip</a> (32-bit)
+        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/APK_ARMEABI_V7A.zip">APK_ARMEABI_V7A.zip</a> (32-bit)
       </td>
       <td rowspan="3">
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/APK_Debug_Symbols.zip">ZIP</a>
+        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/APK_Debug_Symbols.zip">ZIP</a>
       </td>
     </tr>
     <tr>
       <td>
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/APK_ARM64_V8A.zip">APK_ARM64_V8A.zip</a> (64-bit)
+        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/APK_ARM64_V8A.zip">APK_ARM64_V8A.zip</a> (64-bit)
       </td>
     </tr>
     <tr>
       <td>x86_64</td>
       <td>
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/APK_x86_64.zip">APK_x86_64.zip</a>
+        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/APK_x86_64.zip">APK_x86_64.zip</a>
       </td>
     </tr>
     <tr>
       <th colspan="2">macOS</th>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/macOS_Executable.zip">macOS_Executable.zip</a>
+        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/macOS_Executable.zip">macOS_Executable.zip</a>
       </td>
       <td>
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/macOS_Debug_Symbols.zip">ZIP</a>
+        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/macOS_Debug_Symbols.zip">ZIP</a>
       </td>
       <td>-</td>
     </tr>
     <tr>
       <th colspan="2">iOS</th>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/iOS_Executable.zip">iOS_Executable.zip</a>
+        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/iOS_Executable.zip">iOS_Executable.zip</a>
       </td>
       <td>
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/iOS_Executable_Debug_Symbols.zip">ZIP</a>
+        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/iOS_Executable_Debug_Symbols.zip">ZIP</a>
       </td>
       <td>-</td>
     </tr>
     <tr>
       <th rowspan="2" colspan="2">Windows</th>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Windows_x64_Executable.zip">Windows_x64_Executable.zip</a>
+        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Windows_x64_Executable.zip">Windows_x64_Executable.zip</a>
       </td>
       <td rowspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Windows_x64_Debug_Symbols.zip">ZIP</a>
+        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Windows_x64_Debug_Symbols.zip">ZIP</a>
       </td>
       <td rowspan="2">
         <a href="https://apps.microsoft.com/detail/9n6r5lxczxl6">Microsoft Store</a>
@@ -180,29 +180,29 @@ Web_Application --> My_Server[My Server]
     </tr>
     <tr>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Windows_x64_MSIX_Package.zip">Windows_x64_MSIX_Package.zip</a>
+        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Windows_x64_MSIX_Package.zip">Windows_x64_MSIX_Package.zip</a>
       </td>
     </tr>
     <tr>
       <th colspan="2">Web</th>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/releases/latest/download/Web_Application.zip">Web_Application.zip</a>
+        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Web_Application.zip">Web_Application.zip</a>
         <br /> (Not Recommended)
       </td>
       <td>-</td>
-      <td><a href="https://bitscoper.dev/Bitscoper_Cyber_ToolBox/Application/">(My Server)</a></td>
+      <td><a href="https://bitscoper.dev/Bitscoper_CyberKit/Application/">(My Server)</a></td>
     </tr>
     <tr>
       <th colspan="2" rowspan="2">Docker / Podman</th>
       <td colspan="2" rowspan="2">-</td>
       <td rowspan="2">-</td>
       <td>
-        <a href="https://github.com/bitscoper/Bitscoper_Cyber_ToolBox/pkgs/container/bitscoper_cyber_toolbox/">GHCR</a>
+        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/pkgs/container/bitscoper_cyberkit/">GHCR</a>
       </td>
     </tr>
     <tr>
       <td>
-        <a href="https://gallery.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyber_toolbox/">Amazon ECR</a>
+        <a href="https://gallery.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit/">Amazon ECR</a>
       </td>
     </tr>
   </table>
@@ -216,17 +216,17 @@ Web_Application --> My_Server[My Server]
 #### Pull
 
 ```sh
-podman pull ghcr.io/bitscoper/bitscoper_cyber_toolbox:latest
+podman pull ghcr.io/bitscoper/bitscoper_cyberkit:latest
 # or
-docker pull ghcr.io/bitscoper/bitscoper_cyber_toolbox:latest
+docker pull ghcr.io/bitscoper/bitscoper_cyberkit:latest
 ```
 
 #### Run
 
 ```sh
-podman run -it --rm ghcr.io/bitscoper/bitscoper_cyber_toolbox:latest
+podman run -it --rm ghcr.io/bitscoper/bitscoper_cyberkit:latest
 # or
-docker run -it --rm ghcr.io/bitscoper/bitscoper_cyber_toolbox:latest
+docker run -it --rm ghcr.io/bitscoper/bitscoper_cyberkit:latest
 ```
 
 ### From Amazon ECR
@@ -234,17 +234,17 @@ docker run -it --rm ghcr.io/bitscoper/bitscoper_cyber_toolbox:latest
 #### Pull
 
 ```sh
-podman pull public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyber_toolbox:latest
+podman pull public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit:latest
 # or
-docker pull public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyber_toolbox:latest
+docker pull public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit:latest
 ```
 
 #### Run
 
 ```sh
-podman run -it --rm public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyber_toolbox:latest
+podman run -it --rm public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit:latest
 # or
-docker run -it --rm public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyber_toolbox:latest
+docker run -it --rm public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit:latest
 ```
 
 ## Tools
@@ -318,13 +318,13 @@ Displays information about the currently connected Wi-Fi network.
 ### Build
 
 ```sh
-docker build -t bitscoper_cyber_toolbox .
+docker build -t bitscoper_cyberkit .
 ```
 
 ### Run
 
 ```sh
-xhost +si:localuser:root && docker run -it --rm -e DISPLAY=$DISPLAY -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY -v /run/user/$(id -u)/wayland-0:/run/user/$(id -u)/wayland-0 -e XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR bitscoper_cyber_toolbox
+xhost +si:localuser:root && docker run -it --rm -e DISPLAY=$DISPLAY -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY -v /run/user/$(id -u)/wayland-0:/run/user/$(id -u)/wayland-0 -e XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR bitscoper_cyberkit
 ```
 
 ## Development Commands
@@ -332,15 +332,15 @@ xhost +si:localuser:root && docker run -it --rm -e DISPLAY=$DISPLAY -e WAYLAND_D
 ### ID
 
 ```sh
-flutter pub run rename setBundleId --targets linux,android,macos,ios,windows,web --value "bitscoper.bitscoper_cyber_toolbox"
+flutter pub run rename setBundleId --targets linux,android,macos,ios,windows,web --value "bitscoper.bitscoper_cyberkit"
 ```
 
 ### Name
 
 ```sh
-flutter pub run rename setAppName --targets linux --value "Bitscoper_Cyber_ToolBox"
+flutter pub run rename setAppName --targets linux --value "Bitscoper_CyberKit"
 
-flutter pub run rename setAppName --targets android,macos,ios,windows,web --value "Bitscoper Cyber ToolBox"
+flutter pub run rename setAppName --targets android,macos,ios,windows,web --value "Bitscoper CyberKit"
 ```
 
 ### Icon
@@ -366,13 +366,13 @@ flutter gen-l10n
 #### Generation
 
 ```sh
-keytool -genkey -v -keystore ~/Laboratory/Bitscoper\ Cyber\ ToolBox/KeyStore.jks -keyalg RSA -keysize 4096 -validity 10000 -alias Bitscoper_Cyber_ToolBox
+keytool -genkey -v -keystore ~/Laboratory/Bitscoper\ CyberKit/KeyStore.jks -keyalg RSA -keysize 4096 -validity 10000 -alias Bitscoper_CyberKit
 ```
 
 #### Conversion to Base64
 
 ```sh
-base64 ~/Laboratory/Bitscoper\ Cyber\ ToolBox/KeyStore.jks > ~/Laboratory/Bitscoper\ Cyber\ ToolBox/KeyStore.b64
+base64 ~/Laboratory/Bitscoper\ CyberKit/KeyStore.jks > ~/Laboratory/Bitscoper\ CyberKit/KeyStore.b64
 ```
 
 > [!NOTE]

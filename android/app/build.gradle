@@ -31,7 +31,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace "bitscoper.bitscoper_cyber_toolbox"
+    namespace "bitscoper.bitscoper_cyberkit"
     compileSdk flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
@@ -51,7 +51,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "bitscoper.bitscoper_cyber_toolbox"
+        applicationId "bitscoper.bitscoper_cyberkit"
 
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()

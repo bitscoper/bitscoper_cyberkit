@@ -55,7 +55,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Basic Service Set Identifier (BSSID)';
 
   @override
-  String get bitscoper_cyber_toolbox => 'Bitscoper Cyber ToolBox';
+  String get bitscoper_cyberkit => 'Bitscoper CyberKit';
 
   @override
   String get broadcast_address => 'Broadcast Address';
