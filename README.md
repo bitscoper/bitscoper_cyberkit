@@ -16,7 +16,7 @@ A Flutter application offering IPv4 Subnet Scanner, mDNS Scanner, TCP Port Scann
     <tbody>
       <tr>
         <td>
-          <a href="https://apps.microsoft.com/detail/9n6r5lxczxl6">
+          <a href="https://apps.microsoft.com/detail/9mv2046tz302">
             <img src="https://get.microsoft.com/images/en-us%20dark.svg" height="48" alt="Microsoft Store" />
           </a>
         </td>
@@ -175,7 +175,7 @@ Web_Application --> My_Server[My Server]
         <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Windows_x64_Debug_Symbols.zip">ZIP</a>
       </td>
       <td rowspan="2">
-        <a href="https://apps.microsoft.com/detail/9n6r5lxczxl6">Microsoft Store</a>
+        <a href="https://apps.microsoft.com/detail/9mv2046tz302">Microsoft Store</a>
       </td>
     </tr>
     <tr>
