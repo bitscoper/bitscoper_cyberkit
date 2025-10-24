@@ -315,7 +315,7 @@ class HomePage extends StatelessWidget {
                     onTap: () {
                       launchUrl(
                         Uri.parse(
-                          'https://apps.microsoft.com/detail/9n6r5lxczxl6',
+                          'https://apps.microsoft.com/detail/9mv2046tz302',
                         ),
                       );
                     },
