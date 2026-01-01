@@ -28,7 +28,7 @@ jobs:
         shell: bash
 
       - name: Checkout Repository
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.1
 
       - name: Get Dependencies
         run: flutter pub get -v
@@ -39,7 +39,7 @@ jobs:
         shell: bash
 
       - name: Upload Build Artifacts (Executable)
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: Linux_x64_Executable
           path: build/linux/x64/release/bundle/*
@@ -69,13 +69,13 @@ jobs:
         shell: bash
 
       - name: Upload Build Artifacts (AppImage)
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: Linux_x64_AppImage
           path: Bitscoper_CyberKit-x64.AppImage
 
       - name: Upload Debug Symbols
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: Linux_x64_Debug_Symbols
           path: build/Debug_Symbols/Linux_x64/*
@@ -96,7 +96,7 @@ jobs:
         shell: bash
 
       - name: Checkout Repository
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.1
 
       - name: Get Dependencies
         run: flutter pub get -v
@@ -135,37 +135,37 @@ jobs:
         shell: bash
 
       - name: Upload Build Artifacts (appbundle)
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: Android_appbundle
           path: build/app/outputs/bundle/release/Bitscoper_CyberKit.aab
 
       - name: Upload Build Artifacts (x86_64 APK)
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: APK_x86_64
           path: build/app/outputs/flutter-apk/Bitscoper_CyberKit-x86_64.*
 
       - name: Upload Build Artifacts (ARM64 V8A APK)
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: APK_ARM64_V8A
           path: build/app/outputs/flutter-apk/Bitscoper_CyberKit-ARM64_V8A.*
 
       - name: Upload Build Artifacts (ARMEABI V7A APK)
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: APK_ARMEABI_V7A
           path: build/app/outputs/flutter-apk/Bitscoper_CyberKit-ARMEABI_V7A.*
 
       - name: Upload Debug Symbols (appbundle)
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: Android_appbundle_Debug_Symbols
           path: build/Debug_Symbols/Android/appbundle/*
 
       - name: Upload Debug Symbols (APKs)
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: APK_Debug_Symbols
           path: build/Debug_Symbols/Android/APKs/*
@@ -185,7 +185,7 @@ jobs:
         run: flutter doctor -v
 
       - name: Checkout Repository
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.1
 
       - name: Get Dependencies
         run: flutter pub get -v
@@ -194,13 +194,13 @@ jobs:
         run: flutter build macos --release --obfuscate --split-debug-info=./build/Debug_Symbols/macOS/ -v
 
       - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: macOS_Executable
           path: build/macos/Build/Products/Release/*.app
 
       - name: Upload Debug Symbols
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: macOS_Debug_Symbols
           path: build/Debug_Symbols/macOS/*
@@ -220,7 +220,7 @@ jobs:
         run: flutter doctor -v
 
       - name: Checkout Repository
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.1
 
       - name: Get Dependencies
         run: flutter pub get -v
@@ -232,19 +232,19 @@ jobs:
       #   run: flutter build ipa --no-codesign --release --obfuscate --split-debug-info=./build/Debug_Symbols/IPA/ -v && tree build/ios/
 
       - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: iOS_Executable
           path: build/ios/iphoneos/*
 
       - name: Upload Debug Symbols (iOS Executable)
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: iOS_Executable_Debug_Symbols
           path: build/Debug_Symbols/iOS_Executable/*
 
       # - name: Upload Debug Symbols (IPA)
-      #   uses: actions/upload-artifact@v4.6.2
+      #   uses: actions/upload-artifact@v6.0.0
       #   with:
       #     name: IPA_Debug_Symbols
       #     path: build/Debug_Symbols/IPA/*
@@ -265,7 +265,7 @@ jobs:
         shell: powershell
 
       - name: Checkout Repository
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.1
 
       - name: Get Dependencies
         run: flutter pub get -v
@@ -282,19 +282,19 @@ jobs:
         shell: powershell
 
       - name: Upload Build Artifacts (Executable)
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: Windows_x64_Executable
           path: build\windows\x64\runner\Release\*
 
       - name: Upload Build Artifacts (MSIX Package)
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: Windows_x64_MSIX_Package
           path: build\windows\x64\runner\Release_MSIX\Bitscoper_CyberKit.msix
 
       - name: Upload Debug Symbols
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: Windows_x64_Debug_Symbols
           path: build\Debug_Symbols\Windows\*
@@ -315,7 +315,7 @@ jobs:
         shell: bash
 
       - name: Checkout Repository
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.1
 
       - name: Get Dependencies
         run: flutter pub get -v
@@ -326,7 +326,7 @@ jobs:
         shell: bash
 
       - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: Web_Application
           path: build/web/*
@@ -346,10 +346,10 @@ jobs:
       contents: write
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.1
 
       - name: Download All Artifacts
-        uses: actions/download-artifact@v5.0.0
+        uses: actions/download-artifact@v7.0.0
 
       - name: Archive Build Artifacts and Debug Symbols
         run: |
@@ -409,7 +409,7 @@ jobs:
       packages: write
     steps:
       - name: Install Python
-        uses: actions/setup-python@v6.0.0
+        uses: actions/setup-python@v6.1.0
         with:
           python-version: "3.13"
 
@@ -424,7 +424,7 @@ jobs:
         shell: bash
 
       - name: Checkout Repository
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.1
 
       - name: Build and Push Docker Image to GHCR
         run: |
@@ -452,7 +452,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.1
 
       - name: Setup SSH key
         uses: webfactory/ssh-agent@v0.9.1
