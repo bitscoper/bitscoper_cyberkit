@@ -92,9 +92,7 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.file_hash_calculator,
+        title: AppLocalizations.of(context)!.file_hash_calculator,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32.0),
@@ -103,11 +101,7 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
           children: <Widget>[
             Center(
               child: ElevatedButton(
-                child: Text(
-                  AppLocalizations.of(
-                    navigatorKey.currentContext!,
-                  )!.select_files,
-                ),
+                child: Text(AppLocalizations.of(context)!.select_files),
                 onPressed: () async {
                   List<Uint8List> files = [];
 
@@ -115,9 +109,7 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
                       .pickFiles(
                         type: FileType.any,
                         allowMultiple: true,
-                        dialogTitle: AppLocalizations.of(
-                          navigatorKey.currentContext!,
-                        )!.select_files,
+                        dialogTitle: AppLocalizations.of(context)!.select_files,
                       );
 
                   if (result != null) {
@@ -142,7 +134,7 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
               Center(
                 child: Text(
                   AppLocalizations.of(
-                    navigatorKey.currentContext!,
+                    context,
                   )!.select_files_to_calculate_their_md5_sha1_sha224_sha256_sha384_sha512_hashes,
                   textAlign: TextAlign.center,
                 ),
@@ -179,12 +171,12 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
                                     icon: const Icon(Icons.copy_rounded),
                                     onPressed: () {
                                       copyToClipboard(
-                                        "${entry.key} ${AppLocalizations.of(navigatorKey.currentContext!)!.hash}",
+                                        "${entry.key} ${AppLocalizations.of(context)!.hash}",
                                         entry.value,
                                       );
                                     },
                                     tooltip: AppLocalizations.of(
-                                      navigatorKey.currentContext!,
+                                      context,
                                     )!.copy_to_clipboard,
                                   ),
                                 ),
@@ -200,5 +192,3 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
     );
   }
 }
-
-// TODO: Add Save Button

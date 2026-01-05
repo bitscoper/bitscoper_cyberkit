@@ -78,9 +78,7 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.ipv4_subnet_scanner,
+        title: AppLocalizations.of(context)!.ipv4_subnet_scanner,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32.0),
@@ -97,9 +95,7 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
                     keyboardType: TextInputType.url,
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
-                      labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.an_ipv4_subnet,
+                      labelText: AppLocalizations.of(context)!.an_ipv4_subnet,
                       hintText: "1.1.1",
                     ),
                     showCursor: true,
@@ -107,7 +103,7 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
                         return AppLocalizations.of(
-                          navigatorKey.currentContext!,
+                          context,
                         )!.enter_an_ipv4_subnet;
                       }
                       return null;
@@ -127,11 +123,7 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
                             : () {
                                 _scanSubnet();
                               },
-                        child: Text(
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.scan,
-                        ),
+                        child: Text(AppLocalizations.of(context)!.scan),
                       ),
                       ElevatedButton(
                         onPressed: _isScanning
@@ -141,11 +133,7 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
                                 });
                               }
                             : null,
-                        child: Text(
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.stop,
-                        ),
+                        child: Text(AppLocalizations.of(context)!.stop),
                       ),
                     ],
                   ),

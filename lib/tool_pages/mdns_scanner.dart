@@ -419,7 +419,7 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(navigatorKey.currentContext!)!.mdns_scanner,
+        title: AppLocalizations.of(context)!.mdns_scanner,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32.0),
@@ -435,9 +435,7 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                       : () {
                           _scanMDNS();
                         },
-                  child: Text(
-                    AppLocalizations.of(navigatorKey.currentContext!)!.scan,
-                  ),
+                  child: Text(AppLocalizations.of(context)!.scan),
                 ),
                 ElevatedButton(
                   onPressed: _isScanning
@@ -447,9 +445,7 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                           });
                         }
                       : null,
-                  child: Text(
-                    AppLocalizations.of(navigatorKey.currentContext!)!.stop,
-                  ),
+                  child: Text(AppLocalizations.of(context)!.stop),
                 ),
               ],
             ),
@@ -472,9 +468,7 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                       );
                     } else if (snapshot.hasError) {
                       showMessageDialog(
-                        AppLocalizations.of(
-                          navigatorKey.currentContext!,
-                        )!.error,
+                        AppLocalizations.of(context)!.error,
                         snapshot.error.toString(),
                       );
 

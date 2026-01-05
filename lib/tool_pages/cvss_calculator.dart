@@ -135,9 +135,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.cvss_calculator,
+        title: AppLocalizations.of(context)!.cvss_calculator,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32.0),
@@ -147,7 +145,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
             Center(
               child: Text(
                 AppLocalizations.of(
-                  navigatorKey.currentContext!,
+                  context,
                 )!.common_vulnerability_scoring_system_v3_1_base_score,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyLarge,
@@ -174,9 +172,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                       );
                     }).toList(),
                     decoration: InputDecoration(
-                      labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.attack_vector,
+                      labelText: AppLocalizations.of(context)!.attack_vector,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -198,7 +194,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                     }).toList(),
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
+                        context,
                       )!.attack_complexity,
                     ),
                   ),
@@ -221,7 +217,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                     }).toList(),
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
+                        context,
                       )!.privileges_required,
                     ),
                   ),
@@ -248,9 +244,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                         })
                         .toList(),
                     decoration: InputDecoration(
-                      labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.user_interaction,
+                      labelText: AppLocalizations.of(context)!.user_interaction,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -269,9 +263,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                       );
                     }).toList(),
                     decoration: InputDecoration(
-                      labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.scope,
+                      labelText: AppLocalizations.of(context)!.scope,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -298,7 +290,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                         .toList(),
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
+                        context,
                       )!.confidentiality_impact,
                     ),
                   ),
@@ -325,9 +317,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                         })
                         .toList(),
                     decoration: InputDecoration(
-                      labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.integrity_impact,
+                      labelText: AppLocalizations.of(context)!.integrity_impact,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -354,7 +344,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                         .toList(),
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
+                        context,
                       )!.availability_impact,
                     ),
                   ),
@@ -404,14 +394,12 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                                 icon: const Icon(Icons.copy, size: 16),
                                 onPressed: () {
                                   copyToClipboard(
-                                    AppLocalizations.of(
-                                      navigatorKey.currentContext!,
-                                    )!.vector_string,
+                                    AppLocalizations.of(context)!.vector_string,
                                     _vectorString,
                                   );
                                 },
                                 tooltip: AppLocalizations.of(
-                                  navigatorKey.currentContext!,
+                                  context,
                                 )!.copy_to_clipboard,
                               ),
                             ],

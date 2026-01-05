@@ -71,14 +71,12 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
       quickActions.setShortcutItems(<ShortcutItem>[
         ShortcutItem(
           type: 'source_code',
-          // localizedTitle: AppLocalizations.of(navigatorKey.currentContext!)!.source_code,
           localizedTitle: "Source Code",
+          /* Application does not open if localized. */
           icon: platformIconName,
         ),
       ]);
     }
-
-    // WidgetsBinding.instance.addPostFrameCallback((_) {});
   }
 
   void _changeLocale(Locale locale) {

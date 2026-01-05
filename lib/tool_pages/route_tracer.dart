@@ -90,7 +90,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(navigatorKey.currentContext!)!.route_tracer,
+        title: AppLocalizations.of(context)!.route_tracer,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32.0),
@@ -103,9 +103,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
                 controller: _hostEditingController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: AppLocalizations.of(
-                    navigatorKey.currentContext!,
-                  )!.a_host_or_ip_address,
+                  labelText: AppLocalizations.of(context)!.a_host_or_ip_address,
                   hintText: 'bitscoper.dev',
                 ),
                 maxLines: 1,
@@ -114,7 +112,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return AppLocalizations.of(
-                      navigatorKey.currentContext!,
+                      context,
                     )!.enter_a_host_or_ip_address;
                   }
 
@@ -130,15 +128,11 @@ class RouteTracerPageState extends State<RouteTracerPage> {
                 children: <Widget>[
                   ElevatedButton(
                     onPressed: _isTracing ? null : _onTrace,
-                    child: Text(
-                      AppLocalizations.of(navigatorKey.currentContext!)!.trace,
-                    ),
+                    child: Text(AppLocalizations.of(context)!.trace),
                   ),
                   ElevatedButton(
                     onPressed: _isTracing ? _onStop : null,
-                    child: Text(
-                      AppLocalizations.of(navigatorKey.currentContext!)!.stop,
-                    ),
+                    child: Text(AppLocalizations.of(context)!.stop),
                   ),
                 ],
               ),

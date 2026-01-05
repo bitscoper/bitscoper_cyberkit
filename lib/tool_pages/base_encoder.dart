@@ -74,7 +74,7 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(navigatorKey.currentContext!)!.base_encoder,
+        title: AppLocalizations.of(context)!.base_encoder,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32.0),
@@ -88,20 +88,14 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
                 keyboardType: TextInputType.multiline,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText: AppLocalizations.of(
-                    navigatorKey.currentContext!,
-                  )!.a_multiline_string,
-                  hintText: AppLocalizations.of(
-                    navigatorKey.currentContext!,
-                  )!.abdullah_as_sadeed,
+                  labelText: AppLocalizations.of(context)!.a_multiline_string,
+                  hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
                 ),
                 showCursor: true,
                 maxLines: null,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(
-                      navigatorKey.currentContext!,
-                    )!.enter_a_string;
+                    return AppLocalizations.of(context)!.enter_a_string;
                   }
 
                   return null;
@@ -122,7 +116,7 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
                   children: <Widget>[
                     Text(
                       AppLocalizations.of(
-                        navigatorKey.currentContext!,
+                        context,
                       )!.start_typing_a_string_to_encode_it_into_the_bases,
                       textAlign: TextAlign.center,
                     ),
@@ -240,7 +234,7 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
                     result = converter(_stringAsBase64);
                   } catch (error) {
                     showMessageDialog(
-                      AppLocalizations.of(navigatorKey.currentContext!)!.error,
+                      AppLocalizations.of(context)!.error,
                       error.toString(),
                     );
                   } finally {}
@@ -257,7 +251,7 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
                             copyToClipboard(entry.key, result);
                           },
                           tooltip: AppLocalizations.of(
-                            navigatorKey.currentContext!,
+                            context,
                           )!.copy_to_clipboard,
                         ),
                       ),
@@ -271,5 +265,3 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
     );
   }
 }
-
-// TODO: Add Save Button

@@ -83,9 +83,7 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.whois_retriever,
+        title: AppLocalizations.of(context)!.whois_retriever,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32.0),
@@ -102,9 +100,7 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
                     keyboardType: TextInputType.url,
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
-                      labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.a_domain_name,
+                      labelText: AppLocalizations.of(context)!.a_domain_name,
                       hintText: 'bitscoper.dev',
                     ),
                     showCursor: true,
@@ -112,7 +108,7 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
                         return AppLocalizations.of(
-                          navigatorKey.currentContext!,
+                          context,
                         )!.enter_a_domain_name;
                       }
 
@@ -131,11 +127,7 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
                           : () {
                               _retrieveWHOIS();
                             },
-                      child: Text(
-                        AppLocalizations.of(
-                          navigatorKey.currentContext!,
-                        )!.retrieve,
-                      ),
+                      child: Text(AppLocalizations.of(context)!.retrieve),
                     ),
                   ),
                 ],
@@ -164,5 +156,3 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
     );
   }
 }
-
-// TODO: Add Save Button

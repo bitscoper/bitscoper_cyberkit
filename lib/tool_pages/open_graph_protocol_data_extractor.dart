@@ -92,9 +92,7 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.open_graph_protocol_data_extractor,
+        title: AppLocalizations.of(context)!.ogp_data_extractor,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32.0),
@@ -112,7 +110,7 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
                       labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
+                        context,
                       )!.a_host_or_ip_address,
                       hintText: 'https://bitscoper.dev/',
                     ),
@@ -121,7 +119,7 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
                         return AppLocalizations.of(
-                          navigatorKey.currentContext!,
+                          context,
                         )!.enter_a_host_or_ip_address;
                       }
 
@@ -140,11 +138,7 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
                           : () {
                               _retrieveOGPData();
                             },
-                      child: Text(
-                        AppLocalizations.of(
-                          navigatorKey.currentContext!,
-                        )!.extract,
-                      ),
+                      child: Text(AppLocalizations.of(context)!.extract),
                     ),
                   ),
                 ],
@@ -209,5 +203,3 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
     );
   }
 }
-
-// TODO: Add Bulk Save Button
