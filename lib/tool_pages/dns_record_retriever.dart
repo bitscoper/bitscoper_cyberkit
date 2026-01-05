@@ -113,9 +113,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.dns_record_retriever,
+        title: AppLocalizations.of(context)!.dns_record_retriever,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32.0),
@@ -133,7 +131,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
                       labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
+                        context,
                       )!.a_host_or_ip_address,
                       hintText: 'bitscoper.dev',
                     ),
@@ -142,7 +140,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
                         return AppLocalizations.of(
-                          navigatorKey.currentContext!,
+                          context,
                         )!.enter_a_host_or_ip_address;
                       }
 
@@ -156,9 +154,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                   const SizedBox(height: 16.0),
                   DropdownButtonFormField<DNSProvider>(
                     decoration: InputDecoration(
-                      labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.dns_provider,
+                      labelText: AppLocalizations.of(context)!.dns_provider,
                     ),
                     initialValue: _recordProvider,
                     onChanged: (DNSProvider? newValue) {
@@ -190,11 +186,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                               : () {
                                   retrieveDNSRecord();
                                 },
-                          child: Text(
-                            AppLocalizations.of(
-                              navigatorKey.currentContext!,
-                            )!.retrieve,
-                          ),
+                          child: Text(AppLocalizations.of(context)!.retrieve),
                         ),
                         ElevatedButton(
                           onPressed: _isRetrieving
@@ -204,11 +196,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                                   });
                                 }
                               : null,
-                          child: Text(
-                            AppLocalizations.of(
-                              navigatorKey.currentContext!,
-                            )!.stop,
-                          ),
+                          child: Text(AppLocalizations.of(context)!.stop),
                         ),
                       ],
                     ),
@@ -231,21 +219,15 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                           ) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
-                              return Text(
-                                AppLocalizations.of(
-                                  navigatorKey.currentContext!,
-                                )!.wait,
-                              );
+                              return Text(AppLocalizations.of(context)!.wait);
                             } else if (snapshot.hasData &&
                                 snapshot.data!.isNotEmpty) {
                               return Text(
-                                '${AppLocalizations.of(navigatorKey.currentContext!)!.retrieving} ${snapshot.data} ${AppLocalizations.of(navigatorKey.currentContext!)!.records}',
+                                '${AppLocalizations.of(context)!.retrieving} ${snapshot.data} ${AppLocalizations.of(context)!.records}',
                               );
                             } else if (snapshot.hasError) {
                               showMessageDialog(
-                                AppLocalizations.of(
-                                  navigatorKey.currentContext!,
-                                )!.error,
+                                AppLocalizations.of(context)!.error,
                                 snapshot.toString(),
                               );
 
@@ -265,7 +247,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                   ? Center(
                       child: Text(
                         AppLocalizations.of(
-                          navigatorKey.currentContext!,
+                          context,
                         )!.it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records,
                         textAlign: TextAlign.center,
                       ),
@@ -283,12 +265,12 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                                 icon: const Icon(Icons.copy_rounded),
                                 onPressed: () {
                                   copyToClipboard(
-                                    '${record.type} ${AppLocalizations.of(navigatorKey.currentContext!)!.dns_record}',
+                                    '${record.type} ${AppLocalizations.of(context)!.dns_record}',
                                     record.record,
                                   );
                                 },
                                 tooltip: AppLocalizations.of(
-                                  navigatorKey.currentContext!,
+                                  context,
                                 )!.copy_to_clipboard,
                               ),
                             ),
@@ -302,5 +284,3 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
     );
   }
 }
-
-// TODO: Add Save Button

@@ -58,6 +58,12 @@ class AppLocalizationsBn extends AppLocalizations {
   String get bitscoper_cyberkit => 'বিটস্কোপার সাইবারকিট';
 
   @override
+  String get bluetooth_le_scanner => 'ব্লুটুথ এল ই স্ক্যানার';
+
+  @override
+  String get bluetooth_low_energy_scanner => 'ব্লুটুথ লো এনার্জি স্ক্যানার';
+
+  @override
   String get broadcast_address => 'ব্রডকাস্ট অ্যাড্রেস';
 
   @override
@@ -87,6 +93,9 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get confidentiality_impact => 'গোপনীয়তার ওপর প্রভাব';
+
+  @override
+  String get connectable => 'সংযোগযোগ্য';
 
   @override
   String get copied_to_clipboard => 'ক্লিপবোর্ডে কপি করা হয়েছে।';
@@ -175,6 +184,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get enter_padding => 'প্যাডিং লিখুন!';
 
   @override
+  String get enter_parallelism => 'সমান্তরালতা লিখুন!';
+
+  @override
   String get error => 'ত্রুটি';
 
   @override
@@ -245,6 +257,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get lower_limit => 'নিম্ন সীমা';
 
   @override
+  String get manufacturer => 'প্রস্তুতকারক';
+
+  @override
   String get mdns_scanner => 'এমডিএনএস স্ক্যানার';
 
   @override
@@ -266,6 +281,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get name_or_target => 'নেইম / টার্গেট';
 
   @override
+  String get ogp_data_extractor => 'ওজিপি ডেইটা এক্সট্র্যাক্টর';
+
+  @override
   String get ok => 'ঠিক আছে';
 
   @override
@@ -276,10 +294,10 @@ class AppLocalizationsBn extends AppLocalizations {
   String get padding => 'প্যাডিং';
 
   @override
-  String get permanently_denied => 'স্থায়ীভাবে অননুমোদিত';
+  String get parallelism => 'সমান্তরালতা';
 
   @override
-  String get permission => 'অনুমতি';
+  String get permanently_denied => 'স্থায়ীভাবে অননুমোদিত';
 
   @override
   String get permission_is_denied => 'অনুমতিটা নাকচ করা হয়েছে';
@@ -300,7 +318,10 @@ class AppLocalizationsBn extends AppLocalizations {
       'অনুমতিটা সীমাবদ্ধভাবে মঞ্জুর করা হয়েছে';
 
   @override
-  String get permission_will_be_used => 'অনুমতিটা ব্যবহার করা হবে।';
+  String get permissions => 'অনুমতিসমূহ';
+
+  @override
+  String get permissions_will_be_used => 'অনুমতিসমূহ ব্যবহার করা হবে।';
 
   @override
   String get ping => 'পিং';
@@ -352,6 +373,9 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get route_tracer => 'রুট ট্রেসার';
+
+  @override
+  String get rssi => 'আরএসএসএই';
 
   @override
   String get scan => 'স্ক্যান';
@@ -454,6 +478,9 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get txt_record => 'টিএক্সটি রেকর্ড';
+
+  @override
+  String get unknown => 'অজানা';
 
   @override
   String get up_to_date => 'আপ টু ডেট';

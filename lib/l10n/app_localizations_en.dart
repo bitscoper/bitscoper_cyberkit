@@ -58,6 +58,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bitscoper_cyberkit => 'Bitscoper CyberKit';
 
   @override
+  String get bluetooth_le_scanner => 'Bluetooth LE Scanner';
+
+  @override
+  String get bluetooth_low_energy_scanner => 'Bluetooth Low Energy Scanner';
+
+  @override
   String get broadcast_address => 'Broadcast Address';
 
   @override
@@ -87,6 +93,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get confidentiality_impact => 'Confidentiality Impact';
+
+  @override
+  String get connectable => 'Connectable';
 
   @override
   String get copied_to_clipboard => 'has been copied to clipboard.';
@@ -174,6 +183,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enter_padding => 'Enter Padding!';
 
   @override
+  String get enter_parallelism => 'Enter Parallelism!';
+
+  @override
   String get error => 'Error';
 
   @override
@@ -244,6 +256,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lower_limit => 'Lower Limit';
 
   @override
+  String get manufacturer => 'Manufacturer';
+
+  @override
   String get mdns_scanner => 'mDNS Scanner';
 
   @override
@@ -265,6 +280,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get name_or_target => 'Name / Target';
 
   @override
+  String get ogp_data_extractor => 'OGP Data Extractor';
+
+  @override
   String get ok => 'OK';
 
   @override
@@ -275,10 +293,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get padding => 'Padding';
 
   @override
-  String get permanently_denied => 'Permanently Denied';
+  String get parallelism => 'Parallelism';
 
   @override
-  String get permission => 'Permission';
+  String get permanently_denied => 'Permanently Denied';
 
   @override
   String get permission_is_denied => 'permission is denied';
@@ -297,7 +315,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get permission_is_restricted => 'permission is restricted';
 
   @override
-  String get permission_will_be_used => 'permission will be used.';
+  String get permissions => 'Permissions';
+
+  @override
+  String get permissions_will_be_used => 'permissions will be used.';
 
   @override
   String get ping => 'Ping';
@@ -349,6 +370,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get route_tracer => 'Route Tracer';
+
+  @override
+  String get rssi => 'RSSI';
 
   @override
   String get scan => 'Scan';
@@ -450,6 +474,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get txt_record => 'TXT Record';
+
+  @override
+  String get unknown => 'Unknown';
 
   @override
   String get up_to_date => 'Up to Date';

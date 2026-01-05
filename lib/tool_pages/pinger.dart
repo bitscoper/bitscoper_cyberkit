@@ -93,9 +93,7 @@ class PingerPageState extends State<PingerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ApplicationToolBar(
-        title: AppLocalizations.of(navigatorKey.currentContext!)!.pinger,
-      ),
+      appBar: ApplicationToolBar(title: AppLocalizations.of(context)!.pinger),
       body: Padding(
         padding: const EdgeInsets.all(32.0),
         child: Column(
@@ -112,7 +110,7 @@ class PingerPageState extends State<PingerPage> {
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
                       labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
+                        context,
                       )!.a_host_or_ip_address,
                       hintText: 'bitscoper.dev',
                     ),
@@ -121,7 +119,7 @@ class PingerPageState extends State<PingerPage> {
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
                         return AppLocalizations.of(
-                          navigatorKey.currentContext!,
+                          context,
                         )!.enter_a_host_or_ip_address;
                       }
                       return null;
@@ -141,11 +139,7 @@ class PingerPageState extends State<PingerPage> {
                             : () async {
                                 await _ping();
                               },
-                        child: Text(
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.ping,
-                        ),
+                        child: Text(AppLocalizations.of(context)!.ping),
                       ),
                       ElevatedButton(
                         onPressed: _isPinging
@@ -155,11 +149,7 @@ class PingerPageState extends State<PingerPage> {
                                 });
                               }
                             : null,
-                        child: Text(
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.stop,
-                        ),
+                        child: Text(AppLocalizations.of(context)!.stop),
                       ),
                     ],
                   ),
@@ -201,7 +191,7 @@ class PingerPageState extends State<PingerPage> {
                             leading: const Icon(Icons.network_ping_rounded),
                             title: Text(result.ipAddress),
                             subtitle: Text(
-                              '${AppLocalizations.of(navigatorKey.currentContext!)!.ttl}: ${result.ttl}    ${AppLocalizations.of(navigatorKey.currentContext!)!.time}: ${result.time} ms',
+                              '${AppLocalizations.of(context)!.ttl}: ${result.ttl}    ${AppLocalizations.of(context)!.time}: ${result.time} ms',
                             ),
                           ),
                         ),

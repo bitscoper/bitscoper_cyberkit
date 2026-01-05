@@ -72,9 +72,7 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.string_hash_calculator,
+        title: AppLocalizations.of(context)!.string_hash_calculator,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32.0),
@@ -88,20 +86,14 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
                 keyboardType: TextInputType.multiline,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText: AppLocalizations.of(
-                    navigatorKey.currentContext!,
-                  )!.a_multiline_string,
-                  hintText: AppLocalizations.of(
-                    navigatorKey.currentContext!,
-                  )!.abdullah_as_sadeed,
+                  labelText: AppLocalizations.of(context)!.a_multiline_string,
+                  hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
                 ),
                 showCursor: true,
                 maxLines: null,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(
-                      navigatorKey.currentContext!,
-                    )!.enter_a_string;
+                    return AppLocalizations.of(context)!.enter_a_string;
                   }
 
                   return null;
@@ -119,7 +111,7 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
               Center(
                 child: Text(
                   AppLocalizations.of(
-                    navigatorKey.currentContext!,
+                    context,
                   )!.start_typing_a_string_to_calculate_its_md5_sha1_sha224_sha256_sha384_sha512_hashes,
                   textAlign: TextAlign.center,
                 ),
@@ -139,12 +131,12 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
                             icon: const Icon(Icons.copy_rounded),
                             onPressed: () {
                               copyToClipboard(
-                                "${entry.key} ${AppLocalizations.of(navigatorKey.currentContext!)!.hash}",
+                                "${entry.key} ${AppLocalizations.of(context)!.hash}",
                                 entry.value,
                               );
                             },
                             tooltip: AppLocalizations.of(
-                              navigatorKey.currentContext!,
+                              context,
                             )!.copy_to_clipboard,
                           ),
                         ),
@@ -158,5 +150,3 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
     );
   }
 }
-
-// TODO: Add Save Button

@@ -92,9 +92,7 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.morse_code_translator,
+        title: AppLocalizations.of(context)!.morse_code_translator,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32.0),
@@ -112,20 +110,16 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
                     inputFormatters: [UpperCaseTextFormatter()],
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
-                      labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.a_string,
+                      labelText: AppLocalizations.of(context)!.a_string,
                       hintText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
+                        context,
                       )!.abdullah_as_sadeed.toUpperCase(),
                     ),
                     showCursor: true,
                     maxLines: null,
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return AppLocalizations.of(
-                          navigatorKey.currentContext!,
-                        )!.enter_a_string;
+                        return AppLocalizations.of(context)!.enter_a_string;
                       }
 
                       return null;
@@ -148,9 +142,7 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText: AppLocalizations.of(
-                    navigatorKey.currentContext!,
-                  )!.morse_code,
+                  labelText: AppLocalizations.of(context)!.morse_code,
                   hintText:
                       '.- -... -.. ..- .-.. .-.. .- .... / .- ... -....- ... .- -.. . . -..',
                 ),
@@ -158,9 +150,7 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
                 maxLines: null,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(
-                      navigatorKey.currentContext!,
-                    )!.enter_morse_code;
+                    return AppLocalizations.of(context)!.enter_morse_code;
                   }
 
                   return null;
