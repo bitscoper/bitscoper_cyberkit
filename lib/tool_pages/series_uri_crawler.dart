@@ -116,9 +116,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.series_uri_crawler,
+        title: AppLocalizations.of(context)!.series_uri_crawler,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32.0),
@@ -138,9 +136,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                           controller: _uriPrefixEditingController,
                           keyboardType: TextInputType.url,
                           decoration: InputDecoration(
-                            labelText: AppLocalizations.of(
-                              navigatorKey.currentContext!,
-                            )!.uri_prefix,
+                            labelText: AppLocalizations.of(context)!.uri_prefix,
                             hintText: 'https://bitscoper.dev/publication-',
                           ),
                           showCursor: true,
@@ -148,7 +144,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                           validator: (String? value) {
                             if (value == null || value.isEmpty) {
                               return AppLocalizations.of(
-                                navigatorKey.currentContext!,
+                                context,
                               )!.enter_a_uri_prefix;
                             }
 
@@ -167,9 +163,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                           controller: _uriSuffixEditingController,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
-                            labelText: AppLocalizations.of(
-                              navigatorKey.currentContext!,
-                            )!.uri_suffix,
+                            labelText: AppLocalizations.of(context)!.uri_suffix,
                             hintText: '.php',
                           ),
                           showCursor: true,
@@ -193,7 +187,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             labelText: AppLocalizations.of(
-                              navigatorKey.currentContext!,
+                              context,
                             )!.lower_limit,
                             hintText: '1',
                           ),
@@ -202,22 +196,22 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                           validator: (String? value) {
                             if (value == null || value.isEmpty) {
                               return AppLocalizations.of(
-                                navigatorKey.currentContext!,
+                                context,
                               )!.enter_a_lower_limit;
                             } else if (int.tryParse(value) == null) {
                               return AppLocalizations.of(
-                                navigatorKey.currentContext!,
+                                context,
                               )!.enter_an_integer;
                             } else if (int.tryParse(value)! < 1) {
                               return AppLocalizations.of(
-                                navigatorKey.currentContext!,
+                                context,
                               )!.enter_a_positive_integer;
                             } else if (int.tryParse(value)! >
                                 int.tryParse(
                                   _upperLimitEditingController.text.trim(),
                                 )!) {
                               return AppLocalizations.of(
-                                navigatorKey.currentContext!,
+                                context,
                               )!.upper_limit_must_be_greater_than_lower_limit;
                             }
 
@@ -236,7 +230,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             labelText: AppLocalizations.of(
-                              navigatorKey.currentContext!,
+                              context,
                             )!.upper_limit,
                             hintText: '100',
                           ),
@@ -245,22 +239,22 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                           validator: (String? value) {
                             if (value == null || value.isEmpty) {
                               return AppLocalizations.of(
-                                navigatorKey.currentContext!,
+                                context,
                               )!.enter_an_upper_limit;
                             } else if (int.tryParse(value) == null) {
                               return AppLocalizations.of(
-                                navigatorKey.currentContext!,
+                                context,
                               )!.enter_an_integer;
                             } else if (int.tryParse(value)! < 1) {
                               return AppLocalizations.of(
-                                navigatorKey.currentContext!,
+                                context,
                               )!.enter_a_positive_integer;
                             } else if (int.tryParse(value)! <
                                 int.tryParse(
                                   _lowerLimitEditingController.text.trim(),
                                 )!) {
                               return AppLocalizations.of(
-                                navigatorKey.currentContext!,
+                                context,
                               )!.upper_limit_must_be_greater_than_lower_limit;
                             }
 
@@ -284,11 +278,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                             : () {
                                 _crawl();
                               },
-                        child: Text(
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.crawl,
-                        ),
+                        child: Text(AppLocalizations.of(context)!.crawl),
                       ),
                       ElevatedButton(
                         onPressed: _isCrawling
@@ -298,11 +288,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                                 });
                               }
                             : null,
-                        child: Text(
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.stop,
-                        ),
+                        child: Text(AppLocalizations.of(context)!.stop),
                       ),
                     ],
                   ),
@@ -327,14 +313,12 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                           icon: const Icon(Icons.copy_rounded),
                           onPressed: () {
                             copyToClipboard(
-                              AppLocalizations.of(
-                                navigatorKey.currentContext!,
-                              )!.uri,
+                              AppLocalizations.of(context)!.uri,
                               entry.key,
                             );
                           },
                           tooltip: AppLocalizations.of(
-                            navigatorKey.currentContext!,
+                            context,
                           )!.copy_to_clipboard,
                         ),
                       ),
@@ -356,5 +340,3 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
     );
   }
 }
-
-// TODO: Add Save Button

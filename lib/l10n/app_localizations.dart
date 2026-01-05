@@ -194,6 +194,18 @@ abstract class AppLocalizations {
   /// **'Bitscoper CyberKit'**
   String get bitscoper_cyberkit;
 
+  /// No description provided for @bluetooth_le_scanner.
+  ///
+  /// In en, this message translates to:
+  /// **'Bluetooth LE Scanner'**
+  String get bluetooth_le_scanner;
+
+  /// No description provided for @bluetooth_low_energy_scanner.
+  ///
+  /// In en, this message translates to:
+  /// **'Bluetooth Low Energy Scanner'**
+  String get bluetooth_low_energy_scanner;
+
   /// No description provided for @broadcast_address.
   ///
   /// In en, this message translates to:
@@ -253,6 +265,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Confidentiality Impact'**
   String get confidentiality_impact;
+
+  /// No description provided for @connectable.
+  ///
+  /// In en, this message translates to:
+  /// **'Connectable'**
+  String get connectable;
 
   /// No description provided for @copied_to_clipboard.
   ///
@@ -422,6 +440,12 @@ abstract class AppLocalizations {
   /// **'Enter Padding!'**
   String get enter_padding;
 
+  /// No description provided for @enter_parallelism.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Parallelism!'**
+  String get enter_parallelism;
+
   /// No description provided for @error.
   ///
   /// In en, this message translates to:
@@ -555,6 +579,12 @@ abstract class AppLocalizations {
   /// **'Lower Limit'**
   String get lower_limit;
 
+  /// No description provided for @manufacturer.
+  ///
+  /// In en, this message translates to:
+  /// **'Manufacturer'**
+  String get manufacturer;
+
   /// No description provided for @mdns_scanner.
   ///
   /// In en, this message translates to:
@@ -597,6 +627,12 @@ abstract class AppLocalizations {
   /// **'Name / Target'**
   String get name_or_target;
 
+  /// No description provided for @ogp_data_extractor.
+  ///
+  /// In en, this message translates to:
+  /// **'OGP Data Extractor'**
+  String get ogp_data_extractor;
+
   /// No description provided for @ok.
   ///
   /// In en, this message translates to:
@@ -615,17 +651,17 @@ abstract class AppLocalizations {
   /// **'Padding'**
   String get padding;
 
+  /// No description provided for @parallelism.
+  ///
+  /// In en, this message translates to:
+  /// **'Parallelism'**
+  String get parallelism;
+
   /// No description provided for @permanently_denied.
   ///
   /// In en, this message translates to:
   /// **'Permanently Denied'**
   String get permanently_denied;
-
-  /// No description provided for @permission.
-  ///
-  /// In en, this message translates to:
-  /// **'Permission'**
-  String get permission;
 
   /// No description provided for @permission_is_denied.
   ///
@@ -657,11 +693,17 @@ abstract class AppLocalizations {
   /// **'permission is restricted'**
   String get permission_is_restricted;
 
-  /// No description provided for @permission_will_be_used.
+  /// No description provided for @permissions.
   ///
   /// In en, this message translates to:
-  /// **'permission will be used.'**
-  String get permission_will_be_used;
+  /// **'Permissions'**
+  String get permissions;
+
+  /// No description provided for @permissions_will_be_used.
+  ///
+  /// In en, this message translates to:
+  /// **'permissions will be used.'**
+  String get permissions_will_be_used;
 
   /// No description provided for @ping.
   ///
@@ -764,6 +806,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Route Tracer'**
   String get route_tracer;
+
+  /// No description provided for @rssi.
+  ///
+  /// In en, this message translates to:
+  /// **'RSSI'**
+  String get rssi;
 
   /// No description provided for @scan.
   ///
@@ -952,6 +1000,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'TXT Record'**
   String get txt_record;
+
+  /// No description provided for @unknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get unknown;
 
   /// No description provided for @up_to_date.
   ///

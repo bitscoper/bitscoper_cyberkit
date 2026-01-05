@@ -3,8 +3,8 @@
 // import 'package:bitscoper_cyberkit/main.dart';
 // import 'package:bitscoper_cyberkit/message_dialog.dart';
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
+import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
-import 'package:bitscoper_cyberkit/main.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -52,7 +52,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            AppLocalizations.of(navigatorKey.currentContext!)!.color_selection,
+            AppLocalizations.of(context)!.color_selection,
             textAlign: TextAlign.center,
           ),
           content: SingleChildScrollView(
@@ -66,9 +66,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
           actions: <Widget>[
             Center(
               child: ElevatedButton(
-                child: Text(
-                  AppLocalizations.of(navigatorKey.currentContext!)!.select,
-                ),
+                child: Text(AppLocalizations.of(context)!.select),
                 onPressed: () {
                   onColorChanged(pickerColor);
                   Navigator.of(context).pop();
@@ -90,14 +88,12 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
   Widget build(BuildContext context) {
     final NumberFormat numberFormat = NumberFormat(
       '#',
-      AppLocalizations.of(navigatorKey.currentContext!)!.localeName,
+      AppLocalizations.of(context)!.localeName,
     );
 
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.qr_code_generator,
+        title: AppLocalizations.of(context)!.qr_code_generator,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32.0),
@@ -111,20 +107,14 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                 keyboardType: TextInputType.multiline,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText: AppLocalizations.of(
-                    navigatorKey.currentContext!,
-                  )!.a_multiline_string,
-                  hintText: AppLocalizations.of(
-                    navigatorKey.currentContext!,
-                  )!.abdullah_as_sadeed,
+                  labelText: AppLocalizations.of(context)!.a_multiline_string,
+                  hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
                 ),
                 showCursor: true,
                 maxLines: null,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(
-                      navigatorKey.currentContext!,
-                    )!.enter_a_string;
+                    return AppLocalizations.of(context)!.enter_a_string;
                   }
 
                   return null;
@@ -148,18 +138,12 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                   flex: 1,
                   child: DropdownButtonFormField(
                     decoration: InputDecoration(
-                      labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.version,
+                      labelText: AppLocalizations.of(context)!.version,
                     ),
                     items: [
                       DropdownMenuItem(
                         value: QrVersions.auto,
-                        child: Text(
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.automatic,
-                        ),
+                        child: Text(AppLocalizations.of(context)!.automatic),
                       ),
                       ...List.generate(40, (index) => index + 1).map(
                         (qrVersion) => DropdownMenuItem(
@@ -182,41 +166,25 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                   child: DropdownButtonFormField(
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
+                        context,
                       )!.error_correction_level,
                     ),
                     items: [
                       DropdownMenuItem(
                         value: QrErrorCorrectLevel.H,
-                        child: Text(
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.high,
-                        ),
+                        child: Text(AppLocalizations.of(context)!.high),
                       ),
                       DropdownMenuItem(
                         value: QrErrorCorrectLevel.Q,
-                        child: Text(
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.quartile,
-                        ),
+                        child: Text(AppLocalizations.of(context)!.quartile),
                       ),
                       DropdownMenuItem(
                         value: QrErrorCorrectLevel.M,
-                        child: Text(
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.medium,
-                        ),
+                        child: Text(AppLocalizations.of(context)!.medium),
                       ),
                       DropdownMenuItem(
                         value: QrErrorCorrectLevel.L,
-                        child: Text(
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.low,
-                        ),
+                        child: Text(AppLocalizations.of(context)!.low),
                       ),
                     ],
                     initialValue: _errorCorrectionLevel,
@@ -236,26 +204,16 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                   flex: 1,
                   child: DropdownButtonFormField(
                     decoration: InputDecoration(
-                      labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.eye_shape,
+                      labelText: AppLocalizations.of(context)!.eye_shape,
                     ),
                     items: [
                       DropdownMenuItem(
                         value: QrEyeShape.square,
-                        child: Text(
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.square,
-                        ),
+                        child: Text(AppLocalizations.of(context)!.square),
                       ),
                       DropdownMenuItem(
                         value: QrEyeShape.circle,
-                        child: Text(
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.circle,
-                        ),
+                        child: Text(AppLocalizations.of(context)!.circle),
                       ),
                     ],
                     initialValue: _eyeShape,
@@ -272,25 +230,17 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                   child: DropdownButtonFormField(
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
+                        context,
                       )!.data_module_shape,
                     ),
                     items: [
                       DropdownMenuItem(
                         value: QrDataModuleShape.square,
-                        child: Text(
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.square,
-                        ),
+                        child: Text(AppLocalizations.of(context)!.square),
                       ),
                       DropdownMenuItem(
                         value: QrDataModuleShape.circle,
-                        child: Text(
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.circle,
-                        ),
+                        child: Text(AppLocalizations.of(context)!.circle),
                       ),
                     ],
                     initialValue: _dataModuleShape,
@@ -305,7 +255,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
             ),
             const SizedBox(height: 16.0),
             Text(
-              AppLocalizations.of(navigatorKey.currentContext!)!.colors,
+              AppLocalizations.of(context)!.colors,
               style: Theme.of(context).textTheme.labelMedium,
             ),
             const SizedBox(height: 8.0),
@@ -315,11 +265,18 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                   flex: 1,
                   child: GestureDetector(
                     onTap: () {
-                      pickColor(context, _eyeColor, (Color color) {
-                        setState(() {
-                          _eyeColor = color;
+                      try {
+                        pickColor(context, _eyeColor, (Color color) {
+                          setState(() {
+                            _eyeColor = color;
+                          });
                         });
-                      });
+                      } catch (error) {
+                        showMessageDialog(
+                          AppLocalizations.of(context)!.error,
+                          error.toString(),
+                        );
+                      } finally {}
                     },
                     child: MouseRegion(
                       cursor: SystemMouseCursors.click,
@@ -332,9 +289,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                         ),
                         child: Center(
                           child: Text(
-                            AppLocalizations.of(
-                              navigatorKey.currentContext!,
-                            )!.eye,
+                            AppLocalizations.of(context)!.eye,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: useWhiteForeground(_eyeColor)
@@ -352,11 +307,18 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                   flex: 1,
                   child: GestureDetector(
                     onTap: () {
-                      pickColor(context, _dataModuleColor, (Color color) {
-                        setState(() {
-                          _dataModuleColor = color;
+                      try {
+                        pickColor(context, _dataModuleColor, (Color color) {
+                          setState(() {
+                            _dataModuleColor = color;
+                          });
                         });
-                      });
+                      } catch (error) {
+                        showMessageDialog(
+                          AppLocalizations.of(context)!.error,
+                          error.toString(),
+                        );
+                      } finally {}
                     },
                     child: MouseRegion(
                       cursor: SystemMouseCursors.click,
@@ -369,9 +331,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                         ),
                         child: Center(
                           child: Text(
-                            AppLocalizations.of(
-                              navigatorKey.currentContext!,
-                            )!.data,
+                            AppLocalizations.of(context)!.data,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: useWhiteForeground(_dataModuleColor)
@@ -389,11 +349,18 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                   flex: 2,
                   child: GestureDetector(
                     onTap: () {
-                      pickColor(context, _backgroundColor, (Color color) {
-                        setState(() {
-                          _backgroundColor = color;
+                      try {
+                        pickColor(context, _backgroundColor, (Color color) {
+                          setState(() {
+                            _backgroundColor = color;
+                          });
                         });
-                      });
+                      } catch (error) {
+                        showMessageDialog(
+                          AppLocalizations.of(context)!.error,
+                          error.toString(),
+                        );
+                      } finally {}
                     },
                     child: MouseRegion(
                       cursor: SystemMouseCursors.click,
@@ -406,9 +373,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                         ),
                         child: Center(
                           child: Text(
-                            AppLocalizations.of(
-                              navigatorKey.currentContext!,
-                            )!.background,
+                            AppLocalizations.of(context)!.background,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: useWhiteForeground(_backgroundColor)
@@ -430,26 +395,16 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                   flex: 1,
                   child: DropdownButtonFormField(
                     decoration: InputDecoration(
-                      labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.gapless,
+                      labelText: AppLocalizations.of(context)!.gapless,
                     ),
                     items: [
                       DropdownMenuItem(
                         value: false,
-                        child: Text(
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.false_,
-                        ),
+                        child: Text(AppLocalizations.of(context)!.false_),
                       ),
                       DropdownMenuItem(
                         value: true,
-                        child: Text(
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.true_,
-                        ),
+                        child: Text(AppLocalizations.of(context)!.true_),
                       ),
                     ],
                     initialValue: _gapless,
@@ -467,25 +422,19 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                     controller: _paddingEditingController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.padding,
+                      labelText: AppLocalizations.of(context)!.padding,
                       hintText: _paddingEditingController.text,
                     ),
                     showCursor: true,
                     maxLines: 1,
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return AppLocalizations.of(
-                          navigatorKey.currentContext!,
-                        )!.enter_padding;
+                        return AppLocalizations.of(context)!.enter_padding;
                       } else if (double.tryParse(value) == null) {
-                        return AppLocalizations.of(
-                          navigatorKey.currentContext!,
-                        )!.enter_a_number;
+                        return AppLocalizations.of(context)!.enter_a_number;
                       } else if (double.tryParse(value)! < 1.toDouble()) {
                         return AppLocalizations.of(
-                          navigatorKey.currentContext!,
+                          context,
                         )!.enter_a_positive_number;
                       }
 
@@ -540,7 +489,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                     else
                       Text(
                         AppLocalizations.of(
-                          navigatorKey.currentContext!,
+                          context,
                         )!.start_typing_a_string_to_generate_qr_code,
                         textAlign: TextAlign.center,
                       ),
@@ -556,4 +505,4 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
 }
 
   // TODO: Add EmbeddedImage
-  // TODO: Add Save Button
+

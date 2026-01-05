@@ -103,9 +103,7 @@ class WiFiInformationViewerPageState extends State<WiFiInformationViewerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.wifi_information_viewer,
+        title: AppLocalizations.of(context)!.wifi_information_viewer,
       ),
       body: networkConnectivityResult == null
           ? Center(
@@ -121,43 +119,37 @@ class WiFiInformationViewerPageState extends State<WiFiInformationViewerPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   _informationCard(
-                    AppLocalizations.of(
-                      navigatorKey.currentContext!,
-                    )!.service_set_identifier_ssid,
+                    AppLocalizations.of(context)!.service_set_identifier_ssid,
                     _ssid,
                   ),
                   _informationCard(
                     AppLocalizations.of(
-                      navigatorKey.currentContext!,
+                      context,
                     )!.basic_service_set_identifier_bssid,
                     _bssid,
                   ),
                   _informationCard(
                     AppLocalizations.of(
-                      navigatorKey.currentContext!,
+                      context,
                     )!.internet_protocol_version_4_ipv4_address,
                     _ipAddress,
                   ),
                   _informationCard(
                     AppLocalizations.of(
-                      navigatorKey.currentContext!,
+                      context,
                     )!.internet_protocol_version_6_ipv6_address,
                     _ipV6Address,
                   ),
                   _informationCard(
-                    AppLocalizations.of(
-                      navigatorKey.currentContext!,
-                    )!.subnet_mask,
+                    AppLocalizations.of(context)!.subnet_mask,
                     _subnetMask,
                   ),
                   _informationCard(
-                    AppLocalizations.of(
-                      navigatorKey.currentContext!,
-                    )!.broadcast_address,
+                    AppLocalizations.of(context)!.broadcast_address,
                     _broadcast,
                   ),
                   _informationCard(
-                    AppLocalizations.of(navigatorKey.currentContext!)!.gateway,
+                    AppLocalizations.of(context)!.gateway,
                     _gatewayIPAddress,
                   ),
                 ],
@@ -166,11 +158,7 @@ class WiFiInformationViewerPageState extends State<WiFiInformationViewerPage> {
           : Center(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(32.0),
-                child: Text(
-                  AppLocalizations.of(
-                    navigatorKey.currentContext!,
-                  )!.wifi_is_disconnected,
-                ),
+                child: Text(AppLocalizations.of(context)!.wifi_is_disconnected),
               ),
             ),
     );

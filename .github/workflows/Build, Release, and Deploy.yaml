@@ -299,37 +299,37 @@ jobs:
           name: Windows_x64_Debug_Symbols
           path: build\Debug_Symbols\Windows\*
 
-  build-for-web:
-    name: Build for Web
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2.21.0
-        with:
-          channel: stable
+  # build-for-web:
+  #   name: Build for Web
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: read
+  #   steps:
+  #     - name: Setup Flutter
+  #       uses: subosito/flutter-action@v2.21.0
+  #       with:
+  #         channel: stable
 
-      - name: Run flutter doctor
-        run: flutter doctor -v
-        shell: bash
+  #     - name: Run flutter doctor
+  #       run: flutter doctor -v
+  #       shell: bash
 
-      - name: Checkout Repository
-        uses: actions/checkout@v6.0.1
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v6.0.1
 
-      - name: Get Dependencies
-        run: flutter pub get -v
-        shell: bash
+  #     - name: Get Dependencies
+  #       run: flutter pub get -v
+  #       shell: bash
 
-      - name: Build for Web
-        run: flutter build web --release -v
-        shell: bash
+  #     - name: Build for Web
+  #       run: flutter build web --release -v
+  #       shell: bash
 
-      - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v6.0.0
-        with:
-          name: Web_Application
-          path: build/web/*
+  #     - name: Upload Build Artifacts
+  #       uses: actions/upload-artifact@v6.0.0
+  #       with:
+  #         name: Web_Application
+  #         path: build/web/*
 
   upload-release:
     name: Upload Release
@@ -444,33 +444,33 @@ jobs:
           docker push public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit:latest
         shell: bash
 
-  deploy-web-application-to-server:
-    name: Deploy Web Application to Server
-    needs: [upload-release]
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v6.0.1
+  # deploy-web-application-to-server:
+  #   name: Deploy Web Application to Server
+  #   needs: [upload-release]
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: read
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v6.0.1
 
-      - name: Setup SSH key
-        uses: webfactory/ssh-agent@v0.9.1
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+  #     - name: Setup SSH key
+  #       uses: webfactory/ssh-agent@v0.9.1
+  #       with:
+  #         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Execution
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} << 'EOF'
-            cd /var/www/clients/client1/web1/web/Bitscoper_CyberKit/
-            rm -rf ./Application/
-            wget https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Web_Application.zip
-            unzip ./Web_Application.zip
-            rm -rf ./Web_Application.zip
-            mv ./Web_Application/ ./Application/
-            chown -R web1:client1 /var/www/clients/client1/web1/web/
-            chmod -R 755 /var/www/clients/client1/web1/web/
-            systemctl restart apache2.service
-            exit
-          EOF
-        shell: bash
+  #     - name: Execution
+  #       run: |
+  #         ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} << 'EOF'
+  #           cd /var/www/clients/client1/web1/web/Bitscoper_CyberKit/
+  #           rm -rf ./Application/
+  #           wget https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Web_Application.zip
+  #           unzip ./Web_Application.zip
+  #           rm -rf ./Web_Application.zip
+  #           mv ./Web_Application/ ./Application/
+  #           chown -R web1:client1 /var/www/clients/client1/web1/web/
+  #           chmod -R 755 /var/www/clients/client1/web1/web/
+  #           systemctl restart apache2.service
+  #           exit
+  #         EOF
+  #       shell: bash

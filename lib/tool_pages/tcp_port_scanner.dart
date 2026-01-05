@@ -7,6 +7,7 @@ import 'package:bitscoper_cyberkit/commons/notification_sender.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:tcp_scanner/tcp_scanner.dart';
 
@@ -25,6 +26,8 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _hostEditingController = TextEditingController();
+  final TextEditingController _parallelismEditingController =
+      TextEditingController(text: '64');
 
   final Stopwatch _stopwatch = Stopwatch();
 
@@ -51,7 +54,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
               _hostEditingController.text.trim(),
               _portList,
               shuffle: false,
-              parallelism: 64,
+              parallelism: int.parse(_parallelismEditingController.text.trim()),
             )
             .start()
             .asStream()
@@ -97,16 +100,23 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                     payload: "TCP_Port_Scanner",
                   );
                 },
-                handleError: (error, stackTrace, sink) {
-                  showMessageDialog(
-                    AppLocalizations.of(navigatorKey.currentContext!)!.error,
-                    error.toString(),
-                  );
+                handleError:
+                    (
+                      Object error,
+                      StackTrace stackTrace,
+                      EventSink<Object?> sink,
+                    ) {
+                      showMessageDialog(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.error,
+                        error.toString(),
+                      );
 
-                  sink.addError(error, stackTrace);
+                      sink.addError(error, stackTrace);
 
-                  sink.close();
-                },
+                      sink.close();
+                    },
               ),
             )
             .toList();
@@ -126,6 +136,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
   @override
   void dispose() {
     _hostEditingController.dispose();
+    _parallelismEditingController.dispose();
 
     super.dispose();
   }
@@ -134,14 +145,12 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
   Widget build(BuildContext context) {
     final NumberFormat numberFormat = NumberFormat(
       '#',
-      AppLocalizations.of(navigatorKey.currentContext!)!.localeName,
+      AppLocalizations.of(context)!.localeName,
     );
 
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.tcp_port_scanner,
+        title: AppLocalizations.of(context)!.tcp_port_scanner,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32.0),
@@ -153,31 +162,67 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  TextFormField(
-                    controller: _hostEditingController,
-                    keyboardType: TextInputType.url,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.a_host_or_ip_address,
-                      hintText: 'bitscoper.dev',
-                    ),
-                    showCursor: true,
-                    maxLines: 1,
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return AppLocalizations.of(
-                          navigatorKey.currentContext!,
-                        )!.enter_a_host_or_ip_address;
-                      }
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: TextFormField(
+                            controller: _hostEditingController,
+                            keyboardType: TextInputType.url,
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              labelText: AppLocalizations.of(
+                                context,
+                              )!.a_host_or_ip_address,
+                              hintText: 'bitscoper.dev',
+                            ),
+                            showCursor: true,
+                            maxLines: 1,
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return AppLocalizations.of(
+                                  context,
+                                )!.enter_a_host_or_ip_address;
+                              }
 
-                      return null;
-                    },
-                    onChanged: (String value) {},
-                    onFieldSubmitted: (String value) {
-                      _scanTCPPorts();
-                    },
+                              return null;
+                            },
+                            onChanged: (String value) {},
+                            onFieldSubmitted: (String value) {
+                              _scanTCPPorts();
+                            },
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: TextFormField(
+                            controller: _parallelismEditingController,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              labelText: AppLocalizations.of(
+                                context,
+                              )!.parallelism,
+                              hintText: '64',
+                            ),
+                            showCursor: true,
+                            maxLines: 1,
+                            onChanged: (String value) {},
+                            onFieldSubmitted: (String value) {
+                              _scanTCPPorts();
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 16.0),
                   Center(
@@ -187,11 +232,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                             onPressed: () async {
                               await _scanTCPPorts();
                             },
-                            child: Text(
-                              AppLocalizations.of(
-                                navigatorKey.currentContext!,
-                              )!.scan,
-                            ),
+                            child: Text(AppLocalizations.of(context)!.scan),
                           ),
                   ),
                 ],
@@ -231,5 +272,3 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
     );
   }
 }
-
-// TODO: Add Save Button

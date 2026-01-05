@@ -1,10 +1,12 @@
 /* By Abdullah As-Sadeed */
 
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
+import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/commons/permission_requester.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
 import 'package:bitscoper_cyberkit/tool_pages/base_encoder.dart';
+import 'package:bitscoper_cyberkit/tool_pages/bluetooth_low_energy_scanner.dart';
 import 'package:bitscoper_cyberkit/tool_pages/cvss_calculator.dart';
 import 'package:bitscoper_cyberkit/tool_pages/dns_record_retriever.dart';
 import 'package:bitscoper_cyberkit/tool_pages/file_hash_calculator.dart';
@@ -44,34 +46,28 @@ class _ToolCardWidget extends StatelessWidget {
     return Card(
       child: InkWell(
         borderRadius: BorderRadius.circular(8.0),
-        onTap: () {
-          if (permissionList.isEmpty) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (BuildContext context) => page),
-            );
+        onTap: () async {
+          try {
+            if (permissionList.isEmpty) {
+              Navigator.push(context, MaterialPageRoute(builder: (_) => page));
+              return;
+            }
 
-            return;
-          }
-
-          int grantedCount = 0;
-          bool navigationTriggered = false;
-
-          for (final permission in permissionList.whereType<Permission>()) {
-            requestPermission(permission, () {
-              grantedCount++;
-
-              if (grantedCount == permissionList.length &&
-                  !navigationTriggered) {
-                navigationTriggered = true;
-
+            await requestPermissions(
+              permissionList.whereType<Permission>().toList(),
+              () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (BuildContext context) => page),
+                  MaterialPageRoute(builder: (_) => page),
                 );
-              }
-            });
-          }
+              },
+            );
+          } catch (error) {
+            showMessageDialog(
+              AppLocalizations.of(navigatorKey.currentContext!)!.error,
+              error.toString(),
+            );
+          } finally {}
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
@@ -120,105 +116,113 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<(String, IconData, List<Permission?>, StatefulWidget)> tools = [
       (
-        AppLocalizations.of(navigatorKey.currentContext!)!.ipv4_subnet_scanner,
+        AppLocalizations.of(context)!.bluetooth_low_energy_scanner,
+        Icons.bluetooth_searching_rounded,
+        [
+          Permission.bluetooth,
+          Permission.bluetoothScan,
+          Permission.location,
+          Permission.locationWhenInUse,
+        ],
+        const BluetoothLowEnergyScannerPage(),
+      ),
+      (
+        AppLocalizations.of(context)!.ipv4_subnet_scanner,
         Icons.lan_rounded,
         [],
         const IPv4SubnetScannerPage(),
       ),
       (
-        AppLocalizations.of(navigatorKey.currentContext!)!.mdns_scanner,
+        AppLocalizations.of(context)!.mdns_scanner,
         Icons.stream_rounded,
         [],
         const MDNSScannerPage(),
       ),
       (
-        AppLocalizations.of(navigatorKey.currentContext!)!.tcp_port_scanner,
+        AppLocalizations.of(context)!.tcp_port_scanner,
         Icons.radar_rounded,
         [],
         const TCPPortScannerPage(),
       ),
       (
-        AppLocalizations.of(navigatorKey.currentContext!)!.route_tracer,
+        AppLocalizations.of(context)!.route_tracer,
         Icons.track_changes_rounded,
         [],
         const RouteTracerPage(),
       ),
       (
-        AppLocalizations.of(navigatorKey.currentContext!)!.pinger,
+        AppLocalizations.of(context)!.pinger,
         Icons.network_ping_rounded,
         [],
         const PingerPage(),
       ),
       (
-        AppLocalizations.of(navigatorKey.currentContext!)!.file_hash_calculator,
+        AppLocalizations.of(context)!.file_hash_calculator,
         Icons.file_present_rounded,
-        [Permission.storage, Permission.mediaLibrary],
+        [
+          Permission.audio,
+          Permission.mediaLibrary,
+          Permission.photos,
+          Permission.videos,
+        ],
         const FileHashCalculatorPage(),
       ),
       (
-        AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.string_hash_calculator,
+        AppLocalizations.of(context)!.string_hash_calculator,
         Icons.text_snippet_rounded,
         [],
         const StringHashCalculatorPage(),
       ),
       (
-        AppLocalizations.of(navigatorKey.currentContext!)!.cvss_calculator,
+        AppLocalizations.of(context)!.cvss_calculator,
         Icons.security_rounded,
         [],
         const CVSSCalculatorPage(),
       ),
       (
-        AppLocalizations.of(navigatorKey.currentContext!)!.base_encoder,
+        AppLocalizations.of(context)!.base_encoder,
         Icons.numbers_rounded,
         [],
         const BaseEncoderPage(),
       ),
       (
-        AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.morse_code_translator,
+        AppLocalizations.of(context)!.morse_code_translator,
         Icons.text_fields_rounded,
         [],
         const MorseCodeTranslatorPage(),
       ),
       (
-        AppLocalizations.of(navigatorKey.currentContext!)!.qr_code_generator,
+        AppLocalizations.of(context)!.qr_code_generator,
         Icons.qr_code_rounded,
         [],
         const QRCodeGeneratorPage(),
       ),
       (
-        AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.open_graph_protocol_data_extractor,
+        AppLocalizations.of(context)!.open_graph_protocol_data_extractor,
         Icons.share_rounded,
         [],
         const OGPDataExtractorPage(),
       ),
       (
-        AppLocalizations.of(navigatorKey.currentContext!)!.series_uri_crawler,
+        AppLocalizations.of(context)!.series_uri_crawler,
         Icons.web_rounded,
         [],
         const SeriesURICrawlerPage(),
       ),
       (
-        AppLocalizations.of(navigatorKey.currentContext!)!.dns_record_retriever,
+        AppLocalizations.of(context)!.dns_record_retriever,
         Icons.dns_rounded,
         [],
         const DNSRecordRetrieverPage(),
       ),
       (
-        AppLocalizations.of(navigatorKey.currentContext!)!.whois_retriever,
+        AppLocalizations.of(context)!.whois_retriever,
         Icons.domain_rounded,
         [],
         const WHOISRetrieverPage(),
       ),
       (
-        AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.wifi_information_viewer,
+        AppLocalizations.of(context)!.wifi_information_viewer,
         Icons.network_check_rounded,
         [Permission.location, Permission.locationWhenInUse],
         const WiFiInformationViewerPage(),
@@ -227,9 +231,7 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.bitscoper_cyberkit,
+        title: AppLocalizations.of(context)!.bitscoper_cyberkit,
       ),
       drawer: Drawer(
         child: Column(
@@ -241,11 +243,7 @@ class HomePage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.bitscoper_cyberkit,
-                        ),
+                        Text(AppLocalizations.of(context)!.bitscoper_cyberkit),
                         FutureBuilder<String>(
                           future: getVersion(),
                           builder:
@@ -267,126 +265,149 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   ListTile(
-                    title: Text(
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.change_language,
-                    ),
+                    title: Text(AppLocalizations.of(context)!.change_language),
                     leading: const Icon(Icons.language_rounded),
                     onTap: () {
-                      Locale currentLocale = Localizations.localeOf(context);
-                      if (currentLocale.languageCode == 'en') {
-                        changeLocale(const Locale('bn'));
-                      } else {
-                        changeLocale(const Locale('en'));
-                      }
+                      try {
+                        Locale currentLocale = Localizations.localeOf(context);
+                        if (currentLocale.languageCode == 'en') {
+                          changeLocale(const Locale('bn'));
+                        } else {
+                          changeLocale(const Locale('en'));
+                        }
+                      } catch (error) {
+                        showMessageDialog(
+                          AppLocalizations.of(context)!.error,
+                          error.toString(),
+                        );
+                      } finally {}
                     },
                   ),
                   ListTile(
-                    title: Text(
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.toggle_theme,
-                    ),
+                    title: Text(AppLocalizations.of(context)!.toggle_theme),
                     leading: const Icon(Icons.dark_mode_rounded),
                     onTap: () {
-                      toggleTheme();
+                      try {
+                        toggleTheme();
+                      } catch (error) {
+                        showMessageDialog(
+                          AppLocalizations.of(context)!.error,
+                          error.toString(),
+                        );
+                      } finally {}
                     },
                   ),
                   ListTile(
-                    title: Text(
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.check_version,
-                    ),
+                    title: Text(AppLocalizations.of(context)!.check_version),
                     leading: const Icon(Icons.update_rounded),
                     onTap: () {
-                      checkVersion();
+                      try {
+                        checkVersion();
+                      } catch (error) {
+                        showMessageDialog(
+                          AppLocalizations.of(context)!.error,
+                          error.toString(),
+                        );
+                      } finally {}
                     },
                   ),
                   const Divider(),
                   ListTile(
-                    title: Text(
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.microsoft_store,
-                    ),
+                    title: Text(AppLocalizations.of(context)!.microsoft_store),
                     leading: const Icon(Icons.shop_2_rounded),
                     onTap: () {
-                      launchUrl(
-                        Uri.parse(
-                          'https://apps.microsoft.com/detail/9mv2046tz302',
-                        ),
-                      );
+                      try {
+                        launchUrl(
+                          Uri.parse(
+                            'https://apps.microsoft.com/detail/9mv2046tz302',
+                          ),
+                        );
+                      } catch (error) {
+                        showMessageDialog(
+                          AppLocalizations.of(context)!.error,
+                          error.toString(),
+                        );
+                      } finally {}
                     },
                   ),
                   ListTile(
-                    title: Text(
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.google_play,
-                    ),
+                    title: Text(AppLocalizations.of(context)!.google_play),
                     leading: const Icon(Icons.shop_rounded),
                     onTap: () {
-                      launchUrl(
-                        Uri.parse(
-                          'https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyberkit',
-                        ),
-                      );
+                      try {
+                        launchUrl(
+                          Uri.parse(
+                            'https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyberkit',
+                          ),
+                        );
+                      } catch (error) {
+                        showMessageDialog(
+                          AppLocalizations.of(context)!.error,
+                          error.toString(),
+                        );
+                      } finally {}
                     },
                   ),
                   const Divider(),
                   ListTile(
-                    title: Text(
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.source_code,
-                    ),
+                    title: Text(AppLocalizations.of(context)!.source_code),
                     leading: const Icon(Icons.code_rounded),
                     onTap: () {
-                      launchUrl(
-                        Uri.parse(
-                          'https://github.com/bitscoper/Bitscoper_CyberKit/',
-                        ),
-                      );
+                      try {
+                        launchUrl(
+                          Uri.parse(
+                            'https://github.com/bitscoper/Bitscoper_CyberKit/',
+                          ),
+                        );
+                      } catch (error) {
+                        showMessageDialog(
+                          AppLocalizations.of(context)!.error,
+                          error.toString(),
+                        );
+                      } finally {}
                     },
                   ),
                   ListTile(
-                    title: Text(
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.developer,
-                    ),
+                    title: Text(AppLocalizations.of(context)!.developer),
                     leading: const Icon(Icons.person_rounded),
                     onTap: () {
-                      launchUrl(Uri.parse('https://bitscoper.dev/'));
+                      try {
+                        launchUrl(Uri.parse('https://bitscoper.dev/'));
+                      } catch (error) {
+                        showMessageDialog(
+                          AppLocalizations.of(context)!.error,
+                          error.toString(),
+                        );
+                      } finally {}
                     },
                   ),
                   ListTile(
-                    title: Text(
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.privacy_policy,
-                    ),
+                    title: Text(AppLocalizations.of(context)!.privacy_policy),
                     leading: const Icon(Icons.privacy_tip_rounded),
                     onTap: () {
-                      launchUrl(
-                        Uri.parse(
-                          'https://bitscoper.dev/Bitscoper_CyberKit/Privacy_Policy.html',
-                        ),
-                      );
+                      try {
+                        launchUrl(
+                          Uri.parse(
+                            'https://bitscoper.dev/Bitscoper_CyberKit/Privacy_Policy.html',
+                          ),
+                        );
+                      } catch (error) {
+                        showMessageDialog(
+                          AppLocalizations.of(context)!.error,
+                          error.toString(),
+                        );
+                      } finally {}
                     },
                   ),
                 ],
               ),
             ),
-            // FOOTER here, always at bottom
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Center(
                 child: Text(
                   AppLocalizations.of(
-                    navigatorKey.currentContext!,
+                    context,
                   )!.the_application_displays_error_messages_as_caught,
                   textAlign: TextAlign.center,
                 ),
