@@ -9,24 +9,23 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 
-class WiFiInformationViewerPage extends StatefulWidget {
-  const WiFiInformationViewerPage({super.key});
+class WiFiDetailsViewerPage extends StatefulWidget {
+  const WiFiDetailsViewerPage({super.key});
 
   @override
-  WiFiInformationViewerPageState createState() =>
-      WiFiInformationViewerPageState();
+  WiFiDetailsViewerPageState createState() => WiFiDetailsViewerPageState();
 }
 
-class WiFiInformationViewerPageState extends State<WiFiInformationViewerPage> {
+class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
   @override
   void initState() {
     super.initState();
 
-    _loadWiFiInformation();
+    _loadWiFiDetails();
   }
 
   List<ConnectivityResult>? networkConnectivityResult;
-  final NetworkInfo _wifiInformation = NetworkInfo();
+  final NetworkInfo _WiFiDetails = NetworkInfo();
 
   String? _ssid,
       _bssid,
@@ -36,7 +35,7 @@ class WiFiInformationViewerPageState extends State<WiFiInformationViewerPage> {
       _broadcast,
       _gatewayIPAddress;
 
-  Future<void> _loadWiFiInformation() async {
+  Future<void> _loadWiFiDetails() async {
     try {
       networkConnectivityResult = await (Connectivity().checkConnectivity());
 
@@ -45,13 +44,13 @@ class WiFiInformationViewerPageState extends State<WiFiInformationViewerPage> {
       });
 
       if (networkConnectivityResult!.contains(ConnectivityResult.wifi)) {
-        _ssid = await _wifiInformation.getWifiName();
-        _bssid = await _wifiInformation.getWifiBSSID();
-        _ipAddress = await _wifiInformation.getWifiIP();
-        _ipV6Address = await _wifiInformation.getWifiIPv6();
-        _subnetMask = await _wifiInformation.getWifiSubmask();
-        _broadcast = await _wifiInformation.getWifiBroadcast();
-        _gatewayIPAddress = await _wifiInformation.getWifiGatewayIP();
+        _ssid = await _WiFiDetails.getWifiName();
+        _bssid = await _WiFiDetails.getWifiBSSID();
+        _ipAddress = await _WiFiDetails.getWifiIP();
+        _ipV6Address = await _WiFiDetails.getWifiIPv6();
+        _subnetMask = await _WiFiDetails.getWifiSubmask();
+        _broadcast = await _WiFiDetails.getWifiBroadcast();
+        _gatewayIPAddress = await _WiFiDetails.getWifiGatewayIP();
 
         setState(() {
           _ssid;
@@ -71,7 +70,7 @@ class WiFiInformationViewerPageState extends State<WiFiInformationViewerPage> {
     } finally {}
   }
 
-  Widget _informationCard(String label, String? value) {
+  Widget _detailsCard(String label, String? value) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Card(
@@ -103,7 +102,7 @@ class WiFiInformationViewerPageState extends State<WiFiInformationViewerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
-        title: AppLocalizations.of(context)!.wifi_information_viewer,
+        title: AppLocalizations.of(context)!.wifi_details_viewer,
       ),
       body: networkConnectivityResult == null
           ? Center(
@@ -118,37 +117,37 @@ class WiFiInformationViewerPageState extends State<WiFiInformationViewerPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _informationCard(
+                  _detailsCard(
                     AppLocalizations.of(context)!.service_set_identifier_ssid,
                     _ssid,
                   ),
-                  _informationCard(
+                  _detailsCard(
                     AppLocalizations.of(
                       context,
                     )!.basic_service_set_identifier_bssid,
                     _bssid,
                   ),
-                  _informationCard(
+                  _detailsCard(
                     AppLocalizations.of(
                       context,
                     )!.internet_protocol_version_4_ipv4_address,
                     _ipAddress,
                   ),
-                  _informationCard(
+                  _detailsCard(
                     AppLocalizations.of(
                       context,
                     )!.internet_protocol_version_6_ipv6_address,
                     _ipV6Address,
                   ),
-                  _informationCard(
+                  _detailsCard(
                     AppLocalizations.of(context)!.subnet_mask,
                     _subnetMask,
                   ),
-                  _informationCard(
+                  _detailsCard(
                     AppLocalizations.of(context)!.broadcast_address,
                     _broadcast,
                   ),
-                  _informationCard(
+                  _detailsCard(
                     AppLocalizations.of(context)!.gateway,
                     _gatewayIPAddress,
                   ),
