@@ -13,15 +13,16 @@ import 'package:bitscoper_cyberkit/tool_pages/file_hash_calculator.dart';
 import 'package:bitscoper_cyberkit/tool_pages/ipv4_subnet_scanner.dart';
 import 'package:bitscoper_cyberkit/tool_pages/mdns_scanner.dart';
 import 'package:bitscoper_cyberkit/tool_pages/morse_code_translator.dart';
-import 'package:bitscoper_cyberkit/tool_pages/open_graph_protocol_data_extractor.dart';
+import 'package:bitscoper_cyberkit/tool_pages/ogp_data_extractor.dart';
 import 'package:bitscoper_cyberkit/tool_pages/pinger.dart';
 import 'package:bitscoper_cyberkit/tool_pages/qr_code_generator.dart';
 import 'package:bitscoper_cyberkit/tool_pages/route_tracer.dart';
 import 'package:bitscoper_cyberkit/tool_pages/series_uri_crawler.dart';
 import 'package:bitscoper_cyberkit/tool_pages/string_hash_calculator.dart';
 import 'package:bitscoper_cyberkit/tool_pages/tcp_port_scanner.dart';
+import 'package:bitscoper_cyberkit/tool_pages/upnp_scanner.dart';
 import 'package:bitscoper_cyberkit/tool_pages/whois_retriever.dart';
-import 'package:bitscoper_cyberkit/tool_pages/wifi_information_viewer.dart';
+import 'package:bitscoper_cyberkit/tool_pages/wifi_details_viewer.dart';
 import 'package:bitscoper_cyberkit/version_checker.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter/material.dart';
@@ -139,16 +140,22 @@ class HomePage extends StatelessWidget {
         const MDNSScannerPage(),
       ),
       (
-        AppLocalizations.of(context)!.tcp_port_scanner,
-        Icons.radar_rounded,
+        AppLocalizations.of(context)!.upnp_scanner,
+        Icons.cast_rounded,
         [],
-        const TCPPortScannerPage(),
+        const UPnPScannerPage(),
       ),
       (
         AppLocalizations.of(context)!.route_tracer,
         Icons.track_changes_rounded,
         [],
         const RouteTracerPage(),
+      ),
+      (
+        AppLocalizations.of(context)!.tcp_port_scanner,
+        Icons.radar_rounded,
+        [],
+        const TCPPortScannerPage(),
       ),
       (
         AppLocalizations.of(context)!.pinger,
@@ -198,7 +205,7 @@ class HomePage extends StatelessWidget {
         const QRCodeGeneratorPage(),
       ),
       (
-        AppLocalizations.of(context)!.open_graph_protocol_data_extractor,
+        AppLocalizations.of(context)!.ogp_data_extractor,
         Icons.share_rounded,
         [],
         const OGPDataExtractorPage(),
@@ -222,10 +229,10 @@ class HomePage extends StatelessWidget {
         const WHOISRetrieverPage(),
       ),
       (
-        AppLocalizations.of(context)!.wifi_information_viewer,
+        AppLocalizations.of(context)!.wifi_details_viewer,
         Icons.network_check_rounded,
         [Permission.location, Permission.locationWhenInUse],
-        const WiFiInformationViewerPage(),
+        const WiFiDetailsViewerPage(),
       ),
     ];
 

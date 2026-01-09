@@ -8,7 +8,7 @@
 
 # Bitscoper CyberKit
 
-A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner, mDNS Scanner, TCP Port Scanner, Route Tracer, Pinger, File Hash Calculator, String Hash Calculator, CVSS Calculator, Base Encoder, Morse Code Translator, QR Code Generator, Open Graph Protocol Data Extractor, Series URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Information Viewer.
+A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner, mDNS Scanner, UPnP Scanner, Route Tracer, TCP Port Scanner, Pinger, File Hash Calculator, String Hash Calculator, CVSS Calculator, Base Encoder, Morse Code Translator, QR Code Generator, OGP Data Extractor, Series URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Details Viewer.
 
 [![Build, Release, and Deploy](https://github.com/bitscoper/Bitscoper_CyberKit/actions/workflows/Build,%20Release,%20and%20Deploy.yaml/badge.svg)](https://github.com/bitscoper/Bitscoper_CyberKit/actions/workflows/Build,%20Release,%20and%20Deploy.yaml)
 
@@ -32,7 +32,7 @@ A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner
         </td>
         <td>
           <a href="https://gallery.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit/">
-            <img src="3rd_Party_Service_Logos/Amazon_ECR.svg" height="48" alt="Amazon ECR" />
+            <img src="3rd_Party_Service_Logos/Amazon_ECR.svg" height="48" alt="Amazon ECR Public Gallery" />
           </a>
         </td>
       </tr>
@@ -56,7 +56,7 @@ Linux_x64_Executable --> Release[Release]
 Linux_x64_AppImage --> Release[Release]
 Linux_x64_Executable --> Linux_Docker_Image(Docker Image)
 Linux_Docker_Image --> GHCR[GHCR]
-Linux_Docker_Image --> Amazon_ECR[Amazon ECR]
+Linux_Docker_Image --> Amazon_ECR_Public_Gallery[Amazon ECR Public Gallery]
 
 Code --> Android{Android}
 Android --> |Signing| Android_appbundle(appbundle)
@@ -109,7 +109,7 @@ Web_Application --> My_Server[My Server]
     </tr>
     <tr>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Bitscoper_CyberKit-17.0.0-x64.AppImage">Bitscoper_CyberKit-17.0.0-x64.AppImage</a>
+        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Bitscoper_CyberKit-18.0.0-x64.AppImage">Bitscoper_CyberKit-18.0.0-x64.AppImage</a>
       </td>
     </tr>
     <tr>
@@ -202,7 +202,7 @@ Web_Application --> My_Server[My Server]
     </tr>
     <tr>
       <td>
-        <a href="https://gallery.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit/">Amazon ECR</a>
+        <a href="https://gallery.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit/">Amazon ECR Public Gallery</a>
       </td>
     </tr>
   </table>
@@ -229,7 +229,7 @@ podman run -it --rm ghcr.io/bitscoper/bitscoper_cyberkit:latest
 docker run -it --rm ghcr.io/bitscoper/bitscoper_cyberkit:latest
 ```
 
-### From Amazon ECR
+### From Amazon ECR Public Gallery
 
 #### Pull
 
@@ -259,63 +259,67 @@ Scans for pingable IP addresses from `[].[].[].1` to `[].[].[].254` within a spe
 
 ### 3. mDNS Scanner
 
-Scans for mDNS broadcasts and collects associated data.
+Scans for Multicast DNS (mDNS) broadcasts and collects associated service information.
 
-### 4. TCP Port Scanner
+### 4. UPnP Scanner
 
-Scans ports from 0 to 65535 on a target server and reports the open ports.
+Scans for Universal Plug and Play (UPnP) broadcasts, including Digital Living Network Alliance (DLNA), and collects associated device information.
 
 ### 5. Route Tracer
 
 Traces the route to a target server, showing each hop along the route with its corresponding IP address.
 
-### 6. Pinger
+### 6. TCP Port Scanner
 
-Pings a target server and reports the IP address, TTL, and time.
+Scans Transmission Control Protocol (TCP) ports from 0 to 65535 on a target server and reports the open ports.
 
-### 7. File Hash Calculator
+### 7. Pinger
 
-Calculates MD5, SHA1, SHA224, SHA256, SHA384, and SHA512 hashes of files.
+Pings a target server and reports the IP address, Time To Live (TTL), and time.
 
-### 8. String Hash Calculator
+### 8. File Hash Calculator
 
-Calculates MD5, SHA1, SHA224, SHA256, SHA384, and SHA512 hashes of a string.
+Calculates Message Digest 5 (MD5), Secure Hash Algorithm 1 (SHA1), Secure Hash Algorithm 224 (SHA224), Secure Hash Algorithm 256 (SHA256), Secure Hash Algorithm 384 (SHA384), and Secure Hash Algorithm 512 (SHA512) hashes of files.
 
-### 9. CVSS Calculator
+### 9. String Hash Calculator
+
+Calculates Message Digest 5 (MD5), Secure Hash Algorithm 1 (SHA1), Secure Hash Algorithm 224 (SHA224), Secure Hash Algorithm 256 (SHA256), Secure Hash Algorithm 384 (SHA384), and Secure Hash Algorithm 512 (SHA512) hashes of a string.
+
+### 10. CVSS Calculator
 
 Uses Common Vulnerability Scoring System (CVSS) v3.1 to calculate base score of exploitability.
 
-### 10. Base Encoder
+### 11. Base Encoder
 
 Encodes a string into binary (Base2), ternary (Base3), quaternary (Base4), quinary (Base5), senary (Base6), octal (Base8), decimal (Base10), duodecimal (Base12), hexadecimal (Base16), Base32, Base32Hex, Base36, Base58, Base62, and Base64.
 
-### 11. Morse Code Translator
+### 12. Morse Code Translator
 
 Translates English to Morse code and vice versa.
 
-### 12. QR Code Generator
+### 13. QR Code Generator
 
 Generates QR (Quick Response) Code from a string.
 
-### 13. Open Graph Protocol Data Extractor
+### 14. OGP Data Extractor
 
 Extracts Open Graph Protocol (OGP) data of a webpage.
 
-### 14. Series URI Crawler
+### 15. Series URI Crawler
 
-Crawls the available webpages in series by number and lists the available ones.
+Crawls webpages generated from a combination of Uniform Resource Identifier (URI) and number series, and lists the available ones.
 
-### 15. DNS Record Retriever
+### 16. DNS Record Retriever
 
-Retrieves A, AAAA, ANY, CAA, CDS, CERT, CNAME, DNAME, DNSKEY, DS, HINFO, IPSECKEY, NSEC, NSEC3PARAM, NAPTR, PTR, RP, RRSIG, SOA, SPF, SRV, SSHFP, TLSA, WKS, TXT, NS, and MX records of a domain name (forward) or an IP address (reverse).
+Retrieves Address (A), IPv6 Address (AAAA), Any Record (ANY), Certification Authority Authorization (CAA), Child Delegation Signer (CDS), Certificate (CERT), Canonical Name (CNAME), Delegation Name (DNAME), Domain Name System Key (DNSKEY), Delegation Signer (DS), Host Information (HINFO), IPsec Key (IPSECKEY), Next Secure (NSEC), Next Secure version 3 Parameters (NSEC3PARAM), Naming Authority Pointer (NAPTR), Pointer (PTR), Responsible Person (RP), Resource Record Signature (RRSIG), Start of Authority (SOA), Sender Policy Framework (SPF), Service Locator (SRV), SSH Fingerprint (SSHFP), Transport Layer Security Authentication (TLSA), Well Known Services (WKS), Text (TXT), Name Server (NS), and Mail Exchange (MX) records of a domain name (forward lookup) or an IP address (reverse lookup).
 
-### 16. WHOIS Retriever
+### 17. WHOIS Retriever
 
 Retrieves WHOIS information about a domain name.
 
-### 17. Wi-Fi Information Viewer
+### 18. Wi-Fi Details Viewer
 
-Displays information about the currently connected Wi-Fi network.
+Displays details of the currently connected Wireless Fidelity (Wi-Fi) network.
 
 ## Using Podman / Docker Locally on Linux
 

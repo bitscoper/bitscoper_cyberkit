@@ -125,6 +125,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get developer => 'Developer';
 
   @override
+  String get device => 'Device';
+
+  @override
   String get dns_provider => 'DNS Provider';
 
   @override
@@ -236,6 +239,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Internet Protocol Version 6 (IPv6) Address';
 
   @override
+  String get ip_address => 'IP Address';
+
+  @override
   String get ipv4_subnet_scanner => 'IPv4 Subnet Scanner';
 
   @override
@@ -284,10 +290,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ok => 'OK';
-
-  @override
-  String get open_graph_protocol_data_extractor =>
-      'Open Graph Protocol Data Extractor';
 
   @override
   String get padding => 'Padding';
@@ -482,6 +484,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get up_to_date => 'Up to Date';
 
   @override
+  String get upnp_scanner => 'UPnP Scanner';
+
+  @override
   String get upper_limit => 'Upper Limit';
 
   @override
@@ -522,7 +527,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get whois_retriever => 'WHOIS Retriever';
 
   @override
-  String get wifi_information_viewer => 'Wi-Fi Information Viewer';
+  String get wifi_details_viewer => 'Wi-Fi Details Viewer';
 
   @override
   String get wifi_is_disconnected => 'Wi-Fi is disconnected!';

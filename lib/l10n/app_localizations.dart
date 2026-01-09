@@ -326,6 +326,12 @@ abstract class AppLocalizations {
   /// **'Developer'**
   String get developer;
 
+  /// No description provided for @device.
+  ///
+  /// In en, this message translates to:
+  /// **'Device'**
+  String get device;
+
   /// No description provided for @dns_provider.
   ///
   /// In en, this message translates to:
@@ -542,6 +548,12 @@ abstract class AppLocalizations {
   /// **'Internet Protocol Version 6 (IPv6) Address'**
   String get internet_protocol_version_6_ipv6_address;
 
+  /// No description provided for @ip_address.
+  ///
+  /// In en, this message translates to:
+  /// **'IP Address'**
+  String get ip_address;
+
   /// No description provided for @ipv4_subnet_scanner.
   ///
   /// In en, this message translates to:
@@ -638,12 +650,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'OK'**
   String get ok;
-
-  /// No description provided for @open_graph_protocol_data_extractor.
-  ///
-  /// In en, this message translates to:
-  /// **'Open Graph Protocol Data Extractor'**
-  String get open_graph_protocol_data_extractor;
 
   /// No description provided for @padding.
   ///
@@ -1013,6 +1019,12 @@ abstract class AppLocalizations {
   /// **'Up to Date'**
   String get up_to_date;
 
+  /// No description provided for @upnp_scanner.
+  ///
+  /// In en, this message translates to:
+  /// **'UPnP Scanner'**
+  String get upnp_scanner;
+
   /// No description provided for @upper_limit.
   ///
   /// In en, this message translates to:
@@ -1091,11 +1103,11 @@ abstract class AppLocalizations {
   /// **'WHOIS Retriever'**
   String get whois_retriever;
 
-  /// No description provided for @wifi_information_viewer.
+  /// No description provided for @wifi_details_viewer.
   ///
   /// In en, this message translates to:
-  /// **'Wi-Fi Information Viewer'**
-  String get wifi_information_viewer;
+  /// **'Wi-Fi Details Viewer'**
+  String get wifi_details_viewer;
 
   /// No description provided for @wifi_is_disconnected.
   ///

@@ -125,6 +125,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get developer => 'ডেভেলপার';
 
   @override
+  String get device => 'ডিভাইস';
+
+  @override
   String get dns_provider => 'ডিএনএস প্রোভাইডার';
 
   @override
@@ -237,6 +240,9 @@ class AppLocalizationsBn extends AppLocalizations {
       'ইন্টারনেট প্রোটোকল সংস্করণ ৬ (IPv6) অ্যাড্রেস';
 
   @override
+  String get ip_address => 'আইপি অ্যাড্রেস';
+
+  @override
   String get ipv4_subnet_scanner => 'IPv4 সাবনেট স্ক্যানার';
 
   @override
@@ -285,10 +291,6 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get ok => 'ঠিক আছে';
-
-  @override
-  String get open_graph_protocol_data_extractor =>
-      'ওপেন গ্রাফ প্রোটোকল ডেইটা এক্সট্র্যাক্টর';
 
   @override
   String get padding => 'প্যাডিং';
@@ -486,6 +488,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get up_to_date => 'আপ টু ডেট';
 
   @override
+  String get upnp_scanner => 'ইউপিএনপি স্ক্যানার';
+
+  @override
   String get upper_limit => 'উচ্চ সীমা';
 
   @override
@@ -526,7 +531,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get whois_retriever => 'হুইস রিট্রিভার';
 
   @override
-  String get wifi_information_viewer => 'ওয়াই-ফাই ইনফরমেশন ভিউয়ার';
+  String get wifi_details_viewer => 'ওয়াই-ফাই ইনফরমেশন ভিউয়ার';
 
   @override
   String get wifi_is_disconnected => 'ওয়াই-ফাই ডিসকানেক্টেড!';
