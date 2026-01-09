@@ -5,9 +5,9 @@
     <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
     <meta
       name="description"
-      content="A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner, mDNS Scanner, TCP Port Scanner, Route Tracer, Pinger, File Hash Calculator, String Hash Calculator, CVSS Calculator, Base Encoder, Morse Code Translator, QR Code Generator, Open Graph Protocol Data Extractor, Series URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Information Viewer."
+      content="A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner, mDNS Scanner, UPnP Scanner, Route Tracer, TCP Port Scanner, Pinger, File Hash Calculator, String Hash Calculator, CVSS Calculator, Base Encoder, Morse Code Translator, QR Code Generator, OGP Data Extractor, Series URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Details Viewer."
     />
-    <meta name="author" content="Abdullah As-Sadeed">
+    <meta name="author" content="Abdullah As-Sadeed" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="apple-mobile-web-app-title" content="bitscoper_cyberkit" />
@@ -23,16 +23,19 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
       name="viewport"
     />
+
     <style id="splash-screen-style">
       html {
         height: 100%;
       }
+
       body {
         margin: 0;
         min-height: 100%;
         background-color: #f0f8ff;
         background-size: 100% 100%;
       }
+
       .center {
         margin: 0;
         position: absolute;
@@ -41,23 +44,27 @@
         -ms-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
       }
+
       .contain {
         display: block;
         width: 100%;
         height: 100%;
         object-fit: contain;
       }
+
       .stretch {
         display: block;
         width: 100%;
         height: 100%;
       }
+
       .cover {
         display: block;
         width: 100%;
         height: 100%;
         object-fit: cover;
       }
+
       .bottom {
         position: absolute;
         bottom: 0;
@@ -65,16 +72,19 @@
         -ms-transform: translate(-50%, 0);
         transform: translate(-50%, 0);
       }
+
       .bottomLeft {
         position: absolute;
         bottom: 0;
         left: 0;
       }
+
       .bottomRight {
         position: absolute;
         bottom: 0;
         right: 0;
       }
+
       @media (prefers-color-scheme: dark) {
         body {
           background-color: #f0f8ff;
@@ -142,6 +152,7 @@
         alt=""
       />
     </picture>
+
     <script>
       window.addEventListener("load", function (ev) {
         _flutter.loader.loadEntrypoint({
