@@ -1,5 +1,6 @@
 /* By Abdullah As-Sadeed */
 
+import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/home.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:flutter/foundation.dart';
@@ -38,6 +39,7 @@ class BitscoperCyberKit extends StatefulWidget {
 }
 
 class BitscoperCyberKitState extends State<BitscoperCyberKit> {
+  static BitscoperCyberKitState? instance;
   Locale _userLocale = const Locale('en');
 
   final ValueNotifier<bool> _isDarkTheme = ValueNotifier<bool>(false);
@@ -46,10 +48,11 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
   @override
   void initState() {
     super.initState();
+    instance = this;
 
     if (!kIsWeb &&
-        (defaultTargetPlatform == TargetPlatform.iOS ||
-            defaultTargetPlatform == TargetPlatform.android)) {
+        ((defaultTargetPlatform == TargetPlatform.iOS) ||
+            (defaultTargetPlatform == TargetPlatform.android))) {
       final QuickActions quickActions = QuickActions();
 
       quickActions.initialize((shortcutType) {
@@ -79,17 +82,25 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
     }
   }
 
-  void _changeLocale(Locale locale) {
-    setState(() {
-      _userLocale = locale;
-    });
+  void changeLocale(Locale locale) {
+    try {
+      setState(() {
+        _userLocale = locale;
+      });
+    } catch (error) {
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+    } finally {}
   }
 
-  void _toggleTheme() {
-    setState(() {
-      _userToggledTheme = true;
-      _isDarkTheme.value = !_isDarkTheme.value;
-    });
+  void toggleTheme() {
+    try {
+      setState(() {
+        _userToggledTheme = true;
+        _isDarkTheme.value = !_isDarkTheme.value;
+      });
+    } catch (error) {
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+    } finally {}
   }
 
   ThemeData _buildTheme(Brightness brightness) {
@@ -104,15 +115,15 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
   void dispose() {
     _isDarkTheme.dispose();
 
+    instance = null;
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final Brightness brightness = MediaQuery.of(context).platformBrightness;
-
     if (!_userToggledTheme) {
-      _isDarkTheme.value = brightness == Brightness.dark;
+      _isDarkTheme.value =
+          (MediaQuery.of(context).platformBrightness == Brightness.dark);
     }
 
     return ValueListenableBuilder<bool>(
@@ -126,10 +137,7 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
           theme: _buildTheme(Brightness.light),
           darkTheme: _buildTheme(Brightness.dark),
           themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
-          home: HomePage(
-            changeLocale: _changeLocale,
-            toggleTheme: _toggleTheme,
-          ),
+          home: HomePage(),
           debugShowCheckedModeBanner: false,
           showSemanticsDebugger: false,
         );

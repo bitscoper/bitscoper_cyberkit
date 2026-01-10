@@ -122,11 +122,11 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
       for (int i = 0; i < dump.length; i++) {
         final String character = dump[i];
 
-        if (character == '{' || character == '[') {
+        if ((character == '{') || (character == '[')) {
           stringBuffer.writeln(character);
           indent++;
           stringBuffer.write('  ' * indent);
-        } else if (character == '}' || character == ']') {
+        } else if ((character == '}') || (character == ']')) {
           stringBuffer.writeln();
           indent--;
           stringBuffer.write('  ' * indent);
@@ -184,7 +184,7 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
                 color: Theme.of(context).hoverColor,
                 elevation: 1.5,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16.0),
+                  borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: ListTile(
                   subtitle: SelectableText(

@@ -142,7 +142,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                           showCursor: true,
                           maxLines: 1,
                           validator: (String? value) {
-                            if (value == null || value.isEmpty) {
+                            if ((value == null) || value.isEmpty) {
                               return AppLocalizations.of(
                                 context,
                               )!.enter_a_uri_prefix;
@@ -194,7 +194,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                           showCursor: true,
                           maxLines: 1,
                           validator: (String? value) {
-                            if (value == null || value.isEmpty) {
+                            if ((value == null) || value.isEmpty) {
                               return AppLocalizations.of(
                                 context,
                               )!.enter_a_lower_limit;
@@ -237,7 +237,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                           showCursor: true,
                           maxLines: 1,
                           validator: (String? value) {
-                            if (value == null || value.isEmpty) {
+                            if ((value == null) || value.isEmpty) {
                               return AppLocalizations.of(
                                 context,
                               )!.enter_an_upper_limit;
@@ -276,16 +276,30 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                         onPressed: _isCrawling
                             ? null
                             : () {
-                                _crawl();
+                                try {
+                                  _crawl();
+                                } catch (error) {
+                                  showMessageDialog(
+                                    AppLocalizations.of(context)!.error,
+                                    error.toString(),
+                                  );
+                                } finally {}
                               },
                         child: Text(AppLocalizations.of(context)!.crawl),
                       ),
                       ElevatedButton(
                         onPressed: _isCrawling
                             ? () {
-                                setState(() {
-                                  _isCrawling = false;
-                                });
+                                try {
+                                  setState(() {
+                                    _isCrawling = false;
+                                  });
+                                } catch (error) {
+                                  showMessageDialog(
+                                    AppLocalizations.of(context)!.error,
+                                    error.toString(),
+                                  );
+                                } finally {}
                               }
                             : null,
                         child: Text(AppLocalizations.of(context)!.stop),
@@ -312,10 +326,17 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                         trailing: IconButton(
                           icon: const Icon(Icons.copy_rounded),
                           onPressed: () {
-                            copyToClipboard(
-                              AppLocalizations.of(context)!.uri,
-                              entry.key,
-                            );
+                            try {
+                              copyToClipboard(
+                                AppLocalizations.of(context)!.uri,
+                                entry.key,
+                              );
+                            } catch (error) {
+                              showMessageDialog(
+                                AppLocalizations.of(context)!.error,
+                                error.toString(),
+                              );
+                            } finally {}
                           },
                           tooltip: AppLocalizations.of(
                             context,

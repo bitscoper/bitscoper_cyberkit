@@ -103,29 +103,38 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
               child: ElevatedButton(
                 child: Text(AppLocalizations.of(context)!.select_files),
                 onPressed: () async {
-                  List<Uint8List> files = [];
+                  try {
+                    List<Uint8List> files = [];
 
-                  FilePickerResult? result = await FilePicker.platform
-                      .pickFiles(
-                        type: FileType.any,
-                        allowMultiple: true,
-                        dialogTitle: AppLocalizations.of(context)!.select_files,
-                      );
+                    FilePickerResult? result = await FilePicker.platform
+                        .pickFiles(
+                          type: FileType.any,
+                          allowMultiple: true,
+                          dialogTitle: AppLocalizations.of(
+                            context,
+                          )!.select_files,
+                        );
 
-                  if (result != null) {
-                    List<File> selectedFiles = result.paths
-                        .where((String? path) => path != null)
-                        .map((String? path) {
-                          return File(path!);
-                        })
-                        .toList();
+                    if (result != null) {
+                      List<File> selectedFiles = result.paths
+                          .where((String? path) => path != null)
+                          .map((String? path) {
+                            return File(path!);
+                          })
+                          .toList();
 
-                    for (File file in selectedFiles) {
-                      files.add(file.readAsBytesSync());
+                      for (File file in selectedFiles) {
+                        files.add(file.readAsBytesSync());
+                      }
+
+                      await _calculateHashes(selectedFiles);
                     }
-
-                    await _calculateHashes(selectedFiles);
-                  }
+                  } catch (error) {
+                    showMessageDialog(
+                      AppLocalizations.of(navigatorKey.currentContext!)!.error,
+                      error.toString(),
+                    );
+                  } finally {}
                 },
               ),
             ),
@@ -170,10 +179,17 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
                                   trailing: IconButton(
                                     icon: const Icon(Icons.copy_rounded),
                                     onPressed: () {
-                                      copyToClipboard(
-                                        "${entry.key} ${AppLocalizations.of(context)!.hash}",
-                                        entry.value,
-                                      );
+                                      try {
+                                        copyToClipboard(
+                                          "${entry.key} ${AppLocalizations.of(context)!.hash}",
+                                          entry.value,
+                                        );
+                                      } catch (error) {
+                                        showMessageDialog(
+                                          AppLocalizations.of(context)!.error,
+                                          error.toString(),
+                                        );
+                                      } finally {}
                                     },
                                     tooltip: AppLocalizations.of(
                                       context,

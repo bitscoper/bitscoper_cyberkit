@@ -101,7 +101,7 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
                     showCursor: true,
                     maxLines: 1,
                     validator: (String? value) {
-                      if (value == null || value.isEmpty) {
+                      if ((value == null) || value.isEmpty) {
                         return AppLocalizations.of(
                           context,
                         )!.enter_an_ipv4_subnet;
@@ -121,16 +121,30 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
                         onPressed: _isScanning
                             ? null
                             : () {
-                                _scanSubnet();
+                                try {
+                                  _scanSubnet();
+                                } catch (error) {
+                                  showMessageDialog(
+                                    AppLocalizations.of(context)!.error,
+                                    error.toString(),
+                                  );
+                                } finally {}
                               },
                         child: Text(AppLocalizations.of(context)!.scan),
                       ),
                       ElevatedButton(
                         onPressed: _isScanning
                             ? () {
-                                setState(() {
-                                  _isScanning = false;
-                                });
+                                try {
+                                  setState(() {
+                                    _isScanning = false;
+                                  });
+                                } catch (error) {
+                                  showMessageDialog(
+                                    AppLocalizations.of(context)!.error,
+                                    error.toString(),
+                                  );
+                                } finally {}
                               }
                             : null,
                         child: Text(AppLocalizations.of(context)!.stop),

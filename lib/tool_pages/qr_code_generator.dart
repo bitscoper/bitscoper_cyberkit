@@ -45,38 +45,49 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
     Color currentColor,
     Function(Color) onColorChanged,
   ) {
-    Color pickerColor = currentColor;
+    try {
+      Color pickerColor = currentColor;
 
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            AppLocalizations.of(context)!.color_selection,
-            textAlign: TextAlign.center,
-          ),
-          content: SingleChildScrollView(
-            child: ColorPicker(
-              pickerColor: pickerColor,
-              onColorChanged: (Color color) {
-                pickerColor = color;
-              },
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              AppLocalizations.of(context)!.color_selection,
+              textAlign: TextAlign.center,
             ),
-          ),
-          actions: <Widget>[
-            Center(
-              child: ElevatedButton(
-                child: Text(AppLocalizations.of(context)!.select),
-                onPressed: () {
-                  onColorChanged(pickerColor);
-                  Navigator.of(context).pop();
+            content: SingleChildScrollView(
+              child: ColorPicker(
+                pickerColor: pickerColor,
+                onColorChanged: (Color color) {
+                  pickerColor = color;
                 },
               ),
             ),
-          ],
-        );
-      },
-    );
+            actions: <Widget>[
+              Center(
+                child: ElevatedButton(
+                  child: Text(AppLocalizations.of(context)!.select),
+                  onPressed: () {
+                    try {
+                      onColorChanged(pickerColor);
+                      Navigator.of(context).pop();
+                    } catch (error) {
+                      showMessageDialog(
+                        AppLocalizations.of(context)!.error,
+                        error.toString(),
+                      );
+                    } finally {}
+                  },
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    } catch (error) {
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+    } finally {}
   }
 
   @override
@@ -113,7 +124,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                 showCursor: true,
                 maxLines: null,
                 validator: (String? value) {
-                  if (value == null || value.isEmpty) {
+                  if ((value == null) || value.isEmpty) {
                     return AppLocalizations.of(context)!.enter_a_string;
                   }
 
@@ -428,7 +439,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                     showCursor: true,
                     maxLines: 1,
                     validator: (String? value) {
-                      if (value == null || value.isEmpty) {
+                      if ((value == null) || value.isEmpty) {
                         return AppLocalizations.of(context)!.enter_padding;
                       } else if (double.tryParse(value) == null) {
                         return AppLocalizations.of(context)!.enter_a_number;

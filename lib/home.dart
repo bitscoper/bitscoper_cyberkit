@@ -93,19 +93,15 @@ class _ToolCardWidget extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  final Function(Locale) changeLocale;
-  final Function toggleTheme;
-  const HomePage({
-    super.key,
-    required this.changeLocale,
-    required this.toggleTheme,
-  });
+  const HomePage({super.key});
 
   int _getCrossAxisCount(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
 
     if (width > 1200) {
-      return MediaQuery.of(context).orientation == Orientation.portrait ? 6 : 8;
+      return (MediaQuery.of(context).orientation == Orientation.portrait)
+          ? 6
+          : 8;
     } else if (width > 600) {
       return 4;
     } else {
@@ -270,39 +266,6 @@ class HomePage extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ),
-                  ListTile(
-                    title: Text(AppLocalizations.of(context)!.change_language),
-                    leading: const Icon(Icons.language_rounded),
-                    onTap: () {
-                      try {
-                        Locale currentLocale = Localizations.localeOf(context);
-                        if (currentLocale.languageCode == 'en') {
-                          changeLocale(const Locale('bn'));
-                        } else {
-                          changeLocale(const Locale('en'));
-                        }
-                      } catch (error) {
-                        showMessageDialog(
-                          AppLocalizations.of(context)!.error,
-                          error.toString(),
-                        );
-                      } finally {}
-                    },
-                  ),
-                  ListTile(
-                    title: Text(AppLocalizations.of(context)!.toggle_theme),
-                    leading: const Icon(Icons.dark_mode_rounded),
-                    onTap: () {
-                      try {
-                        toggleTheme();
-                      } catch (error) {
-                        showMessageDialog(
-                          AppLocalizations.of(context)!.error,
-                          error.toString(),
-                        );
-                      } finally {}
-                    },
                   ),
                   ListTile(
                     title: Text(AppLocalizations.of(context)!.check_version),

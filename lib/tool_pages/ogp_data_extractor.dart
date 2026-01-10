@@ -29,8 +29,8 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
   OgpData? _ogpData;
 
   void _retrieveOGPData() async {
-    if (_formKey.currentState!.validate()) {
-      try {
+    try {
+      if (_formKey.currentState!.validate()) {
         setState(() {
           _isRetrieving = true;
           _ogpData = null;
@@ -50,16 +50,16 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
           body: AppLocalizations.of(navigatorKey.currentContext!)!.extracted,
           payload: "ogp_data_extractor",
         );
-      } catch (error) {
-        showMessageDialog(
-          AppLocalizations.of(navigatorKey.currentContext!)!.error,
-          error.toString(),
-        );
-      } finally {
-        setState(() {
-          _isRetrieving = false;
-        });
       }
+    } catch (error) {
+      showMessageDialog(
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
+    } finally {
+      setState(() {
+        _isRetrieving = false;
+      });
     }
   }
 
@@ -71,7 +71,14 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
         trailing: IconButton(
           icon: const Icon(Icons.copy_rounded),
           onPressed: () {
-            copyToClipboard(title, value ?? 'N/A');
+            try {
+              copyToClipboard(title, value ?? 'N/A');
+            } catch (error) {
+              showMessageDialog(
+                AppLocalizations.of(context)!.error,
+                error.toString(),
+              );
+            } finally {}
           },
           tooltip: AppLocalizations.of(
             navigatorKey.currentContext!,
@@ -117,7 +124,7 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
                     showCursor: true,
                     maxLines: 1,
                     validator: (String? value) {
-                      if (value == null || value.isEmpty) {
+                      if ((value == null) || value.isEmpty) {
                         return AppLocalizations.of(
                           context,
                         )!.enter_a_host_or_ip_address;
@@ -136,7 +143,14 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
                       onPressed: _isRetrieving
                           ? null
                           : () {
-                              _retrieveOGPData();
+                              try {
+                                _retrieveOGPData();
+                              } catch (error) {
+                                showMessageDialog(
+                                  AppLocalizations.of(context)!.error,
+                                  error.toString(),
+                                );
+                              } finally {}
                             },
                       child: Text(AppLocalizations.of(context)!.extract),
                     ),

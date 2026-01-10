@@ -94,7 +94,7 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
                 showCursor: true,
                 maxLines: null,
                 validator: (String? value) {
-                  if (value == null || value.isEmpty) {
+                  if ((value == null) || value.isEmpty) {
                     return AppLocalizations.of(context)!.enter_a_string;
                   }
 
@@ -248,7 +248,14 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
                         trailing: IconButton(
                           icon: const Icon(Icons.copy_rounded),
                           onPressed: () {
-                            copyToClipboard(entry.key, result);
+                            try {
+                              copyToClipboard(entry.key, result);
+                            } catch (error) {
+                              showMessageDialog(
+                                AppLocalizations.of(context)!.error,
+                                error.toString(),
+                              );
+                            } finally {}
                           },
                           tooltip: AppLocalizations.of(
                             context,

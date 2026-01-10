@@ -218,11 +218,11 @@ abstract class AppLocalizations {
   /// **'Calculated'**
   String get calculated;
 
-  /// No description provided for @change_language.
+  /// No description provided for @change_locale.
   ///
   /// In en, this message translates to:
-  /// **'Change Locale to Bangla'**
-  String get change_language;
+  /// **'Change Locale'**
+  String get change_locale;
 
   /// No description provided for @check_version.
   ///
