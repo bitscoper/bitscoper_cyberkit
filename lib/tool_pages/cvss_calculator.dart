@@ -393,10 +393,19 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                               IconButton(
                                 icon: const Icon(Icons.copy, size: 16),
                                 onPressed: () {
-                                  copyToClipboard(
-                                    AppLocalizations.of(context)!.vector_string,
-                                    _vectorString,
-                                  );
+                                  try {
+                                    copyToClipboard(
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.vector_string,
+                                      _vectorString,
+                                    );
+                                  } catch (error) {
+                                    showMessageDialog(
+                                      AppLocalizations.of(context)!.error,
+                                      error.toString(),
+                                    );
+                                  } finally {}
                                 },
                                 tooltip: AppLocalizations.of(
                                   context,

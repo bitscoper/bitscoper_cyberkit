@@ -138,7 +138,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                     showCursor: true,
                     maxLines: 1,
                     validator: (String? value) {
-                      if (value == null || value.isEmpty) {
+                      if ((value == null) || value.isEmpty) {
                         return AppLocalizations.of(
                           context,
                         )!.enter_a_host_or_ip_address;
@@ -184,16 +184,30 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                           onPressed: _isRetrieving
                               ? null
                               : () {
-                                  retrieveDNSRecord();
+                                  try {
+                                    retrieveDNSRecord();
+                                  } catch (error) {
+                                    showMessageDialog(
+                                      AppLocalizations.of(context)!.error,
+                                      error.toString(),
+                                    );
+                                  } finally {}
                                 },
                           child: Text(AppLocalizations.of(context)!.retrieve),
                         ),
                         ElevatedButton(
                           onPressed: _isRetrieving
                               ? () {
-                                  setState(() {
-                                    _isRetrieving = false;
-                                  });
+                                  try {
+                                    setState(() {
+                                      _isRetrieving = false;
+                                    });
+                                  } catch (error) {
+                                    showMessageDialog(
+                                      AppLocalizations.of(context)!.error,
+                                      error.toString(),
+                                    );
+                                  } finally {}
                                 }
                               : null,
                           child: Text(AppLocalizations.of(context)!.stop),
@@ -264,10 +278,17 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                               trailing: IconButton(
                                 icon: const Icon(Icons.copy_rounded),
                                 onPressed: () {
-                                  copyToClipboard(
-                                    '${record.type} ${AppLocalizations.of(context)!.dns_record}',
-                                    record.record,
-                                  );
+                                  try {
+                                    copyToClipboard(
+                                      '${record.type} ${AppLocalizations.of(context)!.dns_record}',
+                                      record.record,
+                                    );
+                                  } catch (error) {
+                                    showMessageDialog(
+                                      AppLocalizations.of(context)!.error,
+                                      error.toString(),
+                                    );
+                                  } finally {}
                                 },
                                 tooltip: AppLocalizations.of(
                                   context,

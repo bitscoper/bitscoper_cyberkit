@@ -37,7 +37,8 @@ class BluetoothLowEnergyScannerPageState
 
       await FlutterBluePlus.adapterState
           .where(
-            (BluetoothAdapterState state) => state == BluetoothAdapterState.on,
+            (BluetoothAdapterState state) =>
+                (state == BluetoothAdapterState.on),
           )
           .first;
 
@@ -48,7 +49,7 @@ class BluetoothLowEnergyScannerPageState
               for (final ScanResult scanResult in scanResults) {
                 if (!_scanResults.any(
                   (ScanResult result_) =>
-                      result_.device.remoteId == scanResult.device.remoteId,
+                      (result_.device.remoteId == scanResult.device.remoteId),
                 )) {
                   _scanResults.add(scanResult);
                 }
@@ -74,7 +75,7 @@ class BluetoothLowEnergyScannerPageState
       );
 
       await FlutterBluePlus.isScanning
-          .where((bool value) => value == false)
+          .where((bool value) => (value == false))
           .first;
     } catch (error) {
       showMessageDialog(

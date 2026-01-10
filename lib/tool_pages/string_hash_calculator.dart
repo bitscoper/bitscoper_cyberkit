@@ -92,7 +92,7 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
                 showCursor: true,
                 maxLines: null,
                 validator: (String? value) {
-                  if (value == null || value.isEmpty) {
+                  if ((value == null) || value.isEmpty) {
                     return AppLocalizations.of(context)!.enter_a_string;
                   }
 
@@ -130,10 +130,17 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
                           trailing: IconButton(
                             icon: const Icon(Icons.copy_rounded),
                             onPressed: () {
-                              copyToClipboard(
-                                "${entry.key} ${AppLocalizations.of(context)!.hash}",
-                                entry.value,
-                              );
+                              try {
+                                copyToClipboard(
+                                  "${entry.key} ${AppLocalizations.of(context)!.hash}",
+                                  entry.value,
+                                );
+                              } catch (error) {
+                                showMessageDialog(
+                                  AppLocalizations.of(context)!.error,
+                                  error.toString(),
+                                );
+                              } finally {}
                             },
                             tooltip: AppLocalizations.of(
                               context,

@@ -77,12 +77,19 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
         child: ListTile(
           title: Text(label),
           subtitle: Text(value ?? "Unavailable"),
-          trailing: value == null
+          trailing: (value == null)
               ? null
               : IconButton(
                   icon: const Icon(Icons.copy_rounded),
                   onPressed: () {
-                    copyToClipboard(label, value);
+                    try {
+                      copyToClipboard(label, value);
+                    } catch (error) {
+                      showMessageDialog(
+                        AppLocalizations.of(context)!.error,
+                        error.toString(),
+                      );
+                    } finally {}
                   },
                   tooltip: AppLocalizations.of(
                     navigatorKey.currentContext!,
@@ -104,7 +111,7 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
       appBar: ApplicationToolBar(
         title: AppLocalizations.of(context)!.wifi_details_viewer,
       ),
-      body: networkConnectivityResult == null
+      body: (networkConnectivityResult == null)
           ? Center(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(32.0),

@@ -181,7 +181,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                             showCursor: true,
                             maxLines: 1,
                             validator: (String? value) {
-                              if (value == null || value.isEmpty) {
+                              if ((value == null) || value.isEmpty) {
                                 return AppLocalizations.of(
                                   context,
                                 )!.enter_a_host_or_ip_address;
@@ -230,7 +230,16 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                         ? const CircularProgressIndicator()
                         : ElevatedButton(
                             onPressed: () async {
-                              await _scanTCPPorts();
+                              try {
+                                await _scanTCPPorts();
+                              } catch (error) {
+                                showMessageDialog(
+                                  AppLocalizations.of(
+                                    navigatorKey.currentContext!,
+                                  )!.error,
+                                  error.toString(),
+                                );
+                              } finally {}
                             },
                             child: Text(AppLocalizations.of(context)!.scan),
                           ),

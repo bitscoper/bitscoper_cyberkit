@@ -70,7 +70,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get calculated => 'Calculated';
 
   @override
-  String get change_language => 'Change Locale to Bangla';
+  String get change_locale => 'Change Locale';
 
   @override
   String get check_version => 'Check Version';

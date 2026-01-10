@@ -118,7 +118,7 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
                     showCursor: true,
                     maxLines: null,
                     validator: (String? value) {
-                      if (value == null || value.isEmpty) {
+                      if ((value == null) || value.isEmpty) {
                         return AppLocalizations.of(context)!.enter_a_string;
                       }
 
@@ -149,7 +149,7 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
                 showCursor: true,
                 maxLines: null,
                 validator: (String? value) {
-                  if (value == null || value.isEmpty) {
+                  if ((value == null) || value.isEmpty) {
                     return AppLocalizations.of(context)!.enter_morse_code;
                   }
 
