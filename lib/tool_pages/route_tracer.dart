@@ -32,8 +32,8 @@ class RouteTracerPageState extends State<RouteTracerPage> {
   List<TracerouteStep> _traceResults = [];
 
   void _onTrace() {
-    if (_formKey.currentState!.validate()) {
-      try {
+    try {
+      if (_formKey.currentState!.validate()) {
         setState(() {
           _isTracing = true;
           _traceResults = [];
@@ -52,13 +52,13 @@ class RouteTracerPageState extends State<RouteTracerPage> {
               ..add(event);
           });
         });
-      } catch (error) {
-        showMessageDialog(
-          AppLocalizations.of(navigatorKey.currentContext!)!.error,
-          error.toString(),
-        );
-      } finally {}
-    }
+      }
+    } catch (error) {
+      showMessageDialog(
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
+    } finally {}
   }
 
   void _onStop() {
@@ -110,7 +110,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
                 showCursor: true,
                 onChanged: (String value) {},
                 validator: (String? value) {
-                  if (value == null || value.isEmpty) {
+                  if ((value == null) || value.isEmpty) {
                     return AppLocalizations.of(
                       context,
                     )!.enter_a_host_or_ip_address;

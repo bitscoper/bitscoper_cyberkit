@@ -20,6 +20,9 @@ void copyToClipboard(String dataType, String string) {
       );
     }
   } catch (error) {
-    showMessageDialog("Error", error.toString());
+    showMessageDialog(
+      AppLocalizations.of(navigatorKey.currentContext!)!.error,
+      error.toString(),
+    );
   } finally {}
 }

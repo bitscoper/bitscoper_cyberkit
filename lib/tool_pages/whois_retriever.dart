@@ -29,8 +29,8 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
   late Map<String, String> _whoisInformation = {};
 
   void _retrieveWHOIS() async {
-    if (_formKey.currentState!.validate()) {
-      try {
+    try {
+      if (_formKey.currentState!.validate()) {
         setState(() {
           _isRetrieving = true;
 
@@ -59,16 +59,16 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
           body: AppLocalizations.of(navigatorKey.currentContext!)!.retrieved,
           payload: "WHOIS_Retriever",
         );
-      } catch (error) {
-        showMessageDialog(
-          AppLocalizations.of(navigatorKey.currentContext!)!.error,
-          error.toString(),
-        );
-      } finally {
-        setState(() {
-          _isRetrieving = false;
-        });
       }
+    } catch (error) {
+      showMessageDialog(
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
+    } finally {
+      setState(() {
+        _isRetrieving = false;
+      });
     }
   }
 
@@ -106,7 +106,7 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
                     showCursor: true,
                     maxLines: 1,
                     validator: (String? value) {
-                      if (value == null || value.isEmpty) {
+                      if ((value == null) || value.isEmpty) {
                         return AppLocalizations.of(
                           context,
                         )!.enter_a_domain_name;
@@ -125,7 +125,14 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
                       onPressed: _isRetrieving
                           ? null
                           : () {
-                              _retrieveWHOIS();
+                              try {
+                                _retrieveWHOIS();
+                              } catch (error) {
+                                showMessageDialog(
+                                  AppLocalizations.of(context)!.error,
+                                  error.toString(),
+                                );
+                              } finally {}
                             },
                       child: Text(AppLocalizations.of(context)!.retrieve),
                     ),

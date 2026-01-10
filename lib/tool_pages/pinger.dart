@@ -117,7 +117,7 @@ class PingerPageState extends State<PingerPage> {
                     showCursor: true,
                     maxLines: 1,
                     validator: (String? value) {
-                      if (value == null || value.isEmpty) {
+                      if ((value == null) || value.isEmpty) {
                         return AppLocalizations.of(
                           context,
                         )!.enter_a_host_or_ip_address;
@@ -137,16 +137,32 @@ class PingerPageState extends State<PingerPage> {
                         onPressed: _isPinging
                             ? null
                             : () async {
-                                await _ping();
+                                try {
+                                  await _ping();
+                                } catch (error) {
+                                  showMessageDialog(
+                                    AppLocalizations.of(
+                                      navigatorKey.currentContext!,
+                                    )!.error,
+                                    error.toString(),
+                                  );
+                                } finally {}
                               },
                         child: Text(AppLocalizations.of(context)!.ping),
                       ),
                       ElevatedButton(
                         onPressed: _isPinging
                             ? () {
-                                setState(() {
-                                  _isPinging = false;
-                                });
+                                try {
+                                  setState(() {
+                                    _isPinging = false;
+                                  });
+                                } catch (error) {
+                                  showMessageDialog(
+                                    AppLocalizations.of(context)!.error,
+                                    error.toString(),
+                                  );
+                                } finally {}
                               }
                             : null,
                         child: Text(AppLocalizations.of(context)!.stop),

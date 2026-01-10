@@ -433,16 +433,30 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                   onPressed: _isScanning
                       ? null
                       : () {
-                          _scanMDNS();
+                          try {
+                            _scanMDNS();
+                          } catch (error) {
+                            showMessageDialog(
+                              AppLocalizations.of(context)!.error,
+                              error.toString(),
+                            );
+                          } finally {}
                         },
                   child: Text(AppLocalizations.of(context)!.scan),
                 ),
                 ElevatedButton(
                   onPressed: _isScanning
                       ? () {
-                          setState(() {
-                            _isScanning = false;
-                          });
+                          try {
+                            setState(() {
+                              _isScanning = false;
+                            });
+                          } catch (error) {
+                            showMessageDialog(
+                              AppLocalizations.of(context)!.error,
+                              error.toString(),
+                            );
+                          } finally {}
                         }
                       : null,
                   child: Text(AppLocalizations.of(context)!.stop),

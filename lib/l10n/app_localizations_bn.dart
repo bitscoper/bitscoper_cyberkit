@@ -70,7 +70,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get calculated => 'ক্যালকুলেটেড';
 
   @override
-  String get change_language => 'লোক্যাল ইংরেজিতে পরিবর্তন';
+  String get change_locale => 'লোক্যাল পরিবর্তন';
 
   @override
   String get check_version => 'চেক সংস্করণ';

@@ -20,7 +20,7 @@
   "bluetooth_low_energy_scanner": "ব্লুটুথ লো এনার্জি স্ক্যানার",
   "broadcast_address": "ব্রডকাস্ট অ্যাড্রেস",
   "calculated": "ক্যালকুলেটেড",
-  "change_language": "লোক্যাল ইংরেজিতে পরিবর্তন",
+  "change_locale": "লোক্যাল পরিবর্তন",
   "check_version": "চেক সংস্করণ",
   "checking_version": "সংস্করণ চেক করা হচ্ছে ...",
   "circle": "বৃত্তাকার",
