@@ -50,17 +50,27 @@ class _ToolCardWidget extends StatelessWidget {
         onTap: () async {
           try {
             if (permissionList.isEmpty) {
-              Navigator.push(context, MaterialPageRoute(builder: (_) => page));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (BuildContext context) => page),
+              );
               return;
             }
 
             await requestPermissions(
               permissionList.whereType<Permission>().toList(),
               () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => page),
-                );
+                try {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (BuildContext context) => page),
+                  );
+                } catch (error) {
+                  showMessageDialog(
+                    AppLocalizations.of(navigatorKey.currentContext!)!.error,
+                    error.toString(),
+                  );
+                } finally {}
               },
             );
           } catch (error) {
