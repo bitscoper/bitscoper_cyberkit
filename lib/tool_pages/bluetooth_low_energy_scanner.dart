@@ -44,18 +44,25 @@ class BluetoothLowEnergyScannerPageState
 
       _scanSubscription = FlutterBluePlus.onScanResults.listen(
         (List<ScanResult> scanResults) {
-          if (scanResults.isNotEmpty) {
-            setState(() {
-              for (final ScanResult scanResult in scanResults) {
-                if (!_scanResults.any(
-                  (ScanResult result_) =>
-                      (result_.device.remoteId == scanResult.device.remoteId),
-                )) {
-                  _scanResults.add(scanResult);
+          try {
+            if (scanResults.isNotEmpty) {
+              setState(() {
+                for (final ScanResult scanResult in scanResults) {
+                  if (!_scanResults.any(
+                    (ScanResult result_) =>
+                        (result_.device.remoteId == scanResult.device.remoteId),
+                  )) {
+                    _scanResults.add(scanResult);
+                  }
                 }
-              }
-            });
-          }
+              });
+            }
+          } catch (error) {
+            showMessageDialog(
+              AppLocalizations.of(navigatorKey.currentContext!)!.error,
+              error.toString(),
+            );
+          } finally {}
         },
         onError: (error) {
           showMessageDialog(

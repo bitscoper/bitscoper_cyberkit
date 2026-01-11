@@ -14,42 +14,42 @@ dependencies:
   connectivity_plus: null
   crypto: null
   cvss_vulnerability_scoring: null
-  dart_ping: null
-  dart_ping_ios: null
-  dnsolve: null
-  dynamic_color: null
+  dart_ping: null # !Web
+  dart_ping_ios: null # Extends dart_ping for iOS
+  dnsolve: null # !macOS
+  dynamic_color: null # !iOS !Web
   file_picker: null
   flutter:
     sdk: flutter
   flutter_blue_plus: null
   flutter_colorpicker: null
-  flutter_local_notifications: null
+  flutter_local_notifications: null # !Web
   flutter_localizations:
     sdk: flutter
-  flutter_native_splash: null
+  flutter_native_splash: null # !Linux !maxOS !Windows
   flutter_staggered_grid_view: null
   flutter_traceroute:
     git:
-      url: https://github.com/Koizeay/flutter_traceroute.git
+      url: https://github.com/Koizeay/flutter_traceroute.git # !Linux !macOS !Windows !Web
   google_fonts: null
   html: null
   http: null
   intl: any
   morse_code_translator: null
   network_info_plus: null
-  network_tools_flutter: 2.0.7 # Locked due to Two Call Stacks Being "Paused on Entry"
+  network_tools_flutter: 2.0.7 # Locked due to Two Call Stacks Being "Paused on Entry" # !Web
   ogp_data_extract: null
   package_info_plus: null
-  path_provider: null
-  permission_handler: null
+  path_provider: null # !Web
+  permission_handler: null # !Linux # !macOS
   qr_flutter: null
-  quick_actions: null
-  tcp_scanner: null
+  quick_actions: null # !Linux !macOS !Windows !Web
+  tcp_scanner: null # !Web
   timelines_plus: null
-  upnp_client: null
+  upnp_client: null # !Web
   url_launcher: null
   uuid: null
-  whois: null
+  whois: null # !Web
   yaml: null
 
 dev_dependencies:
