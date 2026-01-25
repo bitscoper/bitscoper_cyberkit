@@ -585,7 +585,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.6;
-				MARKETING_VERSION = 18.0.0;
+				MARKETING_VERSION = 18.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "bitscoper.Bitscoper-CyberKit";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -723,7 +723,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.6;
-				MARKETING_VERSION = 18.0.0;
+				MARKETING_VERSION = 18.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "bitscoper.Bitscoper-CyberKit";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -749,7 +749,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.6;
-				MARKETING_VERSION = 18.0.0;
+				MARKETING_VERSION = 18.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "bitscoper.Bitscoper-CyberKit";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
