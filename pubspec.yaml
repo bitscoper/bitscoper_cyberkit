@@ -3,7 +3,7 @@
 name: bitscoper_cyberkit
 description: A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner, mDNS Scanner, UPnP Scanner, Route Tracer, TCP Port Scanner, Pinger, File Hash Calculator, String Hash Calculator, CVSS Calculator, Base Encoder, Morse Code Translator, QR Code Generator, OGP Data Extractor, Series URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Details Viewer.
 publish_to: none
-version: 18.0.0+35
+version: 18.0.1+35
 
 environment:
   sdk: ">=3.10.1"
@@ -119,5 +119,5 @@ msix_config:
   build_windows: true
   windows_build_args: --release --obfuscate --split-debug-info=./build/Debug_Symbols/Windows/
   debug: false
-  msix_version: 18.0.0.0
+  msix_version: 18.0.1.0
   output_name: Bitscoper_CyberKit

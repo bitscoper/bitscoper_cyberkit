@@ -5,6 +5,8 @@ import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
 import 'package:flutter/material.dart';
 
+enum _MenuAction { toggleTheme, changeLocale }
+
 class _LanguageTile extends StatelessWidget {
   final String name;
   final String code;
@@ -101,17 +103,19 @@ class ApplicationToolBar extends StatelessWidget
       elevation: 4.0,
       title: Text(title),
       centerTitle: false,
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(
-            (Theme.of(context).brightness == Brightness.dark)
-                ? Icons.light_mode_rounded
-                : Icons.dark_mode_rounded,
-          ),
-          tooltip: AppLocalizations.of(context)!.toggle_theme,
-          onPressed: () {
+      actions: [
+        PopupMenuButton<_MenuAction>(
+          icon: const Icon(Icons.more_vert_rounded),
+          onSelected: (_MenuAction action) {
             try {
-              BitscoperCyberKitState.instance?.toggleTheme();
+              switch (action) {
+                case _MenuAction.toggleTheme:
+                  BitscoperCyberKitState.instance?.toggleTheme();
+                  break;
+                case _MenuAction.changeLocale:
+                  _showLocaleSelector(context);
+                  break;
+              }
             } catch (error) {
               showMessageDialog(
                 AppLocalizations.of(context)!.error,
@@ -119,20 +123,32 @@ class ApplicationToolBar extends StatelessWidget
               );
             } finally {}
           },
-        ),
-        IconButton(
-          icon: const Icon(Icons.language_rounded),
-          tooltip: AppLocalizations.of(context)!.change_locale,
-          onPressed: () {
-            try {
-              _showLocaleSelector(context);
-            } catch (error) {
-              showMessageDialog(
-                AppLocalizations.of(context)!.error,
-                error.toString(),
-              );
-            } finally {}
-          },
+          itemBuilder: (BuildContext context) => [
+            PopupMenuItem(
+              value: _MenuAction.toggleTheme,
+              child: Row(
+                children: [
+                  Icon(
+                    (Theme.of(context).brightness == Brightness.dark)
+                        ? Icons.light_mode_rounded
+                        : Icons.dark_mode_rounded,
+                  ),
+                  const SizedBox(width: 12),
+                  Text(AppLocalizations.of(context)!.toggle_theme),
+                ],
+              ),
+            ),
+            PopupMenuItem(
+              value: _MenuAction.changeLocale,
+              child: Row(
+                children: [
+                  const Icon(Icons.language_rounded),
+                  const SizedBox(width: 12),
+                  Text(AppLocalizations.of(context)!.change_locale),
+                ],
+              ),
+            ),
+          ],
         ),
       ],
       automaticallyImplyActions: true,
