@@ -418,10 +418,10 @@ jobs:
           python -m pip install --upgrade pip
         shell: bash
 
-      - name: Install AWS CLI
-        run: |
-          pip install --upgrade awscli
-        shell: bash
+      # - name: Install AWS CLI
+      #   run: |
+      #     pip install --upgrade awscli
+      #   shell: bash
 
       - name: Checkout Repository
         uses: actions/checkout@v6.0.1
@@ -433,16 +433,16 @@ jobs:
           docker push ghcr.io/bitscoper/bitscoper_cyberkit:latest
         shell: bash
 
-      - name: Build and Push Docker Image to Amazon ECR
-        run: |
-          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws configure set default.region us-east-1
-          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/n7r2f3q1
-          docker build -t bitscoper/bitscoper_cyberkit .
-          docker tag bitscoper/bitscoper_cyberkit:latest public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit:latest
-          docker push public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit:latest
-        shell: bash
+      # - name: Build and Push Docker Image to Amazon ECR
+      #   run: |
+      #     aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws configure set default.region us-east-1
+      #     aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/n7r2f3q1
+      #     docker build -t bitscoper/bitscoper_cyberkit .
+      #     docker tag bitscoper/bitscoper_cyberkit:latest public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit:latest
+      #     docker push public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit:latest
+      #   shell: bash
 
   # deploy-web-application-to-server:
   #   name: Deploy Web Application to Server

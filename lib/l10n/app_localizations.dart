@@ -560,13 +560,6 @@ abstract class AppLocalizations {
   /// **'IPv4 Subnet Scanner'**
   String get ipv4_subnet_scanner;
 
-  /// No description provided for @it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records.
-  ///
-  /// In en, this message translates to:
-  /// **'It takes time to retrieve all possible types of forward and reverse records.'**
-  String
-  get it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records;
-
   /// No description provided for @latest_version.
   ///
   /// In en, this message translates to:
@@ -777,6 +770,12 @@ abstract class AppLocalizations {
   /// **'Record Type'**
   String get record_type;
 
+  /// No description provided for @record_types.
+  ///
+  /// In en, this message translates to:
+  /// **'Record Types'**
+  String get record_types;
+
   /// No description provided for @records.
   ///
   /// In en, this message translates to:
@@ -848,6 +847,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select'**
   String get select;
+
+  /// No description provided for @select_at_least_one_record_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Select at least one record type!'**
+  String get select_at_least_one_record_type;
 
   /// No description provided for @select_files.
   ///
@@ -1006,6 +1011,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'TXT Record'**
   String get txt_record;
+
+  /// No description provided for @types.
+  ///
+  /// In en, this message translates to:
+  /// **'Types'**
+  String get types;
 
   /// No description provided for @unknown.
   ///

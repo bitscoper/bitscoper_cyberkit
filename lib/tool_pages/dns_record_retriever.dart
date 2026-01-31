@@ -9,6 +9,7 @@ import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
 import 'package:dnsolve/dnsolve.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DNSRecordRetrieverPage extends StatefulWidget {
   const DNSRecordRetrieverPage({super.key});
@@ -34,12 +35,24 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
   late StreamController<String> _recordTypeController;
 
   DNSProvider _recordProvider = DNSProvider.cloudflare;
+  List<RecordType> _selectedRecordTypes = RecordType.values.toList();
   bool _isRetrieving = false;
   List<DNSRecord> _records = [];
 
   Future<void> retrieveDNSRecord() async {
     if (_formKey.currentState!.validate()) {
       try {
+        if (_selectedRecordTypes.isEmpty) {
+          showMessageDialog(
+            AppLocalizations.of(navigatorKey.currentContext!)!.error,
+            AppLocalizations.of(
+              navigatorKey.currentContext!,
+            )!.select_at_least_one_record_type,
+          );
+
+          return;
+        }
+
         _recordTypeController = StreamController<String>.broadcast();
 
         setState(() {
@@ -47,7 +60,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
           _records = [];
         });
 
-        for (RecordType recordType in RecordType.values) {
+        for (RecordType recordType in _selectedRecordTypes) {
           _recordTypeController.add(
             recordType.toString().replaceFirst('RecordType.', '').toUpperCase(),
           );
@@ -111,6 +124,11 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
 
   @override
   Widget build(BuildContext context) {
+    final NumberFormat numberFormat = NumberFormat(
+      '#',
+      AppLocalizations.of(context)!.localeName,
+    );
+
     return Scaffold(
       appBar: ApplicationToolBar(
         title: AppLocalizations.of(context)!.dns_record_retriever,
@@ -152,28 +170,148 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                     },
                   ),
                   const SizedBox(height: 16.0),
-                  DropdownButtonFormField<DNSProvider>(
-                    decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)!.dns_provider,
-                    ),
-                    initialValue: _recordProvider,
-                    onChanged: (DNSProvider? newValue) {
-                      setState(() {
-                        _recordProvider = newValue!;
-                      });
-                    },
-                    items: DNSProvider.values
-                        .map<DropdownMenuItem<DNSProvider>>((
-                          DNSProvider value,
-                        ) {
-                          return DropdownMenuItem<DNSProvider>(
-                            value: value,
-                            child: Text(
-                              _capitalize(value.toString().split('.').last),
-                            ),
-                          );
-                        })
-                        .toList(),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: DropdownButtonFormField<DNSProvider>(
+                          decoration: InputDecoration(
+                            labelText: AppLocalizations.of(
+                              context,
+                            )!.dns_provider,
+                          ),
+                          initialValue: _recordProvider,
+                          onChanged: (DNSProvider? newValue) {
+                            setState(() {
+                              _recordProvider = newValue!;
+                            });
+                          },
+                          items: DNSProvider.values
+                              .map<DropdownMenuItem<DNSProvider>>((
+                                DNSProvider value,
+                              ) {
+                                return DropdownMenuItem<DNSProvider>(
+                                  value: value,
+                                  child: Text(
+                                    _capitalize(
+                                      value.toString().split('.').last,
+                                    ),
+                                  ),
+                                );
+                              })
+                              .toList(),
+                        ),
+                      ),
+                      const SizedBox(width: 16.0),
+                      Expanded(
+                        flex: 1,
+                        child: OutlinedButton.icon(
+                          icon: const Icon(Icons.tune_rounded),
+                          label: Text(
+                            "${numberFormat.format(_selectedRecordTypes.length)} ${AppLocalizations.of(context)!.types}",
+                          ),
+                          onPressed: () async {
+                            try {
+                              await showDialog<void>(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return StatefulBuilder(
+                                    builder:
+                                        (
+                                          BuildContext context,
+                                          void Function(void Function())
+                                          setDialogState,
+                                        ) {
+                                          return AlertDialog(
+                                            title: Text(
+                                              "${numberFormat.format(_selectedRecordTypes.length)} ${AppLocalizations.of(context)!.record_types}",
+                                            ),
+                                            content: SizedBox(
+                                              width: double.maxFinite,
+                                              child: SingleChildScrollView(
+                                                child: Wrap(
+                                                  spacing: 8,
+                                                  runSpacing: 8,
+                                                  children: RecordType.values.map((
+                                                    RecordType type,
+                                                  ) {
+                                                    final bool selected =
+                                                        _selectedRecordTypes
+                                                            .contains(type);
+
+                                                    return FilterChip(
+                                                      label: Text(
+                                                        type
+                                                            .toString()
+                                                            .split('.')
+                                                            .last
+                                                            .toUpperCase(),
+                                                      ),
+                                                      selected: selected,
+                                                      onSelected: (bool value) {
+                                                        try {
+                                                          setDialogState(() {
+                                                            if (value) {
+                                                              _selectedRecordTypes
+                                                                  .add(type);
+                                                            } else {
+                                                              _selectedRecordTypes
+                                                                  .remove(type);
+                                                            }
+                                                          });
+                                                          setState(() {});
+                                                        } catch (error) {
+                                                          showMessageDialog(
+                                                            AppLocalizations.of(
+                                                              context,
+                                                            )!.error,
+                                                            error.toString(),
+                                                          );
+                                                        } finally {}
+                                                      },
+                                                    );
+                                                  }).toList(),
+                                                ),
+                                              ),
+                                            ),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                onPressed: () {
+                                                  try {
+                                                    Navigator.of(context).pop();
+                                                  } catch (error) {
+                                                    showMessageDialog(
+                                                      AppLocalizations.of(
+                                                        context,
+                                                      )!.error,
+                                                      error.toString(),
+                                                    );
+                                                  } finally {}
+                                                },
+                                                child: Text(
+                                                  AppLocalizations.of(
+                                                    context,
+                                                  )!.ok,
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                  );
+                                },
+                              );
+                            } catch (error) {
+                              showMessageDialog(
+                                AppLocalizations.of(
+                                  navigatorKey.currentContext!,
+                                )!.error,
+                                error.toString(),
+                              );
+                            } finally {}
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 16.0),
                   Center(
@@ -219,86 +357,80 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
               ),
             ),
             const SizedBox(height: 16.0),
-            if (_isRetrieving)
-              Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    StreamBuilder<String>(
-                      stream: _recordTypeController.stream,
-                      builder:
-                          (
-                            BuildContext context,
-                            AsyncSnapshot<String> snapshot,
-                          ) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return Text(AppLocalizations.of(context)!.wait);
-                            } else if (snapshot.hasData &&
-                                snapshot.data!.isNotEmpty) {
-                              return Text(
-                                '${AppLocalizations.of(context)!.retrieving} ${snapshot.data} ${AppLocalizations.of(context)!.records}',
-                              );
-                            } else if (snapshot.hasError) {
-                              showMessageDialog(
-                                AppLocalizations.of(context)!.error,
-                                snapshot.toString(),
-                              );
+            _isRetrieving
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Center(
+                        child: StreamBuilder<String>(
+                          stream: _recordTypeController.stream,
+                          builder:
+                              (
+                                BuildContext context,
+                                AsyncSnapshot<String> snapshot,
+                              ) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Text(
+                                    AppLocalizations.of(context)!.wait,
+                                  );
+                                } else if (snapshot.hasData &&
+                                    snapshot.data!.isNotEmpty) {
+                                  return Text(
+                                    '${AppLocalizations.of(context)!.retrieving} ${snapshot.data} ${AppLocalizations.of(context)!.records}',
+                                  );
+                                } else if (snapshot.hasError) {
+                                  showMessageDialog(
+                                    AppLocalizations.of(context)!.error,
+                                    snapshot.toString(),
+                                  );
 
-                              return const SizedBox();
-                            } else {
-                              return const SizedBox();
-                            }
-                          },
-                    ),
-                    const SizedBox(height: 16.0),
-                    const CircularProgressIndicator(),
-                  ],
-                ),
-              )
-            else
-              _records.isEmpty
-                  ? Center(
-                      child: Text(
-                        AppLocalizations.of(
-                          context,
-                        )!.it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records,
-                        textAlign: TextAlign.center,
+                                  return const SizedBox();
+                                } else {
+                                  return const SizedBox();
+                                }
+                              },
+                        ),
                       ),
-                    )
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: _records.map((record) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 8),
-                          child: Card(
-                            child: ListTile(
-                              title: Text(record.type),
-                              subtitle: Text(record.record),
-                              trailing: IconButton(
-                                icon: const Icon(Icons.copy_rounded),
-                                onPressed: () {
-                                  try {
-                                    copyToClipboard(
-                                      '${record.type} ${AppLocalizations.of(context)!.dns_record}',
-                                      record.record,
-                                    );
-                                  } catch (error) {
-                                    showMessageDialog(
-                                      AppLocalizations.of(context)!.error,
-                                      error.toString(),
-                                    );
-                                  } finally {}
-                                },
-                                tooltip: AppLocalizations.of(
-                                  context,
-                                )!.copy_to_clipboard,
-                              ),
-                            ),
-                          ),
-                        );
-                      }).toList(),
+                      const SizedBox(height: 16.0),
+                      const Center(child: CircularProgressIndicator()),
+                      const SizedBox(height: 16.0),
+                    ],
+                  )
+                : SizedBox(),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: _records.map((record) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Card(
+                    child: ListTile(
+                      title: Text(record.type),
+                      subtitle: Text(record.record),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.copy_rounded),
+                        onPressed: () {
+                          try {
+                            copyToClipboard(
+                              '${record.type} ${AppLocalizations.of(context)!.dns_record}',
+                              record.record,
+                            );
+                          } catch (error) {
+                            showMessageDialog(
+                              AppLocalizations.of(context)!.error,
+                              error.toString(),
+                            );
+                          } finally {}
+                        },
+                        tooltip: AppLocalizations.of(
+                          context,
+                        )!.copy_to_clipboard,
+                      ),
                     ),
+                  ),
+                );
+              }).toList(),
+            ),
           ],
         ),
       ),
