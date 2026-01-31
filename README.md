@@ -27,7 +27,7 @@ A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner
         </td>
         <td>
           <a href="https://github.com/bitscoper/Bitscoper_CyberKit/pkgs/container/bitscoper_cyberkit/">
-            <img src="3rd_Party_Service_Logos/Docker.svg" height="48" alt="GHCR" />
+            <img src="3rd_Party_Service_Logos/Docker.svg" height="48" alt="GitHub Container Registry" />
           </a>
         </td>
         <td>
@@ -109,7 +109,7 @@ Web_Application --> My_Server[My Server]
     </tr>
     <tr>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Bitscoper_CyberKit-18.0.1-x64.AppImage">Bitscoper_CyberKit-18.0.1-x64.AppImage</a>
+        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Bitscoper_CyberKit-18.1.0-x64.AppImage">Bitscoper_CyberKit-18.1.0-x64.AppImage</a>
       </td>
     </tr>
     <tr>
@@ -197,12 +197,14 @@ Web_Application --> My_Server[My Server]
       <td colspan="2" rowspan="2">-</td>
       <td rowspan="2">-</td>
       <td>
-        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/pkgs/container/bitscoper_cyberkit/">GHCR</a>
+        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/pkgs/container/bitscoper_cyberkit/">GitHub Container Registry</a>
       </td>
     </tr>
     <tr>
       <td>
         <a href="https://gallery.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit/">Amazon ECR Public Gallery</a>
+        <br />
+        <i>(Free Tier Expired)</i>
       </td>
     </tr>
   </table>
@@ -211,7 +213,7 @@ Web_Application --> My_Server[My Server]
 > [!IMPORTANT]
 > Versions submitted to Google Play and Microsoft Store may vary and be delayed.
 
-### From GHCR
+### From GitHub Container Registry
 
 #### Pull
 
@@ -230,6 +232,8 @@ docker run -it --rm ghcr.io/bitscoper/bitscoper_cyberkit:latest
 ```
 
 ### From Amazon ECR Public Gallery
+
+_(Free Tier Expired)_
 
 #### Pull
 

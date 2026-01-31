@@ -245,11 +245,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ipv4_subnet_scanner => 'IPv4 Subnet Scanner';
 
   @override
-  String
-  get it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records =>
-      'It takes time to retrieve all possible types of forward and reverse records.';
-
-  @override
   String get latest_version => 'Latest Version';
 
   @override
@@ -356,6 +351,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get record_type => 'Record Type';
 
   @override
+  String get record_types => 'Record Types';
+
+  @override
   String get records => 'Records ...';
 
   @override
@@ -390,6 +388,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get select => 'Select';
+
+  @override
+  String get select_at_least_one_record_type =>
+      'Select at least one record type!';
 
   @override
   String get select_files => 'Select Files';
@@ -476,6 +478,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get txt_record => 'TXT Record';
+
+  @override
+  String get types => 'Types';
 
   @override
   String get unknown => 'Unknown';

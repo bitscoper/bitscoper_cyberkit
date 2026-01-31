@@ -70,7 +70,7 @@ Future<void> sendNotification({
         );
 
     await flutterLocalNotificationsPlugin.initialize(
-      initializationSettings,
+      settings: initializationSettings,
       onDidReceiveNotificationResponse:
           (NotificationResponse notificationResponse) async {
             final String? payload = notificationResponse.payload;
@@ -168,10 +168,10 @@ Future<void> sendNotification({
     );
 
     await flutterLocalNotificationsPlugin.show(
-      (DateTime.now().millisecondsSinceEpoch / 1000).toInt(),
-      title,
-      body,
-      notificationDetails,
+      id: (DateTime.now().millisecondsSinceEpoch / 1000).toInt(),
+      title: title,
+      body: body,
+      notificationDetails: notificationDetails,
       payload: payload,
     );
   });

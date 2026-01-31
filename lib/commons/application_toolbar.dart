@@ -55,7 +55,7 @@ class ApplicationToolBar extends StatelessWidget
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: <Widget>[
                 const SizedBox(height: 8.0),
                 Center(
                   child: Container(
@@ -80,7 +80,7 @@ class ApplicationToolBar extends StatelessWidget
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Column(
-                    children: [
+                    children: <Widget>[
                       _LanguageTile(name: "English", code: "en"),
                       _LanguageTile(name: "বাংলা", code: "bn"),
                     ],
@@ -103,7 +103,7 @@ class ApplicationToolBar extends StatelessWidget
       elevation: 4.0,
       title: Text(title),
       centerTitle: false,
-      actions: [
+      actions: <Widget>[
         PopupMenuButton<_MenuAction>(
           icon: const Icon(Icons.more_vert_rounded),
           onSelected: (_MenuAction action) {
@@ -127,7 +127,7 @@ class ApplicationToolBar extends StatelessWidget
             PopupMenuItem(
               value: _MenuAction.toggleTheme,
               child: Row(
-                children: [
+                children: <Widget>[
                   Icon(
                     (Theme.of(context).brightness == Brightness.dark)
                         ? Icons.light_mode_rounded
@@ -141,7 +141,7 @@ class ApplicationToolBar extends StatelessWidget
             PopupMenuItem(
               value: _MenuAction.changeLocale,
               child: Row(
-                children: [
+                children: <Widget>[
                   const Icon(Icons.language_rounded),
                   const SizedBox(width: 12),
                   Text(AppLocalizations.of(context)!.change_locale),

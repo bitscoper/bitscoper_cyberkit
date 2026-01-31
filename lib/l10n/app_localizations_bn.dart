@@ -246,11 +246,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get ipv4_subnet_scanner => 'IPv4 সাবনেট স্ক্যানার';
 
   @override
-  String
-  get it_takes_time_to_retrieve_all_possible_types_of_forward_and_reverse_records =>
-      'সম্ভাব্য সকল ধরনের ফরওয়ার্ড ও রিভার্স রেকর্ডস রিট্রিভ করতে সময়ের প্রয়োজন।';
-
-  @override
   String get latest_version => 'সর্বশেষ সংস্করণ';
 
   @override
@@ -359,6 +354,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get record_type => 'রেকর্ড টাইপ';
 
   @override
+  String get record_types => 'ধরনের রেকর্ড';
+
+  @override
   String get records => 'রেকর্ডস ...';
 
   @override
@@ -393,6 +391,10 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get select => 'নির্বাচন';
+
+  @override
+  String get select_at_least_one_record_type =>
+      'অন্তত একটি রেকর্ড টাইপ নির্বাচন করুন!';
 
   @override
   String get select_files => 'সিলেক্ট ফাইলস';
@@ -480,6 +482,9 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get txt_record => 'টিএক্সটি রেকর্ড';
+
+  @override
+  String get types => 'ধরন';
 
   @override
   String get unknown => 'অজানা';
