@@ -354,7 +354,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                       padding: const EdgeInsets.all(24),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
+                        children: <Widget>[
                           Container(
                             padding: const EdgeInsets.all(24),
                             decoration: BoxDecoration(
@@ -388,7 +388,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                           SizedBox(height: 4.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
+                            children: <Widget>[
                               Flexible(child: SelectableText(_vectorString)),
                               IconButton(
                                 icon: const Icon(Icons.copy, size: 16),

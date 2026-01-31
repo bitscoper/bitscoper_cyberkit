@@ -163,7 +163,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(
-                    children: [
+                    children: <Widget>[
                       Expanded(
                         flex: 3,
                         child: Padding(
