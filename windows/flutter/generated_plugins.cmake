@@ -5,6 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus
   dynamic_color
+  file_selector_windows
   flutter_blue_plus_winrt
   nsd_windows
   permission_handler_windows

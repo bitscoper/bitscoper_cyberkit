@@ -205,8 +205,8 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                       const SizedBox(width: 16.0),
                       Expanded(
                         flex: 1,
-                        child: OutlinedButton.icon(
-                          icon: const Icon(Icons.tune_rounded),
+                        child: ElevatedButton.icon(
+                          icon: const Icon(Icons.checklist_rounded),
                           label: Text(
                             "${numberFormat.format(_selectedRecordTypes.length)} ${AppLocalizations.of(context)!.types}",
                           ),
