@@ -368,6 +368,12 @@ abstract class AppLocalizations {
   /// **'Elapsed Time'**
   String get elapsed_time;
 
+  /// No description provided for @embed_image.
+  ///
+  /// In en, this message translates to:
+  /// **'Embed Image'**
+  String get embed_image;
+
   /// No description provided for @enter_a_domain_name.
   ///
   /// In en, this message translates to:
@@ -933,6 +939,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Stop'**
   String get stop;
+
+  /// No description provided for @string.
+  ///
+  /// In en, this message translates to:
+  /// **'String'**
+  String get string;
 
   /// No description provided for @string_hash_calculator.
   ///

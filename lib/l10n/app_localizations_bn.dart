@@ -147,6 +147,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get elapsed_time => 'সময়';
 
   @override
+  String get embed_image => 'ছবি এম্বেড করুন';
+
+  @override
   String get enter_a_domain_name => 'একটা ডোমেইন নেইম লিখুন!';
 
   @override
@@ -441,6 +444,9 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get stop => 'স্টপ';
+
+  @override
+  String get string => 'ট্রিং';
 
   @override
   String get string_hash_calculator => 'স্ট্রিং হ্যাশ ক্যালকুলেটর';

@@ -1,6 +1,7 @@
 /* By Abdullah As-Sadeed */
 
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
+import 'package:bitscoper_cyberkit/commons/copy_to_clipboard.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
@@ -114,6 +115,22 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
                       hintText: AppLocalizations.of(
                         context,
                       )!.abdullah_as_sadeed.toUpperCase(),
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.copy_rounded),
+                        onPressed: () {
+                          try {
+                            copyToClipboard(
+                              AppLocalizations.of(context)!.string,
+                              _stringEditingController.text,
+                            );
+                          } catch (error) {
+                            showMessageDialog(
+                              AppLocalizations.of(context)!.error,
+                              error.toString(),
+                            );
+                          } finally {}
+                        },
+                      ),
                     ),
                     showCursor: true,
                     maxLines: null,
@@ -145,6 +162,22 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
                   labelText: AppLocalizations.of(context)!.morse_code,
                   hintText:
                       '.- -... -.. ..- .-.. .-.. .- .... / .- ... -....- ... .- -.. . . -..',
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.copy_rounded),
+                    onPressed: () {
+                      try {
+                        copyToClipboard(
+                          AppLocalizations.of(context)!.morse_code,
+                          _morseCodeController.text,
+                        );
+                      } catch (error) {
+                        showMessageDialog(
+                          AppLocalizations.of(context)!.error,
+                          error.toString(),
+                        );
+                      } finally {}
+                    },
+                  ),
                 ),
                 showCursor: true,
                 maxLines: null,
@@ -169,5 +202,3 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
     );
   }
 }
-
-// TODO: Add Copy Buttons
