@@ -34,6 +34,7 @@ dependencies:
   google_fonts: null
   html: null
   http: null
+  image_picker: null
   intl: any
   morse_code_translator: null
   network_info_plus: null

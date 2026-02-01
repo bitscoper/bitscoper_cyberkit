@@ -147,6 +147,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get elapsed_time => 'Elapsed Time';
 
   @override
+  String get embed_image => 'Embed Image';
+
+  @override
   String get enter_a_domain_name => 'Enter a domain name!';
 
   @override
@@ -437,6 +440,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get stop => 'Stop';
+
+  @override
+  String get string => 'String';
 
   @override
   String get string_hash_calculator => 'String Hash Calculator';

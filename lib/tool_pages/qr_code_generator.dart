@@ -1,10 +1,13 @@
 /* By Abdullah As-Sadeed */
 
+import 'dart:typed_data';
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
+import 'package:bitscoper_cyberkit/main.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -30,12 +33,13 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
 
   int _version = QrVersions.auto;
   int _errorCorrectionLevel = QrErrorCorrectLevel.H;
+  Color _backgroundColor = Colors.white;
   QrEyeShape _eyeShape = QrEyeShape.square;
   QrDataModuleShape _dataModuleShape = QrDataModuleShape.square;
   Color _eyeColor = Colors.black;
   Color _dataModuleColor = Colors.black;
-  Color _backgroundColor = Colors.white;
-  bool _gapless = false;
+  bool _gaplessness = false;
+  Uint8List? _embeddedImageBytes;
   final String _semanticsLabel = 'Generated QR Code';
 
   void pickColor(
@@ -93,6 +97,26 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
     super.dispose();
   }
 
+  Future<void> _pickEmbeddedImageFile() async {
+    try {
+      final ImagePicker imagePicker = ImagePicker();
+      final XFile? imageFile = await imagePicker.pickImage(
+        source: ImageSource.gallery,
+      );
+
+      if (imageFile != null) {
+        _embeddedImageBytes = await imageFile.readAsBytes();
+      }
+
+      setState(() {});
+    } catch (error) {
+      showMessageDialog(
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
+    } finally {}
+  }
+
   @override
   Widget build(BuildContext context) {
     final NumberFormat numberFormat = NumberFormat(
@@ -115,6 +139,10 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                   ? QrImageView(
                       version: _version,
                       errorCorrectionLevel: _errorCorrectionLevel,
+                      backgroundColor: _backgroundColor,
+                      padding: EdgeInsets.all(
+                        double.tryParse(_paddingEditingController.text.trim())!,
+                      ),
                       eyeStyle: QrEyeStyle(
                         eyeShape: _eyeShape,
                         color: _eyeColor,
@@ -123,13 +151,13 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                         dataModuleShape: _dataModuleShape,
                         color: _dataModuleColor,
                       ),
-                      backgroundColor: _backgroundColor,
-                      gapless: _gapless,
-                      semanticsLabel: _semanticsLabel,
+                      gapless: _gaplessness,
                       data: _stringEditingController.text,
-                      padding: EdgeInsets.all(
-                        double.tryParse(_paddingEditingController.text.trim())!,
-                      ),
+                      embeddedImage: _embeddedImageBytes != null
+                          ? MemoryImage(_embeddedImageBytes!, scale: 1.0)
+                          : null,
+                      embeddedImageEmitsError: true,
+                      semanticsLabel: _semanticsLabel,
                     )
                   : Text(
                       AppLocalizations.of(
@@ -179,6 +207,14 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                           setState(() {});
                         }
                       },
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  Center(
+                    child: ElevatedButton.icon(
+                      onPressed: _pickEmbeddedImageFile,
+                      icon: const Icon(Icons.image_rounded),
+                      label: Text(AppLocalizations.of(context)!.embed_image),
                     ),
                   ),
                   const SizedBox(height: 16.0),
@@ -480,10 +516,10 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                               child: Text(AppLocalizations.of(context)!.true_),
                             ),
                           ],
-                          initialValue: _gapless,
+                          initialValue: _gaplessness,
                           onChanged: (Object? value) {
                             setState(() {
-                              _gapless = value as bool;
+                              _gaplessness = value as bool;
                             });
                           },
                         ),
@@ -540,5 +576,3 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
     );
   }
 }
-
-// TODO: Add EmbeddedImage

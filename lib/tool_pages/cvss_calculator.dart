@@ -391,7 +391,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                             children: <Widget>[
                               Flexible(child: SelectableText(_vectorString)),
                               IconButton(
-                                icon: const Icon(Icons.copy, size: 16),
+                                icon: const Icon(Icons.copy_rounded, size: 16),
                                 onPressed: () {
                                   try {
                                     copyToClipboard(
