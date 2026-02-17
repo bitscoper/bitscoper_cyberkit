@@ -548,5 +548,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'You are using the latest version.';
 
   @override
+  String get your_preference_has_been_saved =>
+      'Your preference has been saved.';
+
+  @override
   String get your_version => 'Your Version';
 }

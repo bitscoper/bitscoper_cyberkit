@@ -32,9 +32,10 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _hostEditingController = TextEditingController();
+  final TextEditingController _providerEditingController =
+      TextEditingController();
   late StreamController<String> _recordTypeController;
 
-  DNSProvider _recordProvider = DNSProvider.cloudflare;
   List<RecordType> _selectedRecordTypes = RecordType.values.toList();
   bool _isRetrieving = false;
   List<DNSRecord> _records = [];
@@ -53,6 +54,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
           return;
         }
 
+        final DNSolve dnsolve = DNSolve();
         _recordTypeController = StreamController<String>.broadcast();
 
         setState(() {
@@ -65,11 +67,11 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
             recordType.toString().replaceFirst('RecordType.', '').toUpperCase(),
           );
 
-          final ResolveResponse response = await DNSolve().lookup(
+          final ResolveResponse response = await dnsolve.lookup(
             _hostEditingController.text.trim(),
             dnsSec: true,
             type: recordType,
-            provider: _recordProvider,
+            server: DNSServer.custom(_providerEditingController.text.trim()),
           );
 
           if (response.answer!.records != null) {
@@ -94,6 +96,8 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
           body: AppLocalizations.of(navigatorKey.currentContext!)!.retrieved,
           payload: "DNS_Record_Retriever",
         );
+
+        dnsolve.dispose();
       } catch (error) {
         showMessageDialog(
           AppLocalizations.of(navigatorKey.currentContext!)!.error,
@@ -110,13 +114,10 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
     }
   }
 
-  String _capitalize(String string) {
-    return string[0].toUpperCase() + string.substring(1);
-  }
-
   @override
   void dispose() {
     _hostEditingController.dispose();
+    _providerEditingController.dispose();
     _recordTypeController.close();
 
     super.dispose();
@@ -174,32 +175,31 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                     children: <Widget>[
                       Expanded(
                         flex: 1,
-                        child: DropdownButtonFormField<DNSProvider>(
+                        child: TextFormField(
+                          controller: _providerEditingController,
+                          keyboardType: TextInputType.url,
                           decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
                             labelText: AppLocalizations.of(
                               context,
                             )!.dns_provider,
+                            hintText: '9.9.9.9',
                           ),
-                          initialValue: _recordProvider,
-                          onChanged: (DNSProvider? newValue) {
-                            setState(() {
-                              _recordProvider = newValue!;
-                            });
+                          showCursor: true,
+                          maxLines: 1,
+                          validator: (String? value) {
+                            if ((value == null) || value.isEmpty) {
+                              return AppLocalizations.of(
+                                context,
+                              )!.enter_a_host_or_ip_address;
+                            }
+
+                            return null;
                           },
-                          items: DNSProvider.values
-                              .map<DropdownMenuItem<DNSProvider>>((
-                                DNSProvider value,
-                              ) {
-                                return DropdownMenuItem<DNSProvider>(
-                                  value: value,
-                                  child: Text(
-                                    _capitalize(
-                                      value.toString().split('.').last,
-                                    ),
-                                  ),
-                                );
-                              })
-                              .toList(),
+                          onChanged: (String value) {},
+                          onFieldSubmitted: (String value) {
+                            retrieveDNSRecord();
+                          },
                         ),
                       ),
                       const SizedBox(width: 16.0),
