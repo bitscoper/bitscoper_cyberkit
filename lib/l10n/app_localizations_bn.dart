@@ -552,5 +552,9 @@ class AppLocalizationsBn extends AppLocalizations {
       'আপনি সর্বশেষ সংস্করণ ব্যবহার করছেন।';
 
   @override
+  String get your_preference_has_been_saved =>
+      'আপনার পছন্দ সংরক্ষণ করা হয়েছে।';
+
+  @override
   String get your_version => 'আপনার সংস্করণ';
 }

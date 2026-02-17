@@ -6,7 +6,7 @@ publish_to: none
 version: 18.1.0+35
 
 environment:
-  sdk: ">=3.10.7"
+  sdk: ">=3.11.0" # Flutter 3.41.0
 
 dependencies:
   async: any
@@ -45,6 +45,7 @@ dependencies:
   permission_handler: null # !Linux # !macOS
   qr_flutter: null
   quick_actions: null # !Linux !macOS !Windows !Web
+  shared_preferences: null
   tcp_scanner: null # !Web
   timelines_plus: null
   upnp_client: null # !Web
@@ -57,8 +58,6 @@ dev_dependencies:
   dashmon: null
   flutter_launcher_icons: null
   flutter_lints: null
-  flutter_test:
-    sdk: flutter
   msix: null
   rename: null
 

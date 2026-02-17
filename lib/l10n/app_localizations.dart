@@ -1144,6 +1144,12 @@ abstract class AppLocalizations {
   /// **'You are using the latest version.'**
   String get you_are_using_the_latest_version;
 
+  /// No description provided for @your_preference_has_been_saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Your preference has been saved.'**
+  String get your_preference_has_been_saved;
+
   /// No description provided for @your_version.
   ///
   /// In en, this message translates to:
