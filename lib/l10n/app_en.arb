@@ -174,6 +174,7 @@
   "@wifi_details_viewer": {},
   "@wifi_is_disconnected": {},
   "@you_are_using_the_latest_version": {},
+  "@your_preference_has_been_saved": {},
   "@your_version": {},
   "a_domain_name": "A Domain Name",
   "a_host_or_ip_address": "A Host or IP Address",
@@ -349,5 +350,6 @@
   "wifi_details_viewer": "Wi-Fi Details Viewer",
   "wifi_is_disconnected": "Wi-Fi is disconnected!",
   "you_are_using_the_latest_version": "You are using the latest version.",
+  "your_preference_has_been_saved": "Your preference has been saved.",
   "your_version": "Your Version"
 }

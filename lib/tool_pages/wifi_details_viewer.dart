@@ -25,7 +25,7 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
   }
 
   List<ConnectivityResult>? networkConnectivityResult;
-  final NetworkInfo _WiFiDetails = NetworkInfo();
+  final NetworkInfo _wifiDetails = NetworkInfo();
 
   String? _ssid,
       _bssid,
@@ -44,13 +44,13 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
       });
 
       if (networkConnectivityResult!.contains(ConnectivityResult.wifi)) {
-        _ssid = await _WiFiDetails.getWifiName();
-        _bssid = await _WiFiDetails.getWifiBSSID();
-        _ipAddress = await _WiFiDetails.getWifiIP();
-        _ipV6Address = await _WiFiDetails.getWifiIPv6();
-        _subnetMask = await _WiFiDetails.getWifiSubmask();
-        _broadcast = await _WiFiDetails.getWifiBroadcast();
-        _gatewayIPAddress = await _WiFiDetails.getWifiGatewayIP();
+        _ssid = await _wifiDetails.getWifiName();
+        _bssid = await _wifiDetails.getWifiBSSID();
+        _ipAddress = await _wifiDetails.getWifiIP();
+        _ipV6Address = await _wifiDetails.getWifiIPv6();
+        _subnetMask = await _wifiDetails.getWifiSubmask();
+        _broadcast = await _wifiDetails.getWifiBroadcast();
+        _gatewayIPAddress = await _wifiDetails.getWifiGatewayIP();
 
         setState(() {
           _ssid;
