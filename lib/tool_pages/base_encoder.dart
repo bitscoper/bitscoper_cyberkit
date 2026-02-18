@@ -28,7 +28,7 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
 
   late String _stringAsBase64;
 
-  final Map<String, String> bases = {
+  final Map<String, String> _bases = {
     'Binary (Base2)': base2,
     'Ternary (Base3)': base3,
     'Quaternary (Base4)': base4,
@@ -56,6 +56,8 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
         }
       });
     } catch (error) {
+      debugPrint(error.toString());
+
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
@@ -222,7 +224,7 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
             else
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: bases.entries.map((MapEntry<String, String> entry) {
+                children: _bases.entries.map((MapEntry<String, String> entry) {
                   String result = '';
 
                   try {
@@ -233,6 +235,8 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
                     );
                     result = converter(_stringAsBase64);
                   } catch (error) {
+                    debugPrint(error.toString());
+
                     showMessageDialog(
                       AppLocalizations.of(context)!.error,
                       error.toString(),
@@ -251,6 +255,8 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
                             try {
                               copyToClipboard(entry.key, result);
                             } catch (error) {
+                              debugPrint(error.toString());
+
                               showMessageDialog(
                                 AppLocalizations.of(context)!.error,
                                 error.toString(),

@@ -55,6 +55,8 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
         }
       });
     } catch (error) {
+      debugPrint(error.toString());
+
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
@@ -74,6 +76,8 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
         }
       });
     } catch (error) {
+      debugPrint(error.toString());
+
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
@@ -124,6 +128,8 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
                               _stringEditingController.text,
                             );
                           } catch (error) {
+                            debugPrint(error.toString());
+
                             showMessageDialog(
                               AppLocalizations.of(context)!.error,
                               error.toString(),
@@ -171,6 +177,8 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
                           _morseCodeController.text,
                         );
                       } catch (error) {
+                        debugPrint(error.toString());
+
                         showMessageDialog(
                           AppLocalizations.of(context)!.error,
                           error.toString(),

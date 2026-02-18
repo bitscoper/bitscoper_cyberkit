@@ -16,10 +16,13 @@ void copyToClipboard(String dataType, String string) {
           content: Text(
             '$dataType ${AppLocalizations.of(navigatorKey.currentContext!)!.copied_to_clipboard}',
           ),
+          showCloseIcon: true,
         ),
       );
     }
   } catch (error) {
+    debugPrint(error.toString());
+
     showMessageDialog(
       AppLocalizations.of(navigatorKey.currentContext!)!.error,
       error.toString(),

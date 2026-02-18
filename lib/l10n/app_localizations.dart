@@ -164,12 +164,6 @@ abstract class AppLocalizations {
   /// **'Availability Impact'**
   String get availability_impact;
 
-  /// No description provided for @available_update.
-  ///
-  /// In en, this message translates to:
-  /// **'Available Update'**
-  String get available_update;
-
   /// No description provided for @background.
   ///
   /// In en, this message translates to:
@@ -710,6 +704,12 @@ abstract class AppLocalizations {
   /// **'permissions will be used.'**
   String get permissions_will_be_used;
 
+  /// No description provided for @pick_an_image_file_to_embed_in_qr_code.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick an Image File to Embed in QR Code'**
+  String get pick_an_image_file_to_embed_in_qr_code;
+
   /// No description provided for @ping.
   ///
   /// In en, this message translates to:
@@ -823,6 +823,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'RSSI'**
   String get rssi;
+
+  /// No description provided for @save_qr_code.
+  ///
+  /// In en, this message translates to:
+  /// **'Save QR Code'**
+  String get save_qr_code;
 
   /// No description provided for @scan.
   ///
@@ -1035,12 +1041,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unknown'**
   String get unknown;
-
-  /// No description provided for @up_to_date.
-  ///
-  /// In en, this message translates to:
-  /// **'Up to Date'**
-  String get up_to_date;
 
   /// No description provided for @upnp_scanner.
   ///

@@ -26,45 +26,12 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
     super.initState();
   }
 
-  Future<void> _startScan() async {
-    try {
-      setState(() {
-        _isScanning = true;
-        _devices.clear();
-      });
-
-      _deviceDiscoverer = DeviceDiscoverer();
-      await _deviceDiscoverer!.start(
-        addressTypes: <InternetAddressType>[
-          InternetAddressType.IPv4,
-          InternetAddressType.IPv6,
-        ],
-      );
-      final List<Device> devices = await _deviceDiscoverer!.getDevices();
-
-      if (devices.isNotEmpty) {
-        setState(() {
-          for (final Device device in devices) {
-            if (!_devices.contains(device)) {
-              _devices.add(device);
-            }
-          }
-        });
-      }
-    } catch (error) {
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
-    } finally {
-      await _stopScan();
-    }
-  }
-
   Future<void> _stopScan() async {
     try {
       _deviceDiscoverer?.stop();
     } catch (error) {
+      debugPrint(error.toString());
+
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
@@ -84,6 +51,8 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
       return match?.group(1)?.trim() ??
           '${AppLocalizations.of(context)!.unknown} ${AppLocalizations.of(context)!.device}';
     } catch (error) {
+      debugPrint(error.toString());
+
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
@@ -105,6 +74,8 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
       final Uri uri = Uri.parse(match.group(1)!);
       return uri.host;
     } catch (error) {
+      debugPrint(error.toString());
+
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
@@ -145,6 +116,8 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
           .where((String line) => line.trim().isNotEmpty)
           .join('\n');
     } catch (error) {
+      debugPrint(error.toString());
+
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
@@ -222,7 +195,47 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 ElevatedButton(
-                  onPressed: _isScanning ? null : _startScan,
+                  onPressed: _isScanning
+                      ? null
+                      : () async {
+                          try {
+                            setState(() {
+                              _isScanning = true;
+                              _devices.clear();
+                            });
+
+                            _deviceDiscoverer = DeviceDiscoverer();
+                            await _deviceDiscoverer!.start(
+                              addressTypes: <InternetAddressType>[
+                                InternetAddressType.IPv4,
+                                InternetAddressType.IPv6,
+                              ],
+                            );
+                            final List<Device> devices =
+                                await _deviceDiscoverer!.getDevices();
+
+                            if (devices.isNotEmpty) {
+                              setState(() {
+                                for (final Device device in devices) {
+                                  if (!_devices.contains(device)) {
+                                    _devices.add(device);
+                                  }
+                                }
+                              });
+                            }
+                          } catch (error) {
+                            debugPrint(error.toString());
+
+                            showMessageDialog(
+                              AppLocalizations.of(
+                                navigatorKey.currentContext!,
+                              )!.error,
+                              error.toString(),
+                            );
+                          } finally {
+                            await _stopScan();
+                          }
+                        },
                   child: Text(AppLocalizations.of(context)!.scan),
                 ),
                 ElevatedButton(

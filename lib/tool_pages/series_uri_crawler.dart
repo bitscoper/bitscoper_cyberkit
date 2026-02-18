@@ -90,6 +90,8 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
           payload: "Series_URI_Crawler",
         );
       } catch (error) {
+        debugPrint(error.toString());
+
         showMessageDialog(
           AppLocalizations.of(navigatorKey.currentContext!)!.error,
           error.toString(),
@@ -279,6 +281,8 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                                 try {
                                   _crawl();
                                 } catch (error) {
+                                  debugPrint(error.toString());
+
                                   showMessageDialog(
                                     AppLocalizations.of(context)!.error,
                                     error.toString(),
@@ -295,6 +299,8 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                                     _isCrawling = false;
                                   });
                                 } catch (error) {
+                                  debugPrint(error.toString());
+
                                   showMessageDialog(
                                     AppLocalizations.of(context)!.error,
                                     error.toString(),
@@ -332,6 +338,8 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                                 entry.key,
                               );
                             } catch (error) {
+                              debugPrint(error.toString());
+
                               showMessageDialog(
                                 AppLocalizations.of(context)!.error,
                                 error.toString(),

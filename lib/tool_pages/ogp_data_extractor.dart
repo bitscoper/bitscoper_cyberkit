@@ -48,10 +48,12 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
             navigatorKey.currentContext!,
           )!.bitscoper_cyberkit,
           body: AppLocalizations.of(navigatorKey.currentContext!)!.extracted,
-          payload: "ogp_data_extractor",
+          payload: "OGP_Data_Extractor",
         );
       }
     } catch (error) {
+      debugPrint(error.toString());
+
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
@@ -74,6 +76,8 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
             try {
               copyToClipboard(title, value ?? 'N/A');
             } catch (error) {
+              debugPrint(error.toString());
+
               showMessageDialog(
                 AppLocalizations.of(context)!.error,
                 error.toString(),
@@ -146,6 +150,8 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
                               try {
                                 _retrieveOGPData();
                               } catch (error) {
+                                debugPrint(error.toString());
+
                                 showMessageDialog(
                                   AppLocalizations.of(context)!.error,
                                   error.toString(),

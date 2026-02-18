@@ -28,61 +28,6 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
   bool _isCalculating = false;
   List<Map<String, dynamic>> _hashValues = [];
 
-  Future<void> _calculateHashes(List<File> files) async {
-    try {
-      setState(() {
-        _isCalculating = true;
-      });
-
-      final List<Map<String, String>> hashValues = await Future.wait(
-        files.map((File file) async {
-          final Uint8List bytes = await file.readAsBytes();
-
-          final String md5Hash = md5.convert(bytes).toString();
-          final String sha1Hash = sha1.convert(bytes).toString();
-          final String sha224Hash = sha224.convert(bytes).toString();
-          final String sha512Hash = sha512.convert(bytes).toString();
-          final String sha256Hash = sha256.convert(bytes).toString();
-          final String sha384Hash = sha384.convert(bytes).toString();
-
-          return {
-            'File Name': file.path.split('/').last,
-            'MD5': md5Hash,
-            'SHA1': sha1Hash,
-            'SHA224': sha224Hash,
-            'SHA256': sha256Hash,
-            'SHA384': sha384Hash,
-            'SHA512': sha512Hash,
-          };
-        }),
-      );
-
-      setState(() {
-        _hashValues = hashValues;
-      });
-
-      await sendNotification(
-        title: AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.file_hash_calculator,
-        subtitle: AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.bitscoper_cyberkit,
-        body: AppLocalizations.of(navigatorKey.currentContext!)!.calculated,
-        payload: "File_Hash_Calculator",
-      );
-    } catch (error) {
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
-    } finally {
-      setState(() {
-        _isCalculating = false;
-      });
-    }
-  }
-
   @override
   void dispose() {
     super.dispose();
@@ -127,9 +72,67 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
                         files.add(file.readAsBytesSync());
                       }
 
-                      await _calculateHashes(selectedFiles);
+                      setState(() {
+                        _isCalculating = true;
+                      });
+
+                      final List<Map<String, String>> hashValues =
+                          await Future.wait(
+                            selectedFiles.map((File file) async {
+                              final Uint8List bytes = await file.readAsBytes();
+
+                              final String md5Hash = md5
+                                  .convert(bytes)
+                                  .toString();
+                              final String sha1Hash = sha1
+                                  .convert(bytes)
+                                  .toString();
+                              final String sha224Hash = sha224
+                                  .convert(bytes)
+                                  .toString();
+                              final String sha512Hash = sha512
+                                  .convert(bytes)
+                                  .toString();
+                              final String sha256Hash = sha256
+                                  .convert(bytes)
+                                  .toString();
+                              final String sha384Hash = sha384
+                                  .convert(bytes)
+                                  .toString();
+
+                              return {
+                                'File Name': file.path.split('/').last,
+                                'MD5': md5Hash,
+                                'SHA1': sha1Hash,
+                                'SHA224': sha224Hash,
+                                'SHA256': sha256Hash,
+                                'SHA384': sha384Hash,
+                                'SHA512': sha512Hash,
+                              };
+                            }),
+                          );
+
+                      setState(() {
+                        _hashValues = hashValues;
+                        _isCalculating = false;
+                      });
+
+                      await sendNotification(
+                        title: AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.file_hash_calculator,
+                        subtitle: AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.bitscoper_cyberkit,
+                        body: AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.calculated,
+                        payload: "File_Hash_Calculator",
+                      );
                     }
                   } catch (error) {
+                    debugPrint(error.toString());
+
                     showMessageDialog(
                       AppLocalizations.of(navigatorKey.currentContext!)!.error,
                       error.toString(),
@@ -185,6 +188,8 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
                                           entry.value,
                                         );
                                       } catch (error) {
+                                        debugPrint(error.toString());
+
                                         showMessageDialog(
                                           AppLocalizations.of(context)!.error,
                                           error.toString(),

@@ -105,6 +105,8 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
         _isUserPreferencesLoaded = true;
       });
     } catch (error) {
+      debugPrint(error.toString());
+
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
@@ -145,6 +147,8 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
         ]);
       }
     } catch (error) {
+      debugPrint(error.toString());
+
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
@@ -175,10 +179,13 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
                 navigatorKey.currentContext!,
               )!.your_preference_has_been_saved,
             ),
+            showCloseIcon: true,
           ),
         );
       }, debugLabel: "SnackBar after Preferring Locale");
     } catch (error) {
+      debugPrint(error.toString());
+
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
@@ -204,9 +211,12 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
               navigatorKey.currentContext!,
             )!.your_preference_has_been_saved,
           ),
+          showCloseIcon: true,
         ),
       );
     } catch (error) {
+      debugPrint(error.toString());
+
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),

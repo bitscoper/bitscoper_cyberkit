@@ -5,11 +5,12 @@ import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:widgets_to_image/widgets_to_image.dart';
 
 class QRCodeGeneratorPage extends StatefulWidget {
   const QRCodeGeneratorPage({super.key});
@@ -30,6 +31,8 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
   final TextEditingController _paddingEditingController = TextEditingController(
     text: '16',
   );
+  final WidgetsToImageController _widgetsToImageController =
+      WidgetsToImageController();
 
   int _version = QrVersions.auto;
   int _errorCorrectionLevel = QrErrorCorrectLevel.H;
@@ -42,7 +45,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
   Uint8List? _embeddedImageBytes;
   final String _semanticsLabel = 'Generated QR Code';
 
-  void pickColor(
+  void _pickColor(
     BuildContext context,
     Color currentColor,
     Function(Color) onColorChanged,
@@ -75,6 +78,8 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                       onColorChanged(pickerColor);
                       Navigator.of(context).pop();
                     } catch (error) {
+                      debugPrint(error.toString());
+
                       showMessageDialog(
                         AppLocalizations.of(context)!.error,
                         error.toString(),
@@ -88,33 +93,18 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
         },
       );
     } catch (error) {
+      debugPrint(error.toString());
+
       showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
     } finally {}
   }
 
   @override
   void dispose() {
+    _stringEditingController.dispose();
+    _paddingEditingController.dispose();
+
     super.dispose();
-  }
-
-  Future<void> _pickEmbeddedImageFile() async {
-    try {
-      final ImagePicker imagePicker = ImagePicker();
-      final XFile? imageFile = await imagePicker.pickImage(
-        source: ImageSource.gallery,
-      );
-
-      if (imageFile != null) {
-        _embeddedImageBytes = await imageFile.readAsBytes();
-      }
-
-      setState(() {});
-    } catch (error) {
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
-    } finally {}
   }
 
   @override
@@ -136,28 +126,33 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
             color: Theme.of(context).scaffoldBackgroundColor,
             child: Center(
               child: (_stringEditingController.text.isNotEmpty)
-                  ? QrImageView(
-                      version: _version,
-                      errorCorrectionLevel: _errorCorrectionLevel,
-                      backgroundColor: _backgroundColor,
-                      padding: EdgeInsets.all(
-                        double.tryParse(_paddingEditingController.text.trim())!,
+                  ? WidgetsToImage(
+                      controller: _widgetsToImageController,
+                      child: QrImageView(
+                        version: _version,
+                        errorCorrectionLevel: _errorCorrectionLevel,
+                        backgroundColor: _backgroundColor,
+                        padding: EdgeInsets.all(
+                          double.tryParse(
+                            _paddingEditingController.text.trim(),
+                          )!,
+                        ),
+                        eyeStyle: QrEyeStyle(
+                          eyeShape: _eyeShape,
+                          color: _eyeColor,
+                        ),
+                        dataModuleStyle: QrDataModuleStyle(
+                          dataModuleShape: _dataModuleShape,
+                          color: _dataModuleColor,
+                        ),
+                        gapless: _gaplessness,
+                        data: _stringEditingController.text,
+                        embeddedImage: _embeddedImageBytes != null
+                            ? MemoryImage(_embeddedImageBytes!, scale: 1.0)
+                            : null,
+                        embeddedImageEmitsError: true,
+                        semanticsLabel: _semanticsLabel,
                       ),
-                      eyeStyle: QrEyeStyle(
-                        eyeShape: _eyeShape,
-                        color: _eyeColor,
-                      ),
-                      dataModuleStyle: QrDataModuleStyle(
-                        dataModuleShape: _dataModuleShape,
-                        color: _dataModuleColor,
-                      ),
-                      gapless: _gaplessness,
-                      data: _stringEditingController.text,
-                      embeddedImage: _embeddedImageBytes != null
-                          ? MemoryImage(_embeddedImageBytes!, scale: 1.0)
-                          : null,
-                      embeddedImageEmitsError: true,
-                      semanticsLabel: _semanticsLabel,
                     )
                   : Text(
                       AppLocalizations.of(
@@ -212,7 +207,39 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                   const SizedBox(height: 16.0),
                   Center(
                     child: ElevatedButton.icon(
-                      onPressed: _pickEmbeddedImageFile,
+                      onPressed: () async {
+                        try {
+                          final FilePickerResult? filePickerResult =
+                              await FilePicker.platform.pickFiles(
+                                lockParentWindow: true,
+                                dialogTitle: AppLocalizations.of(
+                                  context,
+                                )!.pick_an_image_file_to_embed_in_qr_code,
+                                type: FileType.image,
+                                allowMultiple: false,
+                                readSequential: true,
+                                withData: true,
+                                compressionQuality: 0,
+                              );
+
+                          if (filePickerResult != null &&
+                              filePickerResult.files.single.bytes != null) {
+                            _embeddedImageBytes =
+                                filePickerResult.files.single.bytes!;
+                          }
+
+                          setState(() {});
+                        } catch (error) {
+                          debugPrint(error.toString());
+
+                          showMessageDialog(
+                            AppLocalizations.of(
+                              navigatorKey.currentContext!,
+                            )!.error,
+                            error.toString(),
+                          );
+                        } finally {}
+                      },
                       icon: const Icon(Icons.image_rounded),
                       label: Text(AppLocalizations.of(context)!.embed_image),
                     ),
@@ -356,7 +383,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                         child: GestureDetector(
                           onTap: () {
                             try {
-                              pickColor(context, _eyeColor, (Color color) {
+                              _pickColor(context, _eyeColor, (Color color) {
                                 setState(() {
                                   _eyeColor = color;
                                 });
@@ -403,7 +430,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                         child: GestureDetector(
                           onTap: () {
                             try {
-                              pickColor(context, _dataModuleColor, (
+                              _pickColor(context, _dataModuleColor, (
                                 Color color,
                               ) {
                                 setState(() {
@@ -452,7 +479,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                         child: GestureDetector(
                           onTap: () {
                             try {
-                              pickColor(context, _backgroundColor, (
+                              _pickColor(context, _backgroundColor, (
                                 Color color,
                               ) {
                                 setState(() {
@@ -566,6 +593,61 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                         ),
                       ),
                     ],
+                  ),
+                  const SizedBox(height: 16.0),
+                  Center(
+                    child: ElevatedButton.icon(
+                      onPressed: () async {
+                        try {
+                          if (_formKey.currentState!.validate()) {
+                            final Uint8List? pngBytes =
+                                await _widgetsToImageController.capture(
+                                  options: const CaptureOptions(
+                                    waitForAnimations: true,
+                                    pixelRatio: 1.0,
+                                    format: ImageFormat.png,
+                                    quality: 100 /* For JPEG Only */,
+                                  ),
+                                );
+
+                            if (pngBytes != null) {
+                              String?
+                              outputPath = await FilePicker.platform.saveFile(
+                                lockParentWindow: true,
+                                dialogTitle: AppLocalizations.of(
+                                  navigatorKey.currentContext!,
+                                )!.save_qr_code,
+                                fileName:
+                                    'QR_Code_${DateTime.now().millisecondsSinceEpoch}.png',
+                                type: FileType.image,
+                                bytes: pngBytes,
+                              );
+
+                              if (outputPath != null) {
+                                ScaffoldMessenger.of(
+                                  navigatorKey.currentContext!,
+                                ).showSnackBar(
+                                  SnackBar(
+                                    content: Text("Saved: $outputPath"),
+                                    showCloseIcon: true,
+                                  ),
+                                );
+                              }
+                            }
+                          }
+                        } catch (error) {
+                          debugPrint(error.toString());
+                          showMessageDialog(
+                            AppLocalizations.of(
+                              navigatorKey.currentContext!,
+                            )!.error,
+                            error.toString(),
+                          );
+                        }
+                      },
+                      icon: const Icon(Icons.save_rounded),
+                      label: Text(AppLocalizations.of(context)!.save_qr_code),
+                    ),
                   ),
                 ],
               ),

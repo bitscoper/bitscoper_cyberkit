@@ -22,6 +22,8 @@ void showMessageDialog(String title, String message, {void Function()? onOK}) {
 
                   Navigator.of(context).pop();
                 } catch (error) {
+                  debugPrint(error.toString());
+
                   showMessageDialog(
                     AppLocalizations.of(context)!.error,
                     error.toString(),
@@ -35,6 +37,8 @@ void showMessageDialog(String title, String message, {void Function()? onOK}) {
       },
     );
   } catch (error) {
+    debugPrint(error.toString());
+
     showMessageDialog(
       AppLocalizations.of(navigatorKey.currentContext!)!.error,
       error.toString(),

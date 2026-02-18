@@ -66,6 +66,8 @@ class _ToolCardWidget extends StatelessWidget {
                     MaterialPageRoute(builder: (BuildContext context) => page),
                   );
                 } catch (error) {
+                  debugPrint(error.toString());
+
                   showMessageDialog(
                     AppLocalizations.of(navigatorKey.currentContext!)!.error,
                     error.toString(),
@@ -74,6 +76,8 @@ class _ToolCardWidget extends StatelessWidget {
               },
             );
           } catch (error) {
+            debugPrint(error.toString());
+
             showMessageDialog(
               AppLocalizations.of(navigatorKey.currentContext!)!.error,
               error.toString(),
@@ -258,7 +262,7 @@ class HomePage extends StatelessWidget {
                       children: <Widget>[
                         Text(AppLocalizations.of(context)!.bitscoper_cyberkit),
                         FutureBuilder<String>(
-                          future: getVersion(),
+                          future: getLocalVersion(),
                           builder:
                               (
                                 BuildContext context,
@@ -284,6 +288,8 @@ class HomePage extends StatelessWidget {
                       try {
                         checkVersion();
                       } catch (error) {
+                        debugPrint(error.toString());
+
                         showMessageDialog(
                           AppLocalizations.of(context)!.error,
                           error.toString(),
@@ -303,6 +309,8 @@ class HomePage extends StatelessWidget {
                           ),
                         );
                       } catch (error) {
+                        debugPrint(error.toString());
+
                         showMessageDialog(
                           AppLocalizations.of(context)!.error,
                           error.toString(),
@@ -321,6 +329,8 @@ class HomePage extends StatelessWidget {
                           ),
                         );
                       } catch (error) {
+                        debugPrint(error.toString());
+
                         showMessageDialog(
                           AppLocalizations.of(context)!.error,
                           error.toString(),
@@ -340,6 +350,8 @@ class HomePage extends StatelessWidget {
                           ),
                         );
                       } catch (error) {
+                        debugPrint(error.toString());
+
                         showMessageDialog(
                           AppLocalizations.of(context)!.error,
                           error.toString(),
@@ -354,6 +366,8 @@ class HomePage extends StatelessWidget {
                       try {
                         launchUrl(Uri.parse('https://bitscoper.dev/'));
                       } catch (error) {
+                        debugPrint(error.toString());
+
                         showMessageDialog(
                           AppLocalizations.of(context)!.error,
                           error.toString(),
@@ -372,6 +386,8 @@ class HomePage extends StatelessWidget {
                           ),
                         );
                       } catch (error) {
+                        debugPrint(error.toString());
+
                         showMessageDialog(
                           AppLocalizations.of(context)!.error,
                           error.toString(),
