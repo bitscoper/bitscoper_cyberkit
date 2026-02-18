@@ -54,6 +54,8 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
         }
       });
     } catch (error) {
+      debugPrint(error.toString());
+
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
@@ -136,6 +138,8 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
                                   entry.value,
                                 );
                               } catch (error) {
+                                debugPrint(error.toString());
+
                                 showMessageDialog(
                                   AppLocalizations.of(context)!.error,
                                   error.toString(),

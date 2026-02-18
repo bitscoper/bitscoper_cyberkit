@@ -40,7 +40,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
   bool _isRetrieving = false;
   List<DNSRecord> _records = [];
 
-  Future<void> retrieveDNSRecord() async {
+  Future<void> _retrieveDNSRecord() async {
     if (_formKey.currentState!.validate()) {
       try {
         if (_selectedRecordTypes.isEmpty) {
@@ -99,6 +99,8 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
 
         dnsolve.dispose();
       } catch (error) {
+        debugPrint(error.toString());
+
         showMessageDialog(
           AppLocalizations.of(navigatorKey.currentContext!)!.error,
           error.toString(),
@@ -167,7 +169,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                     },
                     onChanged: (String value) {},
                     onFieldSubmitted: (String value) {
-                      retrieveDNSRecord();
+                      _retrieveDNSRecord();
                     },
                   ),
                   const SizedBox(height: 16.0),
@@ -198,7 +200,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                           },
                           onChanged: (String value) {},
                           onFieldSubmitted: (String value) {
-                            retrieveDNSRecord();
+                            _retrieveDNSRecord();
                           },
                         ),
                       ),
@@ -261,6 +263,10 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                                                           });
                                                           setState(() {});
                                                         } catch (error) {
+                                                          debugPrint(
+                                                            error.toString(),
+                                                          );
+
                                                           showMessageDialog(
                                                             AppLocalizations.of(
                                                               context,
@@ -280,6 +286,10 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                                                   try {
                                                     Navigator.of(context).pop();
                                                   } catch (error) {
+                                                    debugPrint(
+                                                      error.toString(),
+                                                    );
+
                                                     showMessageDialog(
                                                       AppLocalizations.of(
                                                         context,
@@ -301,6 +311,8 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                                 },
                               );
                             } catch (error) {
+                              debugPrint(error.toString());
+
                               showMessageDialog(
                                 AppLocalizations.of(
                                   navigatorKey.currentContext!,
@@ -323,8 +335,10 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                               ? null
                               : () {
                                   try {
-                                    retrieveDNSRecord();
+                                    _retrieveDNSRecord();
                                   } catch (error) {
+                                    debugPrint(error.toString());
+
                                     showMessageDialog(
                                       AppLocalizations.of(context)!.error,
                                       error.toString(),
@@ -341,6 +355,8 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                                       _isRetrieving = false;
                                     });
                                   } catch (error) {
+                                    debugPrint(error.toString());
+
                                     showMessageDialog(
                                       AppLocalizations.of(context)!.error,
                                       error.toString(),
@@ -416,6 +432,8 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                               record.record,
                             );
                           } catch (error) {
+                            debugPrint(error.toString());
+
                             showMessageDialog(
                               AppLocalizations.of(context)!.error,
                               error.toString(),

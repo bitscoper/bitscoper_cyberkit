@@ -28,90 +28,6 @@ class BluetoothLowEnergyScannerPageState
     super.initState();
   }
 
-  Future<void> _startScan() async {
-    try {
-      setState(() {
-        _isScanning = true;
-        _scanResults.clear();
-      });
-
-      await FlutterBluePlus.adapterState
-          .where(
-            (BluetoothAdapterState state) =>
-                (state == BluetoothAdapterState.on),
-          )
-          .first;
-
-      _scanSubscription = FlutterBluePlus.onScanResults.listen(
-        (List<ScanResult> scanResults) {
-          try {
-            if (scanResults.isNotEmpty) {
-              setState(() {
-                for (final ScanResult scanResult in scanResults) {
-                  if (!_scanResults.any(
-                    (ScanResult result_) =>
-                        (result_.device.remoteId == scanResult.device.remoteId),
-                  )) {
-                    _scanResults.add(scanResult);
-                  }
-                }
-              });
-            }
-          } catch (error) {
-            showMessageDialog(
-              AppLocalizations.of(navigatorKey.currentContext!)!.error,
-              error.toString(),
-            );
-          } finally {}
-        },
-        onError: (error) {
-          showMessageDialog(
-            AppLocalizations.of(navigatorKey.currentContext!)!.error,
-            error.toString(),
-          );
-        },
-      );
-
-      FlutterBluePlus.cancelWhenScanComplete(_scanSubscription!);
-
-      await FlutterBluePlus.startScan(
-        androidCheckLocationServices: true,
-        androidUsesFineLocation: true,
-        androidScanMode: AndroidScanMode.lowLatency,
-        continuousUpdates: true,
-      );
-
-      await FlutterBluePlus.isScanning
-          .where((bool value) => (value == false))
-          .first;
-    } catch (error) {
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
-    } finally {
-      setState(() {
-        _isScanning = false;
-      });
-    }
-  }
-
-  Future<void> _stopScan() async {
-    try {
-      await FlutterBluePlus.stopScan();
-      await _scanSubscription?.cancel();
-    } catch (error) {
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
-    } finally {
-      setState(() {
-        _isScanning = false;
-      });
-    }
-  }
-
   Widget _buildDeviceCard(final ScanResult scanResult) {
     final BluetoothDevice device = scanResult.device;
     final AdvertisementData advertisement = scanResult.advertisementData;
@@ -219,11 +135,114 @@ class BluetoothLowEnergyScannerPageState
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 ElevatedButton(
-                  onPressed: _isScanning ? null : _startScan,
+                  onPressed: _isScanning
+                      ? null
+                      : () async {
+                          try {
+                            setState(() {
+                              _isScanning = true;
+                              _scanResults.clear();
+                            });
+
+                            await FlutterBluePlus.adapterState
+                                .where(
+                                  (BluetoothAdapterState state) =>
+                                      (state == BluetoothAdapterState.on),
+                                )
+                                .first;
+
+                            _scanSubscription = FlutterBluePlus.onScanResults
+                                .listen(
+                                  (List<ScanResult> scanResults) {
+                                    try {
+                                      if (scanResults.isNotEmpty) {
+                                        setState(() {
+                                          for (final ScanResult scanResult
+                                              in scanResults) {
+                                            if (!_scanResults.any(
+                                              (ScanResult result_) =>
+                                                  (result_.device.remoteId ==
+                                                  scanResult.device.remoteId),
+                                            )) {
+                                              _scanResults.add(scanResult);
+                                            }
+                                          }
+                                        });
+                                      }
+                                    } catch (error) {
+                                      debugPrint(error.toString());
+
+                                      showMessageDialog(
+                                        AppLocalizations.of(
+                                          navigatorKey.currentContext!,
+                                        )!.error,
+                                        error.toString(),
+                                      );
+                                    } finally {}
+                                  },
+                                  onError: (error) {
+                                    showMessageDialog(
+                                      AppLocalizations.of(
+                                        navigatorKey.currentContext!,
+                                      )!.error,
+                                      error.toString(),
+                                    );
+                                  },
+                                );
+
+                            FlutterBluePlus.cancelWhenScanComplete(
+                              _scanSubscription!,
+                            );
+
+                            await FlutterBluePlus.startScan(
+                              androidCheckLocationServices: true,
+                              androidUsesFineLocation: true,
+                              androidScanMode: AndroidScanMode.lowLatency,
+                              continuousUpdates: true,
+                            );
+
+                            await FlutterBluePlus.isScanning
+                                .where((bool value) => (value == false))
+                                .first;
+                          } catch (error) {
+                            debugPrint(error.toString());
+
+                            showMessageDialog(
+                              AppLocalizations.of(
+                                navigatorKey.currentContext!,
+                              )!.error,
+                              error.toString(),
+                            );
+                          } finally {
+                            setState(() {
+                              _isScanning = false;
+                            });
+                          }
+                        },
                   child: Text(AppLocalizations.of(context)!.scan),
                 ),
                 ElevatedButton(
-                  onPressed: _isScanning ? _stopScan : null,
+                  onPressed: _isScanning
+                      ? () async {
+                          try {
+                            await FlutterBluePlus.stopScan();
+                            await _scanSubscription?.cancel();
+                          } catch (error) {
+                            debugPrint(error.toString());
+
+                            showMessageDialog(
+                              AppLocalizations.of(
+                                navigatorKey.currentContext!,
+                              )!.error,
+                              error.toString(),
+                            );
+                          } finally {
+                            setState(() {
+                              _isScanning = false;
+                            });
+                          }
+                        }
+                      : null,
                   child: Text(AppLocalizations.of(context)!.stop),
                 ),
               ],

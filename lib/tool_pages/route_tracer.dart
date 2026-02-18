@@ -54,27 +54,13 @@ class RouteTracerPageState extends State<RouteTracerPage> {
         });
       }
     } catch (error) {
+      debugPrint(error.toString());
+
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
     } finally {}
-  }
-
-  void _onStop() {
-    try {
-      _routeTracer.stopTrace();
-      _traceSubscription?.cancel();
-    } catch (error) {
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
-    } finally {
-      setState(() {
-        _isTracing = false;
-      });
-    }
   }
 
   @override
@@ -131,7 +117,27 @@ class RouteTracerPageState extends State<RouteTracerPage> {
                     child: Text(AppLocalizations.of(context)!.trace),
                   ),
                   ElevatedButton(
-                    onPressed: _isTracing ? _onStop : null,
+                    onPressed: _isTracing
+                        ? () {
+                            try {
+                              _routeTracer.stopTrace();
+                              _traceSubscription?.cancel();
+                            } catch (error) {
+                              debugPrint(error.toString());
+
+                              showMessageDialog(
+                                AppLocalizations.of(
+                                  navigatorKey.currentContext!,
+                                )!.error,
+                                error.toString(),
+                              );
+                            } finally {
+                              setState(() {
+                                _isTracing = false;
+                              });
+                            }
+                          }
+                        : null,
                     child: Text(AppLocalizations.of(context)!.stop),
                   ),
                 ],

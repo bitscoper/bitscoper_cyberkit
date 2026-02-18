@@ -63,6 +63,8 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
         });
       }
     } catch (error) {
+      debugPrint(error.toString());
+
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
@@ -85,6 +87,8 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
                     try {
                       copyToClipboard(label, value);
                     } catch (error) {
+                      debugPrint(error.toString());
+
                       showMessageDialog(
                         AppLocalizations.of(context)!.error,
                         error.toString(),

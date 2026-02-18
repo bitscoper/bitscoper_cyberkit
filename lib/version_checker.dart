@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:yaml/yaml.dart';
 
-Future<String> getVersion() async {
+Future<String> getLocalVersion() async {
   final PackageInfo packageInfo = await PackageInfo.fromPlatform();
   return packageInfo.version;
 }
@@ -21,17 +21,14 @@ Future<void> checkVersion() async {
   try {
     Navigator.of(navigatorKey.currentContext!).pop();
 
-    final ScaffoldMessengerState scaffoldMessenger = ScaffoldMessenger.of(
-      navigatorKey.currentContext!,
-    );
-
-    final SnackBar snackBar = SnackBar(
-      content: Text(
-        AppLocalizations.of(navigatorKey.currentContext!)!.checking_version,
+    ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
+      SnackBar(
+        content: Text(
+          AppLocalizations.of(navigatorKey.currentContext!)!.checking_version,
+        ),
+        showCloseIcon: true,
       ),
     );
-
-    scaffoldMessenger.showSnackBar(snackBar);
 
     final response = await http.get(
       Uri.parse(
@@ -40,33 +37,45 @@ Future<void> checkVersion() async {
     );
 
     if (response.statusCode == 200) {
-      final String localVersion = await getVersion();
+      final String localVersion = await getLocalVersion();
 
       final dynamic yamlMap = loadYaml(response.body);
-      final String remoteVersion = yamlMap['version'].toString();
+      final String latestVersion = yamlMap['version'].toString();
 
-      final String remoteVersionShort = skipBuildNumber(remoteVersion);
+      final String latestVersionShort = skipBuildNumber(latestVersion);
       final String localVersionShort = skipBuildNumber(localVersion);
 
-      if (remoteVersionShort != localVersionShort) {
-        scaffoldMessenger.hideCurrentSnackBar();
+      if (latestVersionShort != localVersionShort) {
+        ScaffoldMessenger.of(
+          navigatorKey.currentContext!,
+        ).hideCurrentSnackBar();
 
-        showMessageDialog(
-          AppLocalizations.of(navigatorKey.currentContext!)!.available_update,
-          "${AppLocalizations.of(navigatorKey.currentContext!)!.latest_version}: $remoteVersionShort\n${AppLocalizations.of(navigatorKey.currentContext!)!.your_version}: $localVersion",
+        ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
+          SnackBar(
+            content: Text(
+              "${AppLocalizations.of(navigatorKey.currentContext!)!.latest_version}: $latestVersionShort\n${AppLocalizations.of(navigatorKey.currentContext!)!.your_version}: $localVersion",
+            ),
+            showCloseIcon: true,
+          ),
         );
       } else {
-        scaffoldMessenger.hideCurrentSnackBar();
+        ScaffoldMessenger.of(
+          navigatorKey.currentContext!,
+        ).hideCurrentSnackBar();
 
-        showMessageDialog(
-          AppLocalizations.of(navigatorKey.currentContext!)!.up_to_date,
-          AppLocalizations.of(
-            navigatorKey.currentContext!,
-          )!.you_are_using_the_latest_version,
+        ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
+          SnackBar(
+            content: Text(
+              AppLocalizations.of(
+                navigatorKey.currentContext!,
+              )!.you_are_using_the_latest_version,
+            ),
+            showCloseIcon: true,
+          ),
         );
       }
     } else {
-      scaffoldMessenger.hideCurrentSnackBar();
+      ScaffoldMessenger.of(navigatorKey.currentContext!).hideCurrentSnackBar();
 
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,

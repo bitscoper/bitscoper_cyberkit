@@ -24,30 +24,6 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
     super.initState();
   }
 
-  Future<void> _scanMDNS() async {
-    try {
-      setState(() {
-        _isScanning = true;
-        hosts = [];
-      });
-
-      hosts = await MdnsScannerService.instance.searchMdnsDevices();
-
-      setState(() {
-        hosts;
-      });
-    } catch (error) {
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
-    } finally {
-      setState(() {
-        _isScanning = false;
-      });
-    }
-  }
-
   Future<Widget> _buildInformationCard(final ActiveHost host) async {
     final MdnsInfo? mdnsInformation = await host.mdnsInfo;
 
@@ -434,8 +410,37 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                       ? null
                       : () {
                           try {
-                            _scanMDNS();
+                            () async {
+                              try {
+                                setState(() {
+                                  _isScanning = true;
+                                  hosts = [];
+                                });
+
+                                hosts = await MdnsScannerService.instance
+                                    .searchMdnsDevices();
+
+                                setState(() {
+                                  hosts;
+                                });
+                              } catch (error) {
+                                debugPrint(error.toString());
+
+                                showMessageDialog(
+                                  AppLocalizations.of(
+                                    navigatorKey.currentContext!,
+                                  )!.error,
+                                  error.toString(),
+                                );
+                              } finally {
+                                setState(() {
+                                  _isScanning = false;
+                                });
+                              }
+                            };
                           } catch (error) {
+                            debugPrint(error.toString());
+
                             showMessageDialog(
                               AppLocalizations.of(context)!.error,
                               error.toString(),
@@ -452,6 +457,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                               _isScanning = false;
                             });
                           } catch (error) {
+                            debugPrint(error.toString());
+
                             showMessageDialog(
                               AppLocalizations.of(context)!.error,
                               error.toString(),
