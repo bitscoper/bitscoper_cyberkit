@@ -61,6 +61,8 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
         );
       }
     } catch (error) {
+      debugPrint(error.toString());
+
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
@@ -128,6 +130,8 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
                               try {
                                 _retrieveWHOIS();
                               } catch (error) {
+                                debugPrint(error.toString());
+
                                 showMessageDialog(
                                   AppLocalizations.of(context)!.error,
                                   error.toString(),

@@ -1,9 +1,9 @@
 /* By Abdullah As-Sadeed */
 
-import 'dart:ui';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
+import 'package:flutter/foundation.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 String _makePermissionNameReadable(Permission permission) {
@@ -70,14 +70,12 @@ Future<void> requestPermissions(
         final Map<Permission, PermissionStatus> permissionStatuses =
             await permissions.request();
 
-        final bool hasFailure = permissionStatuses.values.any(
+        if (permissionStatuses.values.any(
           (PermissionStatus permissionStatus) =>
               permissionStatus.isDenied ||
               permissionStatus.isPermanentlyDenied ||
               permissionStatus.isRestricted,
-        );
-
-        if (hasFailure) {
+        )) {
           final String details = _formatPermissionResults(permissionStatuses);
 
           showMessageDialog(
@@ -100,6 +98,8 @@ Future<void> requestPermissions(
       },
     );
   } catch (error) {
+    debugPrint(error.toString());
+
     showMessageDialog(
       AppLocalizations.of(navigatorKey.currentContext!)!.error,
       error.toString(),

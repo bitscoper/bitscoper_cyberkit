@@ -55,6 +55,8 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
               },
             );
       } catch (error) {
+        debugPrint(error.toString());
+
         showMessageDialog(
           AppLocalizations.of(navigatorKey.currentContext!)!.error,
           error.toString(),
@@ -124,6 +126,8 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
                                 try {
                                   _scanSubnet();
                                 } catch (error) {
+                                  debugPrint(error.toString());
+
                                   showMessageDialog(
                                     AppLocalizations.of(context)!.error,
                                     error.toString(),
@@ -140,6 +144,8 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
                                     _isScanning = false;
                                   });
                                 } catch (error) {
+                                  debugPrint(error.toString());
+
                                   showMessageDialog(
                                     AppLocalizations.of(context)!.error,
                                     error.toString(),

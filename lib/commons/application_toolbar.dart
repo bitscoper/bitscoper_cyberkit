@@ -28,6 +28,8 @@ class _LanguageTile extends StatelessWidget {
           BitscoperCyberKitState.instance?.changeLocale(Locale(code));
           Navigator.of(context).pop();
         } catch (error) {
+          debugPrint(error.toString());
+
           showMessageDialog(
             AppLocalizations.of(context)!.error,
             error.toString(),
@@ -42,60 +44,6 @@ class ApplicationToolBar extends StatelessWidget
     implements PreferredSizeWidget {
   final String title;
   const ApplicationToolBar({super.key, required this.title});
-
-  void _showLocaleSelector(BuildContext context) {
-    try {
-      showModalBottomSheet(
-        context: context,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(8.0)),
-        ),
-        builder: (BuildContext context) {
-          return SafeArea(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const SizedBox(height: 8.0),
-                Center(
-                  child: Container(
-                    width: 40.0,
-                    height: 4.0,
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(4.0),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8.0),
-                Center(
-                  child: Text(
-                    AppLocalizations.of(context)!.change_locale,
-                    style: Theme.of(context).textTheme.titleMedium,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                const SizedBox(height: 8.0),
-                const Divider(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Column(
-                    children: <Widget>[
-                      _LanguageTile(name: "English", code: "en"),
-                      _LanguageTile(name: "বাংলা", code: "bn"),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 16.0),
-              ],
-            ),
-          );
-        },
-      );
-    } catch (error) {
-      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
-    } finally {}
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,10 +61,63 @@ class ApplicationToolBar extends StatelessWidget
                   BitscoperCyberKitState.instance?.toggleTheme();
                   break;
                 case _MenuAction.changeLocale:
-                  _showLocaleSelector(context);
+                  showModalBottomSheet(
+                    context: context,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(8.0),
+                      ),
+                    ),
+                    builder: (BuildContext context) {
+                      return SafeArea(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            const SizedBox(height: 8.0),
+                            Center(
+                              child: Container(
+                                width: 40.0,
+                                height: 4.0,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  borderRadius: BorderRadius.circular(4.0),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 8.0),
+                            Center(
+                              child: Text(
+                                AppLocalizations.of(context)!.change_locale,
+                                style: Theme.of(context).textTheme.titleMedium,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            const SizedBox(height: 8.0),
+                            const Divider(),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16.0,
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  _LanguageTile(name: "English", code: "en"),
+                                  _LanguageTile(name: "বাংলা", code: "bn"),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 16.0),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+
                   break;
               }
             } catch (error) {
+              debugPrint(error.toString());
+
               showMessageDialog(
                 AppLocalizations.of(context)!.error,
                 error.toString(),

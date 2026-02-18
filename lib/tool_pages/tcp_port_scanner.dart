@@ -121,6 +121,8 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
             )
             .toList();
       } catch (error) {
+        debugPrint(error.toString());
+
         showMessageDialog(
           AppLocalizations.of(navigatorKey.currentContext!)!.error,
           error.toString(),
@@ -233,6 +235,8 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                               try {
                                 await _scanTCPPorts();
                               } catch (error) {
+                                debugPrint(error.toString());
+
                                 showMessageDialog(
                                   AppLocalizations.of(
                                     navigatorKey.currentContext!,

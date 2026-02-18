@@ -56,6 +56,8 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
         _vectorString = cvss.toString();
       });
     } catch (error) {
+      debugPrint(error.toString());
+
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
@@ -78,6 +80,8 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
             (Match match) => match[0]!.toUpperCase(),
           );
     } catch (error) {
+      debugPrint(error.toString());
+
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
@@ -93,6 +97,8 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
 
       return valueName[0].toUpperCase() + valueName.substring(1).toLowerCase();
     } catch (error) {
+      debugPrint(error.toString());
+
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
@@ -117,6 +123,8 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
           return Colors.black;
       }
     } catch (error) {
+      debugPrint(error.toString());
+
       showMessageDialog(
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
@@ -401,6 +409,8 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                                       _vectorString,
                                     );
                                   } catch (error) {
+                                    debugPrint(error.toString());
+
                                     showMessageDialog(
                                       AppLocalizations.of(context)!.error,
                                       error.toString(),

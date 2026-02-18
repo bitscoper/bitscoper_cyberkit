@@ -71,6 +71,8 @@ class PingerPageState extends State<PingerPage> {
           }
         }
       } catch (error) {
+        debugPrint(error.toString());
+
         showMessageDialog(
           AppLocalizations.of(navigatorKey.currentContext!)!.error,
           error.toString(),
@@ -140,6 +142,8 @@ class PingerPageState extends State<PingerPage> {
                                 try {
                                   await _ping();
                                 } catch (error) {
+                                  debugPrint(error.toString());
+
                                   showMessageDialog(
                                     AppLocalizations.of(
                                       navigatorKey.currentContext!,
@@ -158,6 +162,8 @@ class PingerPageState extends State<PingerPage> {
                                     _isPinging = false;
                                   });
                                 } catch (error) {
+                                  debugPrint(error.toString());
+
                                   showMessageDialog(
                                     AppLocalizations.of(context)!.error,
                                     error.toString(),
