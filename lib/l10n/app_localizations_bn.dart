@@ -119,9 +119,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get denied => 'অননুমোদিত';
 
   @override
-  String get developer => 'ডেভেলপার';
-
-  @override
   String get device => 'ডিভাইস';
 
   @override
@@ -220,9 +217,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get gateway => 'গেইটওয়ে';
 
   @override
-  String get google_play => 'গুগল প্লে';
-
-  @override
   String get hash => 'হ্যাশ';
 
   @override
@@ -265,9 +259,6 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get medium => 'মধ্যম';
-
-  @override
-  String get microsoft_store => 'মাইক্রোসফট স্টোর';
 
   @override
   String get morse_code => 'মোর্স কোড';

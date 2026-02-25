@@ -20,20 +20,22 @@ A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner
             <img src="https://get.microsoft.com/images/en-us%20dark.svg" height="48" alt="Microsoft Store" />
           </a>
         </td>
-        <td>
+        <td align="center">
           <a href="https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox">
             <img src="3rd_Party_Service_Logos/Google_Play.png" height="48" alt="Google Play" />
           </a>
+          <br />(Paused Temporarily)
         </td>
         <td>
           <a href="https://github.com/bitscoper/Bitscoper_CyberKit/pkgs/container/bitscoper_cyberkit/">
             <img src="3rd_Party_Service_Logos/Docker.svg" height="48" alt="GitHub Container Registry" />
           </a>
         </td>
-        <td>
+        <td align="center">
           <a href="https://gallery.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit/">
-            <img src="3rd_Party_Service_Logos/Amazon_ECR.svg" height="48" alt="Amazon ECR Public Gallery" />
+            <img src="3rd_Party_Service_Logos/Amazon_ECR.svg" height="48" alt="Amazon Elastic Container Registry Public Gallery" />
           </a>
+          <br />(Free Tier Expired)
         </td>
       </tr>
     </tbody>
@@ -56,7 +58,7 @@ Linux_x64_Executable --> Release[Release]
 Linux_x64_AppImage --> Release[Release]
 Linux_x64_Executable --> Linux_Docker_Image(Docker Image)
 Linux_Docker_Image --> GHCR[GHCR]
-Linux_Docker_Image --> Amazon_ECR_Public_Gallery[Amazon ECR Public Gallery]
+Linux_Docker_Image --> Amazon_ECR_Public_Gallery[Amazon Elastic Container Registry Public Gallery]
 
 Code --> Android{Android}
 Android --> |Signing| Android_appbundle(appbundle)
@@ -85,7 +87,7 @@ Windows_x64_MSIX_Package --> Release[Release]
 Windows_x64_MSIX_Package --> |Manual Submission| Microsoft_Store[Microsoft Store]
 
 Code --> Web{Web}
-Web --> |Disabled due to Failure| Web_Application(Application)
+Web --> |Disabled due to Build Failure| Web_Application(Application)
 Web_Application --> Release[Release]
 Web_Application --> My_Server[My Server]
 ```
@@ -123,6 +125,7 @@ Web_Application --> My_Server[My Server]
       </td>
       <td rowspan="4">
         <a href="https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox">Google Play</a>
+        <br />(Paused Temporarily)
       </td>
     </tr>
     <tr>
@@ -184,13 +187,16 @@ Web_Application --> My_Server[My Server]
       </td>
     </tr>
     <tr>
-      <th colspan="2">Web<br />(Disabled due to Failure)</th>
+      <th colspan="2">Web</th>
       <td colspan="2">
         <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Web_Application.zip">Web_Application.zip</a>
-        <br />
+        <br />(Disabled due to Build Failure)
       </td>
       <td>-</td>
-      <td><a href="https://bitscoper.dev/Bitscoper_CyberKit/Application/">(My Server)</a></td>
+      <td>
+        <a href="https://bitscoper.dev/Bitscoper_CyberKit/Application/">(My Server)</a>
+        <br />(Disabled due to Build Failure)
+      </td>
     </tr>
     <tr>
       <th colspan="2" rowspan="2">Docker / Podman</th>
@@ -202,9 +208,8 @@ Web_Application --> My_Server[My Server]
     </tr>
     <tr>
       <td>
-        <a href="https://gallery.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit/">Amazon ECR Public Gallery</a>
-        <br />
-        <i>(Free Tier Expired)</i>
+        <a href="https://gallery.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit/">Amazon Elastic Container Registry Public Gallery</a>
+        <br />(Free Tier Expired)
       </td>
     </tr>
   </table>
@@ -231,7 +236,7 @@ podman run -it --rm ghcr.io/bitscoper/bitscoper_cyberkit:latest
 docker run -it --rm ghcr.io/bitscoper/bitscoper_cyberkit:latest
 ```
 
-### From Amazon ECR Public Gallery
+### From Amazon Elastic Container Registry Public Gallery
 
 _(Free Tier Expired)_
 

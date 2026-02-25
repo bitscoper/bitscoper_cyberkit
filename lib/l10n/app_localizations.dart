@@ -314,12 +314,6 @@ abstract class AppLocalizations {
   /// **'Denied'**
   String get denied;
 
-  /// No description provided for @developer.
-  ///
-  /// In en, this message translates to:
-  /// **'Developer'**
-  String get developer;
-
   /// No description provided for @device.
   ///
   /// In en, this message translates to:
@@ -512,12 +506,6 @@ abstract class AppLocalizations {
   /// **'Gateway'**
   String get gateway;
 
-  /// No description provided for @google_play.
-  ///
-  /// In en, this message translates to:
-  /// **'Google Play'**
-  String get google_play;
-
   /// No description provided for @hash.
   ///
   /// In en, this message translates to:
@@ -601,12 +589,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Medium'**
   String get medium;
-
-  /// No description provided for @microsoft_store.
-  ///
-  /// In en, this message translates to:
-  /// **'Microsoft Store'**
-  String get microsoft_store;
 
   /// No description provided for @morse_code.
   ///
