@@ -299,47 +299,6 @@ class HomePage extends StatelessWidget {
                   ),
                   const Divider(),
                   ListTile(
-                    title: Text(AppLocalizations.of(context)!.microsoft_store),
-                    leading: const Icon(Icons.shop_2_rounded),
-                    onTap: () {
-                      try {
-                        launchUrl(
-                          Uri.parse(
-                            'https://apps.microsoft.com/detail/9mv2046tz302',
-                          ),
-                        );
-                      } catch (error) {
-                        debugPrint(error.toString());
-
-                        showMessageDialog(
-                          AppLocalizations.of(context)!.error,
-                          error.toString(),
-                        );
-                      } finally {}
-                    },
-                  ),
-                  ListTile(
-                    title: Text(AppLocalizations.of(context)!.google_play),
-                    leading: const Icon(Icons.shop_rounded),
-                    onTap: () {
-                      try {
-                        launchUrl(
-                          Uri.parse(
-                            'https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyberkit',
-                          ),
-                        );
-                      } catch (error) {
-                        debugPrint(error.toString());
-
-                        showMessageDialog(
-                          AppLocalizations.of(context)!.error,
-                          error.toString(),
-                        );
-                      } finally {}
-                    },
-                  ),
-                  const Divider(),
-                  ListTile(
                     title: Text(AppLocalizations.of(context)!.source_code),
                     leading: const Icon(Icons.code_rounded),
                     onTap: () {
@@ -360,29 +319,13 @@ class HomePage extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    title: Text(AppLocalizations.of(context)!.developer),
-                    leading: const Icon(Icons.person_rounded),
-                    onTap: () {
-                      try {
-                        launchUrl(Uri.parse('https://bitscoper.dev/'));
-                      } catch (error) {
-                        debugPrint(error.toString());
-
-                        showMessageDialog(
-                          AppLocalizations.of(context)!.error,
-                          error.toString(),
-                        );
-                      } finally {}
-                    },
-                  ),
-                  ListTile(
                     title: Text(AppLocalizations.of(context)!.privacy_policy),
                     leading: const Icon(Icons.privacy_tip_rounded),
                     onTap: () {
                       try {
                         launchUrl(
                           Uri.parse(
-                            'https://bitscoper.dev/Bitscoper_CyberKit/Privacy_Policy.html',
+                            'https://github.com/bitscoper/Bitscoper_CyberKit/blob/main/PRIVACY_POLICY.md',
                           ),
                         );
                       } catch (error) {
