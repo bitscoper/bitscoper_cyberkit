@@ -119,9 +119,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get denied => 'Denied';
 
   @override
-  String get developer => 'Developer';
-
-  @override
   String get device => 'Device';
 
   @override
@@ -219,9 +216,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gateway => 'Gateway';
 
   @override
-  String get google_play => 'Google Play';
-
-  @override
   String get hash => 'hash';
 
   @override
@@ -264,9 +258,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get medium => 'Medium';
-
-  @override
-  String get microsoft_store => 'Microsoft Store';
 
   @override
   String get morse_code => 'Morse Code';
