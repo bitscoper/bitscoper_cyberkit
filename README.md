@@ -238,7 +238,7 @@ docker run -it --rm ghcr.io/bitscoper/bitscoper_cyberkit:latest
 
 ### From Amazon Elastic Container Registry Public Gallery
 
-_(Free Tier Expired)_
+(Free Tier Expired)
 
 #### Pull
 
@@ -332,26 +332,26 @@ Displays details of the currently connected Wireless Fidelity (Wi-Fi) network.
 
 ## Compatibility
 
-| Tool | Linux | Android | macOS | iOS | Windows | Web |
+| Tool | Linux | Android | macOS | iOS | Windows | ~~Web~~ |
 |--------|-------|---------|-------|-----|---------|-----|
-| Bluetooth Low Energy Scanner | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| IPv4 Subnet Scanner | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| mDNS Scanner | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| UPnP Scanner | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| Route Tracer | ❌ | ✅ | ❌ | ✅ | ❌ | ❌ |
-| TCP Port Scanner | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| Pinger | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| File Hash Calculator | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| String Hash Calculator | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| CVSS Calculator | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Base Encoder | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Morse Code Translator | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| QR Code Generator | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| OGP Data Extractor | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Series URI Crawler | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| DNS Record Retriever | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
-| WHOIS Retriever | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| Wi-Fi Details Viewer | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Bluetooth Low Energy Scanner | ✅ | ✅ | ✅ | ✅ | ✅ | ~~✅~~ |
+| IPv4 Subnet Scanner | ✅ | ✅ | ✅ | ✅ | ✅ | ~~❌~~ |
+| mDNS Scanner | ✅ | ✅ | ✅ | ✅ | ✅ | ~~❌~~ |
+| UPnP Scanner | ✅ | ✅ | ✅ | ✅ | ✅ | ~~❌~~ |
+| Route Tracer | ❌ | ✅ | ❌ | ✅ | ❌ | ~~❌~~ |
+| TCP Port Scanner | ✅ | ✅ | ✅ | ✅ | ✅ | ~~❌~~ |
+| Pinger | ✅ | ✅ | ✅ | ✅ | ✅ | ~~❌~~ |
+| File Hash Calculator | ✅ | ✅ | ✅ | ✅ | ✅ | ~~✅~~ |
+| String Hash Calculator | ✅ | ✅ | ✅ | ✅ | ✅ | ~~✅~~ |
+| CVSS Calculator | ✅ | ✅ | ✅ | ✅ | ✅ | ~~✅~~ |
+| Base Encoder | ✅ | ✅ | ✅ | ✅ | ✅ | ~~✅~~ |
+| Morse Code Translator | ✅ | ✅ | ✅ | ✅ | ✅ | ~~✅~~ |
+| QR Code Generator | ✅ | ✅ | ✅ | ✅ | ✅ | ~~✅~~ |
+| OGP Data Extractor | ✅ | ✅ | ✅ | ✅ | ✅ | ~~✅~~ |
+| Series URI Crawler | ✅ | ✅ | ✅ | ✅ | ✅ | ~~✅~~ |
+| DNS Record Retriever | ✅ | ✅ | ❌ | ✅ | ✅ | ~~✅~~ |
+| WHOIS Retriever | ✅ | ✅ | ✅ | ✅ | ✅ | ~~❌~~ |
+| Wi-Fi Details Viewer | ✅ | ✅ | ✅ | ✅ | ✅ | ~~✅~~ |
 
 ## Using Podman / Docker Locally on Linux
 
