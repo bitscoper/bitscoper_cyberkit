@@ -4,7 +4,7 @@ Thank you for considering contributing to this project! We appreciate your time 
 
 ## Code of Conduct
 
-This project and everyone participating in it are governed by our [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to bitscoper@protonmail.com.
+This project and everyone participating in it are governed by our [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to <bitscoper@protonmail.com>.
 
 ## How to Contribute
 
