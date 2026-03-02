@@ -111,7 +111,7 @@ Web_Application --> My_Server[My Server]
     </tr>
     <tr>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Bitscoper_CyberKit-18.1.0-x64.AppImage">Bitscoper_CyberKit-18.1.0-x64.AppImage</a>
+        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Bitscoper_CyberKit-18.1.1-x64.AppImage">Bitscoper_CyberKit-18.1.1-x64.AppImage</a>
       </td>
     </tr>
     <tr>
