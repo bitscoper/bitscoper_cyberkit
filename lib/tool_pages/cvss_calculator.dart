@@ -52,7 +52,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
 
       setState(() {
         _baseScore = cvss.calculateBaseScore();
-        _severityRating = cvss.baseSeverityRating;
+        _severityRating = cvss.baseSeverityRating();
         _vectorString = cvss.toString();
       });
     } catch (error) {
@@ -92,8 +92,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
 
   String _getSeverityText() {
     try {
-      final String enumName = _severityRating.toString();
-      final String valueName = enumName.split('.').last;
+      final String valueName = _severityRating.toString().split('.').last;
 
       return valueName[0].toUpperCase() + valueName.substring(1).toLowerCase();
     } catch (error) {
@@ -238,19 +237,14 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                         _calculateCVSS();
                       });
                     },
-                    items: UserInteraction.values
-                        .where(
-                          (UserInteraction interaction) =>
-                              interaction != UserInteraction.passive &&
-                              interaction != UserInteraction.active,
-                        )
-                        .map((UserInteraction interaction) {
-                          return DropdownMenuItem<UserInteraction>(
-                            value: interaction,
-                            child: Text(_formatEnumName(interaction)),
-                          );
-                        })
-                        .toList(),
+                    items: UserInteraction.values.map((
+                      UserInteraction interaction,
+                    ) {
+                      return DropdownMenuItem<UserInteraction>(
+                        value: interaction,
+                        child: Text(_formatEnumName(interaction)),
+                      );
+                    }).toList(),
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context)!.user_interaction,
                     ),
@@ -283,19 +277,14 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                         _calculateCVSS();
                       });
                     },
-                    items: ConfidentialityImpact.values
-                        .where(
-                          (ConfidentialityImpact impact) =>
-                              impact != ConfidentialityImpact.partial &&
-                              impact != ConfidentialityImpact.complete,
-                        )
-                        .map((ConfidentialityImpact impact) {
-                          return DropdownMenuItem<ConfidentialityImpact>(
-                            value: impact,
-                            child: Text(_formatEnumName(impact)),
-                          );
-                        })
-                        .toList(),
+                    items: ConfidentialityImpact.values.map((
+                      ConfidentialityImpact impact,
+                    ) {
+                      return DropdownMenuItem<ConfidentialityImpact>(
+                        value: impact,
+                        child: Text(_formatEnumName(impact)),
+                      );
+                    }).toList(),
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(
                         context,
@@ -311,19 +300,12 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                         _calculateCVSS();
                       });
                     },
-                    items: IntegrityImpact.values
-                        .where(
-                          (IntegrityImpact impact) =>
-                              impact != IntegrityImpact.partial &&
-                              impact != IntegrityImpact.complete,
-                        )
-                        .map((IntegrityImpact impact) {
-                          return DropdownMenuItem<IntegrityImpact>(
-                            value: impact,
-                            child: Text(_formatEnumName(impact)),
-                          );
-                        })
-                        .toList(),
+                    items: IntegrityImpact.values.map((IntegrityImpact impact) {
+                      return DropdownMenuItem<IntegrityImpact>(
+                        value: impact,
+                        child: Text(_formatEnumName(impact)),
+                      );
+                    }).toList(),
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context)!.integrity_impact,
                     ),
@@ -337,19 +319,14 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                         _calculateCVSS();
                       });
                     },
-                    items: AvailabilityImpact.values
-                        .where(
-                          (AvailabilityImpact impact) =>
-                              impact != AvailabilityImpact.partial &&
-                              impact != AvailabilityImpact.complete,
-                        )
-                        .map((AvailabilityImpact impact) {
-                          return DropdownMenuItem<AvailabilityImpact>(
-                            value: impact,
-                            child: Text(_formatEnumName(impact)),
-                          );
-                        })
-                        .toList(),
+                    items: AvailabilityImpact.values.map((
+                      AvailabilityImpact impact,
+                    ) {
+                      return DropdownMenuItem<AvailabilityImpact>(
+                        value: impact,
+                        child: Text(_formatEnumName(impact)),
+                      );
+                    }).toList(),
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(
                         context,
