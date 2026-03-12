@@ -99,12 +99,38 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
     } finally {}
   }
 
-  @override
-  void dispose() {
-    _stringEditingController.dispose();
-    _paddingEditingController.dispose();
+  Widget _form() {
+    return Form(
+      key: _formKey,
+      child: TextFormField(
+        controller: _stringEditingController,
+        keyboardType: TextInputType.multiline,
+        decoration: InputDecoration(
+          border: const OutlineInputBorder(),
+          labelText: AppLocalizations.of(context)!.a_multiline_string,
+          hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
+        ),
+        showCursor: true,
+        maxLines: null,
+        validator: (String? value) {
+          if ((value == null) || value.isEmpty) {
+            return AppLocalizations.of(context)!.enter_a_string;
+          }
 
-    super.dispose();
+          return null;
+        },
+        onChanged: (String value) {
+          if (_formKey.currentState!.validate()) {
+            setState(() {});
+          }
+        },
+        onFieldSubmitted: (String value) {
+          if (_formKey.currentState!.validate()) {
+            setState(() {});
+          }
+        },
+      ),
+    );
   }
 
   @override
@@ -169,41 +195,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Form(
-                    key: _formKey,
-                    child: TextFormField(
-                      controller: _stringEditingController,
-                      keyboardType: TextInputType.multiline,
-                      decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        labelText: AppLocalizations.of(
-                          context,
-                        )!.a_multiline_string,
-                        hintText: AppLocalizations.of(
-                          context,
-                        )!.abdullah_as_sadeed,
-                      ),
-                      showCursor: true,
-                      maxLines: null,
-                      validator: (String? value) {
-                        if ((value == null) || value.isEmpty) {
-                          return AppLocalizations.of(context)!.enter_a_string;
-                        }
-
-                        return null;
-                      },
-                      onChanged: (String value) {
-                        if (_formKey.currentState!.validate()) {
-                          setState(() {});
-                        }
-                      },
-                      onFieldSubmitted: (String value) {
-                        if (_formKey.currentState!.validate()) {
-                          setState(() {});
-                        }
-                      },
-                    ),
-                  ),
+                  _form(),
                   const SizedBox(height: 16.0),
                   Center(
                     child: ElevatedButton.icon(
@@ -656,5 +648,13 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _stringEditingController.dispose();
+    _paddingEditingController.dispose();
+
+    super.dispose();
   }
 }

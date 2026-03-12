@@ -64,15 +64,6 @@ class RouteTracerPageState extends State<RouteTracerPage> {
   }
 
   @override
-  void dispose() {
-    _hostEditingController.dispose();
-    _routeTracer.stopTrace();
-    _traceSubscription?.cancel();
-
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
@@ -170,5 +161,14 @@ class RouteTracerPageState extends State<RouteTracerPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _hostEditingController.dispose();
+    _routeTracer.stopTrace();
+    _traceSubscription?.cancel();
+
+    super.dispose();
   }
 }

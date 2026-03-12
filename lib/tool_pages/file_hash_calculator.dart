@@ -29,11 +29,6 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
   List<Map<String, dynamic>> _hashValues = [];
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
@@ -211,5 +206,10 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

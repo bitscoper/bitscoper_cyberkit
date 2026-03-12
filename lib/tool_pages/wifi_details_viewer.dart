@@ -105,11 +105,6 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
@@ -172,5 +167,10 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
               ),
             ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

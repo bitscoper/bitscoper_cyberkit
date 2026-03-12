@@ -174,13 +174,6 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
   }
 
   @override
-  void dispose() {
-    _deviceDiscoverer?.stop();
-
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
@@ -255,5 +248,12 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _deviceDiscoverer?.stop();
+
+    super.dispose();
   }
 }
