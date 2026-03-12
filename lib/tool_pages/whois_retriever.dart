@@ -74,11 +74,57 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
     }
   }
 
-  @override
-  void dispose() {
-    _domainNameEditingController.dispose();
+  Widget _form() {
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          TextFormField(
+            controller: _domainNameEditingController,
+            keyboardType: TextInputType.url,
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              labelText: AppLocalizations.of(context)!.a_domain_name,
+              hintText: 'bitscoper.dev',
+            ),
+            showCursor: true,
+            maxLines: 1,
+            validator: (String? value) {
+              if ((value == null) || value.isEmpty) {
+                return AppLocalizations.of(context)!.enter_a_domain_name;
+              }
 
-    super.dispose();
+              return null;
+            },
+            onChanged: (String value) {},
+            onFieldSubmitted: (String value) {
+              _retrieveWHOIS();
+            },
+          ),
+          const SizedBox(height: 16.0),
+          Center(
+            child: ElevatedButton(
+              onPressed: _isRetrieving
+                  ? null
+                  : () {
+                      try {
+                        _retrieveWHOIS();
+                      } catch (error) {
+                        debugPrint(error.toString());
+
+                        showMessageDialog(
+                          AppLocalizations.of(context)!.error,
+                          error.toString(),
+                        );
+                      } finally {}
+                    },
+              child: Text(AppLocalizations.of(context)!.retrieve),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -92,58 +138,7 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  TextFormField(
-                    controller: _domainNameEditingController,
-                    keyboardType: TextInputType.url,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: AppLocalizations.of(context)!.a_domain_name,
-                      hintText: 'bitscoper.dev',
-                    ),
-                    showCursor: true,
-                    maxLines: 1,
-                    validator: (String? value) {
-                      if ((value == null) || value.isEmpty) {
-                        return AppLocalizations.of(
-                          context,
-                        )!.enter_a_domain_name;
-                      }
-
-                      return null;
-                    },
-                    onChanged: (String value) {},
-                    onFieldSubmitted: (String value) {
-                      _retrieveWHOIS();
-                    },
-                  ),
-                  const SizedBox(height: 16.0),
-                  Center(
-                    child: ElevatedButton(
-                      onPressed: _isRetrieving
-                          ? null
-                          : () {
-                              try {
-                                _retrieveWHOIS();
-                              } catch (error) {
-                                debugPrint(error.toString());
-
-                                showMessageDialog(
-                                  AppLocalizations.of(context)!.error,
-                                  error.toString(),
-                                );
-                              } finally {}
-                            },
-                      child: Text(AppLocalizations.of(context)!.retrieve),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            _form(),
             const SizedBox(height: 16.0),
             if (_isRetrieving)
               const Center(child: CircularProgressIndicator())
@@ -165,5 +160,12 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _domainNameEditingController.dispose();
+
+    super.dispose();
   }
 }

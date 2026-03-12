@@ -85,11 +85,80 @@ class PingerPageState extends State<PingerPage> {
     }
   }
 
-  @override
-  void dispose() {
-    _hostEditingController.dispose();
+  Widget _form() {
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          TextFormField(
+            controller: _hostEditingController,
+            keyboardType: TextInputType.url,
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              labelText: AppLocalizations.of(context)!.a_host_or_ip_address,
+              hintText: 'bitscoper.dev',
+            ),
+            showCursor: true,
+            maxLines: 1,
+            validator: (String? value) {
+              if ((value == null) || value.isEmpty) {
+                return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
+              }
+              return null;
+            },
+            onChanged: (String value) {},
+            onFieldSubmitted: (String value) {
+              _ping();
+            },
+          ),
+          const SizedBox(height: 16.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              ElevatedButton(
+                onPressed: _isPinging
+                    ? null
+                    : () async {
+                        try {
+                          await _ping();
+                        } catch (error) {
+                          debugPrint(error.toString());
 
-    super.dispose();
+                          showMessageDialog(
+                            AppLocalizations.of(
+                              navigatorKey.currentContext!,
+                            )!.error,
+                            error.toString(),
+                          );
+                        } finally {}
+                      },
+                child: Text(AppLocalizations.of(context)!.ping),
+              ),
+              ElevatedButton(
+                onPressed: _isPinging
+                    ? () {
+                        try {
+                          setState(() {
+                            _isPinging = false;
+                          });
+                        } catch (error) {
+                          debugPrint(error.toString());
+
+                          showMessageDialog(
+                            AppLocalizations.of(context)!.error,
+                            error.toString(),
+                          );
+                        } finally {}
+                      }
+                    : null,
+                child: Text(AppLocalizations.of(context)!.stop),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -101,83 +170,7 @@ class PingerPageState extends State<PingerPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  TextFormField(
-                    controller: _hostEditingController,
-                    keyboardType: TextInputType.url,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: AppLocalizations.of(
-                        context,
-                      )!.a_host_or_ip_address,
-                      hintText: 'bitscoper.dev',
-                    ),
-                    showCursor: true,
-                    maxLines: 1,
-                    validator: (String? value) {
-                      if ((value == null) || value.isEmpty) {
-                        return AppLocalizations.of(
-                          context,
-                        )!.enter_a_host_or_ip_address;
-                      }
-                      return null;
-                    },
-                    onChanged: (String value) {},
-                    onFieldSubmitted: (String value) {
-                      _ping();
-                    },
-                  ),
-                  const SizedBox(height: 16.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ElevatedButton(
-                        onPressed: _isPinging
-                            ? null
-                            : () async {
-                                try {
-                                  await _ping();
-                                } catch (error) {
-                                  debugPrint(error.toString());
-
-                                  showMessageDialog(
-                                    AppLocalizations.of(
-                                      navigatorKey.currentContext!,
-                                    )!.error,
-                                    error.toString(),
-                                  );
-                                } finally {}
-                              },
-                        child: Text(AppLocalizations.of(context)!.ping),
-                      ),
-                      ElevatedButton(
-                        onPressed: _isPinging
-                            ? () {
-                                try {
-                                  setState(() {
-                                    _isPinging = false;
-                                  });
-                                } catch (error) {
-                                  debugPrint(error.toString());
-
-                                  showMessageDialog(
-                                    AppLocalizations.of(context)!.error,
-                                    error.toString(),
-                                  );
-                                } finally {}
-                              }
-                            : null,
-                        child: Text(AppLocalizations.of(context)!.stop),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            _form(),
             const SizedBox(height: 16.0),
             if (_isPinging)
               const Column(
@@ -226,5 +219,12 @@ class PingerPageState extends State<PingerPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _hostEditingController.dispose();
+
+    super.dispose();
   }
 }

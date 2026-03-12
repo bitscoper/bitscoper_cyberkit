@@ -65,11 +65,34 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
     } finally {}
   }
 
-  @override
-  void dispose() {
-    _stringEditingController.dispose();
+  Widget _form() {
+    return Form(
+      key: _formKey,
+      child: TextFormField(
+        controller: _stringEditingController,
+        keyboardType: TextInputType.multiline,
+        decoration: InputDecoration(
+          border: const OutlineInputBorder(),
+          labelText: AppLocalizations.of(context)!.a_multiline_string,
+          hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
+        ),
+        showCursor: true,
+        maxLines: null,
+        validator: (String? value) {
+          if ((value == null) || value.isEmpty) {
+            return AppLocalizations.of(context)!.enter_a_string;
+          }
 
-    super.dispose();
+          return null;
+        },
+        onChanged: (String value) {
+          _encodeStringToBase64();
+        },
+        onFieldSubmitted: (String value) {
+          _encodeStringToBase64();
+        },
+      ),
+    );
   }
 
   @override
@@ -83,33 +106,7 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Form(
-              key: _formKey,
-              child: TextFormField(
-                controller: _stringEditingController,
-                keyboardType: TextInputType.multiline,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: AppLocalizations.of(context)!.a_multiline_string,
-                  hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
-                ),
-                showCursor: true,
-                maxLines: null,
-                validator: (String? value) {
-                  if ((value == null) || value.isEmpty) {
-                    return AppLocalizations.of(context)!.enter_a_string;
-                  }
-
-                  return null;
-                },
-                onChanged: (String value) {
-                  _encodeStringToBase64();
-                },
-                onFieldSubmitted: (String value) {
-                  _encodeStringToBase64();
-                },
-              ),
-            ),
+            _form(),
             const SizedBox(height: 16.0),
             if (_stringEditingController.text.isEmpty)
               Center(
@@ -276,5 +273,12 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _stringEditingController.dispose();
+
+    super.dispose();
   }
 }

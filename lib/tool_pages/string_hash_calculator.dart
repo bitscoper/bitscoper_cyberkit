@@ -63,11 +63,34 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
     } finally {}
   }
 
-  @override
-  void dispose() {
-    _stringEditingController.dispose();
+  Widget _form() {
+    return Form(
+      key: _formKey,
+      child: TextFormField(
+        controller: _stringEditingController,
+        keyboardType: TextInputType.multiline,
+        decoration: InputDecoration(
+          border: const OutlineInputBorder(),
+          labelText: AppLocalizations.of(context)!.a_multiline_string,
+          hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
+        ),
+        showCursor: true,
+        maxLines: null,
+        validator: (String? value) {
+          if ((value == null) || value.isEmpty) {
+            return AppLocalizations.of(context)!.enter_a_string;
+          }
 
-    super.dispose();
+          return null;
+        },
+        onChanged: (String value) {
+          _calculateHashes();
+        },
+        onFieldSubmitted: (String value) {
+          _calculateHashes();
+        },
+      ),
+    );
   }
 
   @override
@@ -81,33 +104,7 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Form(
-              key: _formKey,
-              child: TextFormField(
-                controller: _stringEditingController,
-                keyboardType: TextInputType.multiline,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: AppLocalizations.of(context)!.a_multiline_string,
-                  hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
-                ),
-                showCursor: true,
-                maxLines: null,
-                validator: (String? value) {
-                  if ((value == null) || value.isEmpty) {
-                    return AppLocalizations.of(context)!.enter_a_string;
-                  }
-
-                  return null;
-                },
-                onChanged: (String value) {
-                  _calculateHashes();
-                },
-                onFieldSubmitted: (String value) {
-                  _calculateHashes();
-                },
-              ),
-            ),
+            _form(),
             const SizedBox(height: 16.0),
             if (_stringEditingController.text.isEmpty)
               Center(
@@ -159,5 +156,12 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _stringEditingController.dispose();
+
+    super.dispose();
   }
 }

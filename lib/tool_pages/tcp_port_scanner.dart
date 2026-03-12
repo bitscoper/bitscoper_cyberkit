@@ -135,12 +135,95 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
     }
   }
 
-  @override
-  void dispose() {
-    _hostEditingController.dispose();
-    _parallelismEditingController.dispose();
+  Widget _form() {
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: TextFormField(
+                    controller: _hostEditingController,
+                    keyboardType: TextInputType.url,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: AppLocalizations.of(
+                        context,
+                      )!.a_host_or_ip_address,
+                      hintText: 'bitscoper.dev',
+                    ),
+                    showCursor: true,
+                    maxLines: 1,
+                    validator: (String? value) {
+                      if ((value == null) || value.isEmpty) {
+                        return AppLocalizations.of(
+                          context,
+                        )!.enter_a_host_or_ip_address;
+                      }
 
-    super.dispose();
+                      return null;
+                    },
+                    onChanged: (String value) {},
+                    onFieldSubmitted: (String value) {
+                      _scanTCPPorts();
+                    },
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: TextFormField(
+                    controller: _parallelismEditingController,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: AppLocalizations.of(context)!.parallelism,
+                      hintText: '64',
+                    ),
+                    showCursor: true,
+                    maxLines: 1,
+                    onChanged: (String value) {},
+                    onFieldSubmitted: (String value) {
+                      _scanTCPPorts();
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16.0),
+          Center(
+            child: _isScanning
+                ? const CircularProgressIndicator()
+                : ElevatedButton(
+                    onPressed: () async {
+                      try {
+                        await _scanTCPPorts();
+                      } catch (error) {
+                        debugPrint(error.toString());
+
+                        showMessageDialog(
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.error,
+                          error.toString(),
+                        );
+                      } finally {}
+                    },
+                    child: Text(AppLocalizations.of(context)!.scan),
+                  ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -159,98 +242,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 3,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: TextFormField(
-                            controller: _hostEditingController,
-                            keyboardType: TextInputType.url,
-                            decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              labelText: AppLocalizations.of(
-                                context,
-                              )!.a_host_or_ip_address,
-                              hintText: 'bitscoper.dev',
-                            ),
-                            showCursor: true,
-                            maxLines: 1,
-                            validator: (String? value) {
-                              if ((value == null) || value.isEmpty) {
-                                return AppLocalizations.of(
-                                  context,
-                                )!.enter_a_host_or_ip_address;
-                              }
-
-                              return null;
-                            },
-                            onChanged: (String value) {},
-                            onFieldSubmitted: (String value) {
-                              _scanTCPPorts();
-                            },
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: TextFormField(
-                            controller: _parallelismEditingController,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
-                            decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              labelText: AppLocalizations.of(
-                                context,
-                              )!.parallelism,
-                              hintText: '64',
-                            ),
-                            showCursor: true,
-                            maxLines: 1,
-                            onChanged: (String value) {},
-                            onFieldSubmitted: (String value) {
-                              _scanTCPPorts();
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16.0),
-                  Center(
-                    child: _isScanning
-                        ? const CircularProgressIndicator()
-                        : ElevatedButton(
-                            onPressed: () async {
-                              try {
-                                await _scanTCPPorts();
-                              } catch (error) {
-                                debugPrint(error.toString());
-
-                                showMessageDialog(
-                                  AppLocalizations.of(
-                                    navigatorKey.currentContext!,
-                                  )!.error,
-                                  error.toString(),
-                                );
-                              } finally {}
-                            },
-                            child: Text(AppLocalizations.of(context)!.scan),
-                          ),
-                  ),
-                ],
-              ),
-            ),
+            _form(),
             const SizedBox(height: 16.0),
             if (!_isScanning)
               Column(
@@ -283,5 +275,13 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _hostEditingController.dispose();
+    _parallelismEditingController.dispose();
+
+    super.dispose();
   }
 }

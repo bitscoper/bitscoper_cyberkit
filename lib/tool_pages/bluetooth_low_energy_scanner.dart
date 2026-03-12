@@ -113,14 +113,6 @@ class BluetoothLowEnergyScannerPageState
   }
 
   @override
-  void dispose() {
-    FlutterBluePlus.stopScan();
-    _scanSubscription?.cancel();
-
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
@@ -259,5 +251,13 @@ class BluetoothLowEnergyScannerPageState
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    FlutterBluePlus.stopScan();
+    _scanSubscription?.cancel();
+
+    super.dispose();
   }
 }
