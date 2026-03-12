@@ -85,12 +85,109 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
     } finally {}
   }
 
-  @override
-  void dispose() {
-    _stringEditingController.dispose();
-    _morseCodeController.dispose();
+  Widget _stringForm() {
+    return Form(
+      key: _stringFormKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          TextFormField(
+            controller: _stringEditingController,
+            keyboardType: TextInputType.text,
+            inputFormatters: [UpperCaseTextFormatter()],
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              labelText: AppLocalizations.of(context)!.a_string,
+              hintText: AppLocalizations.of(
+                context,
+              )!.abdullah_as_sadeed.toUpperCase(),
+              suffixIcon: IconButton(
+                icon: const Icon(Icons.copy_rounded),
+                onPressed: () {
+                  try {
+                    copyToClipboard(
+                      AppLocalizations.of(context)!.string,
+                      _stringEditingController.text,
+                    );
+                  } catch (error) {
+                    debugPrint(error.toString());
 
-    super.dispose();
+                    showMessageDialog(
+                      AppLocalizations.of(context)!.error,
+                      error.toString(),
+                    );
+                  } finally {}
+                },
+              ),
+            ),
+            showCursor: true,
+            maxLines: null,
+            validator: (String? value) {
+              if ((value == null) || value.isEmpty) {
+                return AppLocalizations.of(context)!.enter_a_string;
+              }
+
+              return null;
+            },
+            onChanged: (String? value) {
+              _encodeString();
+            },
+            onFieldSubmitted: (String value) {
+              _encodeString();
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _morseCodeForm() {
+    return Form(
+      key: _morseCodeFormKey,
+      child: TextFormField(
+        controller: _morseCodeController,
+        keyboardType: TextInputType.text,
+        decoration: InputDecoration(
+          border: const OutlineInputBorder(),
+          labelText: AppLocalizations.of(context)!.morse_code,
+          hintText:
+              '.- -... -.. ..- .-.. .-.. .- .... / .- ... -....- ... .- -.. . . -..',
+          suffixIcon: IconButton(
+            icon: const Icon(Icons.copy_rounded),
+            onPressed: () {
+              try {
+                copyToClipboard(
+                  AppLocalizations.of(context)!.morse_code,
+                  _morseCodeController.text,
+                );
+              } catch (error) {
+                debugPrint(error.toString());
+
+                showMessageDialog(
+                  AppLocalizations.of(context)!.error,
+                  error.toString(),
+                );
+              } finally {}
+            },
+          ),
+        ),
+        showCursor: true,
+        maxLines: null,
+        validator: (String? value) {
+          if ((value == null) || value.isEmpty) {
+            return AppLocalizations.of(context)!.enter_morse_code;
+          }
+
+          return null;
+        },
+        onChanged: (String? value) {
+          _decodeMorseCode();
+        },
+        onFieldSubmitted: (String value) {
+          _decodeMorseCode();
+        },
+      ),
+    );
   }
 
   @override
@@ -104,109 +201,20 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Form(
-              key: _stringFormKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  TextFormField(
-                    controller: _stringEditingController,
-                    keyboardType: TextInputType.text,
-                    inputFormatters: [UpperCaseTextFormatter()],
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: AppLocalizations.of(context)!.a_string,
-                      hintText: AppLocalizations.of(
-                        context,
-                      )!.abdullah_as_sadeed.toUpperCase(),
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.copy_rounded),
-                        onPressed: () {
-                          try {
-                            copyToClipboard(
-                              AppLocalizations.of(context)!.string,
-                              _stringEditingController.text,
-                            );
-                          } catch (error) {
-                            debugPrint(error.toString());
-
-                            showMessageDialog(
-                              AppLocalizations.of(context)!.error,
-                              error.toString(),
-                            );
-                          } finally {}
-                        },
-                      ),
-                    ),
-                    showCursor: true,
-                    maxLines: null,
-                    validator: (String? value) {
-                      if ((value == null) || value.isEmpty) {
-                        return AppLocalizations.of(context)!.enter_a_string;
-                      }
-
-                      return null;
-                    },
-                    onChanged: (String? value) {
-                      _encodeString();
-                    },
-                    onFieldSubmitted: (String value) {
-                      _encodeString();
-                    },
-                  ),
-                ],
-              ),
-            ),
+            _stringForm(),
             const SizedBox(height: 16.0),
-            Form(
-              key: _morseCodeFormKey,
-              child: TextFormField(
-                controller: _morseCodeController,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: AppLocalizations.of(context)!.morse_code,
-                  hintText:
-                      '.- -... -.. ..- .-.. .-.. .- .... / .- ... -....- ... .- -.. . . -..',
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.copy_rounded),
-                    onPressed: () {
-                      try {
-                        copyToClipboard(
-                          AppLocalizations.of(context)!.morse_code,
-                          _morseCodeController.text,
-                        );
-                      } catch (error) {
-                        debugPrint(error.toString());
-
-                        showMessageDialog(
-                          AppLocalizations.of(context)!.error,
-                          error.toString(),
-                        );
-                      } finally {}
-                    },
-                  ),
-                ),
-                showCursor: true,
-                maxLines: null,
-                validator: (String? value) {
-                  if ((value == null) || value.isEmpty) {
-                    return AppLocalizations.of(context)!.enter_morse_code;
-                  }
-
-                  return null;
-                },
-                onChanged: (String? value) {
-                  _decodeMorseCode();
-                },
-                onFieldSubmitted: (String value) {
-                  _decodeMorseCode();
-                },
-              ),
-            ),
+            _morseCodeForm(),
           ],
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _stringEditingController.dispose();
+    _morseCodeController.dispose();
+
+    super.dispose();
   }
 }
