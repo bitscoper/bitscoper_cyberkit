@@ -28,6 +28,81 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
   bool _isCalculating = false;
   List<Map<String, dynamic>> _hashValues = [];
 
+  void _calculate() async {
+    try {
+      List<Uint8List> files = [];
+
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.any,
+        allowMultiple: true,
+        dialogTitle: AppLocalizations.of(context)!.select_files,
+      );
+
+      if (result != null) {
+        List<File> selectedFiles = result.paths
+            .where((String? path) => path != null)
+            .map((String? path) {
+              return File(path!);
+            })
+            .toList();
+
+        for (File file in selectedFiles) {
+          files.add(file.readAsBytesSync());
+        }
+
+        setState(() {
+          _isCalculating = true;
+        });
+
+        final List<Map<String, String>> hashValues = await Future.wait(
+          selectedFiles.map((File file) async {
+            final Uint8List bytes = await file.readAsBytes();
+
+            final String md5Hash = md5.convert(bytes).toString();
+            final String sha1Hash = sha1.convert(bytes).toString();
+            final String sha224Hash = sha224.convert(bytes).toString();
+            final String sha512Hash = sha512.convert(bytes).toString();
+            final String sha256Hash = sha256.convert(bytes).toString();
+            final String sha384Hash = sha384.convert(bytes).toString();
+
+            return {
+              'File Name': file.path.split('/').last,
+              'MD5': md5Hash,
+              'SHA1': sha1Hash,
+              'SHA224': sha224Hash,
+              'SHA256': sha256Hash,
+              'SHA384': sha384Hash,
+              'SHA512': sha512Hash,
+            };
+          }),
+        );
+
+        setState(() {
+          _hashValues = hashValues;
+          _isCalculating = false;
+        });
+
+        await sendNotification(
+          title: AppLocalizations.of(
+            navigatorKey.currentContext!,
+          )!.file_hash_calculator,
+          subtitle: AppLocalizations.of(
+            navigatorKey.currentContext!,
+          )!.bitscoper_cyberkit,
+          body: AppLocalizations.of(navigatorKey.currentContext!)!.calculated,
+          payload: "File_Hash_Calculator",
+        );
+      }
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
+    } finally {}
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,99 +116,8 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
           children: <Widget>[
             Center(
               child: ElevatedButton(
+                onPressed: _calculate,
                 child: Text(AppLocalizations.of(context)!.select_files),
-                onPressed: () async {
-                  try {
-                    List<Uint8List> files = [];
-
-                    FilePickerResult? result = await FilePicker.platform
-                        .pickFiles(
-                          type: FileType.any,
-                          allowMultiple: true,
-                          dialogTitle: AppLocalizations.of(
-                            context,
-                          )!.select_files,
-                        );
-
-                    if (result != null) {
-                      List<File> selectedFiles = result.paths
-                          .where((String? path) => path != null)
-                          .map((String? path) {
-                            return File(path!);
-                          })
-                          .toList();
-
-                      for (File file in selectedFiles) {
-                        files.add(file.readAsBytesSync());
-                      }
-
-                      setState(() {
-                        _isCalculating = true;
-                      });
-
-                      final List<Map<String, String>> hashValues =
-                          await Future.wait(
-                            selectedFiles.map((File file) async {
-                              final Uint8List bytes = await file.readAsBytes();
-
-                              final String md5Hash = md5
-                                  .convert(bytes)
-                                  .toString();
-                              final String sha1Hash = sha1
-                                  .convert(bytes)
-                                  .toString();
-                              final String sha224Hash = sha224
-                                  .convert(bytes)
-                                  .toString();
-                              final String sha512Hash = sha512
-                                  .convert(bytes)
-                                  .toString();
-                              final String sha256Hash = sha256
-                                  .convert(bytes)
-                                  .toString();
-                              final String sha384Hash = sha384
-                                  .convert(bytes)
-                                  .toString();
-
-                              return {
-                                'File Name': file.path.split('/').last,
-                                'MD5': md5Hash,
-                                'SHA1': sha1Hash,
-                                'SHA224': sha224Hash,
-                                'SHA256': sha256Hash,
-                                'SHA384': sha384Hash,
-                                'SHA512': sha512Hash,
-                              };
-                            }),
-                          );
-
-                      setState(() {
-                        _hashValues = hashValues;
-                        _isCalculating = false;
-                      });
-
-                      await sendNotification(
-                        title: AppLocalizations.of(
-                          navigatorKey.currentContext!,
-                        )!.file_hash_calculator,
-                        subtitle: AppLocalizations.of(
-                          navigatorKey.currentContext!,
-                        )!.bitscoper_cyberkit,
-                        body: AppLocalizations.of(
-                          navigatorKey.currentContext!,
-                        )!.calculated,
-                        payload: "File_Hash_Calculator",
-                      );
-                    }
-                  } catch (error) {
-                    debugPrint(error.toString());
-
-                    showMessageDialog(
-                      AppLocalizations.of(navigatorKey.currentContext!)!.error,
-                      error.toString(),
-                    );
-                  } finally {}
-                },
               ),
             ),
             const SizedBox(height: 16.0),

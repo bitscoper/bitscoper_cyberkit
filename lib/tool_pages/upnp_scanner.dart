@@ -26,7 +26,44 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
     super.initState();
   }
 
-  Future<void> _stopScan() async {
+  void _scan() async {
+    try {
+      setState(() {
+        _isScanning = true;
+        _devices.clear();
+      });
+
+      _deviceDiscoverer = DeviceDiscoverer();
+      await _deviceDiscoverer!.start(
+        addressTypes: <InternetAddressType>[
+          InternetAddressType.IPv4,
+          InternetAddressType.IPv6,
+        ],
+      );
+      final List<Device> devices = await _deviceDiscoverer!.getDevices();
+
+      if (devices.isNotEmpty) {
+        setState(() {
+          for (final Device device in devices) {
+            if (!_devices.contains(device)) {
+              _devices.add(device);
+            }
+          }
+        });
+      }
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
+    } finally {
+      await _stop();
+    }
+  }
+
+  Future<void> _stop() async {
     try {
       _deviceDiscoverer?.stop();
     } catch (error) {
@@ -188,51 +225,11 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 ElevatedButton(
-                  onPressed: _isScanning
-                      ? null
-                      : () async {
-                          try {
-                            setState(() {
-                              _isScanning = true;
-                              _devices.clear();
-                            });
-
-                            _deviceDiscoverer = DeviceDiscoverer();
-                            await _deviceDiscoverer!.start(
-                              addressTypes: <InternetAddressType>[
-                                InternetAddressType.IPv4,
-                                InternetAddressType.IPv6,
-                              ],
-                            );
-                            final List<Device> devices =
-                                await _deviceDiscoverer!.getDevices();
-
-                            if (devices.isNotEmpty) {
-                              setState(() {
-                                for (final Device device in devices) {
-                                  if (!_devices.contains(device)) {
-                                    _devices.add(device);
-                                  }
-                                }
-                              });
-                            }
-                          } catch (error) {
-                            debugPrint(error.toString());
-
-                            showMessageDialog(
-                              AppLocalizations.of(
-                                navigatorKey.currentContext!,
-                              )!.error,
-                              error.toString(),
-                            );
-                          } finally {
-                            await _stopScan();
-                          }
-                        },
+                  onPressed: _isScanning ? null : _scan,
                   child: Text(AppLocalizations.of(context)!.scan),
                 ),
                 ElevatedButton(
-                  onPressed: _isScanning ? _stopScan : null,
+                  onPressed: _isScanning ? _stop : null,
                   child: Text(AppLocalizations.of(context)!.stop),
                 ),
               ],
