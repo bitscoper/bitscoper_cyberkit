@@ -128,7 +128,7 @@ class BluetoothLowEnergyScannerPageState
         title: Text(
           advertisement.advName.isNotEmpty
               ? advertisement.advName
-              : AppLocalizations.of(context)!.unknown,
+              : AppLocalizations.of(navigatorKey.currentContext!)!.unknown,
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,7 +137,8 @@ class BluetoothLowEnergyScannerPageState
               TextSpan(
                 children: [
                   TextSpan(
-                    text: "${AppLocalizations.of(context)!.address}: ",
+                    text:
+                        "${AppLocalizations.of(navigatorKey.currentContext!)!.address}: ",
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   TextSpan(text: device.remoteId.str),
@@ -148,7 +149,8 @@ class BluetoothLowEnergyScannerPageState
               TextSpan(
                 children: [
                   TextSpan(
-                    text: "${AppLocalizations.of(context)!.rssi}: ",
+                    text:
+                        "${AppLocalizations.of(navigatorKey.currentContext!)!.rssi}: ",
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   TextSpan(text: "${scanResult.rssi} dBm"),
@@ -159,7 +161,8 @@ class BluetoothLowEnergyScannerPageState
               TextSpan(
                 children: [
                   TextSpan(
-                    text: "${AppLocalizations.of(context)!.connectable}: ",
+                    text:
+                        "${AppLocalizations.of(navigatorKey.currentContext!)!.connectable}: ",
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   TextSpan(text: advertisement.connectable.toString()),
@@ -171,7 +174,8 @@ class BluetoothLowEnergyScannerPageState
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: "${AppLocalizations.of(context)!.service_type}: ",
+                      text:
+                          "${AppLocalizations.of(navigatorKey.currentContext!)!.service_type}: ",
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     TextSpan(text: advertisement.serviceUuids.join(", ")),
@@ -182,9 +186,13 @@ class BluetoothLowEnergyScannerPageState
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Card(
-                  color: Theme.of(context).hoverColor,
+                  color: Theme.of(navigatorKey.currentContext!).hoverColor,
                   child: ListTile(
-                    title: Text(AppLocalizations.of(context)!.manufacturer),
+                    title: Text(
+                      AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.manufacturer,
+                    ),
                     subtitle: Text(
                       advertisement.manufacturerData.entries
                           .map(

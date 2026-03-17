@@ -205,7 +205,9 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               );
             }).toList(),
             decoration: InputDecoration(
-              labelText: AppLocalizations.of(context)!.attack_vector,
+              labelText: AppLocalizations.of(
+                navigatorKey.currentContext!,
+              )!.attack_vector,
             ),
           ),
           const SizedBox(height: 16),
@@ -219,7 +221,9 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               );
             }).toList(),
             decoration: InputDecoration(
-              labelText: AppLocalizations.of(context)!.attack_complexity,
+              labelText: AppLocalizations.of(
+                navigatorKey.currentContext!,
+              )!.attack_complexity,
             ),
           ),
           const SizedBox(height: 16),
@@ -235,7 +239,9 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               );
             }).toList(),
             decoration: InputDecoration(
-              labelText: AppLocalizations.of(context)!.privileges_required,
+              labelText: AppLocalizations.of(
+                navigatorKey.currentContext!,
+              )!.privileges_required,
             ),
           ),
           const SizedBox(height: 16),
@@ -249,7 +255,9 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               );
             }).toList(),
             decoration: InputDecoration(
-              labelText: AppLocalizations.of(context)!.user_interaction,
+              labelText: AppLocalizations.of(
+                navigatorKey.currentContext!,
+              )!.user_interaction,
             ),
           ),
           const SizedBox(height: 16),
@@ -263,7 +271,9 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               );
             }).toList(),
             decoration: InputDecoration(
-              labelText: AppLocalizations.of(context)!.scope,
+              labelText: AppLocalizations.of(
+                navigatorKey.currentContext!,
+              )!.scope,
             ),
           ),
           const SizedBox(height: 16),
@@ -279,7 +289,9 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               );
             }).toList(),
             decoration: InputDecoration(
-              labelText: AppLocalizations.of(context)!.confidentiality_impact,
+              labelText: AppLocalizations.of(
+                navigatorKey.currentContext!,
+              )!.confidentiality_impact,
             ),
           ),
           const SizedBox(height: 16),
@@ -293,7 +305,9 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               );
             }).toList(),
             decoration: InputDecoration(
-              labelText: AppLocalizations.of(context)!.integrity_impact,
+              labelText: AppLocalizations.of(
+                navigatorKey.currentContext!,
+              )!.integrity_impact,
             ),
           ),
           const SizedBox(height: 16),
@@ -307,7 +321,9 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               );
             }).toList(),
             decoration: InputDecoration(
-              labelText: AppLocalizations.of(context)!.availability_impact,
+              labelText: AppLocalizations.of(
+                navigatorKey.currentContext!,
+              )!.availability_impact,
             ),
           ),
         ],

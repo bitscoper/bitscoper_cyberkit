@@ -30,7 +30,9 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
 
   String? _hostFieldValidator(String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
+      return AppLocalizations.of(
+        navigatorKey.currentContext!,
+      )!.enter_a_host_or_ip_address;
     } else {
       return null;
     }
@@ -87,7 +89,7 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
               debugPrint(error.toString());
 
               showMessageDialog(
-                AppLocalizations.of(context)!.error,
+                AppLocalizations.of(navigatorKey.currentContext!)!.error,
                 error.toString(),
               );
             } finally {}
@@ -111,7 +113,9 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
             keyboardType: TextInputType.url,
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
-              labelText: AppLocalizations.of(context)!.a_host_or_ip_address,
+              labelText: AppLocalizations.of(
+                navigatorKey.currentContext!,
+              )!.a_host_or_ip_address,
               hintText: 'https://bitscoper.dev/',
             ),
             showCursor: true,
@@ -126,7 +130,9 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
           Center(
             child: ElevatedButton(
               onPressed: _isRetrieving ? null : _retrieve,
-              child: Text(AppLocalizations.of(context)!.extract),
+              child: Text(
+                AppLocalizations.of(navigatorKey.currentContext!)!.extract,
+              ),
             ),
           ),
         ],

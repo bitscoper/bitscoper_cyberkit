@@ -40,7 +40,9 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
 
   String? _uriPrefixFieldValidator(String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_a_uri_prefix;
+      return AppLocalizations.of(
+        navigatorKey.currentContext!,
+      )!.enter_a_uri_prefix;
     } else {
       return null;
     }
@@ -48,11 +50,17 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
 
   String? _lowerLimitFieldValidator(String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_a_lower_limit;
+      return AppLocalizations.of(
+        navigatorKey.currentContext!,
+      )!.enter_a_lower_limit;
     } else if (int.tryParse(value) == null) {
-      return AppLocalizations.of(context)!.enter_an_integer;
+      return AppLocalizations.of(
+        navigatorKey.currentContext!,
+      )!.enter_an_integer;
     } else if (int.tryParse(value)! < 1) {
-      return AppLocalizations.of(context)!.enter_a_positive_integer;
+      return AppLocalizations.of(
+        navigatorKey.currentContext!,
+      )!.enter_a_positive_integer;
     } else if (int.tryParse(value)! >
         int.tryParse(_upperLimitEditingController.text.trim())!) {
       return AppLocalizations.of(
@@ -65,11 +73,17 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
 
   String? _upperLimitFieldValidator(String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_an_upper_limit;
+      return AppLocalizations.of(
+        navigatorKey.currentContext!,
+      )!.enter_an_upper_limit;
     } else if (int.tryParse(value) == null) {
-      return AppLocalizations.of(context)!.enter_an_integer;
+      return AppLocalizations.of(
+        navigatorKey.currentContext!,
+      )!.enter_an_integer;
     } else if (int.tryParse(value)! < 1) {
-      return AppLocalizations.of(context)!.enter_a_positive_integer;
+      return AppLocalizations.of(
+        navigatorKey.currentContext!,
+      )!.enter_a_positive_integer;
     } else if (int.tryParse(value)! <
         int.tryParse(_lowerLimitEditingController.text.trim())!) {
       return AppLocalizations.of(
@@ -154,7 +168,10 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+      showMessageDialog(
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
     } finally {}
   }
 
@@ -172,7 +189,9 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                   controller: _uriPrefixEditingController,
                   keyboardType: TextInputType.url,
                   decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.uri_prefix,
+                    labelText: AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.uri_prefix,
                     hintText: 'https://bitscoper.dev/publication-',
                   ),
                   showCursor: true,
@@ -191,7 +210,9 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                   controller: _uriSuffixEditingController,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.uri_suffix,
+                    labelText: AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.uri_suffix,
                     hintText: '.php',
                   ),
                   showCursor: true,
@@ -214,7 +235,9 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                   controller: _lowerLimitEditingController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.lower_limit,
+                    labelText: AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.lower_limit,
                     hintText: '1',
                   ),
                   showCursor: true,
@@ -232,7 +255,9 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                   controller: _upperLimitEditingController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.upper_limit,
+                    labelText: AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.upper_limit,
                     hintText: '100',
                   ),
                   showCursor: true,
@@ -252,11 +277,15 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
             children: <Widget>[
               ElevatedButton(
                 onPressed: _isCrawling ? null : _crawl,
-                child: Text(AppLocalizations.of(context)!.crawl),
+                child: Text(
+                  AppLocalizations.of(navigatorKey.currentContext!)!.crawl,
+                ),
               ),
               ElevatedButton(
                 onPressed: _isCrawling ? _stop : null,
-                child: Text(AppLocalizations.of(context)!.stop),
+                child: Text(
+                  AppLocalizations.of(navigatorKey.currentContext!)!.stop,
+                ),
               ),
             ],
           ),

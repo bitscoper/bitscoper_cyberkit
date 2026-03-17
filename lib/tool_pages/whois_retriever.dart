@@ -30,7 +30,9 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
 
   String? _domainNameFieldValidator(String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_a_domain_name;
+      return AppLocalizations.of(
+        navigatorKey.currentContext!,
+      )!.enter_a_domain_name;
     } else {
       return null;
     }
@@ -93,7 +95,9 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
             keyboardType: TextInputType.url,
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
-              labelText: AppLocalizations.of(context)!.a_domain_name,
+              labelText: AppLocalizations.of(
+                navigatorKey.currentContext!,
+              )!.a_domain_name,
               hintText: 'bitscoper.dev',
             ),
             showCursor: true,
@@ -108,7 +112,9 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
           Center(
             child: ElevatedButton(
               onPressed: _isRetrieving ? null : _retrieve,
-              child: Text(AppLocalizations.of(context)!.retrieve),
+              child: Text(
+                AppLocalizations.of(navigatorKey.currentContext!)!.retrieve,
+              ),
             ),
           ),
         ],

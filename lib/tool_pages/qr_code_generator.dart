@@ -58,7 +58,9 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text(
-              AppLocalizations.of(context)!.color_selection,
+              AppLocalizations.of(
+                navigatorKey.currentContext!,
+              )!.color_selection,
               textAlign: TextAlign.center,
             ),
             content: SingleChildScrollView(
@@ -72,16 +74,20 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
             actions: <Widget>[
               Center(
                 child: ElevatedButton(
-                  child: Text(AppLocalizations.of(context)!.select),
+                  child: Text(
+                    AppLocalizations.of(navigatorKey.currentContext!)!.select,
+                  ),
                   onPressed: () {
                     try {
                       onColorChanged(pickerColor);
-                      Navigator.of(context).pop();
+                      Navigator.of(navigatorKey.currentContext!).pop();
                     } catch (error) {
                       debugPrint(error.toString());
 
                       showMessageDialog(
-                        AppLocalizations.of(context)!.error,
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.error,
                         error.toString(),
                       );
                     } finally {}
@@ -95,7 +101,10 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+      showMessageDialog(
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
     } finally {}
   }
 
@@ -132,7 +141,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
 
   String? _stringFieldValidator(String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_a_string;
+      return AppLocalizations.of(navigatorKey.currentContext!)!.enter_a_string;
     } else {
       return null;
     }
@@ -140,11 +149,13 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
 
   String? _paddingFieldValidator(String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_padding;
+      return AppLocalizations.of(navigatorKey.currentContext!)!.enter_padding;
     } else if (double.tryParse(value) == null) {
-      return AppLocalizations.of(context)!.enter_a_number;
+      return AppLocalizations.of(navigatorKey.currentContext!)!.enter_a_number;
     } else if (double.tryParse(value)! < 1.toDouble()) {
-      return AppLocalizations.of(context)!.enter_a_positive_number;
+      return AppLocalizations.of(
+        navigatorKey.currentContext!,
+      )!.enter_a_positive_number;
     } else {
       return null;
     }
@@ -212,8 +223,12 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
         keyboardType: TextInputType.multiline,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
-          labelText: AppLocalizations.of(context)!.a_multiline_string,
-          hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
+          labelText: AppLocalizations.of(
+            navigatorKey.currentContext!,
+          )!.a_multiline_string,
+          hintText: AppLocalizations.of(
+            navigatorKey.currentContext!,
+          )!.abdullah_as_sadeed,
         ),
         showCursor: true,
         maxLines: null,

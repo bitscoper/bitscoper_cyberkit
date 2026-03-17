@@ -86,7 +86,7 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
       final Match? match = regex.firstMatch(dump);
 
       return match?.group(1)?.trim() ??
-          '${AppLocalizations.of(context)!.unknown} ${AppLocalizations.of(context)!.device}';
+          '${AppLocalizations.of(navigatorKey.currentContext!)!.unknown} ${AppLocalizations.of(navigatorKey.currentContext!)!.device}';
     } catch (error) {
       debugPrint(error.toString());
 
@@ -95,7 +95,7 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
         error.toString(),
       );
 
-      return AppLocalizations.of(context)!.unknown;
+      return AppLocalizations.of(navigatorKey.currentContext!)!.unknown;
     } finally {}
   }
 
@@ -105,7 +105,7 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
       final Match? match = regex.firstMatch(dump);
 
       if (match == null) {
-        return AppLocalizations.of(context)!.unknown;
+        return AppLocalizations.of(navigatorKey.currentContext!)!.unknown;
       }
 
       final Uri uri = Uri.parse(match.group(1)!);
@@ -118,7 +118,7 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
         error.toString(),
       );
 
-      return AppLocalizations.of(context)!.unknown;
+      return AppLocalizations.of(navigatorKey.currentContext!)!.unknown;
     } finally {}
   }
 
@@ -180,7 +180,8 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
               TextSpan(
                 children: <TextSpan>[
                   TextSpan(
-                    text: "${AppLocalizations.of(context)!.ip_address}: ",
+                    text:
+                        "${AppLocalizations.of(navigatorKey.currentContext!)!.ip_address}: ",
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   TextSpan(text: host),
@@ -191,7 +192,7 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Card(
-                color: Theme.of(context).hoverColor,
+                color: Theme.of(navigatorKey.currentContext!).hoverColor,
                 elevation: 1.5,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),

@@ -33,7 +33,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
 
   String? _hostFieldValidator(String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
+      return AppLocalizations.of(navigatorKey.currentContext!)!.enter_a_host_or_ip_address;
     } else {
       return null;
     }
