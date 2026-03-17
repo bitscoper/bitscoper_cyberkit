@@ -119,6 +119,60 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
     }
   }
 
+  void _onStringChanged(String value) {
+    if (_formKey.currentState!.validate()) {
+      setState(() {});
+    }
+  }
+
+  void _onVersionChanged(int? value) {
+    setState(() {
+      _version = value!;
+    });
+  }
+
+  void _onCorrectionLevelChanged(int? value) {
+    setState(() {
+      _errorCorrectionLevel = value!;
+    });
+  }
+
+  void _onEyeShapeChanged(QrEyeShape? value) {
+    setState(() {
+      _eyeShape = value!;
+    });
+  }
+
+  void _onDataModuleShapeChange(QrDataModuleShape? value) {
+    setState(() {
+      _dataModuleShape = value!;
+    });
+  }
+
+  void _onGaplessnessChanged(Object? value) {
+    setState(() {
+      _gaplessness = value as bool;
+    });
+  }
+
+  void _onPaddingChanged(String value) {
+    if (_formKey.currentState!.validate()) {
+      setState(() {});
+    }
+  }
+
+  void _onStringFieldSubmitted(String value) {
+    if (_formKey.currentState!.validate()) {
+      setState(() {});
+    }
+  }
+
+  void _onPaddingFieldSubmitted(String value) {
+    if (_formKey.currentState!.validate()) {
+      setState(() {});
+    }
+  }
+
   Widget _form() {
     return Form(
       key: _formKey,
@@ -133,16 +187,8 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
         showCursor: true,
         maxLines: null,
         validator: _stringFieldValidator,
-        onChanged: (String value) {
-          if (_formKey.currentState!.validate()) {
-            setState(() {});
-          }
-        },
-        onFieldSubmitted: (String value) {
-          if (_formKey.currentState!.validate()) {
-            setState(() {});
-          }
-        },
+        onChanged: _onStringChanged,
+        onFieldSubmitted: _onStringFieldSubmitted,
       ),
     );
   }
@@ -274,11 +320,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                             ),
                           ],
                           initialValue: _version,
-                          onChanged: (int? value) {
-                            setState(() {
-                              _version = value!;
-                            });
-                          },
+                          onChanged: _onVersionChanged,
                         ),
                       ),
                       const SizedBox(width: 16.0),
@@ -311,11 +353,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                             ),
                           ],
                           initialValue: _errorCorrectionLevel,
-                          onChanged: (int? value) {
-                            setState(() {
-                              _errorCorrectionLevel = value!;
-                            });
-                          },
+                          onChanged: _onCorrectionLevelChanged,
                         ),
                       ),
                     ],
@@ -340,11 +378,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                             ),
                           ],
                           initialValue: _eyeShape,
-                          onChanged: (QrEyeShape? value) {
-                            setState(() {
-                              _eyeShape = value!;
-                            });
-                          },
+                          onChanged: _onEyeShapeChanged,
                         ),
                       ),
                       const SizedBox(width: 16.0),
@@ -367,11 +401,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                             ),
                           ],
                           initialValue: _dataModuleShape,
-                          onChanged: (QrDataModuleShape? value) {
-                            setState(() {
-                              _dataModuleShape = value!;
-                            });
-                          },
+                          onChanged: _onDataModuleShapeChange,
                         ),
                       ),
                     ],
@@ -550,11 +580,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                             ),
                           ],
                           initialValue: _gaplessness,
-                          onChanged: (Object? value) {
-                            setState(() {
-                              _gaplessness = value as bool;
-                            });
-                          },
+                          onChanged: _onGaplessnessChanged,
                         ),
                       ),
                       const SizedBox(width: 16.0),
@@ -570,16 +596,8 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                           showCursor: true,
                           maxLines: 1,
                           validator: _paddingFieldValidator,
-                          onChanged: (String value) {
-                            if (_formKey.currentState!.validate()) {
-                              setState(() {});
-                            }
-                          },
-                          onFieldSubmitted: (String value) {
-                            if (_formKey.currentState!.validate()) {
-                              setState(() {});
-                            }
-                          },
+                          onChanged: _onPaddingChanged,
+                          onFieldSubmitted: _onPaddingFieldSubmitted,
                         ),
                       ),
                     ],
