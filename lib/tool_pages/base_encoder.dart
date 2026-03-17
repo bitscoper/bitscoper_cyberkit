@@ -65,6 +65,14 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
     } finally {}
   }
 
+  String? _stringFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_a_string;
+    } else {
+      return null;
+    }
+  }
+
   Widget _form() {
     return Form(
       key: _formKey,
@@ -78,13 +86,7 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
         ),
         showCursor: true,
         maxLines: null,
-        validator: (String? value) {
-          if ((value == null) || value.isEmpty) {
-            return AppLocalizations.of(context)!.enter_a_string;
-          }
-
-          return null;
-        },
+        validator: _stringFieldValidator,
         onChanged: (String value) {
           _encodeStringToBase64();
         },

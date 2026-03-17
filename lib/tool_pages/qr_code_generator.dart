@@ -99,6 +99,26 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
     } finally {}
   }
 
+  String? _stringFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_a_string;
+    } else {
+      return null;
+    }
+  }
+
+  String? _paddingFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_padding;
+    } else if (double.tryParse(value) == null) {
+      return AppLocalizations.of(context)!.enter_a_number;
+    } else if (double.tryParse(value)! < 1.toDouble()) {
+      return AppLocalizations.of(context)!.enter_a_positive_number;
+    } else {
+      return null;
+    }
+  }
+
   Widget _form() {
     return Form(
       key: _formKey,
@@ -112,13 +132,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
         ),
         showCursor: true,
         maxLines: null,
-        validator: (String? value) {
-          if ((value == null) || value.isEmpty) {
-            return AppLocalizations.of(context)!.enter_a_string;
-          }
-
-          return null;
-        },
+        validator: _stringFieldValidator,
         onChanged: (String value) {
           if (_formKey.currentState!.validate()) {
             setState(() {});
@@ -555,23 +569,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                           ),
                           showCursor: true,
                           maxLines: 1,
-                          validator: (String? value) {
-                            if ((value == null) || value.isEmpty) {
-                              return AppLocalizations.of(
-                                context,
-                              )!.enter_padding;
-                            } else if (double.tryParse(value) == null) {
-                              return AppLocalizations.of(
-                                context,
-                              )!.enter_a_number;
-                            } else if (double.tryParse(value)! < 1.toDouble()) {
-                              return AppLocalizations.of(
-                                context,
-                              )!.enter_a_positive_number;
-                            }
-
-                            return null;
-                          },
+                          validator: _paddingFieldValidator,
                           onChanged: (String value) {
                             if (_formKey.currentState!.validate()) {
                               setState(() {});

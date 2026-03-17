@@ -49,31 +49,13 @@ class _ToolCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
         onTap: () async {
           try {
-            if (permissionList.isEmpty) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (BuildContext context) => page),
-              );
-              return;
-            }
-
             await requestPermissions(
               permissionList.whereType<Permission>().toList(),
-              () {
-                try {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (BuildContext context) => page),
-                  );
-                } catch (error) {
-                  debugPrint(error.toString());
+            );
 
-                  showMessageDialog(
-                    AppLocalizations.of(navigatorKey.currentContext!)!.error,
-                    error.toString(),
-                  );
-                } finally {}
-              },
+            Navigator.push(
+              navigatorKey.currentContext!,
+              MaterialPageRoute(builder: (BuildContext context) => page),
             );
           } catch (error) {
             debugPrint(error.toString());
