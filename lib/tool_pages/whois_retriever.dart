@@ -74,6 +74,14 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
     }
   }
 
+  String? _domainNameFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_a_domain_name;
+    } else {
+      return null;
+    }
+  }
+
   Widget _form() {
     return Form(
       key: _formKey,
@@ -90,13 +98,7 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
             ),
             showCursor: true,
             maxLines: 1,
-            validator: (String? value) {
-              if ((value == null) || value.isEmpty) {
-                return AppLocalizations.of(context)!.enter_a_domain_name;
-              }
-
-              return null;
-            },
+            validator: _domainNameFieldValidator,
             onChanged: (String value) {},
             onFieldSubmitted: (String value) {
               _retrieveWHOIS();

@@ -72,7 +72,16 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
     } finally {}
   }
 
-  Widget _detailsCard(String label, String? value) {
+  Widget _progressIndicator() {
+    return Center(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(32.0),
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+
+  Widget _wifiDetailsCard(String label, String? value) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Card(
@@ -104,6 +113,55 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
     );
   }
 
+  Widget _wifiDetailsView() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _wifiDetailsCard(
+            AppLocalizations.of(context)!.service_set_identifier_ssid,
+            _ssid,
+          ),
+          _wifiDetailsCard(
+            AppLocalizations.of(context)!.basic_service_set_identifier_bssid,
+            _bssid,
+          ),
+          _wifiDetailsCard(
+            AppLocalizations.of(
+              context,
+            )!.internet_protocol_version_4_ipv4_address,
+            _ipAddress,
+          ),
+          _wifiDetailsCard(
+            AppLocalizations.of(
+              context,
+            )!.internet_protocol_version_6_ipv6_address,
+            _ipV6Address,
+          ),
+          _wifiDetailsCard(AppLocalizations.of(context)!.subnet_mask, _subnetMask),
+          _wifiDetailsCard(
+            AppLocalizations.of(context)!.broadcast_address,
+            _broadcast,
+          ),
+          _wifiDetailsCard(
+            AppLocalizations.of(context)!.gateway,
+            _gatewayIPAddress,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _wifiDisconnectionNotice() {
+    return Center(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(32.0),
+        child: Text(AppLocalizations.of(context)!.wifi_is_disconnected),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,61 +169,10 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
         title: AppLocalizations.of(context)!.wifi_details_viewer,
       ),
       body: (networkConnectivityResult == null)
-          ? Center(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(32.0),
-                child: CircularProgressIndicator(),
-              ),
-            )
+          ? _progressIndicator()
           : networkConnectivityResult!.contains(ConnectivityResult.wifi)
-          ? SingleChildScrollView(
-              padding: const EdgeInsets.all(32.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  _detailsCard(
-                    AppLocalizations.of(context)!.service_set_identifier_ssid,
-                    _ssid,
-                  ),
-                  _detailsCard(
-                    AppLocalizations.of(
-                      context,
-                    )!.basic_service_set_identifier_bssid,
-                    _bssid,
-                  ),
-                  _detailsCard(
-                    AppLocalizations.of(
-                      context,
-                    )!.internet_protocol_version_4_ipv4_address,
-                    _ipAddress,
-                  ),
-                  _detailsCard(
-                    AppLocalizations.of(
-                      context,
-                    )!.internet_protocol_version_6_ipv6_address,
-                    _ipV6Address,
-                  ),
-                  _detailsCard(
-                    AppLocalizations.of(context)!.subnet_mask,
-                    _subnetMask,
-                  ),
-                  _detailsCard(
-                    AppLocalizations.of(context)!.broadcast_address,
-                    _broadcast,
-                  ),
-                  _detailsCard(
-                    AppLocalizations.of(context)!.gateway,
-                    _gatewayIPAddress,
-                  ),
-                ],
-              ),
-            )
-          : Center(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(32.0),
-                child: Text(AppLocalizations.of(context)!.wifi_is_disconnected),
-              ),
-            ),
+          ? _wifiDetailsView()
+          : _wifiDisconnectionNotice(),
     );
   }
 

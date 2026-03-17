@@ -104,6 +104,48 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
     }
   }
 
+  String? _uriPrefixFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_a_uri_prefix;
+    } else {
+      return null;
+    }
+  }
+
+  String? _lowerLimitFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_a_lower_limit;
+    } else if (int.tryParse(value) == null) {
+      return AppLocalizations.of(context)!.enter_an_integer;
+    } else if (int.tryParse(value)! < 1) {
+      return AppLocalizations.of(context)!.enter_a_positive_integer;
+    } else if (int.tryParse(value)! >
+        int.tryParse(_upperLimitEditingController.text.trim())!) {
+      return AppLocalizations.of(
+        context,
+      )!.upper_limit_must_be_greater_than_lower_limit;
+    } else {
+      return null;
+    }
+  }
+
+  String? _upperLimitFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_an_upper_limit;
+    } else if (int.tryParse(value) == null) {
+      return AppLocalizations.of(context)!.enter_an_integer;
+    } else if (int.tryParse(value)! < 1) {
+      return AppLocalizations.of(context)!.enter_a_positive_integer;
+    } else if (int.tryParse(value)! <
+        int.tryParse(_lowerLimitEditingController.text.trim())!) {
+      return AppLocalizations.of(
+        context,
+      )!.upper_limit_must_be_greater_than_lower_limit;
+    } else {
+      return null;
+    }
+  }
+
   Widget _form() {
     return Form(
       key: _formKey,
@@ -123,13 +165,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                   ),
                   showCursor: true,
                   maxLines: 1,
-                  validator: (String? value) {
-                    if ((value == null) || value.isEmpty) {
-                      return AppLocalizations.of(context)!.enter_a_uri_prefix;
-                    }
-
-                    return null;
-                  },
+                  validator: _uriPrefixFieldValidator,
                   onChanged: (String value) {},
                   onFieldSubmitted: (String value) {
                     _crawl();
@@ -171,26 +207,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                   ),
                   showCursor: true,
                   maxLines: 1,
-                  validator: (String? value) {
-                    if ((value == null) || value.isEmpty) {
-                      return AppLocalizations.of(context)!.enter_a_lower_limit;
-                    } else if (int.tryParse(value) == null) {
-                      return AppLocalizations.of(context)!.enter_an_integer;
-                    } else if (int.tryParse(value)! < 1) {
-                      return AppLocalizations.of(
-                        context,
-                      )!.enter_a_positive_integer;
-                    } else if (int.tryParse(value)! >
-                        int.tryParse(
-                          _upperLimitEditingController.text.trim(),
-                        )!) {
-                      return AppLocalizations.of(
-                        context,
-                      )!.upper_limit_must_be_greater_than_lower_limit;
-                    }
-
-                    return null;
-                  },
+                  validator: _lowerLimitFieldValidator,
                   onChanged: (String value) {},
                   onFieldSubmitted: (String value) {
                     _crawl();
@@ -208,26 +225,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                   ),
                   showCursor: true,
                   maxLines: 1,
-                  validator: (String? value) {
-                    if ((value == null) || value.isEmpty) {
-                      return AppLocalizations.of(context)!.enter_an_upper_limit;
-                    } else if (int.tryParse(value) == null) {
-                      return AppLocalizations.of(context)!.enter_an_integer;
-                    } else if (int.tryParse(value)! < 1) {
-                      return AppLocalizations.of(
-                        context,
-                      )!.enter_a_positive_integer;
-                    } else if (int.tryParse(value)! <
-                        int.tryParse(
-                          _lowerLimitEditingController.text.trim(),
-                        )!) {
-                      return AppLocalizations.of(
-                        context,
-                      )!.upper_limit_must_be_greater_than_lower_limit;
-                    }
-
-                    return null;
-                  },
+                  validator: _upperLimitFieldValidator,
                   onChanged: (String value) {},
                   onFieldSubmitted: (String value) {
                     _crawl();

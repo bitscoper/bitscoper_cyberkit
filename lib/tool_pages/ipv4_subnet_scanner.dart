@@ -69,6 +69,14 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
     }
   }
 
+  String? _subnetFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_an_ipv4_subnet;
+    } else {
+      return null;
+    }
+  }
+
   Widget _form() {
     return Form(
       key: _formKey,
@@ -85,12 +93,7 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
             ),
             showCursor: true,
             maxLines: 1,
-            validator: (String? value) {
-              if ((value == null) || value.isEmpty) {
-                return AppLocalizations.of(context)!.enter_an_ipv4_subnet;
-              }
-              return null;
-            },
+            validator: _subnetFieldValidator,
             onChanged: (String value) {},
             onFieldSubmitted: (String value) {
               _scanSubnet();

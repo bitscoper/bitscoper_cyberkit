@@ -116,6 +116,22 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
     }
   }
 
+  String? _hostFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
+    } else {
+      return null;
+    }
+  }
+
+  String? _providerFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
+    } else {
+      return null;
+    }
+  }
+
   Widget _form() {
     final NumberFormat numberFormat = NumberFormat(
       '#',
@@ -137,13 +153,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
             ),
             showCursor: true,
             maxLines: 1,
-            validator: (String? value) {
-              if ((value == null) || value.isEmpty) {
-                return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
-              }
-
-              return null;
-            },
+            validator: _hostFieldValidator,
             onChanged: (String value) {},
             onFieldSubmitted: (String value) {
               _retrieveDNSRecord();
@@ -164,15 +174,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                   ),
                   showCursor: true,
                   maxLines: 1,
-                  validator: (String? value) {
-                    if ((value == null) || value.isEmpty) {
-                      return AppLocalizations.of(
-                        context,
-                      )!.enter_a_host_or_ip_address;
-                    }
-
-                    return null;
-                  },
+                  validator: _providerFieldValidator,
                   onChanged: (String value) {},
                   onFieldSubmitted: (String value) {
                     _retrieveDNSRecord();
