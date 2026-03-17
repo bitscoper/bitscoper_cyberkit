@@ -63,6 +63,14 @@ class RouteTracerPageState extends State<RouteTracerPage> {
     } finally {}
   }
 
+  String? _hostFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
+    } else {
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,15 +94,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
                 maxLines: 1,
                 showCursor: true,
                 onChanged: (String value) {},
-                validator: (String? value) {
-                  if ((value == null) || value.isEmpty) {
-                    return AppLocalizations.of(
-                      context,
-                    )!.enter_a_host_or_ip_address;
-                  }
-
-                  return null;
-                },
+                validator: _hostFieldValidator,
                 onFieldSubmitted: (String value) {
                   _onTrace();
                 },

@@ -63,6 +63,14 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
     } finally {}
   }
 
+  String? _stringFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_a_string;
+    } else {
+      return null;
+    }
+  }
+
   Widget _form() {
     return Form(
       key: _formKey,
@@ -76,13 +84,7 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
         ),
         showCursor: true,
         maxLines: null,
-        validator: (String? value) {
-          if ((value == null) || value.isEmpty) {
-            return AppLocalizations.of(context)!.enter_a_string;
-          }
-
-          return null;
-        },
+        validator: _stringFieldValidator,
         onChanged: (String value) {
           _calculateHashes();
         },

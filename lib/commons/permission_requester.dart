@@ -55,7 +55,6 @@ String _formatPermissionResults(
 
 Future<void> requestPermissions(
   List<Permission> permissions,
-  VoidCallback onAllGranted,
 ) async {
   try {
     final String permissionNames = permissions
@@ -93,8 +92,6 @@ Future<void> requestPermissions(
 
           return;
         }
-
-        onAllGranted();
       },
     );
   } catch (error) {

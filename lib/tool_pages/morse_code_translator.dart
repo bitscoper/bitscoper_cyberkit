@@ -85,6 +85,14 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
     } finally {}
   }
 
+  String? _stringFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_a_string;
+    } else {
+      return null;
+    }
+  }
+
   Widget _stringForm() {
     return Form(
       key: _stringFormKey,
@@ -122,13 +130,7 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
             ),
             showCursor: true,
             maxLines: null,
-            validator: (String? value) {
-              if ((value == null) || value.isEmpty) {
-                return AppLocalizations.of(context)!.enter_a_string;
-              }
-
-              return null;
-            },
+            validator: _stringFieldValidator,
             onChanged: (String? value) {
               _encodeString();
             },
@@ -139,6 +141,14 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
         ],
       ),
     );
+  }
+
+  String? _morseCodeFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_morse_code;
+    } else {
+      return null;
+    }
   }
 
   Widget _morseCodeForm() {
@@ -173,13 +183,7 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
         ),
         showCursor: true,
         maxLines: null,
-        validator: (String? value) {
-          if ((value == null) || value.isEmpty) {
-            return AppLocalizations.of(context)!.enter_morse_code;
-          }
-
-          return null;
-        },
+        validator: _morseCodeFieldValidator,
         onChanged: (String? value) {
           _decodeMorseCode();
         },

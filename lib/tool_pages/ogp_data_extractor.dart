@@ -92,6 +92,14 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
     );
   }
 
+  String? _hostFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
+    } else {
+      return null;
+    }
+  }
+
   Widget _form() {
     return Form(
       key: _formKey,
@@ -108,13 +116,7 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
             ),
             showCursor: true,
             maxLines: 1,
-            validator: (String? value) {
-              if ((value == null) || value.isEmpty) {
-                return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
-              }
-
-              return null;
-            },
+            validator: _hostFieldValidator,
             onChanged: (String value) {},
             onFieldSubmitted: (String value) {
               _retrieveOGPData();
