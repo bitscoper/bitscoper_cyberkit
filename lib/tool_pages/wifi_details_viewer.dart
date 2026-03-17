@@ -99,7 +99,9 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
                       debugPrint(error.toString());
 
                       showMessageDialog(
-                        AppLocalizations.of(context)!.error,
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.error,
                         error.toString(),
                       );
                     } finally {}
@@ -120,11 +122,15 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _wifiDetailsCard(
-            AppLocalizations.of(context)!.service_set_identifier_ssid,
+            AppLocalizations.of(
+              navigatorKey.currentContext!,
+            )!.service_set_identifier_ssid,
             _ssid,
           ),
           _wifiDetailsCard(
-            AppLocalizations.of(context)!.basic_service_set_identifier_bssid,
+            AppLocalizations.of(
+              navigatorKey.currentContext!,
+            )!.basic_service_set_identifier_bssid,
             _bssid,
           ),
           _wifiDetailsCard(
@@ -139,13 +145,18 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
             )!.internet_protocol_version_6_ipv6_address,
             _ipV6Address,
           ),
-          _wifiDetailsCard(AppLocalizations.of(context)!.subnet_mask, _subnetMask),
           _wifiDetailsCard(
-            AppLocalizations.of(context)!.broadcast_address,
+            AppLocalizations.of(navigatorKey.currentContext!)!.subnet_mask,
+            _subnetMask,
+          ),
+          _wifiDetailsCard(
+            AppLocalizations.of(
+              navigatorKey.currentContext!,
+            )!.broadcast_address,
             _broadcast,
           ),
           _wifiDetailsCard(
-            AppLocalizations.of(context)!.gateway,
+            AppLocalizations.of(navigatorKey.currentContext!)!.gateway,
             _gatewayIPAddress,
           ),
         ],
@@ -157,7 +168,11 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
     return Center(
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(32.0),
-        child: Text(AppLocalizations.of(context)!.wifi_is_disconnected),
+        child: Text(
+          AppLocalizations.of(
+            navigatorKey.currentContext!,
+          )!.wifi_is_disconnected,
+        ),
       ),
     );
   }

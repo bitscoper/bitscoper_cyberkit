@@ -45,7 +45,7 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
 
   String? _stringFieldValidator(String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_a_string;
+      return AppLocalizations.of(navigatorKey.currentContext!)!.enter_a_string;
     } else {
       return null;
     }
@@ -74,7 +74,9 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
 
   String? _morseCodeFieldValidator(String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_morse_code;
+      return AppLocalizations.of(
+        navigatorKey.currentContext!,
+      )!.enter_morse_code;
     } else {
       return null;
     }
@@ -113,7 +115,9 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
             inputFormatters: [UpperCaseTextFormatter()],
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
-              labelText: AppLocalizations.of(context)!.a_string,
+              labelText: AppLocalizations.of(
+                navigatorKey.currentContext!,
+              )!.a_string,
               hintText: AppLocalizations.of(
                 context,
               )!.abdullah_as_sadeed.toUpperCase(),
@@ -122,14 +126,14 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
                 onPressed: () {
                   try {
                     copyToClipboard(
-                      AppLocalizations.of(context)!.string,
+                      AppLocalizations.of(navigatorKey.currentContext!)!.string,
                       _stringEditingController.text,
                     );
                   } catch (error) {
                     debugPrint(error.toString());
 
                     showMessageDialog(
-                      AppLocalizations.of(context)!.error,
+                      AppLocalizations.of(navigatorKey.currentContext!)!.error,
                       error.toString(),
                     );
                   } finally {}
@@ -159,7 +163,9 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
-          labelText: AppLocalizations.of(context)!.morse_code,
+          labelText: AppLocalizations.of(
+            navigatorKey.currentContext!,
+          )!.morse_code,
           hintText:
               '.- -... -.. ..- .-.. .-.. .- .... / .- ... -....- ... .- -.. . . -..',
           suffixIcon: IconButton(
@@ -167,14 +173,14 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
             onPressed: () {
               try {
                 copyToClipboard(
-                  AppLocalizations.of(context)!.morse_code,
+                  AppLocalizations.of(navigatorKey.currentContext!)!.morse_code,
                   _morseCodeController.text,
                 );
               } catch (error) {
                 debugPrint(error.toString());
 
                 showMessageDialog(
-                  AppLocalizations.of(context)!.error,
+                  AppLocalizations.of(navigatorKey.currentContext!)!.error,
                   error.toString(),
                 );
               } finally {}
