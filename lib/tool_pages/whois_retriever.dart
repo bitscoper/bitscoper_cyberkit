@@ -28,7 +28,15 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
   bool _isRetrieving = false;
   late Map<String, String> _whoisInformation = {};
 
-  void _retrieveWHOIS() async {
+  String? _domainNameFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_a_domain_name;
+    } else {
+      return null;
+    }
+  }
+
+  void _retrieve() async {
     try {
       if (_formKey.currentState!.validate()) {
         setState(() {
@@ -74,14 +82,6 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
     }
   }
 
-  String? _domainNameFieldValidator(String? value) {
-    if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_a_domain_name;
-    } else {
-      return null;
-    }
-  }
-
   Widget _form() {
     return Form(
       key: _formKey,
@@ -101,26 +101,13 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
             validator: _domainNameFieldValidator,
             onChanged: (String value) {},
             onFieldSubmitted: (String value) {
-              _retrieveWHOIS();
+              _retrieve();
             },
           ),
           const SizedBox(height: 16.0),
           Center(
             child: ElevatedButton(
-              onPressed: _isRetrieving
-                  ? null
-                  : () {
-                      try {
-                        _retrieveWHOIS();
-                      } catch (error) {
-                        debugPrint(error.toString());
-
-                        showMessageDialog(
-                          AppLocalizations.of(context)!.error,
-                          error.toString(),
-                        );
-                      } finally {}
-                    },
+              onPressed: _isRetrieving ? null : _retrieve,
               child: Text(AppLocalizations.of(context)!.retrieve),
             ),
           ),

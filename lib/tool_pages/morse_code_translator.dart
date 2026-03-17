@@ -43,54 +43,62 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
 
   final MorseCode _translator = MorseCode();
 
-  void _encodeString() {
-    try {
-      setState(() {
-        if (_stringFormKey.currentState!.validate()) {
-          _morseCodeController.text = _translator.enCode(
-            _stringEditingController.text,
-          );
-
-          _morseCodeFormKey.currentState!.validate();
-        }
-      });
-    } catch (error) {
-      debugPrint(error.toString());
-
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
-    } finally {}
-  }
-
-  void _decodeMorseCode() {
-    try {
-      setState(() {
-        if (_morseCodeFormKey.currentState!.validate()) {
-          _stringEditingController.text = _translator.deCode(
-            _morseCodeController.text,
-          );
-
-          _stringFormKey.currentState!.validate();
-        }
-      });
-    } catch (error) {
-      debugPrint(error.toString());
-
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
-    } finally {}
-  }
-
   String? _stringFieldValidator(String? value) {
     if ((value == null) || value.isEmpty) {
       return AppLocalizations.of(context)!.enter_a_string;
     } else {
       return null;
     }
+  }
+
+  void _encodeString() {
+    try {
+      if (_stringFormKey.currentState!.validate()) {
+        setState(() {
+          _morseCodeController.text = _translator.enCode(
+            _stringEditingController.text,
+          );
+
+          _morseCodeFormKey.currentState!.validate();
+        });
+      }
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
+    } finally {}
+  }
+
+  String? _morseCodeFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_morse_code;
+    } else {
+      return null;
+    }
+  }
+
+  void _decodeMorseCode() {
+    try {
+      if (_morseCodeFormKey.currentState!.validate()) {
+        setState(() {
+          _stringEditingController.text = _translator.deCode(
+            _morseCodeController.text,
+          );
+
+          _stringFormKey.currentState!.validate();
+        });
+      }
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
+    } finally {}
   }
 
   Widget _stringForm() {
@@ -141,14 +149,6 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
         ],
       ),
     );
-  }
-
-  String? _morseCodeFieldValidator(String? value) {
-    if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_morse_code;
-    } else {
-      return null;
-    }
   }
 
   Widget _morseCodeForm() {

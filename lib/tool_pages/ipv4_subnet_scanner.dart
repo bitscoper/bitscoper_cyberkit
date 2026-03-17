@@ -27,9 +27,17 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
   bool _isScanning = false;
   Set<ActiveHost> _discoveredHosts = <ActiveHost>{};
 
-  Future<void> _scanSubnet() async {
-    if (_formKey.currentState!.validate()) {
-      try {
+  String? _subnetFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_an_ipv4_subnet;
+    } else {
+      return null;
+    }
+  }
+
+  Future<void> _scan() async {
+    try {
+      if (_formKey.currentState!.validate()) {
         setState(() {
           _isScanning = true;
           _discoveredHosts.clear();
@@ -54,27 +62,31 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
                 });
               },
             );
-      } catch (error) {
-        debugPrint(error.toString());
+      }
+    } catch (error) {
+      debugPrint(error.toString());
 
-        showMessageDialog(
-          AppLocalizations.of(navigatorKey.currentContext!)!.error,
-          error.toString(),
-        );
+      showMessageDialog(
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
 
-        setState(() {
-          _isScanning = false;
-        });
-      } finally {}
-    }
+      setState(() {
+        _isScanning = false;
+      });
+    } finally {}
   }
 
-  String? _subnetFieldValidator(String? value) {
-    if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_an_ipv4_subnet;
-    } else {
-      return null;
-    }
+  void _stop() {
+    try {
+      setState(() {
+        _isScanning = false;
+      });
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+    } finally {}
   }
 
   Widget _form() {
@@ -96,7 +108,7 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
             validator: _subnetFieldValidator,
             onChanged: (String value) {},
             onFieldSubmitted: (String value) {
-              _scanSubnet();
+              _scan();
             },
           ),
           const SizedBox(height: 16.0),
@@ -104,39 +116,11 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               ElevatedButton(
-                onPressed: _isScanning
-                    ? null
-                    : () {
-                        try {
-                          _scanSubnet();
-                        } catch (error) {
-                          debugPrint(error.toString());
-
-                          showMessageDialog(
-                            AppLocalizations.of(context)!.error,
-                            error.toString(),
-                          );
-                        } finally {}
-                      },
+                onPressed: _isScanning ? null : _scan,
                 child: Text(AppLocalizations.of(context)!.scan),
               ),
               ElevatedButton(
-                onPressed: _isScanning
-                    ? () {
-                        try {
-                          setState(() {
-                            _isScanning = false;
-                          });
-                        } catch (error) {
-                          debugPrint(error.toString());
-
-                          showMessageDialog(
-                            AppLocalizations.of(context)!.error,
-                            error.toString(),
-                          );
-                        } finally {}
-                      }
-                    : null,
+                onPressed: _isScanning ? _stop : null,
                 child: Text(AppLocalizations.of(context)!.stop),
               ),
             ],

@@ -30,10 +30,18 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
 
   Map<String, String> _hashValues = {};
 
-  void _calculateHashes() {
+  String? _stringFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_a_string;
+    } else {
+      return null;
+    }
+  }
+
+  void _calculate() {
     try {
-      setState(() {
-        if (_formKey.currentState!.validate()) {
+      if (_formKey.currentState!.validate()) {
+        setState(() {
           final Uint8List bytes = utf8.encode(_stringEditingController.text);
 
           final String md5Hash = md5.convert(bytes).toString();
@@ -51,8 +59,8 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
             'SHA384': sha384Hash,
             'SHA512': sha512Hash,
           };
-        }
-      });
+        });
+      }
     } catch (error) {
       debugPrint(error.toString());
 
@@ -61,14 +69,6 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
         error.toString(),
       );
     } finally {}
-  }
-
-  String? _stringFieldValidator(String? value) {
-    if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_a_string;
-    } else {
-      return null;
-    }
   }
 
   Widget _form() {
@@ -86,10 +86,10 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
         maxLines: null,
         validator: _stringFieldValidator,
         onChanged: (String value) {
-          _calculateHashes();
+          _calculate();
         },
         onFieldSubmitted: (String value) {
-          _calculateHashes();
+          _calculate();
         },
       ),
     );
