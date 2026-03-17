@@ -133,6 +133,62 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
     } finally {}
   }
 
+  void _onAttackVectorChanged(AttackVector? value) {
+    setState(() {
+      _attackVector = value!;
+      _calculateCVSS();
+    });
+  }
+
+  void _onAttackComplexityChanged(AttackComplexity? value) {
+    setState(() {
+      _attackComplexity = value!;
+      _calculateCVSS();
+    });
+  }
+
+  void _onPrevilegeRequirementChanged(PrivilegesRequired? value) {
+    setState(() {
+      _privilegesRequired = value!;
+      _calculateCVSS();
+    });
+  }
+
+  void _onUserInteractionValueChanged(UserInteraction? value) {
+    setState(() {
+      _userInteraction = value!;
+      _calculateCVSS();
+    });
+  }
+
+  void _onScopeChanged(Scope? value) {
+    setState(() {
+      _scope = value!;
+      _calculateCVSS();
+    });
+  }
+
+  void _onConfidentialityImpactChanged(ConfidentialityImpact? value) {
+    setState(() {
+      _confidentialityImpact = value!;
+      _calculateCVSS();
+    });
+  }
+
+  void _onIntigrityImpactChanged(IntegrityImpact? value) {
+    setState(() {
+      _integrityImpact = value!;
+      _calculateCVSS();
+    });
+  }
+
+  void _onAvailabilityImpactChanged(AvailabilityImpact? value) {
+    setState(() {
+      _availabilityImpact = value!;
+      _calculateCVSS();
+    });
+  }
+
   Widget _form() {
     return Form(
       key: _formKey,
@@ -141,12 +197,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
         children: <Widget>[
           DropdownButtonFormField<AttackVector>(
             initialValue: _attackVector,
-            onChanged: (AttackVector? value) {
-              setState(() {
-                _attackVector = value!;
-                _calculateCVSS();
-              });
-            },
+            onChanged: _onAttackVectorChanged,
             items: AttackVector.values.map((AttackVector vector) {
               return DropdownMenuItem<AttackVector>(
                 value: vector,
@@ -160,12 +211,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
           const SizedBox(height: 16),
           DropdownButtonFormField<AttackComplexity>(
             initialValue: _attackComplexity,
-            onChanged: (AttackComplexity? value) {
-              setState(() {
-                _attackComplexity = value!;
-                _calculateCVSS();
-              });
-            },
+            onChanged: _onAttackComplexityChanged,
             items: AttackComplexity.values.map((AttackComplexity complexity) {
               return DropdownMenuItem<AttackComplexity>(
                 value: complexity,
@@ -179,12 +225,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
           const SizedBox(height: 16),
           DropdownButtonFormField<PrivilegesRequired>(
             initialValue: _privilegesRequired,
-            onChanged: (PrivilegesRequired? value) {
-              setState(() {
-                _privilegesRequired = value!;
-                _calculateCVSS();
-              });
-            },
+            onChanged: _onPrevilegeRequirementChanged,
             items: PrivilegesRequired.values.map((
               PrivilegesRequired privileges,
             ) {
@@ -200,12 +241,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
           const SizedBox(height: 16),
           DropdownButtonFormField<UserInteraction>(
             initialValue: _userInteraction,
-            onChanged: (UserInteraction? value) {
-              setState(() {
-                _userInteraction = value!;
-                _calculateCVSS();
-              });
-            },
+            onChanged: _onUserInteractionValueChanged,
             items: UserInteraction.values.map((UserInteraction interaction) {
               return DropdownMenuItem<UserInteraction>(
                 value: interaction,
@@ -219,12 +255,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
           const SizedBox(height: 16),
           DropdownButtonFormField<Scope>(
             initialValue: _scope,
-            onChanged: (Scope? value) {
-              setState(() {
-                _scope = value!;
-                _calculateCVSS();
-              });
-            },
+            onChanged: _onScopeChanged,
             items: Scope.values.map((Scope scope) {
               return DropdownMenuItem<Scope>(
                 value: scope,
@@ -238,12 +269,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
           const SizedBox(height: 16),
           DropdownButtonFormField<ConfidentialityImpact>(
             initialValue: _confidentialityImpact,
-            onChanged: (ConfidentialityImpact? value) {
-              setState(() {
-                _confidentialityImpact = value!;
-                _calculateCVSS();
-              });
-            },
+            onChanged: _onConfidentialityImpactChanged,
             items: ConfidentialityImpact.values.map((
               ConfidentialityImpact impact,
             ) {
@@ -259,12 +285,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
           const SizedBox(height: 16),
           DropdownButtonFormField<IntegrityImpact>(
             initialValue: _integrityImpact,
-            onChanged: (IntegrityImpact? value) {
-              setState(() {
-                _integrityImpact = value!;
-                _calculateCVSS();
-              });
-            },
+            onChanged: _onIntigrityImpactChanged,
             items: IntegrityImpact.values.map((IntegrityImpact impact) {
               return DropdownMenuItem<IntegrityImpact>(
                 value: impact,
@@ -278,12 +299,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
           const SizedBox(height: 16),
           DropdownButtonFormField<AvailabilityImpact>(
             initialValue: _availabilityImpact,
-            onChanged: (AvailabilityImpact? value) {
-              setState(() {
-                _availabilityImpact = value!;
-                _calculateCVSS();
-              });
-            },
+            onChanged: _onAvailabilityImpactChanged,
             items: AvailabilityImpact.values.map((AvailabilityImpact impact) {
               return DropdownMenuItem<AvailabilityImpact>(
                 value: impact,
