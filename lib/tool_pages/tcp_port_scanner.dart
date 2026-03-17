@@ -42,7 +42,9 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
 
   String? _hostFieldValidator(String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
+      return AppLocalizations.of(
+        navigatorKey.currentContext!,
+      )!.enter_a_host_or_ip_address;
     } else {
       return null;
     }
@@ -185,7 +187,9 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
-                      labelText: AppLocalizations.of(context)!.parallelism,
+                      labelText: AppLocalizations.of(
+                        navigatorKey.currentContext!,
+                      )!.parallelism,
                       hintText: '64',
                     ),
                     showCursor: true,
@@ -205,7 +209,9 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
                     onPressed: _scan,
-                    child: Text(AppLocalizations.of(context)!.scan),
+                    child: Text(
+                      AppLocalizations.of(navigatorKey.currentContext!)!.scan,
+                    ),
                   ),
           ),
         ],

@@ -32,7 +32,7 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
 
   String? _stringFieldValidator(String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_a_string;
+      return AppLocalizations.of(navigatorKey.currentContext!)!.enter_a_string;
     } else {
       return null;
     }
@@ -79,8 +79,12 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
         keyboardType: TextInputType.multiline,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
-          labelText: AppLocalizations.of(context)!.a_multiline_string,
-          hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
+          labelText: AppLocalizations.of(
+            navigatorKey.currentContext!,
+          )!.a_multiline_string,
+          hintText: AppLocalizations.of(
+            navigatorKey.currentContext!,
+          )!.abdullah_as_sadeed,
         ),
         showCursor: true,
         maxLines: null,

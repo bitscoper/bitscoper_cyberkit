@@ -35,7 +35,9 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.any,
         allowMultiple: true,
-        dialogTitle: AppLocalizations.of(context)!.select_files,
+        dialogTitle: AppLocalizations.of(
+          navigatorKey.currentContext!,
+        )!.select_files,
       );
 
       if (result != null) {

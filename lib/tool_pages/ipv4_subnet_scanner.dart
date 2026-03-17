@@ -29,7 +29,9 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
 
   String? _subnetFieldValidator(String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_an_ipv4_subnet;
+      return AppLocalizations.of(
+        navigatorKey.currentContext!,
+      )!.enter_an_ipv4_subnet;
     } else {
       return null;
     }
@@ -85,7 +87,10 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+      showMessageDialog(
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
     } finally {}
   }
 
@@ -100,7 +105,9 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
             keyboardType: TextInputType.url,
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
-              labelText: AppLocalizations.of(context)!.an_ipv4_subnet,
+              labelText: AppLocalizations.of(
+                navigatorKey.currentContext!,
+              )!.an_ipv4_subnet,
               hintText: "1.1.1",
             ),
             showCursor: true,
@@ -117,11 +124,15 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
             children: <Widget>[
               ElevatedButton(
                 onPressed: _isScanning ? null : _scan,
-                child: Text(AppLocalizations.of(context)!.scan),
+                child: Text(
+                  AppLocalizations.of(navigatorKey.currentContext!)!.scan,
+                ),
               ),
               ElevatedButton(
                 onPressed: _isScanning ? _stop : null,
-                child: Text(AppLocalizations.of(context)!.stop),
+                child: Text(
+                  AppLocalizations.of(navigatorKey.currentContext!)!.stop,
+                ),
               ),
             ],
           ),
