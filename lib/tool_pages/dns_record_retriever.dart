@@ -30,6 +30,11 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
     super.initState();
   }
 
+  final NumberFormat _numberFormat = NumberFormat(
+    '#',
+    AppLocalizations.of(navigatorKey.currentContext!)!.localeName,
+  );
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _hostEditingController = TextEditingController();
   final TextEditingController _providerEditingController =
@@ -40,9 +45,112 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
   bool _isRetrieving = false;
   List<DNSRecord> _records = [];
 
-  Future<void> _retrieveDNSRecord() async {
-    if (_formKey.currentState!.validate()) {
-      try {
+  void _selectRecordTypes() async {
+    try {
+      await showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return StatefulBuilder(
+            builder:
+                (
+                  BuildContext context,
+                  void Function(void Function()) setDialogState,
+                ) {
+                  return AlertDialog(
+                    title: Text(
+                      "${_numberFormat.format(_selectedRecordTypes.length)} ${AppLocalizations.of(context)!.record_types}",
+                    ),
+                    content: SizedBox(
+                      width: double.maxFinite,
+                      child: SingleChildScrollView(
+                        child: Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: RecordType.values.map((RecordType type) {
+                            final bool selected = _selectedRecordTypes.contains(
+                              type,
+                            );
+
+                            return FilterChip(
+                              label: Text(
+                                type.toString().split('.').last.toUpperCase(),
+                              ),
+                              selected: selected,
+                              onSelected: (bool value) {
+                                try {
+                                  setDialogState(() {
+                                    if (value) {
+                                      _selectedRecordTypes.add(type);
+                                    } else {
+                                      _selectedRecordTypes.remove(type);
+                                    }
+                                  });
+                                  setState(() {});
+                                } catch (error) {
+                                  debugPrint(error.toString());
+
+                                  showMessageDialog(
+                                    AppLocalizations.of(context)!.error,
+                                    error.toString(),
+                                  );
+                                } finally {}
+                              },
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          try {
+                            Navigator.of(context).pop();
+                          } catch (error) {
+                            debugPrint(error.toString());
+
+                            showMessageDialog(
+                              AppLocalizations.of(context)!.error,
+                              error.toString(),
+                            );
+                          } finally {}
+                        },
+                        child: Text(AppLocalizations.of(context)!.ok),
+                      ),
+                    ],
+                  );
+                },
+          );
+        },
+      );
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
+    } finally {}
+  }
+
+  String? _hostFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
+    } else {
+      return null;
+    }
+  }
+
+  String? _providerFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
+    } else {
+      return null;
+    }
+  }
+
+  Future<void> _retrieve() async {
+    try {
+      if (_formKey.currentState!.validate()) {
         if (_selectedRecordTypes.isEmpty) {
           showMessageDialog(
             AppLocalizations.of(navigatorKey.currentContext!)!.error,
@@ -98,46 +206,37 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
         );
 
         dnsolve.dispose();
-      } catch (error) {
-        debugPrint(error.toString());
-
-        showMessageDialog(
-          AppLocalizations.of(navigatorKey.currentContext!)!.error,
-          error.toString(),
-        );
-      } finally {
-        setState(() {
-          _recordTypeController.close();
-          _recordTypeController = StreamController<String>();
-
-          _isRetrieving = false;
-        });
       }
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
+    } finally {
+      setState(() {
+        _recordTypeController.close();
+        _recordTypeController = StreamController<String>();
+
+        _isRetrieving = false;
+      });
     }
   }
 
-  String? _hostFieldValidator(String? value) {
-    if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
-    } else {
-      return null;
-    }
-  }
+  void _stop() {
+    try {
+      setState(() {
+        _isRetrieving = false;
+      });
+    } catch (error) {
+      debugPrint(error.toString());
 
-  String? _providerFieldValidator(String? value) {
-    if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
-    } else {
-      return null;
-    }
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+    } finally {}
   }
 
   Widget _form() {
-    final NumberFormat numberFormat = NumberFormat(
-      '#',
-      AppLocalizations.of(context)!.localeName,
-    );
-
     return Form(
       key: _formKey,
       child: Column(
@@ -156,7 +255,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
             validator: _hostFieldValidator,
             onChanged: (String value) {},
             onFieldSubmitted: (String value) {
-              _retrieveDNSRecord();
+              _retrieve();
             },
           ),
           const SizedBox(height: 16.0),
@@ -177,7 +276,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                   validator: _providerFieldValidator,
                   onChanged: (String value) {},
                   onFieldSubmitted: (String value) {
-                    _retrieveDNSRecord();
+                    _retrieve();
                   },
                 ),
               ),
@@ -187,112 +286,9 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                 child: ElevatedButton.icon(
                   icon: const Icon(Icons.checklist_rounded),
                   label: Text(
-                    "${numberFormat.format(_selectedRecordTypes.length)} ${AppLocalizations.of(context)!.types}",
+                    "${_numberFormat.format(_selectedRecordTypes.length)} ${AppLocalizations.of(context)!.types}",
                   ),
-                  onPressed: () async {
-                    try {
-                      await showDialog<void>(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return StatefulBuilder(
-                            builder:
-                                (
-                                  BuildContext context,
-                                  void Function(void Function()) setDialogState,
-                                ) {
-                                  return AlertDialog(
-                                    title: Text(
-                                      "${numberFormat.format(_selectedRecordTypes.length)} ${AppLocalizations.of(context)!.record_types}",
-                                    ),
-                                    content: SizedBox(
-                                      width: double.maxFinite,
-                                      child: SingleChildScrollView(
-                                        child: Wrap(
-                                          spacing: 8,
-                                          runSpacing: 8,
-                                          children: RecordType.values.map((
-                                            RecordType type,
-                                          ) {
-                                            final bool selected =
-                                                _selectedRecordTypes.contains(
-                                                  type,
-                                                );
-
-                                            return FilterChip(
-                                              label: Text(
-                                                type
-                                                    .toString()
-                                                    .split('.')
-                                                    .last
-                                                    .toUpperCase(),
-                                              ),
-                                              selected: selected,
-                                              onSelected: (bool value) {
-                                                try {
-                                                  setDialogState(() {
-                                                    if (value) {
-                                                      _selectedRecordTypes.add(
-                                                        type,
-                                                      );
-                                                    } else {
-                                                      _selectedRecordTypes
-                                                          .remove(type);
-                                                    }
-                                                  });
-                                                  setState(() {});
-                                                } catch (error) {
-                                                  debugPrint(error.toString());
-
-                                                  showMessageDialog(
-                                                    AppLocalizations.of(
-                                                      context,
-                                                    )!.error,
-                                                    error.toString(),
-                                                  );
-                                                } finally {}
-                                              },
-                                            );
-                                          }).toList(),
-                                        ),
-                                      ),
-                                    ),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () {
-                                          try {
-                                            Navigator.of(context).pop();
-                                          } catch (error) {
-                                            debugPrint(error.toString());
-
-                                            showMessageDialog(
-                                              AppLocalizations.of(
-                                                context,
-                                              )!.error,
-                                              error.toString(),
-                                            );
-                                          } finally {}
-                                        },
-                                        child: Text(
-                                          AppLocalizations.of(context)!.ok,
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                },
-                          );
-                        },
-                      );
-                    } catch (error) {
-                      debugPrint(error.toString());
-
-                      showMessageDialog(
-                        AppLocalizations.of(
-                          navigatorKey.currentContext!,
-                        )!.error,
-                        error.toString(),
-                      );
-                    } finally {}
-                  },
+                  onPressed: _selectRecordTypes,
                 ),
               ),
             ],
@@ -303,39 +299,11 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 ElevatedButton(
-                  onPressed: _isRetrieving
-                      ? null
-                      : () {
-                          try {
-                            _retrieveDNSRecord();
-                          } catch (error) {
-                            debugPrint(error.toString());
-
-                            showMessageDialog(
-                              AppLocalizations.of(context)!.error,
-                              error.toString(),
-                            );
-                          } finally {}
-                        },
+                  onPressed: _isRetrieving ? null : _retrieve,
                   child: Text(AppLocalizations.of(context)!.retrieve),
                 ),
                 ElevatedButton(
-                  onPressed: _isRetrieving
-                      ? () {
-                          try {
-                            setState(() {
-                              _isRetrieving = false;
-                            });
-                          } catch (error) {
-                            debugPrint(error.toString());
-
-                            showMessageDialog(
-                              AppLocalizations.of(context)!.error,
-                              error.toString(),
-                            );
-                          } finally {}
-                        }
-                      : null,
+                  onPressed: _isRetrieving ? _stop : null,
                   child: Text(AppLocalizations.of(context)!.stop),
                 ),
               ],

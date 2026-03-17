@@ -38,9 +38,51 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
   bool _isCrawling = false;
   Map<String, String> webPages = {};
 
+  String? _uriPrefixFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_a_uri_prefix;
+    } else {
+      return null;
+    }
+  }
+
+  String? _lowerLimitFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_a_lower_limit;
+    } else if (int.tryParse(value) == null) {
+      return AppLocalizations.of(context)!.enter_an_integer;
+    } else if (int.tryParse(value)! < 1) {
+      return AppLocalizations.of(context)!.enter_a_positive_integer;
+    } else if (int.tryParse(value)! >
+        int.tryParse(_upperLimitEditingController.text.trim())!) {
+      return AppLocalizations.of(
+        context,
+      )!.upper_limit_must_be_greater_than_lower_limit;
+    } else {
+      return null;
+    }
+  }
+
+  String? _upperLimitFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_an_upper_limit;
+    } else if (int.tryParse(value) == null) {
+      return AppLocalizations.of(context)!.enter_an_integer;
+    } else if (int.tryParse(value)! < 1) {
+      return AppLocalizations.of(context)!.enter_a_positive_integer;
+    } else if (int.tryParse(value)! <
+        int.tryParse(_lowerLimitEditingController.text.trim())!) {
+      return AppLocalizations.of(
+        context,
+      )!.upper_limit_must_be_greater_than_lower_limit;
+    } else {
+      return null;
+    }
+  }
+
   Future<void> _crawl() async {
-    if (_formKey.currentState!.validate()) {
-      try {
+    try {
+      if (_formKey.currentState!.validate()) {
         setState(() {
           _isCrawling = true;
           webPages.clear();
@@ -89,61 +131,31 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
           body: AppLocalizations.of(navigatorKey.currentContext!)!.crawled,
           payload: "Series_URI_Crawler",
         );
-      } catch (error) {
-        debugPrint(error.toString());
-
-        showMessageDialog(
-          AppLocalizations.of(navigatorKey.currentContext!)!.error,
-          error.toString(),
-        );
-      } finally {
-        setState(() {
-          _isCrawling = false;
-        });
       }
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
+    } finally {
+      setState(() {
+        _isCrawling = false;
+      });
     }
   }
 
-  String? _uriPrefixFieldValidator(String? value) {
-    if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_a_uri_prefix;
-    } else {
-      return null;
-    }
-  }
+  void _stop() {
+    try {
+      setState(() {
+        _isCrawling = false;
+      });
+    } catch (error) {
+      debugPrint(error.toString());
 
-  String? _lowerLimitFieldValidator(String? value) {
-    if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_a_lower_limit;
-    } else if (int.tryParse(value) == null) {
-      return AppLocalizations.of(context)!.enter_an_integer;
-    } else if (int.tryParse(value)! < 1) {
-      return AppLocalizations.of(context)!.enter_a_positive_integer;
-    } else if (int.tryParse(value)! >
-        int.tryParse(_upperLimitEditingController.text.trim())!) {
-      return AppLocalizations.of(
-        context,
-      )!.upper_limit_must_be_greater_than_lower_limit;
-    } else {
-      return null;
-    }
-  }
-
-  String? _upperLimitFieldValidator(String? value) {
-    if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_an_upper_limit;
-    } else if (int.tryParse(value) == null) {
-      return AppLocalizations.of(context)!.enter_an_integer;
-    } else if (int.tryParse(value)! < 1) {
-      return AppLocalizations.of(context)!.enter_a_positive_integer;
-    } else if (int.tryParse(value)! <
-        int.tryParse(_lowerLimitEditingController.text.trim())!) {
-      return AppLocalizations.of(
-        context,
-      )!.upper_limit_must_be_greater_than_lower_limit;
-    } else {
-      return null;
-    }
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+    } finally {}
   }
 
   Widget _form() {
@@ -239,39 +251,11 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               ElevatedButton(
-                onPressed: _isCrawling
-                    ? null
-                    : () {
-                        try {
-                          _crawl();
-                        } catch (error) {
-                          debugPrint(error.toString());
-
-                          showMessageDialog(
-                            AppLocalizations.of(context)!.error,
-                            error.toString(),
-                          );
-                        } finally {}
-                      },
+                onPressed: _isCrawling ? null : _crawl,
                 child: Text(AppLocalizations.of(context)!.crawl),
               ),
               ElevatedButton(
-                onPressed: _isCrawling
-                    ? () {
-                        try {
-                          setState(() {
-                            _isCrawling = false;
-                          });
-                        } catch (error) {
-                          debugPrint(error.toString());
-
-                          showMessageDialog(
-                            AppLocalizations.of(context)!.error,
-                            error.toString(),
-                          );
-                        } finally {}
-                      }
-                    : null,
+                onPressed: _isCrawling ? _stop : null,
                 child: Text(AppLocalizations.of(context)!.stop),
               ),
             ],

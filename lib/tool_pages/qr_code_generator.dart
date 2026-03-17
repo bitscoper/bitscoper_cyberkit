@@ -99,6 +99,37 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
     } finally {}
   }
 
+  void _pickImage() async {
+    try {
+      final FilePickerResult? filePickerResult = await FilePicker.platform
+          .pickFiles(
+            lockParentWindow: true,
+            dialogTitle: AppLocalizations.of(
+              context,
+            )!.pick_an_image_file_to_embed_in_qr_code,
+            type: FileType.image,
+            allowMultiple: false,
+            readSequential: true,
+            withData: true,
+            compressionQuality: 0,
+          );
+
+      if (filePickerResult != null &&
+          filePickerResult.files.single.bytes != null) {
+        _embeddedImageBytes = filePickerResult.files.single.bytes!;
+      }
+
+      setState(() {});
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
+    } finally {}
+  }
+
   String? _stringFieldValidator(String? value) {
     if ((value == null) || value.isEmpty) {
       return AppLocalizations.of(context)!.enter_a_string;
@@ -193,6 +224,48 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
     );
   }
 
+  void _saveQRCode() async {
+    try {
+      if (_formKey.currentState!.validate()) {
+        final Uint8List? pngBytes = await _widgetsToImageController.capture(
+          options: const CaptureOptions(
+            waitForAnimations: true,
+            pixelRatio: 1.0,
+            format: ImageFormat.png,
+            quality: 100 /* For JPEG Only */,
+          ),
+        );
+
+        if (pngBytes != null) {
+          String? outputPath = await FilePicker.platform.saveFile(
+            lockParentWindow: true,
+            dialogTitle: AppLocalizations.of(
+              navigatorKey.currentContext!,
+            )!.save_qr_code,
+            fileName: 'QR_Code_${DateTime.now().millisecondsSinceEpoch}.png',
+            type: FileType.image,
+            bytes: pngBytes,
+          );
+
+          if (outputPath != null) {
+            ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
+              SnackBar(
+                content: Text("Saved: $outputPath"),
+                showCloseIcon: true,
+              ),
+            );
+          }
+        }
+      }
+    } catch (error) {
+      debugPrint(error.toString());
+      showMessageDialog(
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final NumberFormat numberFormat = NumberFormat(
@@ -259,39 +332,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                   const SizedBox(height: 16.0),
                   Center(
                     child: ElevatedButton.icon(
-                      onPressed: () async {
-                        try {
-                          final FilePickerResult? filePickerResult =
-                              await FilePicker.platform.pickFiles(
-                                lockParentWindow: true,
-                                dialogTitle: AppLocalizations.of(
-                                  context,
-                                )!.pick_an_image_file_to_embed_in_qr_code,
-                                type: FileType.image,
-                                allowMultiple: false,
-                                readSequential: true,
-                                withData: true,
-                                compressionQuality: 0,
-                              );
-
-                          if (filePickerResult != null &&
-                              filePickerResult.files.single.bytes != null) {
-                            _embeddedImageBytes =
-                                filePickerResult.files.single.bytes!;
-                          }
-
-                          setState(() {});
-                        } catch (error) {
-                          debugPrint(error.toString());
-
-                          showMessageDialog(
-                            AppLocalizations.of(
-                              navigatorKey.currentContext!,
-                            )!.error,
-                            error.toString(),
-                          );
-                        } finally {}
-                      },
+                      onPressed: _pickImage,
                       icon: const Icon(Icons.image_rounded),
                       label: Text(AppLocalizations.of(context)!.embed_image),
                     ),
@@ -605,54 +646,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                   const SizedBox(height: 16.0),
                   Center(
                     child: ElevatedButton.icon(
-                      onPressed: () async {
-                        try {
-                          if (_formKey.currentState!.validate()) {
-                            final Uint8List? pngBytes =
-                                await _widgetsToImageController.capture(
-                                  options: const CaptureOptions(
-                                    waitForAnimations: true,
-                                    pixelRatio: 1.0,
-                                    format: ImageFormat.png,
-                                    quality: 100 /* For JPEG Only */,
-                                  ),
-                                );
-
-                            if (pngBytes != null) {
-                              String?
-                              outputPath = await FilePicker.platform.saveFile(
-                                lockParentWindow: true,
-                                dialogTitle: AppLocalizations.of(
-                                  navigatorKey.currentContext!,
-                                )!.save_qr_code,
-                                fileName:
-                                    'QR_Code_${DateTime.now().millisecondsSinceEpoch}.png',
-                                type: FileType.image,
-                                bytes: pngBytes,
-                              );
-
-                              if (outputPath != null) {
-                                ScaffoldMessenger.of(
-                                  navigatorKey.currentContext!,
-                                ).showSnackBar(
-                                  SnackBar(
-                                    content: Text("Saved: $outputPath"),
-                                    showCloseIcon: true,
-                                  ),
-                                );
-                              }
-                            }
-                          }
-                        } catch (error) {
-                          debugPrint(error.toString());
-                          showMessageDialog(
-                            AppLocalizations.of(
-                              navigatorKey.currentContext!,
-                            )!.error,
-                            error.toString(),
-                          );
-                        }
-                      },
+                      onPressed: _saveQRCode,
                       icon: const Icon(Icons.save_rounded),
                       label: Text(AppLocalizations.of(context)!.save_qr_code),
                     ),

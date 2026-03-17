@@ -34,9 +34,17 @@ class PingerPageState extends State<PingerPage> {
   bool _isPinging = false;
   List<PingResult> _results = [];
 
+  String? _hostFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
+    } else {
+      return null;
+    }
+  }
+
   Future<void> _ping() async {
-    if (_formKey.currentState!.validate()) {
-      try {
+    try {
+      if (_formKey.currentState!.validate()) {
         setState(() {
           _isPinging = true;
           _results = [];
@@ -70,27 +78,31 @@ class PingerPageState extends State<PingerPage> {
             });
           }
         }
-      } catch (error) {
-        debugPrint(error.toString());
-
-        showMessageDialog(
-          AppLocalizations.of(navigatorKey.currentContext!)!.error,
-          error.toString(),
-        );
-      } finally {
-        setState(() {
-          _isPinging = false;
-        });
       }
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
+    } finally {
+      setState(() {
+        _isPinging = false;
+      });
     }
   }
 
-  String? _hostFieldValidator(String? value) {
-    if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
-    } else {
-      return null;
-    }
+  void _stop() {
+    try {
+      setState(() {
+        _isPinging = false;
+      });
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+    } finally {}
   }
 
   Widget _form() {
@@ -120,41 +132,11 @@ class PingerPageState extends State<PingerPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               ElevatedButton(
-                onPressed: _isPinging
-                    ? null
-                    : () async {
-                        try {
-                          await _ping();
-                        } catch (error) {
-                          debugPrint(error.toString());
-
-                          showMessageDialog(
-                            AppLocalizations.of(
-                              navigatorKey.currentContext!,
-                            )!.error,
-                            error.toString(),
-                          );
-                        } finally {}
-                      },
+                onPressed: _isPinging ? null : _ping,
                 child: Text(AppLocalizations.of(context)!.ping),
               ),
               ElevatedButton(
-                onPressed: _isPinging
-                    ? () {
-                        try {
-                          setState(() {
-                            _isPinging = false;
-                          });
-                        } catch (error) {
-                          debugPrint(error.toString());
-
-                          showMessageDialog(
-                            AppLocalizations.of(context)!.error,
-                            error.toString(),
-                          );
-                        } finally {}
-                      }
-                    : null,
+                onPressed: _isPinging ? _stop : null,
                 child: Text(AppLocalizations.of(context)!.stop),
               ),
             ],

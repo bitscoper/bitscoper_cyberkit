@@ -28,7 +28,15 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
   bool _isRetrieving = false;
   OgpData? _ogpData;
 
-  void _retrieveOGPData() async {
+  String? _hostFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
+    } else {
+      return null;
+    }
+  }
+
+  void _retrieve() async {
     try {
       if (_formKey.currentState!.validate()) {
         setState(() {
@@ -92,14 +100,6 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
     );
   }
 
-  String? _hostFieldValidator(String? value) {
-    if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
-    } else {
-      return null;
-    }
-  }
-
   Widget _form() {
     return Form(
       key: _formKey,
@@ -119,26 +119,13 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
             validator: _hostFieldValidator,
             onChanged: (String value) {},
             onFieldSubmitted: (String value) {
-              _retrieveOGPData();
+              _retrieve();
             },
           ),
           const SizedBox(height: 16.0),
           Center(
             child: ElevatedButton(
-              onPressed: _isRetrieving
-                  ? null
-                  : () {
-                      try {
-                        _retrieveOGPData();
-                      } catch (error) {
-                        debugPrint(error.toString());
-
-                        showMessageDialog(
-                          AppLocalizations.of(context)!.error,
-                          error.toString(),
-                        );
-                      } finally {}
-                    },
+              onPressed: _isRetrieving ? null : _retrieve,
               child: Text(AppLocalizations.of(context)!.extract),
             ),
           ),

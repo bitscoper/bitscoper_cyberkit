@@ -38,10 +38,5 @@ void showMessageDialog(String title, String message, {void Function()? onOK}) {
     );
   } catch (error) {
     debugPrint(error.toString());
-
-    showMessageDialog(
-      AppLocalizations.of(navigatorKey.currentContext!)!.error,
-      error.toString(),
-    ); /* 😆 */
   } finally {}
 }

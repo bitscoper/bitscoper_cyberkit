@@ -31,7 +31,15 @@ class RouteTracerPageState extends State<RouteTracerPage> {
   bool _isTracing = false;
   List<TracerouteStep> _traceResults = [];
 
-  void _onTrace() {
+  String? _hostFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
+    } else {
+      return null;
+    }
+  }
+
+  void _trace() {
     try {
       if (_formKey.currentState!.validate()) {
         setState(() {
@@ -63,11 +71,21 @@ class RouteTracerPageState extends State<RouteTracerPage> {
     } finally {}
   }
 
-  String? _hostFieldValidator(String? value) {
-    if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
-    } else {
-      return null;
+  void _stop() {
+    try {
+      _routeTracer.stopTrace();
+      _traceSubscription?.cancel();
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
+    } finally {
+      setState(() {
+        _isTracing = false;
+      });
     }
   }
 
@@ -96,7 +114,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
                 onChanged: (String value) {},
                 validator: _hostFieldValidator,
                 onFieldSubmitted: (String value) {
-                  _onTrace();
+                  _trace();
                 },
               ),
               const SizedBox(height: 16.0),
@@ -104,31 +122,11 @@ class RouteTracerPageState extends State<RouteTracerPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   ElevatedButton(
-                    onPressed: _isTracing ? null : _onTrace,
+                    onPressed: _isTracing ? null : _trace,
                     child: Text(AppLocalizations.of(context)!.trace),
                   ),
                   ElevatedButton(
-                    onPressed: _isTracing
-                        ? () {
-                            try {
-                              _routeTracer.stopTrace();
-                              _traceSubscription?.cancel();
-                            } catch (error) {
-                              debugPrint(error.toString());
-
-                              showMessageDialog(
-                                AppLocalizations.of(
-                                  navigatorKey.currentContext!,
-                                )!.error,
-                                error.toString(),
-                              );
-                            } finally {
-                              setState(() {
-                                _isTracing = false;
-                              });
-                            }
-                          }
-                        : null,
+                    onPressed: _isTracing ? _stop : null,
                     child: Text(AppLocalizations.of(context)!.stop),
                   ),
                 ],

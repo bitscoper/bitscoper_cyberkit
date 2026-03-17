@@ -24,6 +24,52 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
     super.initState();
   }
 
+  void _scan() {
+    try {
+      () async {
+        try {
+          setState(() {
+            _isScanning = true;
+            hosts = [];
+          });
+
+          hosts = await MdnsScannerService.instance.searchMdnsDevices();
+
+          setState(() {
+            hosts;
+          });
+        } catch (error) {
+          debugPrint(error.toString());
+
+          showMessageDialog(
+            AppLocalizations.of(navigatorKey.currentContext!)!.error,
+            error.toString(),
+          );
+        } finally {
+          setState(() {
+            _isScanning = false;
+          });
+        }
+      };
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+    } finally {}
+  }
+
+  void _stop() {
+    try {
+      setState(() {
+        _isScanning = false;
+      });
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+    } finally {}
+  }
+
   Future<Widget> _buildInformationCard(final ActiveHost host) async {
     final MdnsInfo? mdnsInformation = await host.mdnsInfo;
 
@@ -401,66 +447,11 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 ElevatedButton(
-                  onPressed: _isScanning
-                      ? null
-                      : () {
-                          try {
-                            () async {
-                              try {
-                                setState(() {
-                                  _isScanning = true;
-                                  hosts = [];
-                                });
-
-                                hosts = await MdnsScannerService.instance
-                                    .searchMdnsDevices();
-
-                                setState(() {
-                                  hosts;
-                                });
-                              } catch (error) {
-                                debugPrint(error.toString());
-
-                                showMessageDialog(
-                                  AppLocalizations.of(
-                                    navigatorKey.currentContext!,
-                                  )!.error,
-                                  error.toString(),
-                                );
-                              } finally {
-                                setState(() {
-                                  _isScanning = false;
-                                });
-                              }
-                            };
-                          } catch (error) {
-                            debugPrint(error.toString());
-
-                            showMessageDialog(
-                              AppLocalizations.of(context)!.error,
-                              error.toString(),
-                            );
-                          } finally {}
-                        },
+                  onPressed: _isScanning ? null : _scan,
                   child: Text(AppLocalizations.of(context)!.scan),
                 ),
                 ElevatedButton(
-                  onPressed: _isScanning
-                      ? () {
-                          try {
-                            setState(() {
-                              _isScanning = false;
-                            });
-                          } catch (error) {
-                            debugPrint(error.toString());
-
-                            showMessageDialog(
-                              AppLocalizations.of(context)!.error,
-                              error.toString(),
-                            );
-                          } finally {}
-                        }
-                      : null,
+                  onPressed: _isScanning ? _stop : null,
                   child: Text(AppLocalizations.of(context)!.stop),
                 ),
               ],

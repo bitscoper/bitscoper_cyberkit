@@ -40,9 +40,17 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
   List<int> _openPorts = [];
   String _scanInformation = '';
 
-  Future<void> _scanTCPPorts() async {
-    if (_formKey.currentState!.validate()) {
-      try {
+  String? _hostFieldValidator(String? value) {
+    if ((value == null) || value.isEmpty) {
+      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
+    } else {
+      return null;
+    }
+  }
+
+  Future<void> _scan() async {
+    try {
+      if (_formKey.currentState!.validate()) {
         setState(() {
           _isScanning = true;
         });
@@ -120,26 +128,18 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
               ),
             )
             .toList();
-      } catch (error) {
-        debugPrint(error.toString());
-
-        showMessageDialog(
-          AppLocalizations.of(navigatorKey.currentContext!)!.error,
-          error.toString(),
-        );
-      } finally {
-        setState(() {
-          _isScanning = false;
-        });
       }
-    }
-  }
+    } catch (error) {
+      debugPrint(error.toString());
 
-  String? _hostFieldValidator(String? value) {
-    if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
-    } else {
-      return null;
+      showMessageDialog(
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
+    } finally {
+      setState(() {
+        _isScanning = false;
+      });
     }
   }
 
@@ -170,7 +170,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                     validator: _hostFieldValidator,
                     onChanged: (String value) {},
                     onFieldSubmitted: (String value) {
-                      _scanTCPPorts();
+                      _scan();
                     },
                   ),
                 ),
@@ -192,7 +192,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                     maxLines: 1,
                     onChanged: (String value) {},
                     onFieldSubmitted: (String value) {
-                      _scanTCPPorts();
+                      _scan();
                     },
                   ),
                 ),
@@ -204,20 +204,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
             child: _isScanning
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
-                    onPressed: () async {
-                      try {
-                        await _scanTCPPorts();
-                      } catch (error) {
-                        debugPrint(error.toString());
-
-                        showMessageDialog(
-                          AppLocalizations.of(
-                            navigatorKey.currentContext!,
-                          )!.error,
-                          error.toString(),
-                        );
-                      } finally {}
-                    },
+                    onPressed: _scan,
                     child: Text(AppLocalizations.of(context)!.scan),
                   ),
           ),
