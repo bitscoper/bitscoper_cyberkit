@@ -219,13 +219,42 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _resultColumn() {
     final NumberFormat numberFormat = NumberFormat(
       '#',
-      AppLocalizations.of(context)!.localeName,
+      AppLocalizations.of(navigatorKey.currentContext!)!.localeName,
     );
 
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Wrap(
+          spacing: 8.0,
+          runSpacing: 8.0,
+          children: <Widget>[
+            for (int port in _openPorts)
+              Chip(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                padding: const EdgeInsets.only(
+                  top: 8.0,
+                  right: 4.0,
+                  bottom: 8.0,
+                  left: 4.0,
+                ),
+                label: Text(numberFormat.format(port)),
+              ),
+          ],
+        ),
+        const SizedBox(height: 16.0),
+        Text(_scanInformation),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: ApplicationToolBar(
         title: AppLocalizations.of(context)!.tcp_port_scanner,
@@ -237,33 +266,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
           children: <Widget>[
             _form(),
             const SizedBox(height: 16.0),
-            if (!_isScanning)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Wrap(
-                    spacing: 8.0,
-                    runSpacing: 8.0,
-                    children: <Widget>[
-                      for (int port in _openPorts)
-                        Chip(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          padding: const EdgeInsets.only(
-                            top: 8.0,
-                            right: 4.0,
-                            bottom: 8.0,
-                            left: 4.0,
-                          ),
-                          label: Text(numberFormat.format(port)),
-                        ),
-                    ],
-                  ),
-                  const SizedBox(height: 16.0),
-                  Text(_scanInformation),
-                ],
-              ),
+            if (!_isScanning) _resultColumn(),
           ],
         ),
       ),

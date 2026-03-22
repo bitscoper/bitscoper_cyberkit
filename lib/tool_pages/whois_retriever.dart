@@ -122,6 +122,19 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
     );
   }
 
+  Widget _resultCard() {
+    return Card(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: _whoisInformation.entries.map((
+          MapEntry<String, String> entry,
+        ) {
+          return ListTile(title: Text(entry.key), subtitle: Text(entry.value));
+        }).toList(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,22 +148,9 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
           children: <Widget>[
             _form(),
             const SizedBox(height: 16.0),
-            if (_isRetrieving)
-              const Center(child: CircularProgressIndicator())
-            else
-              Card(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: _whoisInformation.entries.map((
-                    MapEntry<String, String> entry,
-                  ) {
-                    return ListTile(
-                      title: Text(entry.key),
-                      subtitle: Text(entry.value),
-                    );
-                  }).toList(),
-                ),
-              ),
+            _isRetrieving
+                ? const Center(child: CircularProgressIndicator())
+                : _resultCard(),
           ],
         ),
       ),

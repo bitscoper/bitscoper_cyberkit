@@ -216,25 +216,403 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
   }
 
   Widget _form() {
+    final NumberFormat numberFormat = NumberFormat(
+      '#',
+      AppLocalizations.of(navigatorKey.currentContext!)!.localeName,
+    );
+
     return Form(
       key: _formKey,
-      child: TextFormField(
-        controller: _stringEditingController,
-        keyboardType: TextInputType.multiline,
-        decoration: InputDecoration(
-          border: const OutlineInputBorder(),
-          labelText: AppLocalizations.of(
-            navigatorKey.currentContext!,
-          )!.a_multiline_string,
-          hintText: AppLocalizations.of(
-            navigatorKey.currentContext!,
-          )!.abdullah_as_sadeed,
-        ),
-        showCursor: true,
-        maxLines: null,
-        validator: _stringFieldValidator,
-        onChanged: _onStringChanged,
-        onFieldSubmitted: _onStringFieldSubmitted,
+      child: Column(
+        children: [
+          TextFormField(
+            controller: _stringEditingController,
+            keyboardType: TextInputType.multiline,
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              labelText: AppLocalizations.of(
+                navigatorKey.currentContext!,
+              )!.a_multiline_string,
+              hintText: AppLocalizations.of(
+                navigatorKey.currentContext!,
+              )!.abdullah_as_sadeed,
+            ),
+            showCursor: true,
+            maxLines: null,
+            validator: _stringFieldValidator,
+            onChanged: _onStringChanged,
+            onFieldSubmitted: _onStringFieldSubmitted,
+          ),
+          const SizedBox(height: 16.0),
+          Center(
+            child: ElevatedButton.icon(
+              onPressed: _pickImage,
+              icon: const Icon(Icons.image_rounded),
+              label: Text(
+                AppLocalizations.of(navigatorKey.currentContext!)!.embed_image,
+              ),
+            ),
+          ),
+          const SizedBox(height: 16.0),
+          Row(
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: DropdownButtonFormField(
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.version,
+                  ),
+                  items: [
+                    DropdownMenuItem(
+                      value: QrVersions.auto,
+                      child: Text(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.automatic,
+                      ),
+                    ),
+                    ...List.generate(40, (int index) => index + 1).map(
+                      (int qrVersion) => DropdownMenuItem(
+                        value: qrVersion,
+                        child: Text(numberFormat.format(qrVersion)),
+                      ),
+                    ),
+                  ],
+                  initialValue: _version,
+                  onChanged: _onVersionChanged,
+                ),
+              ),
+              const SizedBox(width: 16.0),
+              Expanded(
+                flex: 1,
+                child: DropdownButtonFormField(
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(
+                      context,
+                    )!.error_correction_level,
+                  ),
+                  items: [
+                    DropdownMenuItem(
+                      value: QrErrorCorrectLevel.H,
+                      child: Text(
+                        AppLocalizations.of(navigatorKey.currentContext!)!.high,
+                      ),
+                    ),
+                    DropdownMenuItem(
+                      value: QrErrorCorrectLevel.Q,
+                      child: Text(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.quartile,
+                      ),
+                    ),
+                    DropdownMenuItem(
+                      value: QrErrorCorrectLevel.M,
+                      child: Text(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.medium,
+                      ),
+                    ),
+                    DropdownMenuItem(
+                      value: QrErrorCorrectLevel.L,
+                      child: Text(
+                        AppLocalizations.of(navigatorKey.currentContext!)!.low,
+                      ),
+                    ),
+                  ],
+                  initialValue: _errorCorrectionLevel,
+                  onChanged: _onCorrectionLevelChanged,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16.0),
+          Row(
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: DropdownButtonFormField(
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.eye_shape,
+                  ),
+                  items: [
+                    DropdownMenuItem(
+                      value: QrEyeShape.square,
+                      child: Text(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.square,
+                      ),
+                    ),
+                    DropdownMenuItem(
+                      value: QrEyeShape.circle,
+                      child: Text(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.circle,
+                      ),
+                    ),
+                  ],
+                  initialValue: _eyeShape,
+                  onChanged: _onEyeShapeChanged,
+                ),
+              ),
+              const SizedBox(width: 16.0),
+              Expanded(
+                flex: 1,
+                child: DropdownButtonFormField(
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.data_module_shape,
+                  ),
+                  items: [
+                    DropdownMenuItem(
+                      value: QrDataModuleShape.square,
+                      child: Text(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.square,
+                      ),
+                    ),
+                    DropdownMenuItem(
+                      value: QrDataModuleShape.circle,
+                      child: Text(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.circle,
+                      ),
+                    ),
+                  ],
+                  initialValue: _dataModuleShape,
+                  onChanged: _onDataModuleShapeChange,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16.0),
+          Text(
+            AppLocalizations.of(navigatorKey.currentContext!)!.colors,
+            style: Theme.of(navigatorKey.currentContext!).textTheme.labelMedium,
+          ),
+          const SizedBox(height: 8.0),
+          Row(
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: GestureDetector(
+                  onTap: () {
+                    try {
+                      _pickColor(context, _eyeColor, (Color color) {
+                        setState(() {
+                          _eyeColor = color;
+                        });
+                      });
+                    } catch (error) {
+                      showMessageDialog(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.error,
+                        error.toString(),
+                      );
+                    } finally {}
+                  },
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: Container(
+                      height: 32,
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.grey),
+                        borderRadius: BorderRadius.circular(8.0),
+                        color: _eyeColor,
+                      ),
+                      child: Center(
+                        child: Text(
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.eye,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: useWhiteForeground(_eyeColor)
+                                ? Colors.white
+                                : DefaultTextStyle.of(
+                                    navigatorKey.currentContext!,
+                                  ).style.color,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 16.0),
+              Expanded(
+                flex: 1,
+                child: GestureDetector(
+                  onTap: () {
+                    try {
+                      _pickColor(context, _dataModuleColor, (Color color) {
+                        setState(() {
+                          _dataModuleColor = color;
+                        });
+                      });
+                    } catch (error) {
+                      showMessageDialog(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.error,
+                        error.toString(),
+                      );
+                    } finally {}
+                  },
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: Container(
+                      height: 32,
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.grey),
+                        borderRadius: BorderRadius.circular(8.0),
+                        color: _dataModuleColor,
+                      ),
+                      child: Center(
+                        child: Text(
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.data,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: useWhiteForeground(_dataModuleColor)
+                                ? Colors.white
+                                : DefaultTextStyle.of(
+                                    navigatorKey.currentContext!,
+                                  ).style.color,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 16.0),
+              Expanded(
+                flex: 2,
+                child: GestureDetector(
+                  onTap: () {
+                    try {
+                      _pickColor(context, _backgroundColor, (Color color) {
+                        setState(() {
+                          _backgroundColor = color;
+                        });
+                      });
+                    } catch (error) {
+                      showMessageDialog(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.error,
+                        error.toString(),
+                      );
+                    } finally {}
+                  },
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: Container(
+                      height: 32,
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.grey),
+                        borderRadius: BorderRadius.circular(8.0),
+                        color: _backgroundColor,
+                      ),
+                      child: Center(
+                        child: Text(
+                          AppLocalizations.of(
+                            navigatorKey.currentContext!,
+                          )!.background,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: useWhiteForeground(_backgroundColor)
+                                ? Colors.white
+                                : DefaultTextStyle.of(
+                                    navigatorKey.currentContext!,
+                                  ).style.color,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16.0),
+          Row(
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: DropdownButtonFormField(
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.gapless,
+                  ),
+                  items: [
+                    DropdownMenuItem(
+                      value: false,
+                      child: Text(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.false_,
+                      ),
+                    ),
+                    DropdownMenuItem(
+                      value: true,
+                      child: Text(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.true_,
+                      ),
+                    ),
+                  ],
+                  initialValue: _gaplessness,
+                  onChanged: _onGaplessnessChanged,
+                ),
+              ),
+              const SizedBox(width: 16.0),
+              Expanded(
+                flex: 1,
+                child: TextFormField(
+                  controller: _paddingEditingController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.padding,
+                    hintText: _paddingEditingController.text,
+                  ),
+                  showCursor: true,
+                  maxLines: 1,
+                  validator: _paddingFieldValidator,
+                  onChanged: _onPaddingChanged,
+                  onFieldSubmitted: _onPaddingFieldSubmitted,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16.0),
+          Center(
+            child: ElevatedButton.icon(
+              onPressed: _saveQRCode,
+              icon: const Icon(Icons.save_rounded),
+              label: Text(
+                AppLocalizations.of(navigatorKey.currentContext!)!.save_qr_code,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -281,13 +659,43 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
     }
   }
 
+  Widget _resultWrapper() {
+    return WidgetsToImage(
+      controller: _widgetsToImageController,
+      child: QrImageView(
+        version: _version,
+        errorCorrectionLevel: _errorCorrectionLevel,
+        backgroundColor: _backgroundColor,
+        padding: EdgeInsets.all(
+          double.tryParse(_paddingEditingController.text.trim())!,
+        ),
+        eyeStyle: QrEyeStyle(eyeShape: _eyeShape, color: _eyeColor),
+        dataModuleStyle: QrDataModuleStyle(
+          dataModuleShape: _dataModuleShape,
+          color: _dataModuleColor,
+        ),
+        gapless: _gaplessness,
+        data: _stringEditingController.text,
+        embeddedImage: (_embeddedImageBytes != null)
+            ? MemoryImage(_embeddedImageBytes!, scale: 1.0)
+            : null,
+        embeddedImageEmitsError: true,
+        semanticsLabel: _semanticsLabel,
+      ),
+    );
+  }
+
+  Widget _startNotice() {
+    return Text(
+      AppLocalizations.of(
+        navigatorKey.currentContext!,
+      )!.start_typing_a_string_to_generate_qr_code,
+      textAlign: TextAlign.center,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final NumberFormat numberFormat = NumberFormat(
-      '#',
-      AppLocalizations.of(context)!.localeName,
-    );
-
     return Scaffold(
       appBar: ApplicationToolBar(
         title: AppLocalizations.of(context)!.qr_code_generator,
@@ -299,41 +707,9 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
             padding: const EdgeInsets.all(32.0),
             color: Theme.of(context).scaffoldBackgroundColor,
             child: Center(
-              child: (_stringEditingController.text.isNotEmpty)
-                  ? WidgetsToImage(
-                      controller: _widgetsToImageController,
-                      child: QrImageView(
-                        version: _version,
-                        errorCorrectionLevel: _errorCorrectionLevel,
-                        backgroundColor: _backgroundColor,
-                        padding: EdgeInsets.all(
-                          double.tryParse(
-                            _paddingEditingController.text.trim(),
-                          )!,
-                        ),
-                        eyeStyle: QrEyeStyle(
-                          eyeShape: _eyeShape,
-                          color: _eyeColor,
-                        ),
-                        dataModuleStyle: QrDataModuleStyle(
-                          dataModuleShape: _dataModuleShape,
-                          color: _dataModuleColor,
-                        ),
-                        gapless: _gaplessness,
-                        data: _stringEditingController.text,
-                        embeddedImage: _embeddedImageBytes != null
-                            ? MemoryImage(_embeddedImageBytes!, scale: 1.0)
-                            : null,
-                        embeddedImageEmitsError: true,
-                        semanticsLabel: _semanticsLabel,
-                      ),
-                    )
-                  : Text(
-                      AppLocalizations.of(
-                        context,
-                      )!.start_typing_a_string_to_generate_qr_code,
-                      textAlign: TextAlign.center,
-                    ),
+              child: _stringEditingController.text.isNotEmpty
+                  ? _resultWrapper()
+                  : _startNotice(),
             ),
           ),
           const Divider(height: 1),
@@ -342,331 +718,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
               padding: const EdgeInsets.all(32.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  _form(),
-                  const SizedBox(height: 16.0),
-                  Center(
-                    child: ElevatedButton.icon(
-                      onPressed: _pickImage,
-                      icon: const Icon(Icons.image_rounded),
-                      label: Text(AppLocalizations.of(context)!.embed_image),
-                    ),
-                  ),
-                  const SizedBox(height: 16.0),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 1,
-                        child: DropdownButtonFormField(
-                          decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context)!.version,
-                          ),
-                          items: [
-                            DropdownMenuItem(
-                              value: QrVersions.auto,
-                              child: Text(
-                                AppLocalizations.of(context)!.automatic,
-                              ),
-                            ),
-                            ...List.generate(40, (int index) => index + 1).map(
-                              (int qrVersion) => DropdownMenuItem(
-                                value: qrVersion,
-                                child: Text(numberFormat.format(qrVersion)),
-                              ),
-                            ),
-                          ],
-                          initialValue: _version,
-                          onChanged: _onVersionChanged,
-                        ),
-                      ),
-                      const SizedBox(width: 16.0),
-                      Expanded(
-                        flex: 1,
-                        child: DropdownButtonFormField(
-                          decoration: InputDecoration(
-                            labelText: AppLocalizations.of(
-                              context,
-                            )!.error_correction_level,
-                          ),
-                          items: [
-                            DropdownMenuItem(
-                              value: QrErrorCorrectLevel.H,
-                              child: Text(AppLocalizations.of(context)!.high),
-                            ),
-                            DropdownMenuItem(
-                              value: QrErrorCorrectLevel.Q,
-                              child: Text(
-                                AppLocalizations.of(context)!.quartile,
-                              ),
-                            ),
-                            DropdownMenuItem(
-                              value: QrErrorCorrectLevel.M,
-                              child: Text(AppLocalizations.of(context)!.medium),
-                            ),
-                            DropdownMenuItem(
-                              value: QrErrorCorrectLevel.L,
-                              child: Text(AppLocalizations.of(context)!.low),
-                            ),
-                          ],
-                          initialValue: _errorCorrectionLevel,
-                          onChanged: _onCorrectionLevelChanged,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16.0),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 1,
-                        child: DropdownButtonFormField(
-                          decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context)!.eye_shape,
-                          ),
-                          items: [
-                            DropdownMenuItem(
-                              value: QrEyeShape.square,
-                              child: Text(AppLocalizations.of(context)!.square),
-                            ),
-                            DropdownMenuItem(
-                              value: QrEyeShape.circle,
-                              child: Text(AppLocalizations.of(context)!.circle),
-                            ),
-                          ],
-                          initialValue: _eyeShape,
-                          onChanged: _onEyeShapeChanged,
-                        ),
-                      ),
-                      const SizedBox(width: 16.0),
-                      Expanded(
-                        flex: 1,
-                        child: DropdownButtonFormField(
-                          decoration: InputDecoration(
-                            labelText: AppLocalizations.of(
-                              context,
-                            )!.data_module_shape,
-                          ),
-                          items: [
-                            DropdownMenuItem(
-                              value: QrDataModuleShape.square,
-                              child: Text(AppLocalizations.of(context)!.square),
-                            ),
-                            DropdownMenuItem(
-                              value: QrDataModuleShape.circle,
-                              child: Text(AppLocalizations.of(context)!.circle),
-                            ),
-                          ],
-                          initialValue: _dataModuleShape,
-                          onChanged: _onDataModuleShapeChange,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16.0),
-                  Text(
-                    AppLocalizations.of(context)!.colors,
-                    style: Theme.of(context).textTheme.labelMedium,
-                  ),
-                  const SizedBox(height: 8.0),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 1,
-                        child: GestureDetector(
-                          onTap: () {
-                            try {
-                              _pickColor(context, _eyeColor, (Color color) {
-                                setState(() {
-                                  _eyeColor = color;
-                                });
-                              });
-                            } catch (error) {
-                              showMessageDialog(
-                                AppLocalizations.of(context)!.error,
-                                error.toString(),
-                              );
-                            } finally {}
-                          },
-                          child: MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: Container(
-                              height: 32,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  width: 1,
-                                  color: Colors.grey,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                                color: _eyeColor,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  AppLocalizations.of(context)!.eye,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: useWhiteForeground(_eyeColor)
-                                        ? Colors.white
-                                        : DefaultTextStyle.of(
-                                            context,
-                                          ).style.color,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 16.0),
-                      Expanded(
-                        flex: 1,
-                        child: GestureDetector(
-                          onTap: () {
-                            try {
-                              _pickColor(context, _dataModuleColor, (
-                                Color color,
-                              ) {
-                                setState(() {
-                                  _dataModuleColor = color;
-                                });
-                              });
-                            } catch (error) {
-                              showMessageDialog(
-                                AppLocalizations.of(context)!.error,
-                                error.toString(),
-                              );
-                            } finally {}
-                          },
-                          child: MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: Container(
-                              height: 32,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  width: 1,
-                                  color: Colors.grey,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                                color: _dataModuleColor,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  AppLocalizations.of(context)!.data,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: useWhiteForeground(_dataModuleColor)
-                                        ? Colors.white
-                                        : DefaultTextStyle.of(
-                                            context,
-                                          ).style.color,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 16.0),
-                      Expanded(
-                        flex: 2,
-                        child: GestureDetector(
-                          onTap: () {
-                            try {
-                              _pickColor(context, _backgroundColor, (
-                                Color color,
-                              ) {
-                                setState(() {
-                                  _backgroundColor = color;
-                                });
-                              });
-                            } catch (error) {
-                              showMessageDialog(
-                                AppLocalizations.of(context)!.error,
-                                error.toString(),
-                              );
-                            } finally {}
-                          },
-                          child: MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: Container(
-                              height: 32,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  width: 1,
-                                  color: Colors.grey,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                                color: _backgroundColor,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  AppLocalizations.of(context)!.background,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: useWhiteForeground(_backgroundColor)
-                                        ? Colors.white
-                                        : DefaultTextStyle.of(
-                                            context,
-                                          ).style.color,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16.0),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 1,
-                        child: DropdownButtonFormField(
-                          decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context)!.gapless,
-                          ),
-                          items: [
-                            DropdownMenuItem(
-                              value: false,
-                              child: Text(AppLocalizations.of(context)!.false_),
-                            ),
-                            DropdownMenuItem(
-                              value: true,
-                              child: Text(AppLocalizations.of(context)!.true_),
-                            ),
-                          ],
-                          initialValue: _gaplessness,
-                          onChanged: _onGaplessnessChanged,
-                        ),
-                      ),
-                      const SizedBox(width: 16.0),
-                      Expanded(
-                        flex: 1,
-                        child: TextFormField(
-                          controller: _paddingEditingController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context)!.padding,
-                            hintText: _paddingEditingController.text,
-                          ),
-                          showCursor: true,
-                          maxLines: 1,
-                          validator: _paddingFieldValidator,
-                          onChanged: _onPaddingChanged,
-                          onFieldSubmitted: _onPaddingFieldSubmitted,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16.0),
-                  Center(
-                    child: ElevatedButton.icon(
-                      onPressed: _saveQRCode,
-                      icon: const Icon(Icons.save_rounded),
-                      label: Text(AppLocalizations.of(context)!.save_qr_code),
-                    ),
-                  ),
-                ],
+                children: <Widget>[_form()],
               ),
             ),
           ),

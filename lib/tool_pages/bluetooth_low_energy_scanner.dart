@@ -118,6 +118,24 @@ class BluetoothLowEnergyScannerPageState
     }
   }
 
+  Widget _form() {
+    return Form(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          ElevatedButton(
+            onPressed: _isScanning ? null : _scan,
+            child: Text(AppLocalizations.of(navigatorKey.currentContext!)!.scan),
+          ),
+          ElevatedButton(
+            onPressed: _isScanning ? _stop : null,
+            child: Text(AppLocalizations.of(navigatorKey.currentContext!)!.stop),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildDeviceCard(final ScanResult scanResult) {
     final BluetoothDevice device = scanResult.device;
     final AdvertisementData advertisement = scanResult.advertisementData;
@@ -210,6 +228,13 @@ class BluetoothLowEnergyScannerPageState
     );
   }
 
+  Widget _resultColumn() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: _scanResults.map(_buildDeviceCard).toList(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -221,27 +246,11 @@ class BluetoothLowEnergyScannerPageState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                ElevatedButton(
-                  onPressed: _isScanning ? null : _scan,
-                  child: Text(AppLocalizations.of(context)!.scan),
-                ),
-                ElevatedButton(
-                  onPressed: _isScanning ? _stop : null,
-                  child: Text(AppLocalizations.of(context)!.stop),
-                ),
-              ],
-            ),
+            _form(),
             const SizedBox(height: 16.0),
             if (_isScanning) const Center(child: CircularProgressIndicator()),
             const SizedBox(height: 16.0),
-            if (_scanResults.isNotEmpty)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: _scanResults.map(_buildDeviceCard).toList(),
-              ),
+            if (_scanResults.isNotEmpty) _resultColumn(),
           ],
         ),
       ),

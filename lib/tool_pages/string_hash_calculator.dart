@@ -99,6 +99,58 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
     );
   }
 
+  Widget _startNotice() {
+    return Center(
+      child: Text(
+        AppLocalizations.of(
+          context,
+        )!.start_typing_a_string_to_calculate_its_md5_sha1_sha224_sha256_sha384_sha512_hashes,
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+
+  Widget _resultColumn() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        for (MapEntry<String, dynamic> entry in _hashValues.entries)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: Card(
+              child: ListTile(
+                title: Text(entry.key),
+                subtitle: Text(entry.value),
+                trailing: IconButton(
+                  icon: const Icon(Icons.copy_rounded),
+                  onPressed: () {
+                    try {
+                      copyToClipboard(
+                        "${entry.key} ${AppLocalizations.of(navigatorKey.currentContext!)!.hash}",
+                        entry.value,
+                      );
+                    } catch (error) {
+                      debugPrint(error.toString());
+
+                      showMessageDialog(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.error,
+                        error.toString(),
+                      );
+                    } finally {}
+                  },
+                  tooltip: AppLocalizations.of(
+                    navigatorKey.currentContext!,
+                  )!.copy_to_clipboard,
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,52 +164,9 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
           children: <Widget>[
             _form(),
             const SizedBox(height: 16.0),
-            if (_stringEditingController.text.isEmpty)
-              Center(
-                child: Text(
-                  AppLocalizations.of(
-                    context,
-                  )!.start_typing_a_string_to_calculate_its_md5_sha1_sha224_sha256_sha384_sha512_hashes,
-                  textAlign: TextAlign.center,
-                ),
-              )
-            else
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  for (MapEntry<String, dynamic> entry in _hashValues.entries)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 16.0),
-                      child: Card(
-                        child: ListTile(
-                          title: Text(entry.key),
-                          subtitle: Text(entry.value),
-                          trailing: IconButton(
-                            icon: const Icon(Icons.copy_rounded),
-                            onPressed: () {
-                              try {
-                                copyToClipboard(
-                                  "${entry.key} ${AppLocalizations.of(context)!.hash}",
-                                  entry.value,
-                                );
-                              } catch (error) {
-                                debugPrint(error.toString());
-
-                                showMessageDialog(
-                                  AppLocalizations.of(context)!.error,
-                                  error.toString(),
-                                );
-                              } finally {}
-                            },
-                            tooltip: AppLocalizations.of(
-                              context,
-                            )!.copy_to_clipboard,
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
+            _stringEditingController.text.isEmpty
+                ? _startNotice()
+                : _resultColumn(),
           ],
         ),
       ),
