@@ -33,7 +33,9 @@ class RouteTracerPageState extends State<RouteTracerPage> {
 
   String? _hostFieldValidator(String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(navigatorKey.currentContext!)!.enter_a_host_or_ip_address;
+      return AppLocalizations.of(
+        navigatorKey.currentContext!,
+      )!.enter_a_host_or_ip_address;
     } else {
       return null;
     }
@@ -89,6 +91,63 @@ class RouteTracerPageState extends State<RouteTracerPage> {
     }
   }
 
+  Widget _form() {
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          TextFormField(
+            controller: _hostEditingController,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: AppLocalizations.of(navigatorKey.currentContext!)!.a_host_or_ip_address,
+              hintText: 'bitscoper.dev',
+            ),
+            maxLines: 1,
+            showCursor: true,
+            onChanged: (String value) {},
+            validator: _hostFieldValidator,
+            onFieldSubmitted: (String value) {
+              _trace();
+            },
+          ),
+          const SizedBox(height: 16.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              ElevatedButton(
+                onPressed: _isTracing ? null : _trace,
+                child: Text(AppLocalizations.of(navigatorKey.currentContext!)!.trace),
+              ),
+              ElevatedButton(
+                onPressed: _isTracing ? _stop : null,
+                child: Text(AppLocalizations.of(navigatorKey.currentContext!)!.stop),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _resultColumn() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        for (final result in _traceResults)
+          Text(
+            result.toString(),
+            style: TextStyle(
+              fontWeight: (result is TracerouteStepFinished)
+                  ? FontWeight.bold
+                  : FontWeight.normal,
+            ),
+          ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,65 +156,14 @@ class RouteTracerPageState extends State<RouteTracerPage> {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(32.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              TextFormField(
-                controller: _hostEditingController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: AppLocalizations.of(context)!.a_host_or_ip_address,
-                  hintText: 'bitscoper.dev',
-                ),
-                maxLines: 1,
-                showCursor: true,
-                onChanged: (String value) {},
-                validator: _hostFieldValidator,
-                onFieldSubmitted: (String value) {
-                  _trace();
-                },
-              ),
-              const SizedBox(height: 16.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  ElevatedButton(
-                    onPressed: _isTracing ? null : _trace,
-                    child: Text(AppLocalizations.of(context)!.trace),
-                  ),
-                  ElevatedButton(
-                    onPressed: _isTracing ? _stop : null,
-                    child: Text(AppLocalizations.of(context)!.stop),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16.0),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  for (final result in _traceResults)
-                    Text(
-                      result.toString(),
-                      style: TextStyle(
-                        fontWeight: result is TracerouteStepFinished
-                            ? FontWeight.bold
-                            : FontWeight.normal,
-                      ),
-                    ),
-                  if (_isTracing)
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const SizedBox(height: 16.0),
-                        const Center(child: CircularProgressIndicator()),
-                      ],
-                    ),
-                ],
-              ),
-            ],
-          ),
+        child: Column(
+          children: [
+            _form(),
+            const SizedBox(height: 16.0),
+            _resultColumn(),
+            const SizedBox(height: 16.0),
+            if (_isTracing) const Center(child: CircularProgressIndicator()),
+          ],
         ),
       ),
     );

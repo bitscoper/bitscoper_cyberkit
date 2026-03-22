@@ -141,6 +141,42 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
     );
   }
 
+  Widget _progressIndicator() {
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        SizedBox(height: 16.0),
+        Center(child: CircularProgressIndicator()),
+      ],
+    );
+  }
+
+  Widget _resultWrapper() {
+    return Center(
+      child: Wrap(
+        spacing: 8.0,
+        runSpacing: 8.0,
+        children: <Widget>[
+          if (_discoveredHosts.isNotEmpty)
+            ..._discoveredHosts.map((ActiveHost discoveredHost) {
+              return Chip(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                padding: const EdgeInsets.only(
+                  top: 8.0,
+                  right: 4.0,
+                  bottom: 8.0,
+                  left: 4.0,
+                ),
+                label: Text(discoveredHost.address.toString()),
+              );
+            }),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,38 +189,9 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _form(),
-            if (_isScanning)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const SizedBox(height: 16.0),
-                  const Center(child: CircularProgressIndicator()),
-                ],
-              ),
-            SizedBox(height: 16.0),
-            Center(
-              child: Wrap(
-                spacing: 8.0,
-                runSpacing: 8.0,
-                children: <Widget>[
-                  if (_discoveredHosts.isNotEmpty)
-                    ..._discoveredHosts.map((ActiveHost discoveredHost) {
-                      return Chip(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        padding: const EdgeInsets.only(
-                          top: 8.0,
-                          right: 4.0,
-                          bottom: 8.0,
-                          left: 4.0,
-                        ),
-                        label: Text(discoveredHost.address.toString()),
-                      );
-                    }),
-                ],
-              ),
-            ),
+            if (_isScanning) _progressIndicator(),
+            const SizedBox(height: 16.0),
+            _resultWrapper(),
           ],
         ),
       ),

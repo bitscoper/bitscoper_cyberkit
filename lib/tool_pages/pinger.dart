@@ -157,6 +157,53 @@ class PingerPageState extends State<PingerPage> {
     );
   }
 
+  Widget _progressIndicator() {
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Center(child: CircularProgressIndicator()),
+        SizedBox(height: 16.0),
+      ],
+    );
+  }
+
+  Widget _resultWrapper() {
+    return Expanded(
+      child: Timeline.tileBuilder(
+        builder: TimelineTileBuilder.connected(
+          itemCount: _results.length,
+          nodePositionBuilder: (BuildContext context, int index) => 0,
+          connectionDirection: ConnectionDirection.before,
+          indicatorBuilder: (BuildContext context, int index) =>
+              OutlinedDotIndicator(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+          connectorBuilder:
+              (BuildContext context, int index, ConnectorType type) =>
+                  SolidLineConnector(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+          contentsBuilder: (BuildContext context, int index) {
+            final PingResult result = _results[index];
+
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                child: ListTile(
+                  leading: const Icon(Icons.network_ping_rounded),
+                  title: Text(result.ipAddress),
+                  subtitle: Text(
+                    '${AppLocalizations.of(context)!.ttl}: ${result.ttl}    ${AppLocalizations.of(context)!.time}: ${result.time} ms',
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -168,49 +215,8 @@ class PingerPageState extends State<PingerPage> {
           children: <Widget>[
             _form(),
             const SizedBox(height: 16.0),
-            if (_isPinging)
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Center(child: CircularProgressIndicator()),
-                  SizedBox(height: 16.0),
-                ],
-              ),
-            if (_results.isNotEmpty)
-              Expanded(
-                child: Timeline.tileBuilder(
-                  builder: TimelineTileBuilder.connected(
-                    itemCount: _results.length,
-                    nodePositionBuilder: (BuildContext context, int index) => 0,
-                    connectionDirection: ConnectionDirection.before,
-                    indicatorBuilder: (BuildContext context, int index) =>
-                        OutlinedDotIndicator(
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                    connectorBuilder:
-                        (BuildContext context, int index, ConnectorType type) =>
-                            SolidLineConnector(
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                    contentsBuilder: (BuildContext context, int index) {
-                      final PingResult result = _results[index];
-
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Card(
-                          child: ListTile(
-                            leading: const Icon(Icons.network_ping_rounded),
-                            title: Text(result.ipAddress),
-                            subtitle: Text(
-                              '${AppLocalizations.of(context)!.ttl}: ${result.ttl}    ${AppLocalizations.of(context)!.time}: ${result.time} ms',
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
+            if (_isPinging) _progressIndicator(),
+            if (_results.isNotEmpty) _resultWrapper(),
           ],
         ),
       ),

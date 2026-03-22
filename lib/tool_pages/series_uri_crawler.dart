@@ -294,6 +294,52 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
     );
   }
 
+  Widget _resultColumn() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        for (MapEntry<String, dynamic> entry in webPages.entries)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: Card(
+              child: ListTile(
+                leading: const Icon(Icons.link_rounded),
+                title: Text(
+                  entry.value,
+                  style: Theme.of(
+                    navigatorKey.currentContext!,
+                  ).textTheme.bodyMedium,
+                ),
+                trailing: IconButton(
+                  icon: const Icon(Icons.copy_rounded),
+                  onPressed: () {
+                    try {
+                      copyToClipboard(
+                        AppLocalizations.of(navigatorKey.currentContext!)!.uri,
+                        entry.key,
+                      );
+                    } catch (error) {
+                      debugPrint(error.toString());
+
+                      showMessageDialog(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.error,
+                        error.toString(),
+                      );
+                    } finally {}
+                  },
+                  tooltip: AppLocalizations.of(
+                    navigatorKey.currentContext!,
+                  )!.copy_to_clipboard,
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -307,53 +353,9 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
           children: <Widget>[
             _form(),
             const SizedBox(height: 16.0),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                for (MapEntry<String, dynamic> entry in webPages.entries)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Card(
-                      child: ListTile(
-                        leading: const Icon(Icons.link_rounded),
-                        title: Text(
-                          entry.value,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.copy_rounded),
-                          onPressed: () {
-                            try {
-                              copyToClipboard(
-                                AppLocalizations.of(context)!.uri,
-                                entry.key,
-                              );
-                            } catch (error) {
-                              debugPrint(error.toString());
-
-                              showMessageDialog(
-                                AppLocalizations.of(context)!.error,
-                                error.toString(),
-                              );
-                            } finally {}
-                          },
-                          tooltip: AppLocalizations.of(
-                            context,
-                          )!.copy_to_clipboard,
-                        ),
-                      ),
-                    ),
-                  ),
-                if (_isCrawling)
-                  const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(height: 8.0),
-                      Center(child: CircularProgressIndicator()),
-                    ],
-                  ),
-              ],
-            ),
+            _resultColumn(),
+            const SizedBox(height: 8.0),
+            if (_isCrawling) const Center(child: CircularProgressIndicator()),
           ],
         ),
       ),

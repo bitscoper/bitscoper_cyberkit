@@ -26,6 +26,28 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
     super.initState();
   }
 
+  Widget _form() {
+    return Form(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          ElevatedButton(
+            onPressed: _isScanning ? null : _scan,
+            child: Text(
+              AppLocalizations.of(navigatorKey.currentContext!)!.scan,
+            ),
+          ),
+          ElevatedButton(
+            onPressed: _isScanning ? _stop : null,
+            child: Text(
+              AppLocalizations.of(navigatorKey.currentContext!)!.stop,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   void _scan() async {
     try {
       setState(() {
@@ -200,7 +222,9 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
                 child: ListTile(
                   subtitle: SelectableText(
                     _formatDump(dump),
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme.of(
+                      navigatorKey.currentContext!,
+                    ).textTheme.bodySmall,
                   ),
                 ),
               ),
@@ -208,6 +232,13 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _resultColumn() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: _devices.map(_buildDeviceCard).toList(),
     );
   }
 
@@ -222,26 +253,10 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                ElevatedButton(
-                  onPressed: _isScanning ? null : _scan,
-                  child: Text(AppLocalizations.of(context)!.scan),
-                ),
-                ElevatedButton(
-                  onPressed: _isScanning ? _stop : null,
-                  child: Text(AppLocalizations.of(context)!.stop),
-                ),
-              ],
-            ),
+            _form(),
             const SizedBox(height: 16.0),
-            if (_isScanning) Center(child: CircularProgressIndicator()),
-            if (_devices.isNotEmpty)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: _devices.map(_buildDeviceCard).toList(),
-              ),
+            if (_isScanning) const Center(child: CircularProgressIndicator()),
+            if (_devices.isNotEmpty) _resultColumn(),
           ],
         ),
       ),

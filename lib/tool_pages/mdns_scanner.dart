@@ -76,6 +76,28 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
     } finally {}
   }
 
+  Widget _form() {
+    return Form(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          ElevatedButton(
+            onPressed: _isScanning ? null : _scan,
+            child: Text(
+              AppLocalizations.of(navigatorKey.currentContext!)!.scan,
+            ),
+          ),
+          ElevatedButton(
+            onPressed: _isScanning ? _stop : null,
+            child: Text(
+              AppLocalizations.of(navigatorKey.currentContext!)!.stop,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Future<Widget> _buildInformationCard(final ActiveHost host) async {
     final MdnsInfo? mdnsInformation = await host.mdnsInfo;
 
@@ -158,7 +180,7 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                 ],
               ),
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             Card(
               color: Theme.of(navigatorKey.currentContext!).hoverColor,
               child: ListTile(
@@ -438,6 +460,31 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
     );
   }
 
+  Widget _resultWrapper() {
+    return FutureBuilder<List<Widget>>(
+      future: Future.wait(hosts.map(_buildInformationCard)),
+      builder: (BuildContext context, AsyncSnapshot<List<Widget>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: snapshot.data!,
+          );
+        } else if (snapshot.hasError) {
+          showMessageDialog(
+            AppLocalizations.of(context)!.error,
+            snapshot.error.toString(),
+          );
+
+          return const SizedBox();
+        } else {
+          return const SizedBox();
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -449,48 +496,10 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                ElevatedButton(
-                  onPressed: _isScanning ? null : _scan,
-                  child: Text(AppLocalizations.of(context)!.scan),
-                ),
-                ElevatedButton(
-                  onPressed: _isScanning ? _stop : null,
-                  child: Text(AppLocalizations.of(context)!.stop),
-                ),
-              ],
-            ),
+            _form(),
             const SizedBox(height: 16.0),
-            if (_isScanning)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[Center(child: CircularProgressIndicator())],
-              ),
-            FutureBuilder<List<Widget>>(
-              future: Future.wait(hosts.map(_buildInformationCard)),
-              builder:
-                  (BuildContext context, AsyncSnapshot<List<Widget>> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: snapshot.data!,
-                      );
-                    } else if (snapshot.hasError) {
-                      showMessageDialog(
-                        AppLocalizations.of(context)!.error,
-                        snapshot.error.toString(),
-                      );
-
-                      return const SizedBox();
-                    } else {
-                      return const SizedBox();
-                    }
-                  },
-            ),
+            if (_isScanning) Center(child: CircularProgressIndicator()),
+            _resultWrapper(),
           ],
         ),
       ),

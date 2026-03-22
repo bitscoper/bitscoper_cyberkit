@@ -335,6 +335,78 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
     );
   }
 
+  Widget _progressStatus() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Center(
+          child: StreamBuilder<String>(
+            stream: _recordTypeController.stream,
+            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Text(AppLocalizations.of(context)!.wait);
+              } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                return Text(
+                  '${AppLocalizations.of(context)!.retrieving} ${snapshot.data} ${AppLocalizations.of(context)!.records}',
+                );
+              } else if (snapshot.hasError) {
+                showMessageDialog(
+                  AppLocalizations.of(context)!.error,
+                  snapshot.toString(),
+                );
+
+                return const SizedBox();
+              } else {
+                return const SizedBox();
+              }
+            },
+          ),
+        ),
+        const SizedBox(height: 16.0),
+        const Center(child: CircularProgressIndicator()),
+        const SizedBox(height: 16.0),
+      ],
+    );
+  }
+
+  Widget _resultColumn() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: _records.map((record) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: Card(
+            child: ListTile(
+              title: Text(record.type),
+              subtitle: Text(record.record),
+              trailing: IconButton(
+                icon: const Icon(Icons.copy_rounded),
+                onPressed: () {
+                  try {
+                    copyToClipboard(
+                      '${record.type} ${AppLocalizations.of(navigatorKey.currentContext!)!.dns_record}',
+                      record.record,
+                    );
+                  } catch (error) {
+                    debugPrint(error.toString());
+
+                    showMessageDialog(
+                      AppLocalizations.of(navigatorKey.currentContext!)!.error,
+                      error.toString(),
+                    );
+                  } finally {}
+                },
+                tooltip: AppLocalizations.of(
+                  navigatorKey.currentContext!,
+                )!.copy_to_clipboard,
+              ),
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -348,82 +420,8 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
           children: <Widget>[
             _form(),
             const SizedBox(height: 16.0),
-            _isRetrieving
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Center(
-                        child: StreamBuilder<String>(
-                          stream: _recordTypeController.stream,
-                          builder:
-                              (
-                                BuildContext context,
-                                AsyncSnapshot<String> snapshot,
-                              ) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Text(
-                                    AppLocalizations.of(context)!.wait,
-                                  );
-                                } else if (snapshot.hasData &&
-                                    snapshot.data!.isNotEmpty) {
-                                  return Text(
-                                    '${AppLocalizations.of(context)!.retrieving} ${snapshot.data} ${AppLocalizations.of(context)!.records}',
-                                  );
-                                } else if (snapshot.hasError) {
-                                  showMessageDialog(
-                                    AppLocalizations.of(context)!.error,
-                                    snapshot.toString(),
-                                  );
-
-                                  return const SizedBox();
-                                } else {
-                                  return const SizedBox();
-                                }
-                              },
-                        ),
-                      ),
-                      const SizedBox(height: 16.0),
-                      const Center(child: CircularProgressIndicator()),
-                      const SizedBox(height: 16.0),
-                    ],
-                  )
-                : SizedBox(),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: _records.map((record) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Card(
-                    child: ListTile(
-                      title: Text(record.type),
-                      subtitle: Text(record.record),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.copy_rounded),
-                        onPressed: () {
-                          try {
-                            copyToClipboard(
-                              '${record.type} ${AppLocalizations.of(context)!.dns_record}',
-                              record.record,
-                            );
-                          } catch (error) {
-                            debugPrint(error.toString());
-
-                            showMessageDialog(
-                              AppLocalizations.of(context)!.error,
-                              error.toString(),
-                            );
-                          } finally {}
-                        },
-                        tooltip: AppLocalizations.of(
-                          context,
-                        )!.copy_to_clipboard,
-                      ),
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
+            if (_isRetrieving) _progressStatus(),
+            _resultColumn(),
           ],
         ),
       ),
