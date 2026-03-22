@@ -37,6 +37,18 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
   QualitativeSeverityRating _severityRating = QualitativeSeverityRating.none;
   String _vectorString = '';
 
+  Widget _subTitle() {
+    return Center(
+      child: Text(
+        AppLocalizations.of(
+          context,
+        )!.common_vulnerability_scoring_system_v3_1_base_score,
+        textAlign: TextAlign.center,
+        style: Theme.of(navigatorKey.currentContext!).textTheme.bodyLarge,
+      ),
+    );
+  }
+
   void _calculateCVSS() {
     try {
       final CVSSv31 cvss = CVSSv31(
@@ -331,6 +343,74 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
     );
   }
 
+  Widget _resultCard() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _getSeverityColor().withValues(alpha: 0.10),
+                border: Border.all(color: _getSeverityColor(), width: 2),
+              ),
+              child: Text(
+                _baseScore.toStringAsFixed(1),
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: _getSeverityColor(),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Chip(
+              label: Text(
+                _getSeverityText(),
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(height: 4.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Flexible(child: SelectableText(_vectorString)),
+                IconButton(
+                  icon: const Icon(Icons.copy_rounded, size: 16),
+                  onPressed: () {
+                    try {
+                      copyToClipboard(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.vector_string,
+                        _vectorString,
+                      );
+                    } catch (error) {
+                      debugPrint(error.toString());
+
+                      showMessageDialog(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.error,
+                        error.toString(),
+                      );
+                    } finally {}
+                  },
+                  tooltip: AppLocalizations.of(
+                    navigatorKey.currentContext!,
+                  )!.copy_to_clipboard,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -342,82 +422,11 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Center(
-              child: Text(
-                AppLocalizations.of(
-                  context,
-                )!.common_vulnerability_scoring_system_v3_1_base_score,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            ),
-            const SizedBox(height: 32),
+            _subTitle(),
+            const SizedBox(height: 32.0),
             _form(),
-            const SizedBox(height: 32),
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: _getSeverityColor().withValues(alpha: 0.10),
-                        border: Border.all(
-                          color: _getSeverityColor(),
-                          width: 2,
-                        ),
-                      ),
-                      child: Text(
-                        _baseScore.toStringAsFixed(1),
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          color: _getSeverityColor(),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Chip(
-                      label: Text(
-                        _getSeverityText(),
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    SizedBox(height: 4.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Flexible(child: SelectableText(_vectorString)),
-                        IconButton(
-                          icon: const Icon(Icons.copy_rounded, size: 16),
-                          onPressed: () {
-                            try {
-                              copyToClipboard(
-                                AppLocalizations.of(context)!.vector_string,
-                                _vectorString,
-                              );
-                            } catch (error) {
-                              debugPrint(error.toString());
-
-                              showMessageDialog(
-                                AppLocalizations.of(context)!.error,
-                                error.toString(),
-                              );
-                            } finally {}
-                          },
-                          tooltip: AppLocalizations.of(
-                            context,
-                          )!.copy_to_clipboard,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            const SizedBox(height: 32.0),
+            _resultCard(),
           ],
         ),
       ),

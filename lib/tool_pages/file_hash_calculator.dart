@@ -105,6 +105,89 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
     } finally {}
   }
 
+  Widget _form() {
+    return Form(
+      child: Center(
+        child: ElevatedButton(
+          onPressed: _calculate,
+          child: Text(
+            AppLocalizations.of(navigatorKey.currentContext!)!.select_files,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _startNotice() {
+    return Center(
+      child: Text(
+        AppLocalizations.of(
+          context,
+        )!.select_files_to_calculate_their_md5_sha1_sha224_sha256_sha384_sha512_hashes,
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+
+  Widget _resultColumn() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        for (Map<String, dynamic> hashValue in _hashValues)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  ListTile(
+                    title: Center(
+                      child: Text(
+                        hashValue['File Name'],
+                        style: Theme.of(
+                          navigatorKey.currentContext!,
+                        ).textTheme.bodyMedium,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  for (MapEntry<String, dynamic> entry in hashValue.entries)
+                    if (entry.key != 'File Name')
+                      ListTile(
+                        title: Text(entry.key),
+                        subtitle: Text(entry.value),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.copy_rounded),
+                          onPressed: () {
+                            try {
+                              copyToClipboard(
+                                "${entry.key} ${AppLocalizations.of(navigatorKey.currentContext!)!.hash}",
+                                entry.value,
+                              );
+                            } catch (error) {
+                              debugPrint(error.toString());
+
+                              showMessageDialog(
+                                AppLocalizations.of(
+                                  navigatorKey.currentContext!,
+                                )!.error,
+                                error.toString(),
+                              );
+                            } finally {}
+                          },
+                          tooltip: AppLocalizations.of(
+                            context,
+                          )!.copy_to_clipboard,
+                        ),
+                      ),
+                ],
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,78 +199,14 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Center(
-              child: ElevatedButton(
-                onPressed: _calculate,
-                child: Text(AppLocalizations.of(context)!.select_files),
-              ),
-            ),
+            _form(),
             const SizedBox(height: 16.0),
             if (!_isCalculating && _hashValues.isEmpty)
-              Center(
-                child: Text(
-                  AppLocalizations.of(
-                    context,
-                  )!.select_files_to_calculate_their_md5_sha1_sha224_sha256_sha384_sha512_hashes,
-                  textAlign: TextAlign.center,
-                ),
-              )
+              _startNotice()
             else if (_isCalculating)
               const Center(child: CircularProgressIndicator())
             else
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  for (Map<String, dynamic> hashValue in _hashValues)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 16.0),
-                      child: Card(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            ListTile(
-                              title: Center(
-                                child: Text(
-                                  hashValue['File Name'],
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                            for (MapEntry<String, dynamic> entry
-                                in hashValue.entries)
-                              if (entry.key != 'File Name')
-                                ListTile(
-                                  title: Text(entry.key),
-                                  subtitle: Text(entry.value),
-                                  trailing: IconButton(
-                                    icon: const Icon(Icons.copy_rounded),
-                                    onPressed: () {
-                                      try {
-                                        copyToClipboard(
-                                          "${entry.key} ${AppLocalizations.of(context)!.hash}",
-                                          entry.value,
-                                        );
-                                      } catch (error) {
-                                        debugPrint(error.toString());
-
-                                        showMessageDialog(
-                                          AppLocalizations.of(context)!.error,
-                                          error.toString(),
-                                        );
-                                      } finally {}
-                                    },
-                                    tooltip: AppLocalizations.of(
-                                      context,
-                                    )!.copy_to_clipboard,
-                                  ),
-                                ),
-                          ],
-                        ),
-                      ),
-                    ),
-                ],
-              ),
+              _resultColumn(),
           ],
         ),
       ),

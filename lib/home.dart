@@ -89,7 +89,7 @@ class _ToolCardWidget extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
 
   int _getCrossAxisCount(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
@@ -105,252 +105,280 @@ class HomePage extends StatelessWidget {
     }
   }
 
+  Widget _drawer() {
+    return Drawer(
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: ListView(
+              children: <Widget>[
+                DrawerHeader(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.bitscoper_cyberkit,
+                      ),
+                      FutureBuilder<String>(
+                        future: getLocalVersion(),
+                        builder:
+                            (
+                              BuildContext context,
+                              AsyncSnapshot<String> snapshot,
+                            ) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const CircularProgressIndicator();
+                              } else if (snapshot.hasError) {
+                                return Text(snapshot.error.toString());
+                              } else {
+                                return Text(snapshot.data ?? '');
+                              }
+                            },
+                      ),
+                    ],
+                  ),
+                ),
+                ListTile(
+                  title: Text(
+                    AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.check_version,
+                  ),
+                  leading: const Icon(Icons.update_rounded),
+                  onTap: () {
+                    try {
+                      checkVersion();
+                    } catch (error) {
+                      debugPrint(error.toString());
+
+                      showMessageDialog(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.error,
+                        error.toString(),
+                      );
+                    } finally {}
+                  },
+                ),
+                const Divider(),
+                ListTile(
+                  title: Text(
+                    AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.source_code,
+                  ),
+                  leading: const Icon(Icons.code_rounded),
+                  onTap: () {
+                    try {
+                      launchUrl(
+                        Uri.parse(
+                          'https://github.com/bitscoper/Bitscoper_CyberKit/',
+                        ),
+                      );
+                    } catch (error) {
+                      debugPrint(error.toString());
+
+                      showMessageDialog(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.error,
+                        error.toString(),
+                      );
+                    } finally {}
+                  },
+                ),
+                ListTile(
+                  title: Text(
+                    AppLocalizations.of(
+                      navigatorKey.currentContext!,
+                    )!.privacy_policy,
+                  ),
+                  leading: const Icon(Icons.privacy_tip_rounded),
+                  onTap: () {
+                    try {
+                      launchUrl(
+                        Uri.parse(
+                          'https://github.com/bitscoper/Bitscoper_CyberKit/blob/main/PRIVACY_POLICY.md',
+                        ),
+                      );
+                    } catch (error) {
+                      debugPrint(error.toString());
+
+                      showMessageDialog(
+                        AppLocalizations.of(
+                          navigatorKey.currentContext!,
+                        )!.error,
+                        error.toString(),
+                      );
+                    } finally {}
+                  },
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Center(
+              child: Text(
+                AppLocalizations.of(
+                  navigatorKey.currentContext!,
+                )!.the_application_displays_error_messages_as_caught,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  final List<(String, IconData, List<Permission?>, StatefulWidget)> _tools = [
+    (
+      AppLocalizations.of(
+        navigatorKey.currentContext!,
+      )!.bluetooth_low_energy_scanner,
+      Icons.bluetooth_searching_rounded,
+      [
+        Permission.bluetooth,
+        Permission.bluetoothScan,
+        Permission.location,
+        Permission.locationWhenInUse,
+      ],
+      const BluetoothLowEnergyScannerPage(),
+    ),
+    (
+      AppLocalizations.of(navigatorKey.currentContext!)!.ipv4_subnet_scanner,
+      Icons.lan_rounded,
+      [],
+      const IPv4SubnetScannerPage(),
+    ),
+    (
+      AppLocalizations.of(navigatorKey.currentContext!)!.mdns_scanner,
+      Icons.stream_rounded,
+      [],
+      const MDNSScannerPage(),
+    ),
+    (
+      AppLocalizations.of(navigatorKey.currentContext!)!.upnp_scanner,
+      Icons.cast_rounded,
+      [],
+      const UPnPScannerPage(),
+    ),
+    (
+      AppLocalizations.of(navigatorKey.currentContext!)!.route_tracer,
+      Icons.track_changes_rounded,
+      [],
+      const RouteTracerPage(),
+    ),
+    (
+      AppLocalizations.of(navigatorKey.currentContext!)!.tcp_port_scanner,
+      Icons.radar_rounded,
+      [],
+      const TCPPortScannerPage(),
+    ),
+    (
+      AppLocalizations.of(navigatorKey.currentContext!)!.pinger,
+      Icons.network_ping_rounded,
+      [],
+      const PingerPage(),
+    ),
+    (
+      AppLocalizations.of(navigatorKey.currentContext!)!.file_hash_calculator,
+      Icons.file_present_rounded,
+      [
+        Permission.audio,
+        Permission.mediaLibrary,
+        Permission.photos,
+        Permission.videos,
+      ],
+      const FileHashCalculatorPage(),
+    ),
+    (
+      AppLocalizations.of(navigatorKey.currentContext!)!.string_hash_calculator,
+      Icons.text_snippet_rounded,
+      [],
+      const StringHashCalculatorPage(),
+    ),
+    (
+      AppLocalizations.of(navigatorKey.currentContext!)!.cvss_calculator,
+      Icons.security_rounded,
+      [],
+      const CVSSCalculatorPage(),
+    ),
+    (
+      AppLocalizations.of(navigatorKey.currentContext!)!.base_encoder,
+      Icons.numbers_rounded,
+      [],
+      const BaseEncoderPage(),
+    ),
+    (
+      AppLocalizations.of(navigatorKey.currentContext!)!.morse_code_translator,
+      Icons.text_fields_rounded,
+      [],
+      const MorseCodeTranslatorPage(),
+    ),
+    (
+      AppLocalizations.of(navigatorKey.currentContext!)!.qr_code_generator,
+      Icons.qr_code_rounded,
+      [],
+      const QRCodeGeneratorPage(),
+    ),
+    (
+      AppLocalizations.of(navigatorKey.currentContext!)!.ogp_data_extractor,
+      Icons.share_rounded,
+      [],
+      const OGPDataExtractorPage(),
+    ),
+    (
+      AppLocalizations.of(navigatorKey.currentContext!)!.series_uri_crawler,
+      Icons.web_rounded,
+      [],
+      const SeriesURICrawlerPage(),
+    ),
+    (
+      AppLocalizations.of(navigatorKey.currentContext!)!.dns_record_retriever,
+      Icons.dns_rounded,
+      [],
+      const DNSRecordRetrieverPage(),
+    ),
+    (
+      AppLocalizations.of(navigatorKey.currentContext!)!.whois_retriever,
+      Icons.domain_rounded,
+      [],
+      const WHOISRetrieverPage(),
+    ),
+    (
+      AppLocalizations.of(navigatorKey.currentContext!)!.wifi_details_viewer,
+      Icons.network_check_rounded,
+      [Permission.location, Permission.locationWhenInUse],
+      const WiFiDetailsViewerPage(),
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    final List<(String, IconData, List<Permission?>, StatefulWidget)> tools = [
-      (
-        AppLocalizations.of(context)!.bluetooth_low_energy_scanner,
-        Icons.bluetooth_searching_rounded,
-        [
-          Permission.bluetooth,
-          Permission.bluetoothScan,
-          Permission.location,
-          Permission.locationWhenInUse,
-        ],
-        const BluetoothLowEnergyScannerPage(),
-      ),
-      (
-        AppLocalizations.of(context)!.ipv4_subnet_scanner,
-        Icons.lan_rounded,
-        [],
-        const IPv4SubnetScannerPage(),
-      ),
-      (
-        AppLocalizations.of(context)!.mdns_scanner,
-        Icons.stream_rounded,
-        [],
-        const MDNSScannerPage(),
-      ),
-      (
-        AppLocalizations.of(context)!.upnp_scanner,
-        Icons.cast_rounded,
-        [],
-        const UPnPScannerPage(),
-      ),
-      (
-        AppLocalizations.of(context)!.route_tracer,
-        Icons.track_changes_rounded,
-        [],
-        const RouteTracerPage(),
-      ),
-      (
-        AppLocalizations.of(context)!.tcp_port_scanner,
-        Icons.radar_rounded,
-        [],
-        const TCPPortScannerPage(),
-      ),
-      (
-        AppLocalizations.of(context)!.pinger,
-        Icons.network_ping_rounded,
-        [],
-        const PingerPage(),
-      ),
-      (
-        AppLocalizations.of(context)!.file_hash_calculator,
-        Icons.file_present_rounded,
-        [
-          Permission.audio,
-          Permission.mediaLibrary,
-          Permission.photos,
-          Permission.videos,
-        ],
-        const FileHashCalculatorPage(),
-      ),
-      (
-        AppLocalizations.of(context)!.string_hash_calculator,
-        Icons.text_snippet_rounded,
-        [],
-        const StringHashCalculatorPage(),
-      ),
-      (
-        AppLocalizations.of(context)!.cvss_calculator,
-        Icons.security_rounded,
-        [],
-        const CVSSCalculatorPage(),
-      ),
-      (
-        AppLocalizations.of(context)!.base_encoder,
-        Icons.numbers_rounded,
-        [],
-        const BaseEncoderPage(),
-      ),
-      (
-        AppLocalizations.of(context)!.morse_code_translator,
-        Icons.text_fields_rounded,
-        [],
-        const MorseCodeTranslatorPage(),
-      ),
-      (
-        AppLocalizations.of(context)!.qr_code_generator,
-        Icons.qr_code_rounded,
-        [],
-        const QRCodeGeneratorPage(),
-      ),
-      (
-        AppLocalizations.of(context)!.ogp_data_extractor,
-        Icons.share_rounded,
-        [],
-        const OGPDataExtractorPage(),
-      ),
-      (
-        AppLocalizations.of(context)!.series_uri_crawler,
-        Icons.web_rounded,
-        [],
-        const SeriesURICrawlerPage(),
-      ),
-      (
-        AppLocalizations.of(context)!.dns_record_retriever,
-        Icons.dns_rounded,
-        [],
-        const DNSRecordRetrieverPage(),
-      ),
-      (
-        AppLocalizations.of(context)!.whois_retriever,
-        Icons.domain_rounded,
-        [],
-        const WHOISRetrieverPage(),
-      ),
-      (
-        AppLocalizations.of(context)!.wifi_details_viewer,
-        Icons.network_check_rounded,
-        [Permission.location, Permission.locationWhenInUse],
-        const WiFiDetailsViewerPage(),
-      ),
-    ];
-
     return Scaffold(
       appBar: ApplicationToolBar(
         title: AppLocalizations.of(context)!.bitscoper_cyberkit,
       ),
-      drawer: Drawer(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: ListView(
-                children: <Widget>[
-                  DrawerHeader(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(AppLocalizations.of(context)!.bitscoper_cyberkit),
-                        FutureBuilder<String>(
-                          future: getLocalVersion(),
-                          builder:
-                              (
-                                BuildContext context,
-                                AsyncSnapshot<String> snapshot,
-                              ) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return const CircularProgressIndicator();
-                                } else if (snapshot.hasError) {
-                                  return Text(snapshot.error.toString());
-                                } else {
-                                  return Text(snapshot.data ?? '');
-                                }
-                              },
-                        ),
-                      ],
-                    ),
-                  ),
-                  ListTile(
-                    title: Text(AppLocalizations.of(context)!.check_version),
-                    leading: const Icon(Icons.update_rounded),
-                    onTap: () {
-                      try {
-                        checkVersion();
-                      } catch (error) {
-                        debugPrint(error.toString());
-
-                        showMessageDialog(
-                          AppLocalizations.of(context)!.error,
-                          error.toString(),
-                        );
-                      } finally {}
-                    },
-                  ),
-                  const Divider(),
-                  ListTile(
-                    title: Text(AppLocalizations.of(context)!.source_code),
-                    leading: const Icon(Icons.code_rounded),
-                    onTap: () {
-                      try {
-                        launchUrl(
-                          Uri.parse(
-                            'https://github.com/bitscoper/Bitscoper_CyberKit/',
-                          ),
-                        );
-                      } catch (error) {
-                        debugPrint(error.toString());
-
-                        showMessageDialog(
-                          AppLocalizations.of(context)!.error,
-                          error.toString(),
-                        );
-                      } finally {}
-                    },
-                  ),
-                  ListTile(
-                    title: Text(AppLocalizations.of(context)!.privacy_policy),
-                    leading: const Icon(Icons.privacy_tip_rounded),
-                    onTap: () {
-                      try {
-                        launchUrl(
-                          Uri.parse(
-                            'https://github.com/bitscoper/Bitscoper_CyberKit/blob/main/PRIVACY_POLICY.md',
-                          ),
-                        );
-                      } catch (error) {
-                        debugPrint(error.toString());
-
-                        showMessageDialog(
-                          AppLocalizations.of(context)!.error,
-                          error.toString(),
-                        );
-                      } finally {}
-                    },
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Center(
-                child: Text(
-                  AppLocalizations.of(
-                    context,
-                  )!.the_application_displays_error_messages_as_caught,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+      drawer: _drawer(),
       body: Padding(
         padding: const EdgeInsets.all(32.0),
         child: MasonryGridView.count(
           crossAxisCount: _getCrossAxisCount(context),
           mainAxisSpacing: 16,
           crossAxisSpacing: 16,
-          itemCount: tools.length,
+          itemCount: _tools.length,
           itemBuilder: (BuildContext context, int index) {
             final (
               String title,
               IconData icon,
               List<Permission?> permissionList,
               StatefulWidget page,
-            ) = tools[index];
+            ) = _tools[index];
 
             return _ToolCardWidget(
               title: title,

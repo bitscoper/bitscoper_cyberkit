@@ -101,6 +101,171 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
     );
   }
 
+  Widget _startNotice() {
+    return Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            AppLocalizations.of(
+              context,
+            )!.start_typing_a_string_to_encode_it_into_the_bases,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 8.0),
+          const Wrap(
+            alignment: WrapAlignment.center,
+            children: <Widget>[
+              Card(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Binary (Base2)'),
+                ),
+              ),
+              Card(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Ternary (Base3)'),
+                ),
+              ),
+              Card(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Quaternary (Base4)'),
+                ),
+              ),
+              Card(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Quinary (Base5)'),
+                ),
+              ),
+              Card(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Senary (Base6)'),
+                ),
+              ),
+              Card(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Octal (Base8)'),
+                ),
+              ),
+              Card(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Decimal (Base10)'),
+                ),
+              ),
+              Card(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Duodecimal (Base12)'),
+                ),
+              ),
+              Card(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Hexadecimal (Base16)'),
+                ),
+              ),
+              Card(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Base32'),
+                ),
+              ),
+              Card(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Base32Hex'),
+                ),
+              ),
+              Card(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Base36'),
+                ),
+              ),
+              Card(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Base58'),
+                ),
+              ),
+              Card(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Base62'),
+                ),
+              ),
+              Card(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Base64'),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _resultColumn() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: _bases.entries.map((MapEntry<String, String> entry) {
+        String result = '';
+
+        try {
+          final converter = BaseConversion(
+            from: base64,
+            to: entry.value,
+            zeroPadding: true,
+          );
+          result = converter(_stringAsBase64);
+        } catch (error) {
+          debugPrint(error.toString());
+
+          showMessageDialog(
+            AppLocalizations.of(navigatorKey.currentContext!)!.error,
+            error.toString(),
+          );
+        } finally {}
+
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Card(
+            child: ListTile(
+              title: Text(entry.key),
+              subtitle: Text(result),
+              trailing: IconButton(
+                icon: const Icon(Icons.copy_rounded),
+                onPressed: () {
+                  try {
+                    copyToClipboard(entry.key, result);
+                  } catch (error) {
+                    debugPrint(error.toString());
+
+                    showMessageDialog(
+                      AppLocalizations.of(navigatorKey.currentContext!)!.error,
+                      error.toString(),
+                    );
+                  } finally {}
+                },
+                tooltip: AppLocalizations.of(
+                  navigatorKey.currentContext!,
+                )!.copy_to_clipboard,
+              ),
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,167 +279,9 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
           children: <Widget>[
             _form(),
             const SizedBox(height: 16.0),
-            if (_stringEditingController.text.isEmpty)
-              Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      AppLocalizations.of(
-                        context,
-                      )!.start_typing_a_string_to_encode_it_into_the_bases,
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 8.0),
-                    const Wrap(
-                      alignment: WrapAlignment.center,
-                      children: <Widget>[
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Binary (Base2)'),
-                          ),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Ternary (Base3)'),
-                          ),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Quaternary (Base4)'),
-                          ),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Quinary (Base5)'),
-                          ),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Senary (Base6)'),
-                          ),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Octal (Base8)'),
-                          ),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Decimal (Base10)'),
-                          ),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Duodecimal (Base12)'),
-                          ),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Hexadecimal (Base16)'),
-                          ),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Base32'),
-                          ),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Base32Hex'),
-                          ),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Base36'),
-                          ),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Base58'),
-                          ),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Base62'),
-                          ),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Base64'),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              )
-            else
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: _bases.entries.map((MapEntry<String, String> entry) {
-                  String result = '';
-
-                  try {
-                    final converter = BaseConversion(
-                      from: base64,
-                      to: entry.value,
-                      zeroPadding: true,
-                    );
-                    result = converter(_stringAsBase64);
-                  } catch (error) {
-                    debugPrint(error.toString());
-
-                    showMessageDialog(
-                      AppLocalizations.of(context)!.error,
-                      error.toString(),
-                    );
-                  } finally {}
-
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Card(
-                      child: ListTile(
-                        title: Text(entry.key),
-                        subtitle: Text(result),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.copy_rounded),
-                          onPressed: () {
-                            try {
-                              copyToClipboard(entry.key, result);
-                            } catch (error) {
-                              debugPrint(error.toString());
-
-                              showMessageDialog(
-                                AppLocalizations.of(context)!.error,
-                                error.toString(),
-                              );
-                            } finally {}
-                          },
-                          tooltip: AppLocalizations.of(
-                            context,
-                          )!.copy_to_clipboard,
-                        ),
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
+            _stringEditingController.text.isEmpty
+                ? _startNotice()
+                : _resultColumn(),
           ],
         ),
       ),
