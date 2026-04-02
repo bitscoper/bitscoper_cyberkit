@@ -11,7 +11,7 @@ environment:
 dependencies:
   async: any
   b: null
-  connectivity_plus: null
+  connectivity_plus: 7.0.0 # Locked for macOS & iOS Compatibility
   crypto: null
   cvss_vulnerability_scoring: null
   dart_ping: null # !Web
