@@ -27,6 +27,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_native_splash: null # !Linux !maxOS !Windows
+  flutter_riverpod: null
   flutter_staggered_grid_view: null
   flutter_traceroute:
     git:

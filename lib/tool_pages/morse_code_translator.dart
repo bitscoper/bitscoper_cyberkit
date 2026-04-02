@@ -5,15 +5,17 @@ import 'package:bitscoper_cyberkit/commons/copy_to_clipboard.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:morse_code_translator/morse_code_translator.dart';
 
-class MorseCodeTranslatorPage extends StatefulWidget {
+class MorseCodeTranslatorPage extends ConsumerStatefulWidget {
   const MorseCodeTranslatorPage({super.key});
 
   @override
-  MorseCodeTranslatorPageState createState() => MorseCodeTranslatorPageState();
+  ConsumerState<MorseCodeTranslatorPage> createState() =>
+      _MorseCodeTranslatorPageState();
 }
 
 class UpperCaseTextFormatter extends TextInputFormatter {
@@ -29,19 +31,31 @@ class UpperCaseTextFormatter extends TextInputFormatter {
   }
 }
 
-class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
+final Provider<MorseCode> morseCodeTranslatorProvider =
+    Provider.autoDispose<MorseCode>((Ref ref) {
+      return MorseCode();
+    });
 
-  final GlobalKey<FormState> _stringFormKey = GlobalKey<FormState>(),
-      _morseCodeFormKey = GlobalKey<FormState>();
-  final TextEditingController _stringEditingController =
-          TextEditingController(),
-      _morseCodeController = TextEditingController();
+final Provider<TextEditingController> stringEditingControllerProvider =
+    Provider.autoDispose<TextEditingController>((Ref ref) {
+      final TextEditingController controller = TextEditingController();
+      ref.onDispose(controller.dispose);
 
-  final MorseCode _translator = MorseCode();
+      return controller;
+    });
+
+final Provider<TextEditingController> morseCodeEditingControllerProvider =
+    Provider.autoDispose<TextEditingController>((Ref ref) {
+      final TextEditingController controller = TextEditingController();
+      ref.onDispose(controller.dispose);
+
+      return controller;
+    });
+
+class _MorseCodeTranslatorPageState
+    extends ConsumerState<MorseCodeTranslatorPage> {
+  final GlobalKey<FormState> _stringFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _morseCodeFormKey = GlobalKey<FormState>();
 
   String? _stringFieldValidator(String? value) {
     if ((value == null) || value.isEmpty) {
@@ -51,16 +65,20 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
     }
   }
 
-  void _encodeString() {
+  void _encode() {
     try {
       if (_stringFormKey.currentState!.validate()) {
-        setState(() {
-          _morseCodeController.text = _translator.enCode(
-            _stringEditingController.text,
-          );
+        final MorseCode translator = ref.read(morseCodeTranslatorProvider);
+        final TextEditingController stringEditingController = ref.read(
+          stringEditingControllerProvider,
+        );
+        final TextEditingController morseCodeEditingController = ref.read(
+          morseCodeEditingControllerProvider,
+        );
 
-          _morseCodeFormKey.currentState!.validate();
-        });
+        morseCodeEditingController.text = translator.enCode(stringEditingController.text);
+
+        _morseCodeFormKey.currentState!.validate();
       }
     } catch (error) {
       debugPrint(error.toString());
@@ -82,16 +100,20 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
     }
   }
 
-  void _decodeMorseCode() {
+  void _decode() {
     try {
       if (_morseCodeFormKey.currentState!.validate()) {
-        setState(() {
-          _stringEditingController.text = _translator.deCode(
-            _morseCodeController.text,
-          );
+        final MorseCode translator = ref.read(morseCodeTranslatorProvider);
+        final TextEditingController stringEditingController = ref.read(
+          stringEditingControllerProvider,
+        );
+        final TextEditingController morseCodeEditingController = ref.read(
+          morseCodeEditingControllerProvider,
+        );
 
-          _stringFormKey.currentState!.validate();
-        });
+        stringEditingController.text = translator.deCode(morseCodeEditingController.text);
+
+        _stringFormKey.currentState!.validate();
       }
     } catch (error) {
       debugPrint(error.toString());
@@ -104,13 +126,17 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
   }
 
   Widget _stringForm() {
+    final TextEditingController editingController = ref.watch(
+      stringEditingControllerProvider,
+    );
+
     return Form(
       key: _stringFormKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           TextFormField(
-            controller: _stringEditingController,
+            controller: editingController,
             keyboardType: TextInputType.text,
             inputFormatters: [UpperCaseTextFormatter()],
             decoration: InputDecoration(
@@ -124,19 +150,10 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
               suffixIcon: IconButton(
                 icon: const Icon(Icons.copy_rounded),
                 onPressed: () {
-                  try {
-                    copyToClipboard(
-                      AppLocalizations.of(navigatorKey.currentContext!)!.string,
-                      _stringEditingController.text,
-                    );
-                  } catch (error) {
-                    debugPrint(error.toString());
-
-                    showMessageDialog(
-                      AppLocalizations.of(navigatorKey.currentContext!)!.error,
-                      error.toString(),
-                    );
-                  } finally {}
+                  copyToClipboard(
+                    AppLocalizations.of(navigatorKey.currentContext!)!.string,
+                    editingController.text,
+                  );
                 },
               ),
             ),
@@ -144,10 +161,10 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
             maxLines: null,
             validator: _stringFieldValidator,
             onChanged: (String? value) {
-              _encodeString();
+              _encode();
             },
             onFieldSubmitted: (String value) {
-              _encodeString();
+              _encode();
             },
           ),
         ],
@@ -156,10 +173,14 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
   }
 
   Widget _morseCodeForm() {
+    final TextEditingController editingController = ref.watch(
+      morseCodeEditingControllerProvider,
+    );
+
     return Form(
       key: _morseCodeFormKey,
       child: TextFormField(
-        controller: _morseCodeController,
+        controller: editingController,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
@@ -171,19 +192,10 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
           suffixIcon: IconButton(
             icon: const Icon(Icons.copy_rounded),
             onPressed: () {
-              try {
-                copyToClipboard(
-                  AppLocalizations.of(navigatorKey.currentContext!)!.morse_code,
-                  _morseCodeController.text,
-                );
-              } catch (error) {
-                debugPrint(error.toString());
-
-                showMessageDialog(
-                  AppLocalizations.of(navigatorKey.currentContext!)!.error,
-                  error.toString(),
-                );
-              } finally {}
+              copyToClipboard(
+                AppLocalizations.of(navigatorKey.currentContext!)!.morse_code,
+                editingController.text,
+              );
             },
           ),
         ),
@@ -191,10 +203,10 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
         maxLines: null,
         validator: _morseCodeFieldValidator,
         onChanged: (String? value) {
-          _decodeMorseCode();
+          _decode();
         },
         onFieldSubmitted: (String value) {
-          _decodeMorseCode();
+          _decode();
         },
       ),
     );
@@ -218,13 +230,5 @@ class MorseCodeTranslatorPageState extends State<MorseCodeTranslatorPage> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _stringEditingController.dispose();
-    _morseCodeController.dispose();
-
-    super.dispose();
   }
 }
