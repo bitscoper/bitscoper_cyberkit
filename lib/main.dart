@@ -3,6 +3,7 @@
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/home.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,7 +29,7 @@ Future<void> main() async {
     enableDebugging: kDebugMode,
   );
 
-  runApp(const BitscoperCyberKit());
+  runApp(const ProviderScope(child: BitscoperCyberKit()));
 }
 
 class BitscoperCyberKit extends StatefulWidget {
