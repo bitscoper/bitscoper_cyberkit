@@ -89,7 +89,7 @@ class _ToolCardWidget extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   int _getCrossAxisCount(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
@@ -105,7 +105,7 @@ class HomePage extends StatelessWidget {
     }
   }
 
-  Widget _drawer() {
+  Widget _drawer(BuildContext context) {
     return Drawer(
       child: Column(
         children: <Widget>[
@@ -116,11 +116,7 @@ class HomePage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        AppLocalizations.of(
-                          navigatorKey.currentContext!,
-                        )!.bitscoper_cyberkit,
-                      ),
+                      Text(AppLocalizations.of(context)!.bitscoper_cyberkit),
                       FutureBuilder<String>(
                         future: getLocalVersion(),
                         builder:
@@ -142,11 +138,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  title: Text(
-                    AppLocalizations.of(
-                      navigatorKey.currentContext!,
-                    )!.check_version,
-                  ),
+                  title: Text(AppLocalizations.of(context)!.check_version),
                   leading: const Icon(Icons.update_rounded),
                   onTap: () {
                     try {
@@ -155,9 +147,7 @@ class HomePage extends StatelessWidget {
                       debugPrint(error.toString());
 
                       showMessageDialog(
-                        AppLocalizations.of(
-                          navigatorKey.currentContext!,
-                        )!.error,
+                        AppLocalizations.of(context)!.error,
                         error.toString(),
                       );
                     } finally {}
@@ -165,19 +155,16 @@ class HomePage extends StatelessWidget {
                 ),
                 const Divider(),
                 ListTile(
-                  title: Text(
-                    AppLocalizations.of(
-                      navigatorKey.currentContext!,
-                    )!.source_code,
-                  ),
+                  title: Text(AppLocalizations.of(context)!.source_code),
                   leading: const Icon(Icons.code_rounded),
-                  onTap: () {
+                  onTap: () async {
                     try {
-                      launchUrl(
-                        Uri.parse(
-                          'https://github.com/bitscoper/Bitscoper_CyberKit/',
-                        ),
+                      final Uri uri = Uri.parse(
+                        'https://github.com/bitscoper/Bitscoper_CyberKit/',
                       );
+                      if (await canLaunchUrl(uri)) {
+                        await launchUrl(uri);
+                      }
                     } catch (error) {
                       debugPrint(error.toString());
 
@@ -191,19 +178,16 @@ class HomePage extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  title: Text(
-                    AppLocalizations.of(
-                      navigatorKey.currentContext!,
-                    )!.privacy_policy,
-                  ),
+                  title: Text(AppLocalizations.of(context)!.privacy_policy),
                   leading: const Icon(Icons.privacy_tip_rounded),
-                  onTap: () {
+                  onTap: () async {
                     try {
-                      launchUrl(
-                        Uri.parse(
-                          'https://github.com/bitscoper/Bitscoper_CyberKit/blob/main/PRIVACY_POLICY.md',
-                        ),
+                      final Uri uri = Uri.parse(
+                        'https://github.com/bitscoper/Bitscoper_CyberKit/blob/main/PRIVACY_POLICY.md',
                       );
+                      if (await canLaunchUrl(uri)) {
+                        await launchUrl(uri);
+                      }
                     } catch (error) {
                       debugPrint(error.toString());
 
@@ -224,7 +208,7 @@ class HomePage extends StatelessWidget {
             child: Center(
               child: Text(
                 AppLocalizations.of(
-                  navigatorKey.currentContext!,
+                  context,
                 )!.the_application_displays_error_messages_as_caught,
                 textAlign: TextAlign.center,
               ),
@@ -235,150 +219,155 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  final List<(String, IconData, List<Permission?>, StatefulWidget)> _tools = [
-    (
-      AppLocalizations.of(
-        navigatorKey.currentContext!,
-      )!.bluetooth_low_energy_scanner,
-      Icons.bluetooth_searching_rounded,
-      [
-        Permission.bluetooth,
-        Permission.bluetoothScan,
-        Permission.location,
-        Permission.locationWhenInUse,
-      ],
-      const BluetoothLowEnergyScannerPage(),
-    ),
-    (
-      AppLocalizations.of(navigatorKey.currentContext!)!.ipv4_subnet_scanner,
-      Icons.lan_rounded,
-      [],
-      const IPv4SubnetScannerPage(),
-    ),
-    (
-      AppLocalizations.of(navigatorKey.currentContext!)!.mdns_scanner,
-      Icons.stream_rounded,
-      [],
-      const MDNSScannerPage(),
-    ),
-    (
-      AppLocalizations.of(navigatorKey.currentContext!)!.upnp_scanner,
-      Icons.cast_rounded,
-      [],
-      const UPnPScannerPage(),
-    ),
-    (
-      AppLocalizations.of(navigatorKey.currentContext!)!.route_tracer,
-      Icons.track_changes_rounded,
-      [],
-      const RouteTracerPage(),
-    ),
-    (
-      AppLocalizations.of(navigatorKey.currentContext!)!.tcp_port_scanner,
-      Icons.radar_rounded,
-      [],
-      const TCPPortScannerPage(),
-    ),
-    (
-      AppLocalizations.of(navigatorKey.currentContext!)!.pinger,
-      Icons.network_ping_rounded,
-      [],
-      const PingerPage(),
-    ),
-    (
-      AppLocalizations.of(navigatorKey.currentContext!)!.file_hash_calculator,
-      Icons.file_present_rounded,
-      [
-        Permission.audio,
-        Permission.mediaLibrary,
-        Permission.photos,
-        Permission.videos,
-      ],
-      const FileHashCalculatorPage(),
-    ),
-    (
-      AppLocalizations.of(navigatorKey.currentContext!)!.string_hash_calculator,
-      Icons.text_snippet_rounded,
-      [],
-      const StringHashCalculatorPage(),
-    ),
-    (
-      AppLocalizations.of(navigatorKey.currentContext!)!.cvss_calculator,
-      Icons.security_rounded,
-      [],
-      const CVSSCalculatorPage(),
-    ),
-    (
-      AppLocalizations.of(navigatorKey.currentContext!)!.base_encoder,
-      Icons.numbers_rounded,
-      [],
-      const BaseEncoderPage(),
-    ),
-    (
-      AppLocalizations.of(navigatorKey.currentContext!)!.morse_code_translator,
-      Icons.text_fields_rounded,
-      [],
-      const MorseCodeTranslatorPage(),
-    ),
-    (
-      AppLocalizations.of(navigatorKey.currentContext!)!.qr_code_generator,
-      Icons.qr_code_rounded,
-      [],
-      const QRCodeGeneratorPage(),
-    ),
-    (
-      AppLocalizations.of(navigatorKey.currentContext!)!.ogp_data_extractor,
-      Icons.share_rounded,
-      [],
-      const OGPDataExtractorPage(),
-    ),
-    (
-      AppLocalizations.of(navigatorKey.currentContext!)!.series_uri_crawler,
-      Icons.web_rounded,
-      [],
-      const SeriesURICrawlerPage(),
-    ),
-    (
-      AppLocalizations.of(navigatorKey.currentContext!)!.dns_record_retriever,
-      Icons.dns_rounded,
-      [],
-      const DNSRecordRetrieverPage(),
-    ),
-    (
-      AppLocalizations.of(navigatorKey.currentContext!)!.whois_retriever,
-      Icons.domain_rounded,
-      [],
-      const WHOISRetrieverPage(),
-    ),
-    (
-      AppLocalizations.of(navigatorKey.currentContext!)!.wifi_details_viewer,
-      Icons.network_check_rounded,
-      [Permission.location, Permission.locationWhenInUse],
-      const WiFiDetailsViewerPage(),
-    ),
-  ];
+  List<(String, IconData, List<Permission?>, StatefulWidget)> _buildTools(
+    BuildContext context,
+  ) {
+    return [
+      (
+        AppLocalizations.of(context)!.bluetooth_low_energy_scanner,
+        Icons.bluetooth_searching_rounded,
+        [
+          Permission.bluetooth,
+          Permission.bluetoothScan,
+          Permission.location,
+          Permission.locationWhenInUse,
+        ],
+        const BluetoothLowEnergyScannerPage(),
+      ),
+      (
+        AppLocalizations.of(context)!.ipv4_subnet_scanner,
+        Icons.lan_rounded,
+        [],
+        const IPv4SubnetScannerPage(),
+      ),
+      (
+        AppLocalizations.of(context)!.mdns_scanner,
+        Icons.stream_rounded,
+        [],
+        const MDNSScannerPage(),
+      ),
+      (
+        AppLocalizations.of(context)!.upnp_scanner,
+        Icons.cast_rounded,
+        [],
+        const UPnPScannerPage(),
+      ),
+      (
+        AppLocalizations.of(context)!.route_tracer,
+        Icons.track_changes_rounded,
+        [],
+        const RouteTracerPage(),
+      ),
+      (
+        AppLocalizations.of(context)!.tcp_port_scanner,
+        Icons.radar_rounded,
+        [],
+        const TCPPortScannerPage(),
+      ),
+      (
+        AppLocalizations.of(context)!.pinger,
+        Icons.network_ping_rounded,
+        [],
+        const PingerPage(),
+      ),
+      (
+        AppLocalizations.of(context)!.file_hash_calculator,
+        Icons.file_present_rounded,
+        [
+          Permission.audio,
+          Permission.mediaLibrary,
+          Permission.photos,
+          Permission.videos,
+        ],
+        const FileHashCalculatorPage(),
+      ),
+      (
+        AppLocalizations.of(context)!.string_hash_calculator,
+        Icons.text_snippet_rounded,
+        [],
+        const StringHashCalculatorPage(),
+      ),
+      (
+        AppLocalizations.of(context)!.cvss_calculator,
+        Icons.security_rounded,
+        [],
+        const CVSSCalculatorPage(),
+      ),
+      (
+        AppLocalizations.of(context)!.base_encoder,
+        Icons.numbers_rounded,
+        [],
+        const BaseEncoderPage(),
+      ),
+      (
+        AppLocalizations.of(context)!.morse_code_translator,
+        Icons.text_fields_rounded,
+        [],
+        const MorseCodeTranslatorPage(),
+      ),
+      (
+        AppLocalizations.of(context)!.qr_code_generator,
+        Icons.qr_code_rounded,
+        [],
+        const QRCodeGeneratorPage(),
+      ),
+      (
+        AppLocalizations.of(context)!.ogp_data_extractor,
+        Icons.share_rounded,
+        [],
+        const OGPDataExtractorPage(),
+      ),
+      (
+        AppLocalizations.of(context)!.series_uri_crawler,
+        Icons.web_rounded,
+        [],
+        const SeriesURICrawlerPage(),
+      ),
+      (
+        AppLocalizations.of(context)!.dns_record_retriever,
+        Icons.dns_rounded,
+        [],
+        const DNSRecordRetrieverPage(),
+      ),
+      (
+        AppLocalizations.of(context)!.whois_retriever,
+        Icons.domain_rounded,
+        [],
+        const WHOISRetrieverPage(),
+      ),
+      (
+        AppLocalizations.of(context)!.wifi_details_viewer,
+        Icons.network_check_rounded,
+        [Permission.location, Permission.locationWhenInUse],
+        const WiFiDetailsViewerPage(),
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
+    final List<(String, IconData, List<Permission?>, StatefulWidget)> tools =
+        _buildTools(context);
+
     return Scaffold(
       appBar: ApplicationToolBar(
         title: AppLocalizations.of(context)!.bitscoper_cyberkit,
       ),
-      drawer: _drawer(),
+      drawer: _drawer(context),
       body: Padding(
         padding: const EdgeInsets.all(32.0),
         child: MasonryGridView.count(
           crossAxisCount: _getCrossAxisCount(context),
           mainAxisSpacing: 16,
           crossAxisSpacing: 16,
-          itemCount: _tools.length,
+          itemCount: tools.length,
           itemBuilder: (BuildContext context, int index) {
             final (
               String title,
               IconData icon,
               List<Permission?> permissionList,
               StatefulWidget page,
-            ) = _tools[index];
+            ) = tools[index];
 
             return _ToolCardWidget(
               title: title,

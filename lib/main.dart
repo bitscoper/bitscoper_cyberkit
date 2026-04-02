@@ -121,11 +121,15 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
               (defaultTargetPlatform == TargetPlatform.android))) {
         final QuickActions quickActions = QuickActions();
 
-        quickActions.initialize((shortcutType) {
+        quickActions.initialize((shortcutType) async {
           if (shortcutType == 'source_code') {
-            launchUrl(
-              Uri.parse('https://github.com/bitscoper/Bitscoper_CyberKit/'),
+            final Uri uri = Uri.parse(
+              "https://github.com/bitscoper/Bitscoper_CyberKit/",
             );
+
+            if (await canLaunchUrl(uri)) {
+              await launchUrl(uri);
+            }
           }
         });
 
