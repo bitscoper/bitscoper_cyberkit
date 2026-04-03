@@ -26,47 +26,17 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
     super.initState();
   }
 
-  void _scan() {
-    try {
-      () async {
-        try {
-          setState(() {
-            _isScanning = true;
-            hosts = [];
-          });
-
-          hosts = await MdnsScannerService.instance.searchMdnsDevices();
-
-          setState(() {
-            hosts;
-          });
-        } catch (error) {
-          debugPrint(error.toString());
-
-          showMessageDialog(
-            AppLocalizations.of(navigatorKey.currentContext!)!.error,
-            error.toString(),
-          );
-        } finally {
-          setState(() {
-            _isScanning = false;
-          });
-        }
-      };
-    } catch (error) {
-      debugPrint(error.toString());
-
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
-    } finally {}
-  }
-
-  void _stop() {
+  void _scan() async {
     try {
       setState(() {
-        _isScanning = false;
+        _isScanning = true;
+        hosts = [];
+      });
+
+      hosts = await MdnsScannerService.instance.searchMdnsDevices();
+
+      setState(() {
+        hosts;
       });
     } catch (error) {
       debugPrint(error.toString());
@@ -75,25 +45,39 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
+    } finally {
+      _isScanning = false;
+    }
+  }
+
+  void _stop(BuildContext context) {
+    try {
+      setState(() {
+        _isScanning = false;
+      });
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
     } finally {}
   }
 
-  Widget _form() {
+  Widget _form(BuildContext context) {
     return Form(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           ElevatedButton(
             onPressed: _isScanning ? null : _scan,
-            child: Text(
-              AppLocalizations.of(navigatorKey.currentContext!)!.scan,
-            ),
+            child: Text(AppLocalizations.of(context)!.scan),
           ),
           ElevatedButton(
-            onPressed: _isScanning ? _stop : null,
-            child: Text(
-              AppLocalizations.of(navigatorKey.currentContext!)!.stop,
-            ),
+            onPressed: _isScanning
+                ? () {
+                    _stop(context);
+                  }
+                : null,
+            child: Text(AppLocalizations.of(context)!.stop),
           ),
         ],
       ),
@@ -498,7 +482,7 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _form(),
+            _form(context),
             const SizedBox(height: 16.0),
             if (_isScanning) Center(child: CircularProgressIndicator()),
             _resultWrapper(),
