@@ -13,8 +13,9 @@ class StringHashCalculatorPage extends StatefulWidget {
   const StringHashCalculatorPage({super.key});
 
   @override
-  StringHashCalculatorPageState createState() =>
-      StringHashCalculatorPageState();
+  StringHashCalculatorPageState createState() {
+    return StringHashCalculatorPageState();
+  }
 }
 
 class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {

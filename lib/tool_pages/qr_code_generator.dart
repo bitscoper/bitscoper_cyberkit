@@ -16,7 +16,9 @@ class QRCodeGeneratorPage extends StatefulWidget {
   const QRCodeGeneratorPage({super.key});
 
   @override
-  QRCodeGeneratorPageState createState() => QRCodeGeneratorPageState();
+  QRCodeGeneratorPageState createState() {
+    return QRCodeGeneratorPageState();
+  }
 }
 
 class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
@@ -252,12 +254,14 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                       value: QrVersions.auto,
                       child: Text(AppLocalizations.of(context)!.automatic),
                     ),
-                    ...List.generate(40, (int index) => index + 1).map(
-                      (int qrVersion) => DropdownMenuItem(
+                    ...List.generate(40, (int index) {
+                      return index + 1;
+                    }).map((int qrVersion) {
+                      return DropdownMenuItem(
                         value: qrVersion,
                         child: Text(numberFormat.format(qrVersion)),
-                      ),
-                    ),
+                      );
+                    }),
                   ],
                   initialValue: _version,
                   onChanged: _onVersionChanged,

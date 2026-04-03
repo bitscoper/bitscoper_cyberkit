@@ -15,7 +15,9 @@ class DNSRecordRetrieverPage extends StatefulWidget {
   const DNSRecordRetrieverPage({super.key});
 
   @override
-  DNSRecordRetrieverPageState createState() => DNSRecordRetrieverPageState();
+  DNSRecordRetrieverPageState createState() {
+    return DNSRecordRetrieverPageState();
+  }
 }
 
 class DNSRecord {

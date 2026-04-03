@@ -36,7 +36,9 @@ class BitscoperCyberKit extends StatefulWidget {
   const BitscoperCyberKit({super.key});
 
   @override
-  BitscoperCyberKitState createState() => BitscoperCyberKitState();
+  BitscoperCyberKitState createState() {
+    return BitscoperCyberKitState();
+  }
 }
 
 class BitscoperCyberKitState extends State<BitscoperCyberKit> {
@@ -79,7 +81,9 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
 
         final Iterable<String> supportedLocales = AppLocalizations
             .supportedLocales
-            .map((Locale locale) => locale.languageCode);
+            .map((Locale locale) {
+              return locale.languageCode;
+            });
 
         if (supportedLocales.contains(deviceLocale.languageCode)) {
           _locale = Locale(deviceLocale.languageCode);

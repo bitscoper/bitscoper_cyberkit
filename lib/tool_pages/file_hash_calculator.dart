@@ -16,7 +16,9 @@ class FileHashCalculatorPage extends StatefulWidget {
   const FileHashCalculatorPage({super.key});
 
   @override
-  FileHashCalculatorPageState createState() => FileHashCalculatorPageState();
+  FileHashCalculatorPageState createState() {
+    return FileHashCalculatorPageState();
+  }
 }
 
 class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
@@ -42,7 +44,9 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
 
       if (result != null) {
         List<File> selectedFiles = result.paths
-            .where((String? path) => path != null)
+            .where((String? path) {
+              return (path != null);
+            })
             .map((String? path) {
               return File(path!);
             })

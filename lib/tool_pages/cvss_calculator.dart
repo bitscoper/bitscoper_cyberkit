@@ -11,7 +11,9 @@ class CVSSCalculatorPage extends StatefulWidget {
   const CVSSCalculatorPage({super.key});
 
   @override
-  CVSSCalculatorPageState createState() => CVSSCalculatorPageState();
+  CVSSCalculatorPageState createState() {
+    return CVSSCalculatorPageState();
+  }
 }
 
 class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
@@ -69,10 +71,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(
-        AppLocalizations.of(context)!.error,
-        error.toString(),
-      );
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
     } finally {}
   }
 
@@ -82,21 +81,16 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
           .toString()
           .split('.')
           .last
-          .replaceAllMapped(
-            RegExp(r'([a-z])([A-Z])'),
-            (Match match) => '${match[1]} ${match[2]}',
-          )
-          .replaceFirstMapped(
-            RegExp(r'^.'),
-            (Match match) => match[0]!.toUpperCase(),
-          );
+          .replaceAllMapped(RegExp(r'([a-z])([A-Z])'), (Match match) {
+            return '${match[1]} ${match[2]}';
+          })
+          .replaceFirstMapped(RegExp(r'^.'), (Match match) {
+            return match[0]!.toUpperCase();
+          });
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(
-        AppLocalizations.of(context)!.error,
-        error.toString(),
-      );
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
       return error.toString();
     }
   }
@@ -109,10 +103,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(
-        AppLocalizations.of(context)!.error,
-        error.toString(),
-      );
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
 
       return error.toString();
     } finally {}
@@ -135,10 +126,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(
-        AppLocalizations.of(context)!.error,
-        error.toString(),
-      );
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
 
       return Colors.transparent;
     } finally {}
@@ -216,9 +204,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               );
             }).toList(),
             decoration: InputDecoration(
-              labelText: AppLocalizations.of(
-                context,
-              )!.attack_vector,
+              labelText: AppLocalizations.of(context)!.attack_vector,
             ),
           ),
           const SizedBox(height: 16),
@@ -232,9 +218,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               );
             }).toList(),
             decoration: InputDecoration(
-              labelText: AppLocalizations.of(
-                context,
-              )!.attack_complexity,
+              labelText: AppLocalizations.of(context)!.attack_complexity,
             ),
           ),
           const SizedBox(height: 16),
@@ -250,9 +234,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               );
             }).toList(),
             decoration: InputDecoration(
-              labelText: AppLocalizations.of(
-                context,
-              )!.privileges_required,
+              labelText: AppLocalizations.of(context)!.privileges_required,
             ),
           ),
           const SizedBox(height: 16),
@@ -266,9 +248,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               );
             }).toList(),
             decoration: InputDecoration(
-              labelText: AppLocalizations.of(
-                context,
-              )!.user_interaction,
+              labelText: AppLocalizations.of(context)!.user_interaction,
             ),
           ),
           const SizedBox(height: 16),
@@ -282,9 +262,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               );
             }).toList(),
             decoration: InputDecoration(
-              labelText: AppLocalizations.of(
-                context,
-              )!.scope,
+              labelText: AppLocalizations.of(context)!.scope,
             ),
           ),
           const SizedBox(height: 16),
@@ -300,9 +278,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               );
             }).toList(),
             decoration: InputDecoration(
-              labelText: AppLocalizations.of(
-                context,
-              )!.confidentiality_impact,
+              labelText: AppLocalizations.of(context)!.confidentiality_impact,
             ),
           ),
           const SizedBox(height: 16),
@@ -316,9 +292,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               );
             }).toList(),
             decoration: InputDecoration(
-              labelText: AppLocalizations.of(
-                context,
-              )!.integrity_impact,
+              labelText: AppLocalizations.of(context)!.integrity_impact,
             ),
           ),
           const SizedBox(height: 16),
@@ -332,9 +306,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               );
             }).toList(),
             decoration: InputDecoration(
-              labelText: AppLocalizations.of(
-                context,
-              )!.availability_impact,
+              labelText: AppLocalizations.of(context)!.availability_impact,
             ),
           ),
         ],
@@ -382,25 +354,19 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                   onPressed: () {
                     try {
                       copyToClipboard(
-                        AppLocalizations.of(
-                          context,
-                        )!.vector_string,
+                        AppLocalizations.of(context)!.vector_string,
                         _vectorString,
                       );
                     } catch (error) {
                       debugPrint(error.toString());
 
                       showMessageDialog(
-                        AppLocalizations.of(
-                          context,
-                        )!.error,
+                        AppLocalizations.of(context)!.error,
                         error.toString(),
                       );
                     } finally {}
                   },
-                  tooltip: AppLocalizations.of(
-                    context,
-                  )!.copy_to_clipboard,
+                  tooltip: AppLocalizations.of(context)!.copy_to_clipboard,
                 ),
               ],
             ),

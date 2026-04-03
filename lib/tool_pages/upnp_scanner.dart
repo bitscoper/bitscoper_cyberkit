@@ -12,7 +12,9 @@ class UPnPScannerPage extends StatefulWidget {
   const UPnPScannerPage({super.key});
 
   @override
-  UPnPScannerPageState createState() => UPnPScannerPageState();
+  UPnPScannerPageState createState() {
+    return UPnPScannerPageState();
+  }
 }
 
 class UPnPScannerPageState extends State<UPnPScannerPage> {
@@ -26,22 +28,22 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
     super.initState();
   }
 
-  Widget _form() {
+  Widget _form(BuildContext context) {
     return Form(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           ElevatedButton(
             onPressed: _isScanning ? null : _scan,
-            child: Text(
-              AppLocalizations.of(navigatorKey.currentContext!)!.scan,
-            ),
+            child: Text(AppLocalizations.of(context)!.scan),
           ),
           ElevatedButton(
-            onPressed: _isScanning ? _stop : null,
-            child: Text(
-              AppLocalizations.of(navigatorKey.currentContext!)!.stop,
-            ),
+            onPressed: _isScanning
+                ? () {
+                    _stop(context);
+                  }
+                : null,
+            child: Text(AppLocalizations.of(context)!.stop),
           ),
         ],
       ),
@@ -81,20 +83,17 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
         error.toString(),
       );
     } finally {
-      await _stop();
+      await _stop(navigatorKey.currentContext!);
     }
   }
 
-  Future<void> _stop() async {
+  Future<void> _stop(BuildContext context) async {
     try {
       _deviceDiscoverer?.stop();
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
     } finally {
       setState(() {
         _isScanning = false;
@@ -102,32 +101,29 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
     }
   }
 
-  String _extractName(String dump) {
+  String _extractName(BuildContext context, String dump) {
     try {
       final RegExp regex = RegExp(r'friendlyName:\s*([^,\n}]+)');
       final Match? match = regex.firstMatch(dump);
 
       return match?.group(1)?.trim() ??
-          '${AppLocalizations.of(navigatorKey.currentContext!)!.unknown} ${AppLocalizations.of(navigatorKey.currentContext!)!.device}';
+          '${AppLocalizations.of(context)!.unknown} ${AppLocalizations.of(context)!.device}';
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
 
-      return AppLocalizations.of(navigatorKey.currentContext!)!.unknown;
+      return AppLocalizations.of(context)!.unknown;
     } finally {}
   }
 
-  String _extractIPAddress(String dump) {
+  String _extractIPAddress(BuildContext context, String dump) {
     try {
       final RegExp regex = RegExp(r'url:\s*(https?:\/\/[^\/\s]+)');
       final Match? match = regex.firstMatch(dump);
 
       if (match == null) {
-        return AppLocalizations.of(navigatorKey.currentContext!)!.unknown;
+        return AppLocalizations.of(context)!.unknown;
       }
 
       final Uri uri = Uri.parse(match.group(1)!);
@@ -135,16 +131,13 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
 
-      return AppLocalizations.of(navigatorKey.currentContext!)!.unknown;
+      return AppLocalizations.of(context)!.unknown;
     } finally {}
   }
 
-  String _formatDump(String dump) {
+  String _formatDump(BuildContext context, String dump) {
     try {
       final StringBuffer stringBuffer = StringBuffer();
       int indent = 0;
@@ -172,24 +165,23 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
       return stringBuffer
           .toString()
           .split('\n')
-          .where((String line) => line.trim().isNotEmpty)
+          .where((String line) {
+            return line.trim().isNotEmpty;
+          })
           .join('\n');
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
 
       return dump;
     } finally {}
   }
 
-  Widget _buildDeviceCard(final Device device) {
+  Widget _buildDeviceCard(BuildContext context, final Device device) {
     final String dump = device.toString();
-    final String name = _extractName(dump);
-    final String host = _extractIPAddress(dump);
+    final String name = _extractName(context, dump);
+    final String host = _extractIPAddress(context, dump);
 
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8.0),
@@ -202,8 +194,7 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
               TextSpan(
                 children: <TextSpan>[
                   TextSpan(
-                    text:
-                        "${AppLocalizations.of(navigatorKey.currentContext!)!.ip_address}: ",
+                    text: "${AppLocalizations.of(context)!.ip_address}: ",
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   TextSpan(text: host),
@@ -214,17 +205,15 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Card(
-                color: Theme.of(navigatorKey.currentContext!).hoverColor,
+                color: Theme.of(context).hoverColor,
                 elevation: 1.5,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: ListTile(
                   subtitle: SelectableText(
-                    _formatDump(dump),
-                    style: Theme.of(
-                      navigatorKey.currentContext!,
-                    ).textTheme.bodySmall,
+                    _formatDump(context, dump),
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ),
               ),
@@ -235,10 +224,12 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
     );
   }
 
-  Widget _resultColumn() {
+  Widget _resultColumn(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: _devices.map(_buildDeviceCard).toList(),
+      children: _devices.map((Device device) {
+        return _buildDeviceCard(context, device);
+      }).toList(),
     );
   }
 
@@ -253,10 +244,10 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _form(),
+            _form(context),
             const SizedBox(height: 16.0),
             if (_isScanning) const Center(child: CircularProgressIndicator()),
-            if (_devices.isNotEmpty) _resultColumn(),
+            if (_devices.isNotEmpty) _resultColumn(context),
           ],
         ),
       ),
