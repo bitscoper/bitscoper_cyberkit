@@ -116,29 +116,25 @@ class BluetoothLowEnergyScannerPageState
     }
   }
 
-  Widget _form() {
+  Widget _form(BuildContext context) {
     return Form(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           ElevatedButton(
             onPressed: _isScanning ? null : _scan,
-            child: Text(
-              AppLocalizations.of(navigatorKey.currentContext!)!.scan,
-            ),
+            child: Text(AppLocalizations.of(context)!.scan),
           ),
           ElevatedButton(
             onPressed: _isScanning ? _stop : null,
-            child: Text(
-              AppLocalizations.of(navigatorKey.currentContext!)!.stop,
-            ),
+            child: Text(AppLocalizations.of(context)!.stop),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildDeviceCard(final ScanResult scanResult) {
+  Widget _buildDeviceCard(BuildContext context, final ScanResult scanResult) {
     final BluetoothDevice device = scanResult.device;
     final AdvertisementData advertisement = scanResult.advertisementData;
 
@@ -148,7 +144,7 @@ class BluetoothLowEnergyScannerPageState
         title: Text(
           advertisement.advName.isNotEmpty
               ? advertisement.advName
-              : AppLocalizations.of(navigatorKey.currentContext!)!.unknown,
+              : AppLocalizations.of(context)!.unknown,
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,8 +153,7 @@ class BluetoothLowEnergyScannerPageState
               TextSpan(
                 children: [
                   TextSpan(
-                    text:
-                        "${AppLocalizations.of(navigatorKey.currentContext!)!.address}: ",
+                    text: "${AppLocalizations.of(context)!.address}: ",
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   TextSpan(text: device.remoteId.str),
@@ -169,8 +164,7 @@ class BluetoothLowEnergyScannerPageState
               TextSpan(
                 children: [
                   TextSpan(
-                    text:
-                        "${AppLocalizations.of(navigatorKey.currentContext!)!.rssi}: ",
+                    text: "${AppLocalizations.of(context)!.rssi}: ",
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   TextSpan(text: "${scanResult.rssi} dBm"),
@@ -181,8 +175,7 @@ class BluetoothLowEnergyScannerPageState
               TextSpan(
                 children: [
                   TextSpan(
-                    text:
-                        "${AppLocalizations.of(navigatorKey.currentContext!)!.connectable}: ",
+                    text: "${AppLocalizations.of(context)!.connectable}: ",
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   TextSpan(text: advertisement.connectable.toString()),
@@ -194,8 +187,7 @@ class BluetoothLowEnergyScannerPageState
                 TextSpan(
                   children: [
                     TextSpan(
-                      text:
-                          "${AppLocalizations.of(navigatorKey.currentContext!)!.service_type}: ",
+                      text: "${AppLocalizations.of(context)!.service_type}: ",
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     TextSpan(text: advertisement.serviceUuids.join(", ")),
@@ -206,13 +198,9 @@ class BluetoothLowEnergyScannerPageState
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Card(
-                  color: Theme.of(navigatorKey.currentContext!).hoverColor,
+                  color: Theme.of(context).hoverColor,
                   child: ListTile(
-                    title: Text(
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.manufacturer,
-                    ),
+                    title: Text(AppLocalizations.of(context)!.manufacturer),
                     subtitle: Text(
                       advertisement.manufacturerData.entries
                           .map((MapEntry<int, List<int>> entry) {
@@ -229,10 +217,12 @@ class BluetoothLowEnergyScannerPageState
     );
   }
 
-  Widget _resultColumn() {
+  Widget _resultColumn(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: _scanResults.map(_buildDeviceCard).toList(),
+      children: _scanResults.map((ScanResult scanResult) {
+        return _buildDeviceCard(context, scanResult);
+      }).toList(),
     );
   }
 
@@ -247,11 +237,11 @@ class BluetoothLowEnergyScannerPageState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _form(),
+            _form(context),
             const SizedBox(height: 16.0),
             if (_isScanning) const Center(child: CircularProgressIndicator()),
             const SizedBox(height: 16.0),
-            if (_scanResults.isNotEmpty) _resultColumn(),
+            if (_scanResults.isNotEmpty) _resultColumn(context),
           ],
         ),
       ),

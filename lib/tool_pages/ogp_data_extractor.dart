@@ -30,11 +30,9 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
   bool _isRetrieving = false;
   OgpData? _ogpData;
 
-  String? _hostFieldValidator(String? value) {
+  String? _hostFieldValidator(BuildContext context, String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(
-        navigatorKey.currentContext!,
-      )!.enter_a_host_or_ip_address;
+      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
     } else {
       return null;
     }
@@ -77,7 +75,7 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
     }
   }
 
-  Widget _buildCard(String title, String? value) {
+  Widget _buildCard(BuildContext context, String title, String? value) {
     return Card(
       child: ListTile(
         title: Text(title),
@@ -91,20 +89,18 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
               debugPrint(error.toString());
 
               showMessageDialog(
-                AppLocalizations.of(navigatorKey.currentContext!)!.error,
+                AppLocalizations.of(context)!.error,
                 error.toString(),
               );
             } finally {}
           },
-          tooltip: AppLocalizations.of(
-            navigatorKey.currentContext!,
-          )!.copy_to_clipboard,
+          tooltip: AppLocalizations.of(context)!.copy_to_clipboard,
         ),
       ),
     );
   }
 
-  Widget _form() {
+  Widget _form(BuildContext context) {
     return Form(
       key: _formKey,
       child: Column(
@@ -115,14 +111,14 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
             keyboardType: TextInputType.url,
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
-              labelText: AppLocalizations.of(
-                navigatorKey.currentContext!,
-              )!.a_host_or_ip_address,
+              labelText: AppLocalizations.of(context)!.a_host_or_ip_address,
               hintText: 'https://bitscoper.dev/',
             ),
             showCursor: true,
             maxLines: 1,
-            validator: _hostFieldValidator,
+            validator: (String? value) {
+              return _hostFieldValidator(context, value);
+            },
             onChanged: (String value) {},
             onFieldSubmitted: (String value) {
               _retrieve();
@@ -132,9 +128,7 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
           Center(
             child: ElevatedButton(
               onPressed: _isRetrieving ? null : _retrieve,
-              child: Text(
-                AppLocalizations.of(navigatorKey.currentContext!)!.extract,
-              ),
+              child: Text(AppLocalizations.of(context)!.extract),
             ),
           ),
         ],
@@ -142,54 +136,55 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
     );
   }
 
-  Widget _resultColumn() {
+  Widget _resultColumn(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _buildCard('URL', _ogpData!.url),
-        _buildCard('Type', _ogpData!.type),
-        _buildCard('Title', _ogpData!.title),
-        _buildCard('Description', _ogpData!.description),
-        _buildCard('Image', _ogpData!.image),
-        _buildCard('Image (Secure URL)', _ogpData!.imageSecureUrl),
-        _buildCard('Image Type', _ogpData!.imageType),
-        _buildCard('Image Width', _ogpData!.imageWidth?.toString()),
-        _buildCard('Image Height', _ogpData!.imageHeight?.toString()),
-        _buildCard('Image Alt', _ogpData!.imageAlt),
-        _buildCard('Site Name', _ogpData!.siteName),
-        _buildCard('Determiner', _ogpData!.determiner),
-        _buildCard('Locale', _ogpData!.locale),
-        _buildCard('Locale (Alternate)', _ogpData!.localeAlternate),
-        _buildCard('Latitude', _ogpData!.latitude?.toString()),
-        _buildCard('Longitude', _ogpData!.longitude?.toString()),
-        _buildCard('Street Address', _ogpData!.streetAddress),
-        _buildCard('Locality', _ogpData!.locality),
-        _buildCard('Region', _ogpData!.region),
-        _buildCard('Postal Code', _ogpData!.postalCode),
-        _buildCard('Country Name', _ogpData!.countryName),
-        _buildCard('Email Address', _ogpData!.email),
-        _buildCard('Phone Number', _ogpData!.phoneNumber),
-        _buildCard('Fax Number', _ogpData!.faxNumber),
-        _buildCard('Video', _ogpData!.video),
-        _buildCard('Video (Secure URL)', _ogpData!.videoSecureUrl),
-        _buildCard('Video Height', _ogpData!.videoHeight?.toString()),
-        _buildCard('Video Width', _ogpData!.videoWidth?.toString()),
-        _buildCard('Video Type', _ogpData!.videoType),
-        _buildCard('Audio', _ogpData!.audio),
-        _buildCard('Audio (Secure URL)', _ogpData!.audioSecureUrl),
-        _buildCard('Audio Title', _ogpData!.audioTitle),
-        _buildCard('Audio Artist', _ogpData!.audioArtist),
-        _buildCard('Audio Album', _ogpData!.audioAlbum),
-        _buildCard('Audio Type', _ogpData!.audioType),
+        _buildCard(context, 'URL', _ogpData!.url),
+        _buildCard(context, 'Type', _ogpData!.type),
+        _buildCard(context, 'Title', _ogpData!.title),
+        _buildCard(context, 'Description', _ogpData!.description),
+        _buildCard(context, 'Image', _ogpData!.image),
+        _buildCard(context, 'Image (Secure URL)', _ogpData!.imageSecureUrl),
+        _buildCard(context, 'Image Type', _ogpData!.imageType),
+        _buildCard(context, 'Image Width', _ogpData!.imageWidth?.toString()),
+        _buildCard(context, 'Image Height', _ogpData!.imageHeight?.toString()),
+        _buildCard(context, 'Image Alt', _ogpData!.imageAlt),
+        _buildCard(context, 'Site Name', _ogpData!.siteName),
+        _buildCard(context, 'Determiner', _ogpData!.determiner),
+        _buildCard(context, 'Locale', _ogpData!.locale),
+        _buildCard(context, 'Locale (Alternate)', _ogpData!.localeAlternate),
+        _buildCard(context, 'Latitude', _ogpData!.latitude?.toString()),
+        _buildCard(context, 'Longitude', _ogpData!.longitude?.toString()),
+        _buildCard(context, 'Street Address', _ogpData!.streetAddress),
+        _buildCard(context, 'Locality', _ogpData!.locality),
+        _buildCard(context, 'Region', _ogpData!.region),
+        _buildCard(context, 'Postal Code', _ogpData!.postalCode),
+        _buildCard(context, 'Country Name', _ogpData!.countryName),
+        _buildCard(context, 'Email Address', _ogpData!.email),
+        _buildCard(context, 'Phone Number', _ogpData!.phoneNumber),
+        _buildCard(context, 'Fax Number', _ogpData!.faxNumber),
+        _buildCard(context, 'Video', _ogpData!.video),
+        _buildCard(context, 'Video (Secure URL)', _ogpData!.videoSecureUrl),
+        _buildCard(context, 'Video Height', _ogpData!.videoHeight?.toString()),
+        _buildCard(context, 'Video Width', _ogpData!.videoWidth?.toString()),
+        _buildCard(context, 'Video Type', _ogpData!.videoType),
+        _buildCard(context, 'Audio', _ogpData!.audio),
+        _buildCard(context, 'Audio (Secure URL)', _ogpData!.audioSecureUrl),
+        _buildCard(context, 'Audio Title', _ogpData!.audioTitle),
+        _buildCard(context, 'Audio Artist', _ogpData!.audioArtist),
+        _buildCard(context, 'Audio Album', _ogpData!.audioAlbum),
+        _buildCard(context, 'Audio Type', _ogpData!.audioType),
         _buildCard(
+          context,
           'Facebook Administrators',
           _ogpData!.fbAdmins is List<String>
               ? (_ogpData!.fbAdmins as List<String>).join(', ')
               : _ogpData!.fbAdmins,
         ),
-        _buildCard('Facebook App ID', _ogpData!.fbAppId),
-        _buildCard('Twitter Card', _ogpData!.twitterCard),
-        _buildCard('Twitter Site', _ogpData!.twitterSite),
+        _buildCard(context, 'Facebook App ID', _ogpData!.fbAppId),
+        _buildCard(context, 'Twitter Card', _ogpData!.twitterCard),
+        _buildCard(context, 'Twitter Site', _ogpData!.twitterSite),
       ],
     );
   }
@@ -205,12 +200,12 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _form(),
+            _form(context),
             const SizedBox(height: 16.0),
             if (_isRetrieving)
               const Center(child: CircularProgressIndicator())
             else if (_ogpData != null)
-              _resultColumn(),
+              _resultColumn(context),
           ],
         ),
       ),

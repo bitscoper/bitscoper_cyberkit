@@ -4,7 +4,6 @@ import 'dart:async';
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
-import 'package:bitscoper_cyberkit/main.dart';
 import 'package:flutter_traceroute/flutter_traceroute_platform_interface.dart';
 import 'package:flutter_traceroute/flutter_traceroute.dart';
 import 'package:flutter/material.dart';
@@ -33,17 +32,15 @@ class RouteTracerPageState extends State<RouteTracerPage> {
   bool _isTracing = false;
   List<TracerouteStep> _traceResults = [];
 
-  String? _hostFieldValidator(String? value) {
+  String? _hostFieldValidator(BuildContext context, String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(
-        navigatorKey.currentContext!,
-      )!.enter_a_host_or_ip_address;
+      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
     } else {
       return null;
     }
   }
 
-  void _trace() {
+  void _trace(BuildContext context) {
     try {
       if (_formKey.currentState!.validate()) {
         setState(() {
@@ -68,24 +65,18 @@ class RouteTracerPageState extends State<RouteTracerPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
     } finally {}
   }
 
-  void _stop() {
+  void _stop(BuildContext context) {
     try {
       _routeTracer.stopTrace();
       _traceSubscription?.cancel();
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
     } finally {
       setState(() {
         _isTracing = false;
@@ -93,7 +84,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
     }
   }
 
-  Widget _form() {
+  Widget _form(BuildContext context) {
     return Form(
       key: _formKey,
       child: Column(
@@ -103,17 +94,17 @@ class RouteTracerPageState extends State<RouteTracerPage> {
             controller: _hostEditingController,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              labelText: AppLocalizations.of(
-                navigatorKey.currentContext!,
-              )!.a_host_or_ip_address,
+              labelText: AppLocalizations.of(context)!.a_host_or_ip_address,
               hintText: 'bitscoper.dev',
             ),
             maxLines: 1,
             showCursor: true,
             onChanged: (String value) {},
-            validator: _hostFieldValidator,
+            validator: (String? value) {
+              return _hostFieldValidator(context, value);
+            },
             onFieldSubmitted: (String value) {
-              _trace();
+              _trace(context);
             },
           ),
           const SizedBox(height: 16.0),
@@ -121,16 +112,20 @@ class RouteTracerPageState extends State<RouteTracerPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               ElevatedButton(
-                onPressed: _isTracing ? null : _trace,
-                child: Text(
-                  AppLocalizations.of(navigatorKey.currentContext!)!.trace,
-                ),
+                onPressed: _isTracing
+                    ? null
+                    : () {
+                        _trace(context);
+                      },
+                child: Text(AppLocalizations.of(context)!.trace),
               ),
               ElevatedButton(
-                onPressed: _isTracing ? _stop : null,
-                child: Text(
-                  AppLocalizations.of(navigatorKey.currentContext!)!.stop,
-                ),
+                onPressed: _isTracing
+                    ? () {
+                        _stop(context);
+                      }
+                    : null,
+                child: Text(AppLocalizations.of(context)!.stop),
               ),
             ],
           ),
@@ -166,7 +161,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
         padding: const EdgeInsets.all(32.0),
         child: Column(
           children: [
-            _form(),
+            _form(context),
             const SizedBox(height: 16.0),
             _resultColumn(),
             const SizedBox(height: 16.0),
