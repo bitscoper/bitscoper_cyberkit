@@ -124,32 +124,34 @@ class ApplicationToolBar extends StatelessWidget
               );
             } finally {}
           },
-          itemBuilder: (BuildContext context) => [
-            PopupMenuItem(
-              value: _MenuAction.toggleTheme,
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    (Theme.of(context).brightness == Brightness.dark)
-                        ? Icons.light_mode_rounded
-                        : Icons.dark_mode_rounded,
-                  ),
-                  const SizedBox(width: 12),
-                  Text(AppLocalizations.of(context)!.toggle_theme),
-                ],
+          itemBuilder: (BuildContext context) {
+            return [
+              PopupMenuItem(
+                value: _MenuAction.toggleTheme,
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      (Theme.of(context).brightness == Brightness.dark)
+                          ? Icons.light_mode_rounded
+                          : Icons.dark_mode_rounded,
+                    ),
+                    const SizedBox(width: 12),
+                    Text(AppLocalizations.of(context)!.toggle_theme),
+                  ],
+                ),
               ),
-            ),
-            PopupMenuItem(
-              value: _MenuAction.changeLocale,
-              child: Row(
-                children: <Widget>[
-                  const Icon(Icons.language_rounded),
-                  const SizedBox(width: 12),
-                  Text(AppLocalizations.of(context)!.change_locale),
-                ],
+              PopupMenuItem(
+                value: _MenuAction.changeLocale,
+                child: Row(
+                  children: <Widget>[
+                    const Icon(Icons.language_rounded),
+                    const SizedBox(width: 12),
+                    Text(AppLocalizations.of(context)!.change_locale),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ];
+          },
         ),
       ],
       automaticallyImplyActions: true,
@@ -158,5 +160,7 @@ class ApplicationToolBar extends StatelessWidget
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize {
+    return const Size.fromHeight(kToolbarHeight);
+  }
 }

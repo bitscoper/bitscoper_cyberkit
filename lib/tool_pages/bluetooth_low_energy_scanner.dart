@@ -12,8 +12,9 @@ class BluetoothLowEnergyScannerPage extends StatefulWidget {
   const BluetoothLowEnergyScannerPage({super.key});
 
   @override
-  BluetoothLowEnergyScannerPageState createState() =>
-      BluetoothLowEnergyScannerPageState();
+  BluetoothLowEnergyScannerPageState createState() {
+    return BluetoothLowEnergyScannerPageState();
+  }
 }
 
 class BluetoothLowEnergyScannerPageState
@@ -35,12 +36,9 @@ class BluetoothLowEnergyScannerPageState
         _scanResults.clear();
       });
 
-      await FlutterBluePlus.adapterState
-          .where(
-            (BluetoothAdapterState state) =>
-                (state == BluetoothAdapterState.on),
-          )
-          .first;
+      await FlutterBluePlus.adapterState.where((BluetoothAdapterState state) {
+        return (state == BluetoothAdapterState.on);
+      }).first;
 
       _scanSubscription = FlutterBluePlus.onScanResults.listen(
         (List<ScanResult> scanResults) {
@@ -48,10 +46,10 @@ class BluetoothLowEnergyScannerPageState
             if (scanResults.isNotEmpty) {
               setState(() {
                 for (final ScanResult scanResult in scanResults) {
-                  if (!_scanResults.any(
-                    (ScanResult result_) =>
-                        (result_.device.remoteId == scanResult.device.remoteId),
-                  )) {
+                  if (!_scanResults.any((ScanResult result_) {
+                    return (result_.device.remoteId ==
+                        scanResult.device.remoteId);
+                  })) {
                     _scanResults.add(scanResult);
                   }
                 }
@@ -83,9 +81,9 @@ class BluetoothLowEnergyScannerPageState
         continuousUpdates: true,
       );
 
-      await FlutterBluePlus.isScanning
-          .where((bool value) => (value == false))
-          .first;
+      await FlutterBluePlus.isScanning.where((bool value) {
+        return (value == false);
+      }).first;
     } catch (error) {
       debugPrint(error.toString());
 
@@ -125,11 +123,15 @@ class BluetoothLowEnergyScannerPageState
         children: <Widget>[
           ElevatedButton(
             onPressed: _isScanning ? null : _scan,
-            child: Text(AppLocalizations.of(navigatorKey.currentContext!)!.scan),
+            child: Text(
+              AppLocalizations.of(navigatorKey.currentContext!)!.scan,
+            ),
           ),
           ElevatedButton(
             onPressed: _isScanning ? _stop : null,
-            child: Text(AppLocalizations.of(navigatorKey.currentContext!)!.stop),
+            child: Text(
+              AppLocalizations.of(navigatorKey.currentContext!)!.stop,
+            ),
           ),
         ],
       ),
@@ -213,10 +215,9 @@ class BluetoothLowEnergyScannerPageState
                     ),
                     subtitle: Text(
                       advertisement.manufacturerData.entries
-                          .map(
-                            (MapEntry<int, List<int>> entry) =>
-                                "0x${entry.key.toRadixString(16)}: ${entry.value}",
-                          )
+                          .map((MapEntry<int, List<int>> entry) {
+                            return "0x${entry.key.toRadixString(16)}: ${entry.value}";
+                          })
                           .join("\n"),
                     ),
                   ),

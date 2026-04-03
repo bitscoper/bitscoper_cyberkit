@@ -7,14 +7,12 @@ import 'package:flutter/foundation.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 String _makePermissionNameReadable(Permission permission) {
-  return permission
-      .toString()
-      .split('.')
-      .last
-      .replaceAllMapped(
-        RegExp(r'([A-Z])'),
-        (Match match) => ' ${match.group(0)!.toLowerCase()}',
-      );
+  return permission.toString().split('.').last.replaceAllMapped(
+    RegExp(r'([A-Z])'),
+    (Match match) {
+      return ' ${match.group(0)!.toLowerCase()}';
+    },
+  );
 }
 
 String _formatPermissionResults(
@@ -53,13 +51,13 @@ String _formatPermissionResults(
   return lines.join('\n');
 }
 
-Future<void> requestPermissions(
-  List<Permission> permissions,
-) async {
+Future<void> requestPermissions(List<Permission> permissions) async {
   try {
     final String permissionNames = permissions
         .map(_makePermissionNameReadable)
-        .map((String permission) => '"$permission"')
+        .map((String permission) {
+          return '"$permission"';
+        })
         .join(', ');
 
     showMessageDialog(
@@ -69,22 +67,22 @@ Future<void> requestPermissions(
         final Map<Permission, PermissionStatus> permissionStatuses =
             await permissions.request();
 
-        if (permissionStatuses.values.any(
-          (PermissionStatus permissionStatus) =>
-              permissionStatus.isDenied ||
+        if (permissionStatuses.values.any((PermissionStatus permissionStatus) {
+          return (permissionStatus.isDenied ||
               permissionStatus.isPermanentlyDenied ||
-              permissionStatus.isRestricted,
-        )) {
+              permissionStatus.isRestricted);
+        })) {
           final String details = _formatPermissionResults(permissionStatuses);
 
           showMessageDialog(
             AppLocalizations.of(navigatorKey.currentContext!)!.permissions,
             details,
             onOK: () async {
-              if (permissionStatuses.values.any(
-                (PermissionStatus permissionStatus) =>
-                    permissionStatus.isPermanentlyDenied,
-              )) {
+              if (permissionStatuses.values.any((
+                PermissionStatus permissionStatus,
+              ) {
+                return permissionStatus.isPermanentlyDenied;
+              })) {
                 await openAppSettings();
               }
             },

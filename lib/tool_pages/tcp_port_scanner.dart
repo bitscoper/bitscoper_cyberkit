@@ -15,7 +15,9 @@ class TCPPortScannerPage extends StatefulWidget {
   const TCPPortScannerPage({super.key});
 
   @override
-  TCPPortScannerPageState createState() => TCPPortScannerPageState();
+  TCPPortScannerPageState createState() {
+    return TCPPortScannerPageState();
+  }
 }
 
 class TCPPortScannerPageState extends State<TCPPortScannerPage> {
@@ -31,20 +33,17 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
 
   final Stopwatch _stopwatch = Stopwatch();
 
-  final List<int> _portList = List.generate(
-    65536,
-    (int iteration) => iteration,
-  );
+  final List<int> _portList = List.generate(65536, (int iteration) {
+    return iteration;
+  });
 
   bool _isScanning = false;
   List<int> _openPorts = [];
   String _scanInformation = '';
 
-  String? _hostFieldValidator(String? value) {
+  String? _hostFieldValidator(BuildContext context, String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(
-        navigatorKey.currentContext!,
-      )!.enter_a_host_or_ip_address;
+      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
     } else {
       return null;
     }
@@ -145,7 +144,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
     }
   }
 
-  Widget _form() {
+  Widget _form(BuildContext context) {
     return Form(
       key: _formKey,
       child: Column(
@@ -169,7 +168,9 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                     ),
                     showCursor: true,
                     maxLines: 1,
-                    validator: _hostFieldValidator,
+                    validator: (String? value) {
+                      return _hostFieldValidator(context, value);
+                    },
                     onChanged: (String value) {},
                     onFieldSubmitted: (String value) {
                       _scan();
@@ -187,9 +188,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
-                      labelText: AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.parallelism,
+                      labelText: AppLocalizations.of(context)!.parallelism,
                       hintText: '64',
                     ),
                     showCursor: true,
@@ -209,9 +208,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
                     onPressed: _scan,
-                    child: Text(
-                      AppLocalizations.of(navigatorKey.currentContext!)!.scan,
-                    ),
+                    child: Text(AppLocalizations.of(context)!.scan),
                   ),
           ),
         ],
@@ -219,10 +216,10 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
     );
   }
 
-  Widget _resultColumn() {
+  Widget _resultColumn(BuildContext context) {
     final NumberFormat numberFormat = NumberFormat(
       '#',
-      AppLocalizations.of(navigatorKey.currentContext!)!.localeName,
+      AppLocalizations.of(context)!.localeName,
     );
 
     return Column(
@@ -264,9 +261,9 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _form(),
+            _form(context),
             const SizedBox(height: 16.0),
-            if (!_isScanning) _resultColumn(),
+            if (!_isScanning) _resultColumn(context),
           ],
         ),
       ),

@@ -12,7 +12,9 @@ class MDNSScannerPage extends StatefulWidget {
   const MDNSScannerPage({super.key});
 
   @override
-  MDNSScannerPageState createState() => MDNSScannerPageState();
+  MDNSScannerPageState createState() {
+    return MDNSScannerPageState();
+  }
 }
 
 class MDNSScannerPageState extends State<MDNSScannerPage> {

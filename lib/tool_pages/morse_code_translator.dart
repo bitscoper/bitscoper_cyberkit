@@ -13,8 +13,9 @@ class MorseCodeTranslatorPage extends ConsumerStatefulWidget {
   const MorseCodeTranslatorPage({super.key});
 
   @override
-  ConsumerState<MorseCodeTranslatorPage> createState() =>
-      _MorseCodeTranslatorPageState();
+  ConsumerState<MorseCodeTranslatorPage> createState() {
+    return _MorseCodeTranslatorPageState();
+  }
 }
 
 class UpperCaseTextFormatter extends TextInputFormatter {

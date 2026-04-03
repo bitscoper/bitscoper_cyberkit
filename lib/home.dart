@@ -55,7 +55,11 @@ class _ToolCardWidget extends StatelessWidget {
 
             Navigator.push(
               navigatorKey.currentContext!,
-              MaterialPageRoute(builder: (BuildContext context) => page),
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return page;
+                },
+              ),
             );
           } catch (error) {
             debugPrint(error.toString());
