@@ -6,7 +6,6 @@ import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/copy_to_clipboard.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
-import 'package:bitscoper_cyberkit/main.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 
@@ -30,15 +29,15 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
 
   Map<String, String> _hashValues = {};
 
-  String? _stringFieldValidator(String? value) {
+  String? _stringFieldValidator(BuildContext context, String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(navigatorKey.currentContext!)!.enter_a_string;
+      return AppLocalizations.of(context)!.enter_a_string;
     } else {
       return null;
     }
   }
 
-  void _calculate() {
+  void _calculate(BuildContext context) {
     try {
       if (_formKey.currentState!.validate()) {
         setState(() {
@@ -64,14 +63,11 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
     } finally {}
   }
 
-  Widget _form() {
+  Widget _form(BuildContext context) {
     return Form(
       key: _formKey,
       child: TextFormField(
@@ -79,27 +75,25 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
         keyboardType: TextInputType.multiline,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
-          labelText: AppLocalizations.of(
-            navigatorKey.currentContext!,
-          )!.a_multiline_string,
-          hintText: AppLocalizations.of(
-            navigatorKey.currentContext!,
-          )!.abdullah_as_sadeed,
+          labelText: AppLocalizations.of(context)!.a_multiline_string,
+          hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
         ),
         showCursor: true,
         maxLines: null,
-        validator: _stringFieldValidator,
+        validator: (String? value) {
+          return _stringFieldValidator(context, value);
+        },
         onChanged: (String value) {
-          _calculate();
+          _calculate(context);
         },
         onFieldSubmitted: (String value) {
-          _calculate();
+          _calculate(context);
         },
       ),
     );
   }
 
-  Widget _startNotice() {
+  Widget _startNotice(BuildContext context) {
     return Center(
       child: Text(
         AppLocalizations.of(
@@ -110,7 +104,7 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
     );
   }
 
-  Widget _resultColumn() {
+  Widget _resultColumn(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -126,23 +120,19 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
                   onPressed: () {
                     try {
                       copyToClipboard(
-                        "${entry.key} ${AppLocalizations.of(navigatorKey.currentContext!)!.hash}",
+                        "${entry.key} ${AppLocalizations.of(context)!.hash}",
                         entry.value,
                       );
                     } catch (error) {
                       debugPrint(error.toString());
 
                       showMessageDialog(
-                        AppLocalizations.of(
-                          navigatorKey.currentContext!,
-                        )!.error,
+                        AppLocalizations.of(context)!.error,
                         error.toString(),
                       );
                     } finally {}
                   },
-                  tooltip: AppLocalizations.of(
-                    navigatorKey.currentContext!,
-                  )!.copy_to_clipboard,
+                  tooltip: AppLocalizations.of(context)!.copy_to_clipboard,
                 ),
               ),
             ),
@@ -162,11 +152,11 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _form(),
+            _form(context),
             const SizedBox(height: 16.0),
             _stringEditingController.text.isEmpty
-                ? _startNotice()
-                : _resultColumn(),
+                ? _startNotice(context)
+                : _resultColumn(context),
           ],
         ),
       ),

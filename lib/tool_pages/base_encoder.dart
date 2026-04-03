@@ -6,7 +6,6 @@ import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/copy_to_clipboard.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
-import 'package:bitscoper_cyberkit/main.dart';
 import 'package:flutter/material.dart';
 
 class BaseEncoderPage extends StatefulWidget {
@@ -46,7 +45,7 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
     'Base64': base64,
   };
 
-  void _encodeStringToBase64() {
+  void _encodeStringToBase64(BuildContext context) {
     try {
       setState(() {
         if (_formKey.currentState!.validate()) {
@@ -58,22 +57,19 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
     } finally {}
   }
 
-  String? _stringFieldValidator(String? value) {
+  String? _stringFieldValidator(BuildContext context, String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(navigatorKey.currentContext!)!.enter_a_string;
+      return AppLocalizations.of(context)!.enter_a_string;
     } else {
       return null;
     }
   }
 
-  Widget _form() {
+  Widget _form(BuildContext context) {
     return Form(
       key: _formKey,
       child: TextFormField(
@@ -81,27 +77,25 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
         keyboardType: TextInputType.multiline,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
-          labelText: AppLocalizations.of(
-            navigatorKey.currentContext!,
-          )!.a_multiline_string,
-          hintText: AppLocalizations.of(
-            navigatorKey.currentContext!,
-          )!.abdullah_as_sadeed,
+          labelText: AppLocalizations.of(context)!.a_multiline_string,
+          hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
         ),
         showCursor: true,
         maxLines: null,
-        validator: _stringFieldValidator,
+        validator: (String? value) {
+          return _stringFieldValidator(context, value);
+        },
         onChanged: (String value) {
-          _encodeStringToBase64();
+          _encodeStringToBase64(context);
         },
         onFieldSubmitted: (String value) {
-          _encodeStringToBase64();
+          _encodeStringToBase64(context);
         },
       ),
     );
   }
 
-  Widget _startNotice() {
+  Widget _startNotice(BuildContext context) {
     return Center(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -213,7 +207,7 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
     );
   }
 
-  Widget _resultColumn() {
+  Widget _resultColumn(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: _bases.entries.map((MapEntry<String, String> entry) {
@@ -230,7 +224,7 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
           debugPrint(error.toString());
 
           showMessageDialog(
-            AppLocalizations.of(navigatorKey.currentContext!)!.error,
+            AppLocalizations.of(context)!.error,
             error.toString(),
           );
         } finally {}
@@ -250,14 +244,12 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
                     debugPrint(error.toString());
 
                     showMessageDialog(
-                      AppLocalizations.of(navigatorKey.currentContext!)!.error,
+                      AppLocalizations.of(context)!.error,
                       error.toString(),
                     );
                   } finally {}
                 },
-                tooltip: AppLocalizations.of(
-                  navigatorKey.currentContext!,
-                )!.copy_to_clipboard,
+                tooltip: AppLocalizations.of(context)!.copy_to_clipboard,
               ),
             ),
           ),
@@ -277,11 +269,11 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _form(),
+            _form(context),
             const SizedBox(height: 16.0),
             _stringEditingController.text.isEmpty
-                ? _startNotice()
-                : _resultColumn(),
+                ? _startNotice(context)
+                : _resultColumn(context),
           ],
         ),
       ),
