@@ -16,7 +16,9 @@ class SeriesURICrawlerPage extends StatefulWidget {
   const SeriesURICrawlerPage({super.key});
 
   @override
-  SeriesURICrawlerPageState createState() => SeriesURICrawlerPageState();
+  SeriesURICrawlerPageState createState() {
+    return SeriesURICrawlerPageState();
+  }
 }
 
 class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {

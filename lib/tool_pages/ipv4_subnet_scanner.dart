@@ -11,7 +11,9 @@ class IPv4SubnetScannerPage extends StatefulWidget {
   const IPv4SubnetScannerPage({super.key});
 
   @override
-  IPv4SubnetScannerPageState createState() => IPv4SubnetScannerPageState();
+  IPv4SubnetScannerPageState createState() {
+    return IPv4SubnetScannerPageState();
+  }
 }
 
 class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {

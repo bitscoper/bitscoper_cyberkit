@@ -13,7 +13,9 @@ class WiFiDetailsViewerPage extends StatefulWidget {
   const WiFiDetailsViewerPage({super.key});
 
   @override
-  WiFiDetailsViewerPageState createState() => WiFiDetailsViewerPageState();
+  WiFiDetailsViewerPageState createState() {
+    return WiFiDetailsViewerPageState();
+  }
 }
 
 class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
@@ -81,7 +83,7 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
     );
   }
 
-  Widget _wifiDetailsCard(String label, String? value) {
+  Widget _wifiDetailsCard(BuildContext context, String label, String? value) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Card(
@@ -99,64 +101,61 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
                       debugPrint(error.toString());
 
                       showMessageDialog(
-                        AppLocalizations.of(
-                          navigatorKey.currentContext!,
-                        )!.error,
+                        AppLocalizations.of(context)!.error,
                         error.toString(),
                       );
                     } finally {}
                   },
-                  tooltip: AppLocalizations.of(
-                    navigatorKey.currentContext!,
-                  )!.copy_to_clipboard,
+                  tooltip: AppLocalizations.of(context)!.copy_to_clipboard,
                 ),
         ),
       ),
     );
   }
 
-  Widget _wifiDetailsView() {
+  Widget _wifiDetailsView(BuildContext context) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(32.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _wifiDetailsCard(
-            AppLocalizations.of(
-              navigatorKey.currentContext!,
-            )!.service_set_identifier_ssid,
+            context,
+            AppLocalizations.of(context)!.service_set_identifier_ssid,
             _ssid,
           ),
           _wifiDetailsCard(
-            AppLocalizations.of(
-              navigatorKey.currentContext!,
-            )!.basic_service_set_identifier_bssid,
+            context,
+            AppLocalizations.of(context)!.basic_service_set_identifier_bssid,
             _bssid,
           ),
           _wifiDetailsCard(
+            context,
             AppLocalizations.of(
               context,
             )!.internet_protocol_version_4_ipv4_address,
             _ipAddress,
           ),
           _wifiDetailsCard(
+            context,
             AppLocalizations.of(
               context,
             )!.internet_protocol_version_6_ipv6_address,
             _ipV6Address,
           ),
           _wifiDetailsCard(
-            AppLocalizations.of(navigatorKey.currentContext!)!.subnet_mask,
+            context,
+            AppLocalizations.of(context)!.subnet_mask,
             _subnetMask,
           ),
           _wifiDetailsCard(
-            AppLocalizations.of(
-              navigatorKey.currentContext!,
-            )!.broadcast_address,
+            context,
+            AppLocalizations.of(context)!.broadcast_address,
             _broadcast,
           ),
           _wifiDetailsCard(
-            AppLocalizations.of(navigatorKey.currentContext!)!.gateway,
+            context,
+            AppLocalizations.of(context)!.gateway,
             _gatewayIPAddress,
           ),
         ],
@@ -164,15 +163,11 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
     );
   }
 
-  Widget _wifiDisconnectionNotice() {
+  Widget _wifiDisconnectionNotice(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(32.0),
-        child: Text(
-          AppLocalizations.of(
-            navigatorKey.currentContext!,
-          )!.wifi_is_disconnected,
-        ),
+        child: Text(AppLocalizations.of(context)!.wifi_is_disconnected),
       ),
     );
   }
@@ -186,8 +181,8 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
       body: (networkConnectivityResult == null)
           ? _progressIndicator()
           : networkConnectivityResult!.contains(ConnectivityResult.wifi)
-          ? _wifiDetailsView()
-          : _wifiDisconnectionNotice(),
+          ? _wifiDetailsView(context)
+          : _wifiDisconnectionNotice(context),
     );
   }
 

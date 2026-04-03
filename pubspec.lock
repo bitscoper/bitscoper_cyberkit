@@ -1010,10 +1010,10 @@ packages:
     dependency: transitive
     description:
       name: process_run
-      sha256: "78b1ed8828fb6a98b3a28452ae6d77546b87065c61297f4f79b31064a18afcc3"
+      sha256: "8bdbe7ec335391ad32e5119cdcecaa7f679bc924fc5a5d7e8bc7a8fbd22592a1"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.1+1"
+    version: "1.3.2"
   provider:
     dependency: transitive
     description:

@@ -13,7 +13,9 @@ class PingerPage extends StatefulWidget {
   const PingerPage({super.key});
 
   @override
-  PingerPageState createState() => PingerPageState();
+  PingerPageState createState() {
+    return PingerPageState();
+  }
 }
 
 class PingResult {
@@ -172,17 +174,21 @@ class PingerPageState extends State<PingerPage> {
       child: Timeline.tileBuilder(
         builder: TimelineTileBuilder.connected(
           itemCount: _results.length,
-          nodePositionBuilder: (BuildContext context, int index) => 0,
+          nodePositionBuilder: (BuildContext context, int index) {
+            return 0;
+          },
           connectionDirection: ConnectionDirection.before,
-          indicatorBuilder: (BuildContext context, int index) =>
-              OutlinedDotIndicator(
-                color: Theme.of(context).colorScheme.primary,
-              ),
+          indicatorBuilder: (BuildContext context, int index) {
+            return OutlinedDotIndicator(
+              color: Theme.of(context).colorScheme.primary,
+            );
+          },
           connectorBuilder:
-              (BuildContext context, int index, ConnectorType type) =>
-                  SolidLineConnector(
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
+              (BuildContext context, int index, ConnectorType type) {
+                return SolidLineConnector(
+                  color: Theme.of(context).colorScheme.primary,
+                );
+              },
           contentsBuilder: (BuildContext context, int index) {
             final PingResult result = _results[index];
 

@@ -12,7 +12,9 @@ class BaseEncoderPage extends StatefulWidget {
   const BaseEncoderPage({super.key});
 
   @override
-  BaseEncoderPageState createState() => BaseEncoderPageState();
+  BaseEncoderPageState createState() {
+    return BaseEncoderPageState();
+  }
 }
 
 class BaseEncoderPageState extends State<BaseEncoderPage> {

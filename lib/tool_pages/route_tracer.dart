@@ -13,7 +13,9 @@ class RouteTracerPage extends StatefulWidget {
   const RouteTracerPage({super.key});
 
   @override
-  RouteTracerPageState createState() => RouteTracerPageState();
+  RouteTracerPageState createState() {
+    return RouteTracerPageState();
+  }
 }
 
 class RouteTracerPageState extends State<RouteTracerPage> {
@@ -101,7 +103,9 @@ class RouteTracerPageState extends State<RouteTracerPage> {
             controller: _hostEditingController,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              labelText: AppLocalizations.of(navigatorKey.currentContext!)!.a_host_or_ip_address,
+              labelText: AppLocalizations.of(
+                navigatorKey.currentContext!,
+              )!.a_host_or_ip_address,
               hintText: 'bitscoper.dev',
             ),
             maxLines: 1,
@@ -118,11 +122,15 @@ class RouteTracerPageState extends State<RouteTracerPage> {
             children: <Widget>[
               ElevatedButton(
                 onPressed: _isTracing ? null : _trace,
-                child: Text(AppLocalizations.of(navigatorKey.currentContext!)!.trace),
+                child: Text(
+                  AppLocalizations.of(navigatorKey.currentContext!)!.trace,
+                ),
               ),
               ElevatedButton(
                 onPressed: _isTracing ? _stop : null,
-                child: Text(AppLocalizations.of(navigatorKey.currentContext!)!.stop),
+                child: Text(
+                  AppLocalizations.of(navigatorKey.currentContext!)!.stop,
+                ),
               ),
             ],
           ),

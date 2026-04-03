@@ -12,7 +12,9 @@ class WHOISRetrieverPage extends StatefulWidget {
   const WHOISRetrieverPage({super.key});
 
   @override
-  WHOISRetrieverPageState createState() => WHOISRetrieverPageState();
+  WHOISRetrieverPageState createState() {
+    return WHOISRetrieverPageState();
+  }
 }
 
 class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {

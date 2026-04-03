@@ -13,7 +13,9 @@ class OGPDataExtractorPage extends StatefulWidget {
   const OGPDataExtractorPage({super.key});
 
   @override
-  OGPDataExtractorPageState createState() => OGPDataExtractorPageState();
+  OGPDataExtractorPageState createState() {
+    return OGPDataExtractorPageState();
+  }
 }
 
 class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
