@@ -4,7 +4,6 @@ import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/copy_to_clipboard.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
-import 'package:bitscoper_cyberkit/main.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -57,15 +56,15 @@ class _MorseCodeTranslatorPageState
   final GlobalKey<FormState> _stringFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> _morseCodeFormKey = GlobalKey<FormState>();
 
-  String? _stringFieldValidator(String? value) {
+  String? _stringFieldValidator(BuildContext context, String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(navigatorKey.currentContext!)!.enter_a_string;
+      return AppLocalizations.of(context)!.enter_a_string;
     } else {
       return null;
     }
   }
 
-  void _encode() {
+  void _encode(BuildContext context) {
     try {
       if (_stringFormKey.currentState!.validate()) {
         final MorseCode translator = ref.read(morseCodeTranslatorProvider);
@@ -76,31 +75,28 @@ class _MorseCodeTranslatorPageState
           morseCodeEditingControllerProvider,
         );
 
-        morseCodeEditingController.text = translator.enCode(stringEditingController.text);
+        morseCodeEditingController.text = translator.enCode(
+          stringEditingController.text,
+        );
 
         _morseCodeFormKey.currentState!.validate();
       }
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
     } finally {}
   }
 
-  String? _morseCodeFieldValidator(String? value) {
+  String? _morseCodeFieldValidator(BuildContext context, String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(
-        navigatorKey.currentContext!,
-      )!.enter_morse_code;
+      return AppLocalizations.of(context)!.enter_morse_code;
     } else {
       return null;
     }
   }
 
-  void _decode() {
+  void _decode(BuildContext context) {
     try {
       if (_morseCodeFormKey.currentState!.validate()) {
         final MorseCode translator = ref.read(morseCodeTranslatorProvider);
@@ -111,21 +107,20 @@ class _MorseCodeTranslatorPageState
           morseCodeEditingControllerProvider,
         );
 
-        stringEditingController.text = translator.deCode(morseCodeEditingController.text);
+        stringEditingController.text = translator.deCode(
+          morseCodeEditingController.text,
+        );
 
         _stringFormKey.currentState!.validate();
       }
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
     } finally {}
   }
 
-  Widget _stringForm() {
+  Widget _stringForm(BuildContext context) {
     final TextEditingController editingController = ref.watch(
       stringEditingControllerProvider,
     );
@@ -141,9 +136,7 @@ class _MorseCodeTranslatorPageState
             inputFormatters: [UpperCaseTextFormatter()],
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
-              labelText: AppLocalizations.of(
-                navigatorKey.currentContext!,
-              )!.a_string,
+              labelText: AppLocalizations.of(context)!.a_string,
               hintText: AppLocalizations.of(
                 context,
               )!.abdullah_as_sadeed.toUpperCase(),
@@ -151,7 +144,7 @@ class _MorseCodeTranslatorPageState
                 icon: const Icon(Icons.copy_rounded),
                 onPressed: () {
                   copyToClipboard(
-                    AppLocalizations.of(navigatorKey.currentContext!)!.string,
+                    AppLocalizations.of(context)!.string,
                     editingController.text,
                   );
                 },
@@ -159,12 +152,14 @@ class _MorseCodeTranslatorPageState
             ),
             showCursor: true,
             maxLines: null,
-            validator: _stringFieldValidator,
+            validator: (String? value) {
+              return _stringFieldValidator(context, value);
+            },
             onChanged: (String? value) {
-              _encode();
+              _encode(context);
             },
             onFieldSubmitted: (String value) {
-              _encode();
+              _encode(context);
             },
           ),
         ],
@@ -172,7 +167,7 @@ class _MorseCodeTranslatorPageState
     );
   }
 
-  Widget _morseCodeForm() {
+  Widget _morseCodeForm(BuildContext context) {
     final TextEditingController editingController = ref.watch(
       morseCodeEditingControllerProvider,
     );
@@ -184,16 +179,14 @@ class _MorseCodeTranslatorPageState
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
-          labelText: AppLocalizations.of(
-            navigatorKey.currentContext!,
-          )!.morse_code,
+          labelText: AppLocalizations.of(context)!.morse_code,
           hintText:
               '.- -... -.. ..- .-.. .-.. .- .... / .- ... -....- ... .- -.. . . -..',
           suffixIcon: IconButton(
             icon: const Icon(Icons.copy_rounded),
             onPressed: () {
               copyToClipboard(
-                AppLocalizations.of(navigatorKey.currentContext!)!.morse_code,
+                AppLocalizations.of(context)!.morse_code,
                 editingController.text,
               );
             },
@@ -201,12 +194,14 @@ class _MorseCodeTranslatorPageState
         ),
         showCursor: true,
         maxLines: null,
-        validator: _morseCodeFieldValidator,
+        validator: (String? value) {
+          return _morseCodeFieldValidator(context, value);
+        },
         onChanged: (String? value) {
-          _decode();
+          _decode(context);
         },
         onFieldSubmitted: (String value) {
-          _decode();
+          _decode(context);
         },
       ),
     );
@@ -223,9 +218,9 @@ class _MorseCodeTranslatorPageState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _stringForm(),
+            _stringForm(context),
             const SizedBox(height: 16.0),
-            _morseCodeForm(),
+            _morseCodeForm(context),
           ],
         ),
       ),

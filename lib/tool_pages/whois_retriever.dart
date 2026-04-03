@@ -28,11 +28,9 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
   bool _isRetrieving = false;
   late Map<String, String> _whoisInformation = {};
 
-  String? _domainNameFieldValidator(String? value) {
+  String? _domainNameFieldValidator(BuildContext context, String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(
-        navigatorKey.currentContext!,
-      )!.enter_a_domain_name;
+      return AppLocalizations.of(context)!.enter_a_domain_name;
     } else {
       return null;
     }
@@ -84,7 +82,7 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
     }
   }
 
-  Widget _form() {
+  Widget _form(BuildContext context) {
     return Form(
       key: _formKey,
       child: Column(
@@ -95,14 +93,14 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
             keyboardType: TextInputType.url,
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
-              labelText: AppLocalizations.of(
-                navigatorKey.currentContext!,
-              )!.a_domain_name,
+              labelText: AppLocalizations.of(context)!.a_domain_name,
               hintText: 'bitscoper.dev',
             ),
             showCursor: true,
             maxLines: 1,
-            validator: _domainNameFieldValidator,
+            validator: (String? value) {
+              return _domainNameFieldValidator(context, value);
+            },
             onChanged: (String value) {},
             onFieldSubmitted: (String value) {
               _retrieve();
@@ -112,9 +110,7 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
           Center(
             child: ElevatedButton(
               onPressed: _isRetrieving ? null : _retrieve,
-              child: Text(
-                AppLocalizations.of(navigatorKey.currentContext!)!.retrieve,
-              ),
+              child: Text(AppLocalizations.of(context)!.retrieve),
             ),
           ),
         ],
@@ -146,7 +142,7 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _form(),
+            _form(context),
             const SizedBox(height: 16.0),
             _isRetrieving
                 ? const Center(child: CircularProgressIndicator())

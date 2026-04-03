@@ -4,9 +4,8 @@ import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/copy_to_clipboard.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
-import 'package:bitscoper_cyberkit/main.dart';
-import 'package:flutter/material.dart';
 import 'package:cvss_vulnerability_scoring/cvss_vulnerability_scoring.dart';
+import 'package:flutter/material.dart';
 
 class CVSSCalculatorPage extends StatefulWidget {
   const CVSSCalculatorPage({super.key});
@@ -20,7 +19,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
   void initState() {
     super.initState();
 
-    _calculateCVSS();
+    _calculateCVSS(context);
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -37,19 +36,19 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
   QualitativeSeverityRating _severityRating = QualitativeSeverityRating.none;
   String _vectorString = '';
 
-  Widget _subTitle() {
+  Widget _subTitle(BuildContext context) {
     return Center(
       child: Text(
         AppLocalizations.of(
           context,
         )!.common_vulnerability_scoring_system_v3_1_base_score,
         textAlign: TextAlign.center,
-        style: Theme.of(navigatorKey.currentContext!).textTheme.bodyLarge,
+        style: Theme.of(context).textTheme.bodyLarge,
       ),
     );
   }
 
-  void _calculateCVSS() {
+  void _calculateCVSS(BuildContext context) {
     try {
       final CVSSv31 cvss = CVSSv31(
         attackVector: _attackVector,
@@ -71,13 +70,13 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
       debugPrint(error.toString());
 
       showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        AppLocalizations.of(context)!.error,
         error.toString(),
       );
     } finally {}
   }
 
-  String _formatEnumName(Object enumValue) {
+  String _formatEnumName(BuildContext context, Object enumValue) {
     try {
       return enumValue
           .toString()
@@ -95,14 +94,14 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
       debugPrint(error.toString());
 
       showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        AppLocalizations.of(context)!.error,
         error.toString(),
       );
       return error.toString();
     }
   }
 
-  String _getSeverityText() {
+  String _getSeverityText(BuildContext context) {
     try {
       final String valueName = _severityRating.toString().split('.').last;
 
@@ -111,7 +110,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
       debugPrint(error.toString());
 
       showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        AppLocalizations.of(context)!.error,
         error.toString(),
       );
 
@@ -119,7 +118,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
     } finally {}
   }
 
-  Color _getSeverityColor() {
+  Color _getSeverityColor(BuildContext context) {
     try {
       switch (_severityRating) {
         case QualitativeSeverityRating.critical:
@@ -137,7 +136,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
       debugPrint(error.toString());
 
       showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        AppLocalizations.of(context)!.error,
         error.toString(),
       );
 
@@ -148,60 +147,60 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
   void _onAttackVectorChanged(AttackVector? value) {
     setState(() {
       _attackVector = value!;
-      _calculateCVSS();
+      _calculateCVSS(context);
     });
   }
 
   void _onAttackComplexityChanged(AttackComplexity? value) {
     setState(() {
       _attackComplexity = value!;
-      _calculateCVSS();
+      _calculateCVSS(context);
     });
   }
 
   void _onPrevilegeRequirementChanged(PrivilegesRequired? value) {
     setState(() {
       _privilegesRequired = value!;
-      _calculateCVSS();
+      _calculateCVSS(context);
     });
   }
 
   void _onUserInteractionValueChanged(UserInteraction? value) {
     setState(() {
       _userInteraction = value!;
-      _calculateCVSS();
+      _calculateCVSS(context);
     });
   }
 
   void _onScopeChanged(Scope? value) {
     setState(() {
       _scope = value!;
-      _calculateCVSS();
+      _calculateCVSS(context);
     });
   }
 
   void _onConfidentialityImpactChanged(ConfidentialityImpact? value) {
     setState(() {
       _confidentialityImpact = value!;
-      _calculateCVSS();
+      _calculateCVSS(context);
     });
   }
 
   void _onIntigrityImpactChanged(IntegrityImpact? value) {
     setState(() {
       _integrityImpact = value!;
-      _calculateCVSS();
+      _calculateCVSS(context);
     });
   }
 
   void _onAvailabilityImpactChanged(AvailabilityImpact? value) {
     setState(() {
       _availabilityImpact = value!;
-      _calculateCVSS();
+      _calculateCVSS(context);
     });
   }
 
-  Widget _form() {
+  Widget _form(BuildContext context) {
     return Form(
       key: _formKey,
       child: Column(
@@ -213,12 +212,12 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
             items: AttackVector.values.map((AttackVector vector) {
               return DropdownMenuItem<AttackVector>(
                 value: vector,
-                child: Text(_formatEnumName(vector)),
+                child: Text(_formatEnumName(context, vector)),
               );
             }).toList(),
             decoration: InputDecoration(
               labelText: AppLocalizations.of(
-                navigatorKey.currentContext!,
+                context,
               )!.attack_vector,
             ),
           ),
@@ -229,12 +228,12 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
             items: AttackComplexity.values.map((AttackComplexity complexity) {
               return DropdownMenuItem<AttackComplexity>(
                 value: complexity,
-                child: Text(_formatEnumName(complexity)),
+                child: Text(_formatEnumName(context, complexity)),
               );
             }).toList(),
             decoration: InputDecoration(
               labelText: AppLocalizations.of(
-                navigatorKey.currentContext!,
+                context,
               )!.attack_complexity,
             ),
           ),
@@ -247,12 +246,12 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
             ) {
               return DropdownMenuItem<PrivilegesRequired>(
                 value: privileges,
-                child: Text(_formatEnumName(privileges)),
+                child: Text(_formatEnumName(context, privileges)),
               );
             }).toList(),
             decoration: InputDecoration(
               labelText: AppLocalizations.of(
-                navigatorKey.currentContext!,
+                context,
               )!.privileges_required,
             ),
           ),
@@ -263,12 +262,12 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
             items: UserInteraction.values.map((UserInteraction interaction) {
               return DropdownMenuItem<UserInteraction>(
                 value: interaction,
-                child: Text(_formatEnumName(interaction)),
+                child: Text(_formatEnumName(context, interaction)),
               );
             }).toList(),
             decoration: InputDecoration(
               labelText: AppLocalizations.of(
-                navigatorKey.currentContext!,
+                context,
               )!.user_interaction,
             ),
           ),
@@ -279,12 +278,12 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
             items: Scope.values.map((Scope scope) {
               return DropdownMenuItem<Scope>(
                 value: scope,
-                child: Text(_formatEnumName(scope)),
+                child: Text(_formatEnumName(context, scope)),
               );
             }).toList(),
             decoration: InputDecoration(
               labelText: AppLocalizations.of(
-                navigatorKey.currentContext!,
+                context,
               )!.scope,
             ),
           ),
@@ -297,12 +296,12 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
             ) {
               return DropdownMenuItem<ConfidentialityImpact>(
                 value: impact,
-                child: Text(_formatEnumName(impact)),
+                child: Text(_formatEnumName(context, impact)),
               );
             }).toList(),
             decoration: InputDecoration(
               labelText: AppLocalizations.of(
-                navigatorKey.currentContext!,
+                context,
               )!.confidentiality_impact,
             ),
           ),
@@ -313,12 +312,12 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
             items: IntegrityImpact.values.map((IntegrityImpact impact) {
               return DropdownMenuItem<IntegrityImpact>(
                 value: impact,
-                child: Text(_formatEnumName(impact)),
+                child: Text(_formatEnumName(context, impact)),
               );
             }).toList(),
             decoration: InputDecoration(
               labelText: AppLocalizations.of(
-                navigatorKey.currentContext!,
+                context,
               )!.integrity_impact,
             ),
           ),
@@ -329,12 +328,12 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
             items: AvailabilityImpact.values.map((AvailabilityImpact impact) {
               return DropdownMenuItem<AvailabilityImpact>(
                 value: impact,
-                child: Text(_formatEnumName(impact)),
+                child: Text(_formatEnumName(context, impact)),
               );
             }).toList(),
             decoration: InputDecoration(
               labelText: AppLocalizations.of(
-                navigatorKey.currentContext!,
+                context,
               )!.availability_impact,
             ),
           ),
@@ -343,7 +342,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
     );
   }
 
-  Widget _resultCard() {
+  Widget _resultCard(BuildContext context) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(24),
@@ -354,22 +353,22 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: _getSeverityColor().withValues(alpha: 0.10),
-                border: Border.all(color: _getSeverityColor(), width: 2),
+                color: _getSeverityColor(context).withValues(alpha: 0.10),
+                border: Border.all(color: _getSeverityColor(context), width: 2),
               ),
               child: Text(
                 _baseScore.toStringAsFixed(1),
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
-                  color: _getSeverityColor(),
+                  color: _getSeverityColor(context),
                 ),
               ),
             ),
             const SizedBox(height: 16),
             Chip(
               label: Text(
-                _getSeverityText(),
+                _getSeverityText(context),
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
@@ -384,7 +383,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                     try {
                       copyToClipboard(
                         AppLocalizations.of(
-                          navigatorKey.currentContext!,
+                          context,
                         )!.vector_string,
                         _vectorString,
                       );
@@ -393,14 +392,14 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
 
                       showMessageDialog(
                         AppLocalizations.of(
-                          navigatorKey.currentContext!,
+                          context,
                         )!.error,
                         error.toString(),
                       );
                     } finally {}
                   },
                   tooltip: AppLocalizations.of(
-                    navigatorKey.currentContext!,
+                    context,
                   )!.copy_to_clipboard,
                 ),
               ],
@@ -422,11 +421,11 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _subTitle(),
+            _subTitle(context),
             const SizedBox(height: 32.0),
-            _form(),
+            _form(context),
             const SizedBox(height: 32.0),
-            _resultCard(),
+            _resultCard(context),
           ],
         ),
       ),
