@@ -36,11 +36,9 @@ class PingerPageState extends State<PingerPage> {
   bool _isPinging = false;
   List<PingResult> _results = [];
 
-  String? _hostFieldValidator(String? value) {
+  String? _hostFieldValidator(BuildContext context, String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(
-        navigatorKey.currentContext!,
-      )!.enter_a_host_or_ip_address;
+      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
     } else {
       return null;
     }
@@ -97,7 +95,7 @@ class PingerPageState extends State<PingerPage> {
     }
   }
 
-  void _stop() {
+  void _stop(BuildContext context) {
     try {
       setState(() {
         _isPinging = false;
@@ -105,14 +103,11 @@ class PingerPageState extends State<PingerPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
     } finally {}
   }
 
-  Widget _form() {
+  Widget _form(BuildContext context) {
     return Form(
       key: _formKey,
       child: Column(
@@ -123,14 +118,14 @@ class PingerPageState extends State<PingerPage> {
             keyboardType: TextInputType.url,
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
-              labelText: AppLocalizations.of(
-                navigatorKey.currentContext!,
-              )!.a_host_or_ip_address,
+              labelText: AppLocalizations.of(context)!.a_host_or_ip_address,
               hintText: 'bitscoper.dev',
             ),
             showCursor: true,
             maxLines: 1,
-            validator: _hostFieldValidator,
+            validator: (String? value) {
+              return _hostFieldValidator(context, value);
+            },
             onChanged: (String value) {},
             onFieldSubmitted: (String value) {
               _ping();
@@ -142,15 +137,15 @@ class PingerPageState extends State<PingerPage> {
             children: <Widget>[
               ElevatedButton(
                 onPressed: _isPinging ? null : _ping,
-                child: Text(
-                  AppLocalizations.of(navigatorKey.currentContext!)!.ping,
-                ),
+                child: Text(AppLocalizations.of(context)!.ping),
               ),
               ElevatedButton(
-                onPressed: _isPinging ? _stop : null,
-                child: Text(
-                  AppLocalizations.of(navigatorKey.currentContext!)!.stop,
-                ),
+                onPressed: _isPinging
+                    ? () {
+                        _stop(context);
+                      }
+                    : null,
+                child: Text(AppLocalizations.of(context)!.stop),
               ),
             ],
           ),
@@ -219,7 +214,7 @@ class PingerPageState extends State<PingerPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _form(),
+            _form(context),
             const SizedBox(height: 16.0),
             if (_isPinging) _progressIndicator(),
             if (_results.isNotEmpty) _resultWrapper(),
