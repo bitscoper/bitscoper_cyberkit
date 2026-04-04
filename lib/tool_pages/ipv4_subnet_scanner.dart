@@ -3,7 +3,6 @@
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
-import 'package:bitscoper_cyberkit/main.dart';
 import 'package:flutter/material.dart';
 import 'package:network_tools_flutter/network_tools_flutter.dart';
 
@@ -29,17 +28,15 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
   bool _isScanning = false;
   Set<ActiveHost> _discoveredHosts = <ActiveHost>{};
 
-  String? _subnetFieldValidator(String? value) {
+  String? _subnetFieldValidator(BuildContext context, String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(
-        navigatorKey.currentContext!,
-      )!.enter_an_ipv4_subnet;
+      return AppLocalizations.of(context)!.enter_an_ipv4_subnet;
     } else {
       return null;
     }
   }
 
-  Future<void> _scan() async {
+  Future<void> _scan(BuildContext context) async {
     try {
       if (_formKey.currentState!.validate()) {
         setState(() {
@@ -70,10 +67,7 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
 
       setState(() {
         _isScanning = false;
@@ -81,7 +75,7 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
     } finally {}
   }
 
-  void _stop() {
+  void _stop(BuildContext context) {
     try {
       setState(() {
         _isScanning = false;
@@ -89,14 +83,11 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
     } finally {}
   }
 
-  Widget _form() {
+  Widget _form(BuildContext context) {
     return Form(
       key: _formKey,
       child: Column(
@@ -107,17 +98,17 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
             keyboardType: TextInputType.url,
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
-              labelText: AppLocalizations.of(
-                navigatorKey.currentContext!,
-              )!.an_ipv4_subnet,
+              labelText: AppLocalizations.of(context)!.an_ipv4_subnet,
               hintText: "1.1.1",
             ),
             showCursor: true,
             maxLines: 1,
-            validator: _subnetFieldValidator,
+            validator: (String? value) {
+              return _subnetFieldValidator(context, value);
+            },
             onChanged: (String value) {},
             onFieldSubmitted: (String value) {
-              _scan();
+              _scan(context);
             },
           ),
           const SizedBox(height: 16.0),
@@ -125,16 +116,20 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               ElevatedButton(
-                onPressed: _isScanning ? null : _scan,
-                child: Text(
-                  AppLocalizations.of(navigatorKey.currentContext!)!.scan,
-                ),
+                onPressed: _isScanning
+                    ? null
+                    : () {
+                        _scan(context);
+                      },
+                child: Text(AppLocalizations.of(context)!.scan),
               ),
               ElevatedButton(
-                onPressed: _isScanning ? _stop : null,
-                child: Text(
-                  AppLocalizations.of(navigatorKey.currentContext!)!.stop,
-                ),
+                onPressed: _isScanning
+                    ? () {
+                        _stop(context);
+                      }
+                    : null,
+                child: Text(AppLocalizations.of(context)!.stop),
               ),
             ],
           ),
@@ -190,7 +185,7 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _form(),
+            _form(context),
             if (_isScanning) _progressIndicator(),
             const SizedBox(height: 16.0),
             _resultWrapper(),

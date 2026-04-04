@@ -3,7 +3,7 @@
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 String _makePermissionNameReadable(Permission permission) {
@@ -51,7 +51,10 @@ String _formatPermissionResults(
   return lines.join('\n');
 }
 
-Future<void> requestPermissions(List<Permission> permissions) async {
+Future<void> requestPermissions(
+  BuildContext context,
+  List<Permission> permissions,
+) async {
   try {
     final String permissionNames = permissions
         .map(_makePermissionNameReadable)
@@ -61,8 +64,8 @@ Future<void> requestPermissions(List<Permission> permissions) async {
         .join(', ');
 
     showMessageDialog(
-      AppLocalizations.of(navigatorKey.currentContext!)!.permissions,
-      '$permissionNames ${AppLocalizations.of(navigatorKey.currentContext!)!.permissions_will_be_used}',
+      AppLocalizations.of(context)!.permissions,
+      '$permissionNames ${AppLocalizations.of(context)!.permissions_will_be_used}',
       onOK: () async {
         final Map<Permission, PermissionStatus> permissionStatuses =
             await permissions.request();
@@ -95,10 +98,7 @@ Future<void> requestPermissions(List<Permission> permissions) async {
   } catch (error) {
     debugPrint(error.toString());
 
-    showMessageDialog(
-      AppLocalizations.of(navigatorKey.currentContext!)!.error,
-      error.toString(),
-    );
+    showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
   } finally {}
 }
 

@@ -47,7 +47,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
   bool _isRetrieving = false;
   List<DNSRecord> _records = [];
 
-  void _selectRecordTypes() async {
+  void _selectRecordTypes(BuildContext context) async {
     try {
       await showDialog<void>(
         context: context,
@@ -60,7 +60,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                 ) {
                   return AlertDialog(
                     title: Text(
-                      "${_numberFormat.format(_selectedRecordTypes.length)} ${AppLocalizations.of(navigatorKey.currentContext!)!.record_types}",
+                      "${_numberFormat.format(_selectedRecordTypes.length)} ${AppLocalizations.of(context)!.record_types}",
                     ),
                     content: SizedBox(
                       width: double.maxFinite,
@@ -92,9 +92,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                                   debugPrint(error.toString());
 
                                   showMessageDialog(
-                                    AppLocalizations.of(
-                                      navigatorKey.currentContext!,
-                                    )!.error,
+                                    AppLocalizations.of(context)!.error,
                                     error.toString(),
                                   );
                                 } finally {}
@@ -108,21 +106,17 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                       TextButton(
                         onPressed: () {
                           try {
-                            Navigator.of(navigatorKey.currentContext!).pop();
+                            Navigator.of(context).pop();
                           } catch (error) {
                             debugPrint(error.toString());
 
                             showMessageDialog(
-                              AppLocalizations.of(
-                                navigatorKey.currentContext!,
-                              )!.error,
+                              AppLocalizations.of(context)!.error,
                               error.toString(),
                             );
                           } finally {}
                         },
-                        child: Text(
-                          AppLocalizations.of(navigatorKey.currentContext!)!.ok,
-                        ),
+                        child: Text(AppLocalizations.of(context)!.ok),
                       ),
                     ],
                   );
@@ -140,35 +134,29 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
     } finally {}
   }
 
-  String? _hostFieldValidator(String? value) {
+  String? _hostFieldValidator(BuildContext context, String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(
-        navigatorKey.currentContext!,
-      )!.enter_a_host_or_ip_address;
+      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
     } else {
       return null;
     }
   }
 
-  String? _providerFieldValidator(String? value) {
+  String? _providerFieldValidator(BuildContext context, String? value) {
     if ((value == null) || value.isEmpty) {
-      return AppLocalizations.of(
-        navigatorKey.currentContext!,
-      )!.enter_a_host_or_ip_address;
+      return AppLocalizations.of(context)!.enter_a_host_or_ip_address;
     } else {
       return null;
     }
   }
 
-  Future<void> _retrieve() async {
+  Future<void> _retrieve(BuildContext context) async {
     try {
       if (_formKey.currentState!.validate()) {
         if (_selectedRecordTypes.isEmpty) {
           showMessageDialog(
-            AppLocalizations.of(navigatorKey.currentContext!)!.error,
-            AppLocalizations.of(
-              navigatorKey.currentContext!,
-            )!.select_at_least_one_record_type,
+            AppLocalizations.of(context)!.error,
+            AppLocalizations.of(context)!.select_at_least_one_record_type,
           );
 
           return;
@@ -236,7 +224,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
     }
   }
 
-  void _stop() {
+  void _stop(BuildContext context) {
     try {
       setState(() {
         _isRetrieving = false;
@@ -244,14 +232,11 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
+      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
     } finally {}
   }
 
-  Widget _form() {
+  Widget _form(BuildContext context) {
     return Form(
       key: _formKey,
       child: Column(
@@ -262,17 +247,17 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
             keyboardType: TextInputType.url,
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
-              labelText: AppLocalizations.of(
-                navigatorKey.currentContext!,
-              )!.a_host_or_ip_address,
+              labelText: AppLocalizations.of(context)!.a_host_or_ip_address,
               hintText: 'bitscoper.dev',
             ),
             showCursor: true,
             maxLines: 1,
-            validator: _hostFieldValidator,
+            validator: (String? value) {
+              return _hostFieldValidator(context, value);
+            },
             onChanged: (String value) {},
             onFieldSubmitted: (String value) {
-              _retrieve();
+              _retrieve(context);
             },
           ),
           const SizedBox(height: 16.0),
@@ -285,17 +270,17 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                   keyboardType: TextInputType.url,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
-                    labelText: AppLocalizations.of(
-                      navigatorKey.currentContext!,
-                    )!.dns_provider,
+                    labelText: AppLocalizations.of(context)!.dns_provider,
                     hintText: '9.9.9.9',
                   ),
                   showCursor: true,
                   maxLines: 1,
-                  validator: _providerFieldValidator,
+                  validator: (String? value) {
+                    return _providerFieldValidator(context, value);
+                  },
                   onChanged: (String value) {},
                   onFieldSubmitted: (String value) {
-                    _retrieve();
+                    _retrieve(context);
                   },
                 ),
               ),
@@ -305,9 +290,11 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                 child: ElevatedButton.icon(
                   icon: const Icon(Icons.checklist_rounded),
                   label: Text(
-                    "${_numberFormat.format(_selectedRecordTypes.length)} ${AppLocalizations.of(navigatorKey.currentContext!)!.types}",
+                    "${_numberFormat.format(_selectedRecordTypes.length)} ${AppLocalizations.of(context)!.types}",
                   ),
-                  onPressed: _selectRecordTypes,
+                  onPressed: () {
+                    return _selectRecordTypes(context);
+                  },
                 ),
               ),
             ],
@@ -318,16 +305,20 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 ElevatedButton(
-                  onPressed: _isRetrieving ? null : _retrieve,
-                  child: Text(
-                    AppLocalizations.of(navigatorKey.currentContext!)!.retrieve,
-                  ),
+                  onPressed: _isRetrieving
+                      ? null
+                      : () {
+                          _retrieve(context);
+                        },
+                  child: Text(AppLocalizations.of(context)!.retrieve),
                 ),
                 ElevatedButton(
-                  onPressed: _isRetrieving ? _stop : null,
-                  child: Text(
-                    AppLocalizations.of(navigatorKey.currentContext!)!.stop,
-                  ),
+                  onPressed: _isRetrieving
+                      ? () {
+                          _stop(context);
+                        }
+                      : null,
+                  child: Text(AppLocalizations.of(context)!.stop),
                 ),
               ],
             ),
@@ -371,7 +362,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
     );
   }
 
-  Widget _resultColumn() {
+  Widget _resultColumn(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: _records.map((record) {
@@ -386,21 +377,19 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                 onPressed: () {
                   try {
                     copyToClipboard(
-                      '${record.type} ${AppLocalizations.of(navigatorKey.currentContext!)!.dns_record}',
+                      '${record.type} ${AppLocalizations.of(context)!.dns_record}',
                       record.record,
                     );
                   } catch (error) {
                     debugPrint(error.toString());
 
                     showMessageDialog(
-                      AppLocalizations.of(navigatorKey.currentContext!)!.error,
+                      AppLocalizations.of(context)!.error,
                       error.toString(),
                     );
                   } finally {}
                 },
-                tooltip: AppLocalizations.of(
-                  navigatorKey.currentContext!,
-                )!.copy_to_clipboard,
+                tooltip: AppLocalizations.of(context)!.copy_to_clipboard,
               ),
             ),
           ),
@@ -420,10 +409,10 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _form(),
+            _form(context),
             const SizedBox(height: 16.0),
             if (_isRetrieving) _progressStatus(),
-            _resultColumn(),
+            _resultColumn(context),
           ],
         ),
       ),

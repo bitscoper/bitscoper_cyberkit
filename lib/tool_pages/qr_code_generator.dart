@@ -101,13 +101,13 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
     } finally {}
   }
 
-  void _pickImage() async {
+  void _pickImage(BuildContext context) async {
     try {
       final FilePickerResult? filePickerResult = await FilePicker.platform
           .pickFiles(
             lockParentWindow: true,
             dialogTitle: AppLocalizations.of(
-              navigatorKey.currentContext!,
+              context,
             )!.pick_an_image_file_to_embed_in_qr_code,
             type: FileType.image,
             allowMultiple: false,
@@ -235,7 +235,9 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
           const SizedBox(height: 16.0),
           Center(
             child: ElevatedButton.icon(
-              onPressed: _pickImage,
+              onPressed: () {
+                _pickImage(context);
+              },
               icon: const Icon(Icons.image_rounded),
               label: Text(AppLocalizations.of(context)!.embed_image),
             ),

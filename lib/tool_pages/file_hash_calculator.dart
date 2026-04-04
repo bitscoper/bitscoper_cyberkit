@@ -30,16 +30,14 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
   bool _isCalculating = false;
   List<Map<String, dynamic>> _hashValues = [];
 
-  void _calculate() async {
+  void _calculate(BuildContext context) async {
     try {
       List<Uint8List> files = [];
 
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.any,
         allowMultiple: true,
-        dialogTitle: AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.select_files,
+        dialogTitle: AppLocalizations.of(context)!.select_files,
       );
 
       if (result != null) {
@@ -109,20 +107,20 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
     } finally {}
   }
 
-  Widget _form() {
+  Widget _form(BuildContext context) {
     return Form(
       child: Center(
         child: ElevatedButton(
-          onPressed: _calculate,
-          child: Text(
-            AppLocalizations.of(navigatorKey.currentContext!)!.select_files,
-          ),
+          onPressed: () {
+            _calculate(context);
+          },
+          child: Text(AppLocalizations.of(context)!.select_files),
         ),
       ),
     );
   }
 
-  Widget _startNotice() {
+  Widget _startNotice(BuildContext context) {
     return Center(
       child: Text(
         AppLocalizations.of(
@@ -133,7 +131,7 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
     );
   }
 
-  Widget _resultColumn() {
+  Widget _resultColumn(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -148,9 +146,7 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
                     title: Center(
                       child: Text(
                         hashValue['File Name'],
-                        style: Theme.of(
-                          navigatorKey.currentContext!,
-                        ).textTheme.bodyMedium,
+                        style: Theme.of(context).textTheme.bodyMedium,
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -165,16 +161,14 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
                           onPressed: () {
                             try {
                               copyToClipboard(
-                                "${entry.key} ${AppLocalizations.of(navigatorKey.currentContext!)!.hash}",
+                                "${entry.key} ${AppLocalizations.of(context)!.hash}",
                                 entry.value,
                               );
                             } catch (error) {
                               debugPrint(error.toString());
 
                               showMessageDialog(
-                                AppLocalizations.of(
-                                  navigatorKey.currentContext!,
-                                )!.error,
+                                AppLocalizations.of(context)!.error,
                                 error.toString(),
                               );
                             } finally {}
@@ -203,14 +197,14 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _form(),
+            _form(context),
             const SizedBox(height: 16.0),
             if (!_isCalculating && _hashValues.isEmpty)
-              _startNotice()
+              _startNotice(context)
             else if (_isCalculating)
               const Center(child: CircularProgressIndicator())
             else
-              _resultColumn(),
+              _resultColumn(context),
           ],
         ),
       ),
