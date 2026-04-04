@@ -106,6 +106,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                       EventSink<Object?> sink,
                     ) {
                       showMessageDialog(
+                        context,
                         AppLocalizations.of(context)!.error,
                         error.toString(),
                       );
@@ -122,6 +123,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
       debugPrint(error.toString());
 
       showMessageDialog(
+        navigatorKey.currentContext!,
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );

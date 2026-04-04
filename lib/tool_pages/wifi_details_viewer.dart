@@ -68,6 +68,7 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
       debugPrint(error.toString());
 
       showMessageDialog(
+        navigatorKey.currentContext!,
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
@@ -96,11 +97,12 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
                   icon: const Icon(Icons.copy_rounded),
                   onPressed: () {
                     try {
-                      copyToClipboard(label, value);
+                      copyToClipboard(context, label, value);
                     } catch (error) {
                       debugPrint(error.toString());
 
                       showMessageDialog(
+                        context,
                         AppLocalizations.of(context)!.error,
                         error.toString(),
                       );

@@ -2,19 +2,18 @@
 
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
-import 'package:bitscoper_cyberkit/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-void copyToClipboard(String dataType, String string) {
+void copyToClipboard(BuildContext context, String dataType, String string) {
   try {
     if (dataType.isNotEmpty && string.isNotEmpty) {
       Clipboard.setData(ClipboardData(text: string));
 
-      ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            '$dataType ${AppLocalizations.of(navigatorKey.currentContext!)!.copied_to_clipboard}',
+            '$dataType ${AppLocalizations.of(context)!.copied_to_clipboard}',
           ),
           showCloseIcon: true,
         ),
@@ -24,7 +23,8 @@ void copyToClipboard(String dataType, String string) {
     debugPrint(error.toString());
 
     showMessageDialog(
-      AppLocalizations.of(navigatorKey.currentContext!)!.error,
+      context,
+      AppLocalizations.of(context)!.error,
       error.toString(),
     );
   } finally {}

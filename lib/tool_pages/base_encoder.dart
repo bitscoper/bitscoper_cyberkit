@@ -59,7 +59,11 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
     } finally {}
   }
 
@@ -226,6 +230,7 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
           debugPrint(error.toString());
 
           showMessageDialog(
+            context,
             AppLocalizations.of(context)!.error,
             error.toString(),
           );
@@ -241,11 +246,12 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
                 icon: const Icon(Icons.copy_rounded),
                 onPressed: () {
                   try {
-                    copyToClipboard(entry.key, result);
+                    copyToClipboard(context, entry.key, result);
                   } catch (error) {
                     debugPrint(error.toString());
 
                     showMessageDialog(
+                      context,
                       AppLocalizations.of(context)!.error,
                       error.toString(),
                     );

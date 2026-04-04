@@ -59,6 +59,7 @@ class BluetoothLowEnergyScannerPageState
             debugPrint(error.toString());
 
             showMessageDialog(
+              navigatorKey.currentContext!,
               AppLocalizations.of(navigatorKey.currentContext!)!.error,
               error.toString(),
             );
@@ -66,6 +67,7 @@ class BluetoothLowEnergyScannerPageState
         },
         onError: (error) {
           showMessageDialog(
+            navigatorKey.currentContext!,
             AppLocalizations.of(navigatorKey.currentContext!)!.error,
             error.toString(),
           );
@@ -88,6 +90,7 @@ class BluetoothLowEnergyScannerPageState
       debugPrint(error.toString());
 
       showMessageDialog(
+        navigatorKey.currentContext!,
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
@@ -106,6 +109,7 @@ class BluetoothLowEnergyScannerPageState
       debugPrint(error.toString());
 
       showMessageDialog(
+        navigatorKey.currentContext!,
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );

@@ -76,6 +76,7 @@ Future<void> checkVersion(BuildContext context) async {
       ScaffoldMessenger.of(navigatorKey.currentContext!).hideCurrentSnackBar();
 
       showMessageDialog(
+        navigatorKey.currentContext!,
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         response.statusCode.toString(),
       );
@@ -84,6 +85,7 @@ Future<void> checkVersion(BuildContext context) async {
     ScaffoldMessenger.of(navigatorKey.currentContext!).hideCurrentSnackBar();
 
     showMessageDialog(
+      navigatorKey.currentContext!,
       AppLocalizations.of(navigatorKey.currentContext!)!.error,
       error.toString(),
     );

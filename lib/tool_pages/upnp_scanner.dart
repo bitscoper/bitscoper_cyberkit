@@ -79,6 +79,7 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
       debugPrint(error.toString());
 
       showMessageDialog(
+        navigatorKey.currentContext!,
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
@@ -93,7 +94,11 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
     } finally {
       setState(() {
         _isScanning = false;
@@ -111,7 +116,11 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
 
       return AppLocalizations.of(context)!.unknown;
     } finally {}
@@ -131,7 +140,11 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
 
       return AppLocalizations.of(context)!.unknown;
     } finally {}
@@ -172,7 +185,11 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
 
       return dump;
     } finally {}

@@ -1,13 +1,17 @@
 /* By Abdullah As-Sadeed */
 
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
-import 'package:bitscoper_cyberkit/main.dart';
 import 'package:flutter/material.dart';
 
-void showMessageDialog(String title, String message, {void Function()? onOK}) {
+void showMessageDialog(
+  BuildContext context,
+  String title,
+  String message, {
+  void Function()? onOK,
+}) {
   try {
     showDialog(
-      context: navigatorKey.currentContext!,
+      context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(title),
@@ -23,11 +27,6 @@ void showMessageDialog(String title, String message, {void Function()? onOK}) {
                   Navigator.of(context).pop();
                 } catch (error) {
                   debugPrint(error.toString());
-
-                  showMessageDialog(
-                    AppLocalizations.of(context)!.error,
-                    error.toString(),
-                  );
                 } finally {}
               },
               child: Text(AppLocalizations.of(context)!.ok),

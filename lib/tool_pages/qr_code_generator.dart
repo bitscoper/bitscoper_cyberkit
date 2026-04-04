@@ -83,6 +83,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                       debugPrint(error.toString());
 
                       showMessageDialog(
+                        context,
                         AppLocalizations.of(context)!.error,
                         error.toString(),
                       );
@@ -97,7 +98,11 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
     } finally {}
   }
 
@@ -126,6 +131,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
       debugPrint(error.toString());
 
       showMessageDialog(
+        navigatorKey.currentContext!,
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
@@ -368,6 +374,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                       });
                     } catch (error) {
                       showMessageDialog(
+                        context,
                         AppLocalizations.of(context)!.error,
                         error.toString(),
                       );
@@ -410,6 +417,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                       });
                     } catch (error) {
                       showMessageDialog(
+                        context,
                         AppLocalizations.of(context)!.error,
                         error.toString(),
                       );
@@ -452,6 +460,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                       });
                     } catch (error) {
                       showMessageDialog(
+                        context,
                         AppLocalizations.of(context)!.error,
                         error.toString(),
                       );
@@ -576,6 +585,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
     } catch (error) {
       debugPrint(error.toString());
       showMessageDialog(
+        navigatorKey.currentContext!,
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );

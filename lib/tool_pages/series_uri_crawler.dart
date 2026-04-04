@@ -138,6 +138,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
       debugPrint(error.toString());
 
       showMessageDialog(
+        navigatorKey.currentContext!,
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
@@ -156,7 +157,11 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
     } finally {}
   }
 
@@ -296,6 +301,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                   onPressed: () {
                     try {
                       copyToClipboard(
+                        context,
                         AppLocalizations.of(context)!.uri,
                         entry.key,
                       );
@@ -303,6 +309,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                       debugPrint(error.toString());
 
                       showMessageDialog(
+                        context,
                         AppLocalizations.of(context)!.error,
                         error.toString(),
                       );

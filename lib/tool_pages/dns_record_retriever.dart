@@ -92,6 +92,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                                   debugPrint(error.toString());
 
                                   showMessageDialog(
+                                    context,
                                     AppLocalizations.of(context)!.error,
                                     error.toString(),
                                   );
@@ -111,6 +112,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                             debugPrint(error.toString());
 
                             showMessageDialog(
+                              context,
                               AppLocalizations.of(context)!.error,
                               error.toString(),
                             );
@@ -128,6 +130,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
       debugPrint(error.toString());
 
       showMessageDialog(
+        navigatorKey.currentContext!,
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
@@ -155,6 +158,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
       if (_formKey.currentState!.validate()) {
         if (_selectedRecordTypes.isEmpty) {
           showMessageDialog(
+            context,
             AppLocalizations.of(context)!.error,
             AppLocalizations.of(context)!.select_at_least_one_record_type,
           );
@@ -211,6 +215,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
       debugPrint(error.toString());
 
       showMessageDialog(
+        navigatorKey.currentContext!,
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
@@ -232,7 +237,11 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
     } finally {}
   }
 
@@ -344,6 +353,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                 );
               } else if (snapshot.hasError) {
                 showMessageDialog(
+                  context,
                   AppLocalizations.of(context)!.error,
                   snapshot.toString(),
                 );
@@ -377,6 +387,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                 onPressed: () {
                   try {
                     copyToClipboard(
+                      context,
                       '${record.type} ${AppLocalizations.of(context)!.dns_record}',
                       record.record,
                     );
@@ -384,6 +395,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                     debugPrint(error.toString());
 
                     showMessageDialog(
+                      context,
                       AppLocalizations.of(context)!.error,
                       error.toString(),
                     );

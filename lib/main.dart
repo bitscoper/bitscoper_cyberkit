@@ -113,6 +113,7 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
       debugPrint(error.toString());
 
       showMessageDialog(
+        navigatorKey.currentContext!,
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
@@ -159,6 +160,7 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
       debugPrint(error.toString());
 
       showMessageDialog(
+        navigatorKey.currentContext!,
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
@@ -196,6 +198,7 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
       debugPrint(error.toString());
 
       showMessageDialog(
+        navigatorKey.currentContext!,
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
@@ -227,6 +230,7 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
       debugPrint(error.toString());
 
       showMessageDialog(
+        navigatorKey.currentContext!,
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );

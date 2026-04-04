@@ -64,6 +64,7 @@ Future<void> requestPermissions(
         .join(', ');
 
     showMessageDialog(
+      context,
       AppLocalizations.of(context)!.permissions,
       '$permissionNames ${AppLocalizations.of(context)!.permissions_will_be_used}',
       onOK: () async {
@@ -78,6 +79,7 @@ Future<void> requestPermissions(
           final String details = _formatPermissionResults(permissionStatuses);
 
           showMessageDialog(
+            navigatorKey.currentContext!,
             AppLocalizations.of(navigatorKey.currentContext!)!.permissions,
             details,
             onOK: () async {
@@ -98,7 +100,11 @@ Future<void> requestPermissions(
   } catch (error) {
     debugPrint(error.toString());
 
-    showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+    showMessageDialog(
+      context,
+      AppLocalizations.of(context)!.error,
+      error.toString(),
+    );
   } finally {}
 }
 
