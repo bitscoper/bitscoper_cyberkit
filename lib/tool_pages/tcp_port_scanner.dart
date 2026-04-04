@@ -49,7 +49,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
     }
   }
 
-  Future<void> _scan() async {
+  Future<void> _scan(BuildContext context) async {
     try {
       if (_formKey.currentState!.validate()) {
         setState(() {
@@ -76,19 +76,15 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
 
                     final NumberFormat numberFormat = NumberFormat(
                       '#',
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.localeName,
+                      AppLocalizations.of(context)!.localeName,
                     );
                     final DateFormat timeFormat = DateFormat(
                       'HH:mm:ss',
-                      AppLocalizations.of(
-                        navigatorKey.currentContext!,
-                      )!.localeName,
+                      AppLocalizations.of(context)!.localeName,
                     );
 
                     _scanInformation =
-                        '${AppLocalizations.of(navigatorKey.currentContext!)!.scanned_ports}: ${numberFormat.format(report.ports.length)}\n${AppLocalizations.of(navigatorKey.currentContext!)!.elapsed_time}: ${timeFormat.format(DateTime.fromMillisecondsSinceEpoch(_stopwatch.elapsedMilliseconds, isUtc: true))}';
+                        '${AppLocalizations.of(context)!.scanned_ports}: ${numberFormat.format(report.ports.length)}\n${AppLocalizations.of(context)!.elapsed_time}: ${timeFormat.format(DateTime.fromMillisecondsSinceEpoch(_stopwatch.elapsedMilliseconds, isUtc: true))}';
                   });
 
                   sink.add(report);
@@ -97,15 +93,9 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                   sink.close();
 
                   await sendNotification(
-                    title: AppLocalizations.of(
-                      navigatorKey.currentContext!,
-                    )!.tcp_port_scanner,
-                    subtitle: AppLocalizations.of(
-                      navigatorKey.currentContext!,
-                    )!.bitscoper_cyberkit,
-                    body: AppLocalizations.of(
-                      navigatorKey.currentContext!,
-                    )!.scanned,
+                    title: AppLocalizations.of(context)!.tcp_port_scanner,
+                    subtitle: AppLocalizations.of(context)!.bitscoper_cyberkit,
+                    body: AppLocalizations.of(context)!.scanned,
                     payload: "TCP_Port_Scanner",
                   );
                 },
@@ -116,9 +106,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                       EventSink<Object?> sink,
                     ) {
                       showMessageDialog(
-                        AppLocalizations.of(
-                          navigatorKey.currentContext!,
-                        )!.error,
+                        AppLocalizations.of(context)!.error,
                         error.toString(),
                       );
 
@@ -173,7 +161,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                     },
                     onChanged: (String value) {},
                     onFieldSubmitted: (String value) {
-                      _scan();
+                      _scan(context);
                     },
                   ),
                 ),
@@ -195,7 +183,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                     maxLines: 1,
                     onChanged: (String value) {},
                     onFieldSubmitted: (String value) {
-                      _scan();
+                      _scan(context);
                     },
                   ),
                 ),
@@ -207,7 +195,9 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
             child: _isScanning
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
-                    onPressed: _scan,
+                    onPressed: () {
+                      _scan(context);
+                    },
                     child: Text(AppLocalizations.of(context)!.scan),
                   ),
           ),

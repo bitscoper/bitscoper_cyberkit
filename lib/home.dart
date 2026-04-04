@@ -50,6 +50,7 @@ class _ToolCardWidget extends StatelessWidget {
         onTap: () async {
           try {
             await requestPermissions(
+              context,
               permissionList.whereType<Permission>().toList(),
             );
 
@@ -146,7 +147,7 @@ class HomePage extends StatelessWidget {
                   leading: const Icon(Icons.update_rounded),
                   onTap: () {
                     try {
-                      checkVersion();
+                      checkVersion(context);
                     } catch (error) {
                       debugPrint(error.toString());
 
