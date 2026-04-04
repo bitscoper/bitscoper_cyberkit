@@ -17,15 +17,13 @@ String skipBuildNumber(String version) {
   return version.split('+').first;
 }
 
-Future<void> checkVersion() async {
+Future<void> checkVersion(BuildContext context) async {
   try {
-    Navigator.of(navigatorKey.currentContext!).pop();
+    Navigator.of(context).pop();
 
-    ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(
-          AppLocalizations.of(navigatorKey.currentContext!)!.checking_version,
-        ),
+        content: Text(AppLocalizations.of(context)!.checking_version),
         showCloseIcon: true,
       ),
     );
