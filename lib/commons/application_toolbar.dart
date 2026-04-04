@@ -31,6 +31,7 @@ class _LanguageTile extends StatelessWidget {
           debugPrint(error.toString());
 
           showMessageDialog(
+            context,
             AppLocalizations.of(context)!.error,
             error.toString(),
           );
@@ -119,6 +120,7 @@ class ApplicationToolBar extends StatelessWidget
               debugPrint(error.toString());
 
               showMessageDialog(
+                context,
                 AppLocalizations.of(context)!.error,
                 error.toString(),
               );

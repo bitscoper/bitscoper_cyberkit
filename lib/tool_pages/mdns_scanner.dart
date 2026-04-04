@@ -42,6 +42,7 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
       debugPrint(error.toString());
 
       showMessageDialog(
+        navigatorKey.currentContext!,
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
@@ -58,7 +59,11 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
     } finally {}
   }
 
@@ -459,6 +464,7 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
           );
         } else if (snapshot.hasError) {
           showMessageDialog(
+            context,
             AppLocalizations.of(context)!.error,
             snapshot.error.toString(),
           );

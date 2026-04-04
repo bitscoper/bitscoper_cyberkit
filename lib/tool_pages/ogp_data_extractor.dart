@@ -65,6 +65,7 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
       debugPrint(error.toString());
 
       showMessageDialog(
+        navigatorKey.currentContext!,
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
@@ -84,11 +85,12 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
           icon: const Icon(Icons.copy_rounded),
           onPressed: () {
             try {
-              copyToClipboard(title, value ?? 'N/A');
+              copyToClipboard(context, title, value ?? 'N/A');
             } catch (error) {
               debugPrint(error.toString());
 
               showMessageDialog(
+                context,
                 AppLocalizations.of(context)!.error,
                 error.toString(),
               );

@@ -71,7 +71,11 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
     } finally {}
   }
 
@@ -90,7 +94,11 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
       return error.toString();
     }
   }
@@ -103,7 +111,11 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
 
       return error.toString();
     } finally {}
@@ -126,7 +138,11 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
 
       return Colors.transparent;
     } finally {}
@@ -354,6 +370,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                   onPressed: () {
                     try {
                       copyToClipboard(
+                        context,
                         AppLocalizations.of(context)!.vector_string,
                         _vectorString,
                       );
@@ -361,6 +378,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                       debugPrint(error.toString());
 
                       showMessageDialog(
+                        context,
                         AppLocalizations.of(context)!.error,
                         error.toString(),
                       );
