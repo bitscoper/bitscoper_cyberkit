@@ -101,6 +101,7 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
       debugPrint(error.toString());
 
       showMessageDialog(
+        navigatorKey.currentContext!,
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
@@ -161,6 +162,7 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
                           onPressed: () {
                             try {
                               copyToClipboard(
+                                context,
                                 "${entry.key} ${AppLocalizations.of(context)!.hash}",
                                 entry.value,
                               );
@@ -168,6 +170,7 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
                               debugPrint(error.toString());
 
                               showMessageDialog(
+                                context,
                                 AppLocalizations.of(context)!.error,
                                 error.toString(),
                               );
