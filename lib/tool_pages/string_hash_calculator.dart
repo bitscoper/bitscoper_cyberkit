@@ -64,7 +64,11 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
     } finally {}
   }
 
@@ -121,6 +125,7 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
                   onPressed: () {
                     try {
                       copyToClipboard(
+                        context,
                         "${entry.key} ${AppLocalizations.of(context)!.hash}",
                         entry.value,
                       );
@@ -128,6 +133,7 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
                       debugPrint(error.toString());
 
                       showMessageDialog(
+                        context,
                         AppLocalizations.of(context)!.error,
                         error.toString(),
                       );

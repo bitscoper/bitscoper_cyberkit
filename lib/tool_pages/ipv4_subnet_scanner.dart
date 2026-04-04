@@ -67,7 +67,11 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
 
       setState(() {
         _isScanning = false;
@@ -83,7 +87,11 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
     } catch (error) {
       debugPrint(error.toString());
 
-      showMessageDialog(AppLocalizations.of(context)!.error, error.toString());
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
     } finally {}
   }
 

@@ -74,6 +74,7 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
       debugPrint(error.toString());
 
       showMessageDialog(
+        navigatorKey.currentContext!,
         AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
