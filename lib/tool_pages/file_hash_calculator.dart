@@ -34,7 +34,7 @@ class FileHashCalculatorPageState extends State<FileHashCalculatorPage> {
     try {
       List<Uint8List> files = [];
 
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
+      FilePickerResult? result = await FilePicker.pickFiles(
         type: FileType.any,
         allowMultiple: true,
         dialogTitle: AppLocalizations.of(context)!.select_files,
