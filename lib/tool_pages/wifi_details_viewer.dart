@@ -96,17 +96,7 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
               : IconButton(
                   icon: const Icon(Icons.copy_rounded),
                   onPressed: () {
-                    try {
-                      copyToClipboard(context, label, value);
-                    } catch (error) {
-                      debugPrint(error.toString());
-
-                      showMessageDialog(
-                        context,
-                        AppLocalizations.of(context)!.error,
-                        error.toString(),
-                      );
-                    } finally {}
+                    copyToClipboard(context, label, value);
                   },
                   tooltip: AppLocalizations.of(context)!.copy_to_clipboard,
                 ),

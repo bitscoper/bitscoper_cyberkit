@@ -65,7 +65,7 @@ class _MorseCodeTranslatorPageState
     }
   }
 
-  void _encode(BuildContext context) {
+  void _encode(BuildContext context, WidgetRef ref) {
     try {
       if (_stringFormKey.currentState!.validate()) {
         final MorseCode translator = ref.read(morseCodeTranslatorProvider);
@@ -101,7 +101,7 @@ class _MorseCodeTranslatorPageState
     }
   }
 
-  void _decode(BuildContext context) {
+  void _decode(BuildContext context, WidgetRef ref) {
     try {
       if (_morseCodeFormKey.currentState!.validate()) {
         final MorseCode translator = ref.read(morseCodeTranslatorProvider);
@@ -129,7 +129,7 @@ class _MorseCodeTranslatorPageState
     } finally {}
   }
 
-  Widget _stringForm(BuildContext context) {
+  Widget _stringForm(BuildContext context, WidgetRef ref) {
     final TextEditingController editingController = ref.watch(
       stringEditingControllerProvider,
     );
@@ -166,10 +166,10 @@ class _MorseCodeTranslatorPageState
               return _stringFieldValidator(context, value);
             },
             onChanged: (String? value) {
-              _encode(context);
+              _encode(context, ref);
             },
             onFieldSubmitted: (String value) {
-              _encode(context);
+              _encode(context, ref);
             },
           ),
         ],
@@ -177,7 +177,7 @@ class _MorseCodeTranslatorPageState
     );
   }
 
-  Widget _morseCodeForm(BuildContext context) {
+  Widget _morseCodeForm(BuildContext context, WidgetRef ref) {
     final TextEditingController editingController = ref.watch(
       morseCodeEditingControllerProvider,
     );
@@ -209,10 +209,10 @@ class _MorseCodeTranslatorPageState
           return _morseCodeFieldValidator(context, value);
         },
         onChanged: (String? value) {
-          _decode(context);
+          _decode(context, ref);
         },
         onFieldSubmitted: (String value) {
-          _decode(context);
+          _decode(context, ref);
         },
       ),
     );
@@ -229,9 +229,9 @@ class _MorseCodeTranslatorPageState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _stringForm(context),
+            _stringForm(context, ref),
             const SizedBox(height: 16.0),
-            _morseCodeForm(context),
+            _morseCodeForm(context, ref),
           ],
         ),
       ),
