@@ -78,7 +78,7 @@ class _ToolCardWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Icon(icon, size: 32),
+              Icon(icon, size: 32.0),
               const SizedBox(height: 16.0 * 0.75), // 12.0
               Text(
                 title,

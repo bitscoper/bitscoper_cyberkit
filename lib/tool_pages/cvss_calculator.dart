@@ -223,7 +223,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               labelText: AppLocalizations.of(context)!.attack_vector,
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 16.0),
           DropdownButtonFormField<AttackComplexity>(
             initialValue: _attackComplexity,
             onChanged: _onAttackComplexityChanged,
@@ -237,7 +237,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               labelText: AppLocalizations.of(context)!.attack_complexity,
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 16.0),
           DropdownButtonFormField<PrivilegesRequired>(
             initialValue: _privilegesRequired,
             onChanged: _onPrevilegeRequirementChanged,
@@ -253,7 +253,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               labelText: AppLocalizations.of(context)!.privileges_required,
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 16.0),
           DropdownButtonFormField<UserInteraction>(
             initialValue: _userInteraction,
             onChanged: _onUserInteractionValueChanged,
@@ -267,7 +267,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               labelText: AppLocalizations.of(context)!.user_interaction,
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 16.0),
           DropdownButtonFormField<Scope>(
             initialValue: _scope,
             onChanged: _onScopeChanged,
@@ -281,7 +281,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               labelText: AppLocalizations.of(context)!.scope,
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 16.0),
           DropdownButtonFormField<ConfidentialityImpact>(
             initialValue: _confidentialityImpact,
             onChanged: _onConfidentialityImpactChanged,
@@ -297,7 +297,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               labelText: AppLocalizations.of(context)!.confidentiality_impact,
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 16.0),
           DropdownButtonFormField<IntegrityImpact>(
             initialValue: _integrityImpact,
             onChanged: _onIntigrityImpactChanged,
@@ -311,7 +311,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               labelText: AppLocalizations.of(context)!.integrity_impact,
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 16.0),
           DropdownButtonFormField<AvailabilityImpact>(
             initialValue: _availabilityImpact,
             onChanged: _onAvailabilityImpactChanged,
@@ -342,18 +342,21 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: _getSeverityColor(context).withValues(alpha: 0.10),
-                border: Border.all(color: _getSeverityColor(context), width: 2),
+                border: Border.all(
+                  color: _getSeverityColor(context),
+                  width: 2.0,
+                ),
               ),
               child: Text(
                 _baseScore.toStringAsFixed(1),
                 style: TextStyle(
-                  fontSize: 32,
+                  fontSize: 32.0,
                   fontWeight: FontWeight.bold,
                   color: _getSeverityColor(context),
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 16.0),
             Chip(
               label: Text(
                 _getSeverityText(context),
@@ -366,7 +369,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
               children: <Widget>[
                 Flexible(child: SelectableText(_vectorString)),
                 IconButton(
-                  icon: const Icon(Icons.copy_rounded, size: 16),
+                  icon: const Icon(Icons.copy_rounded, size: 16.0),
                   onPressed: () {
                     copyToClipboard(
                       context,

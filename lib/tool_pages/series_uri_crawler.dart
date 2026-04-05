@@ -288,7 +288,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
       children: <Widget>[
         for (MapEntry<String, dynamic> entry in webPages.entries)
           Padding(
-            padding: const EdgeInsets.only(bottom: 8),
+            padding: const EdgeInsets.only(bottom: 8.0),
             child: Card(
               child: ListTile(
                 leading: const Icon(Icons.link_rounded),
