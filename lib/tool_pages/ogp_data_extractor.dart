@@ -84,17 +84,7 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
         trailing: IconButton(
           icon: const Icon(Icons.copy_rounded),
           onPressed: () {
-            try {
-              copyToClipboard(context, title, value ?? 'N/A');
-            } catch (error) {
-              debugPrint(error.toString());
-
-              showMessageDialog(
-                context,
-                AppLocalizations.of(context)!.error,
-                error.toString(),
-              );
-            } finally {}
+            copyToClipboard(context, title, value ?? 'N/A');
           },
           tooltip: AppLocalizations.of(context)!.copy_to_clipboard,
         ),
