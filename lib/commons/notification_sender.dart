@@ -22,7 +22,8 @@ Future<void> sendNotification({
   final String androidMonochromeIconName = "icon_monochrome";
   final String androidIconName = "icon";
   final String windowsIconPath = "assets/icon/icon.ico";
-  final String linuxSoundTheme = "bell-window-system";
+  final String linuxSoundTheme =
+      "bell-window-system"; // https://0pointer.de/public/sound-naming-spec.html
   final String linuxActionName = "default_linux_notification_action_name";
 
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -31,9 +32,7 @@ Future<void> sendNotification({
   final LinuxInitializationSettings initializationSettingsLinux =
       LinuxInitializationSettings(
         defaultIcon: AssetsLinuxIcon(iconPath),
-        defaultSound: ThemeLinuxSound(
-          linuxSoundTheme,
-        ), // https://0pointer.de/public/sound-naming-spec.html
+        defaultSound: ThemeLinuxSound(linuxSoundTheme),
         defaultActionName: linuxActionName,
       );
 

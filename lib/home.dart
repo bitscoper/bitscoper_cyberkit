@@ -49,10 +49,12 @@ class _ToolCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
         onTap: () async {
           try {
-            await requestPermissions(
-              context,
-              permissionList.whereType<Permission>().toList(),
-            );
+            if (permissionList.isNotEmpty) {
+              await requestPermissions(
+                context,
+                permissionList.whereType<Permission>().toList(),
+              );
+            }
 
             Navigator.push(
               navigatorKey.currentContext!,

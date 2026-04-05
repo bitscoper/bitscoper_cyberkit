@@ -56,47 +56,51 @@ Future<void> requestPermissions(
   List<Permission> permissions,
 ) async {
   try {
-    final String permissionNames = permissions
-        .map(_makePermissionNameReadable)
-        .map((String permission) {
-          return '"$permission"';
-        })
-        .join(', ');
+    if (permissions.isNotEmpty) {
+      final String permissionNames = permissions
+          .map(_makePermissionNameReadable)
+          .map((String permission) {
+            return '"$permission"';
+          })
+          .join(', ');
 
-    showMessageDialog(
-      context,
-      AppLocalizations.of(context)!.permissions,
-      '$permissionNames ${AppLocalizations.of(context)!.permissions_will_be_used}',
-      onOK: () async {
-        final Map<Permission, PermissionStatus> permissionStatuses =
-            await permissions.request();
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.permissions,
+        '$permissionNames ${AppLocalizations.of(context)!.permissions_will_be_used}',
+        onOK: () async {
+          final Map<Permission, PermissionStatus> permissionStatuses =
+              await permissions.request();
 
-        if (permissionStatuses.values.any((PermissionStatus permissionStatus) {
-          return (permissionStatus.isDenied ||
-              permissionStatus.isPermanentlyDenied ||
-              permissionStatus.isRestricted);
-        })) {
-          final String details = _formatPermissionResults(permissionStatuses);
+          if (permissionStatuses.values.any((
+            PermissionStatus permissionStatus,
+          ) {
+            return (permissionStatus.isDenied ||
+                permissionStatus.isPermanentlyDenied ||
+                permissionStatus.isRestricted);
+          })) {
+            final String details = _formatPermissionResults(permissionStatuses);
 
-          showMessageDialog(
-            navigatorKey.currentContext!,
-            AppLocalizations.of(navigatorKey.currentContext!)!.permissions,
-            details,
-            onOK: () async {
-              if (permissionStatuses.values.any((
-                PermissionStatus permissionStatus,
-              ) {
-                return permissionStatus.isPermanentlyDenied;
-              })) {
-                await openAppSettings();
-              }
-            },
-          );
+            showMessageDialog(
+              navigatorKey.currentContext!,
+              AppLocalizations.of(navigatorKey.currentContext!)!.permissions,
+              details,
+              onOK: () async {
+                if (permissionStatuses.values.any((
+                  PermissionStatus permissionStatus,
+                ) {
+                  return permissionStatus.isPermanentlyDenied;
+                })) {
+                  await openAppSettings();
+                }
+              },
+            );
 
-          return;
-        }
-      },
-    );
+            return;
+          }
+        },
+      );
+    }
   } catch (error) {
     debugPrint(error.toString());
 
