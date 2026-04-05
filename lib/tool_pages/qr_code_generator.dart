@@ -382,9 +382,9 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,
                     child: Container(
-                      height: 32,
+                      height: 32.0,
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: Colors.grey),
+                        border: Border.all(width: 1.0, color: Colors.grey),
                         borderRadius: BorderRadius.circular(8.0),
                         color: _eyeColor,
                       ),
@@ -425,9 +425,9 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,
                     child: Container(
-                      height: 32,
+                      height: 32.0,
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: Colors.grey),
+                        border: Border.all(width: 1.0, color: Colors.grey),
                         borderRadius: BorderRadius.circular(8.0),
                         color: _dataModuleColor,
                       ),
@@ -468,9 +468,9 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,
                     child: Container(
-                      height: 32,
+                      height: 32.0,
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: Colors.grey),
+                        border: Border.all(width: 1.0, color: Colors.grey),
                         borderRadius: BorderRadius.circular(8.0),
                         color: _backgroundColor,
                       ),
@@ -642,7 +642,7 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                   : _startNotice(context),
             ),
           ),
-          const Divider(height: 1),
+          const Divider(height: 1.0),
           Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(32.0),

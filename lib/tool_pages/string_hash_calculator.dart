@@ -6,29 +6,67 @@ import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/copy_to_clipboard.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
+import 'package:bitscoper_cyberkit/main.dart';
 import 'package:crypto/crypto.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
-class StringHashCalculatorPage extends StatefulWidget {
-  const StringHashCalculatorPage({super.key});
+final NotifierProvider<StringNotifier, String> stringNotifierProvider =
+    NotifierProvider.autoDispose<StringNotifier, String>(() {
+      return StringNotifier();
+    });
+
+class StringNotifier extends Notifier<String> {
+  late final TextEditingController controller;
 
   @override
-  StringHashCalculatorPageState createState() {
-    return StringHashCalculatorPageState();
+  String build() {
+    controller = TextEditingController();
+
+    controller.addListener(() {
+      state = controller.text;
+    });
+
+    ref.onDispose(controller.dispose);
+
+    return "";
   }
 }
 
-class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
+final Provider<Map<String, String>> hashProvider =
+    Provider<Map<String, String>>((Ref ref) {
+      try {
+        final String string = ref.watch(stringNotifierProvider);
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _stringEditingController =
-      TextEditingController();
+        if (string.isNotEmpty) {
+          final Uint8List bytes = utf8.encode(string);
 
-  Map<String, String> _hashValues = {};
+          return {
+            'MD5': md5.convert(bytes).toString(),
+            'SHA1': sha1.convert(bytes).toString(),
+            'SHA224': sha224.convert(bytes).toString(),
+            'SHA256': sha256.convert(bytes).toString(),
+            'SHA384': sha384.convert(bytes).toString(),
+            'SHA512': sha512.convert(bytes).toString(),
+          };
+        } else {
+          return {};
+        }
+      } catch (error) {
+        debugPrint(error.toString());
+
+        showMessageDialog(
+          navigatorKey.currentContext!,
+          AppLocalizations.of(navigatorKey.currentContext!)!.error,
+          error.toString(),
+        );
+
+        return {};
+      } finally {}
+    });
+
+class StringHashCalculatorPage extends ConsumerWidget {
+  const StringHashCalculatorPage({super.key});
 
   String? _stringFieldValidator(BuildContext context, String? value) {
     if ((value == null) || value.isEmpty) {
@@ -38,45 +76,13 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
     }
   }
 
-  void _calculate(BuildContext context) {
-    try {
-      if (_formKey.currentState!.validate()) {
-        setState(() {
-          final Uint8List bytes = utf8.encode(_stringEditingController.text);
+  Widget _form(BuildContext context, WidgetRef ref) {
+    final StringNotifier notifier = ref.read(stringNotifierProvider.notifier);
+    final TextEditingController editingController = notifier.controller;
 
-          final String md5Hash = md5.convert(bytes).toString();
-          final String sha1Hash = sha1.convert(bytes).toString();
-          final String sha224Hash = sha224.convert(bytes).toString();
-          final String sha256Hash = sha256.convert(bytes).toString();
-          final String sha384Hash = sha384.convert(bytes).toString();
-          final String sha512Hash = sha512.convert(bytes).toString();
-
-          _hashValues = {
-            'MD5': md5Hash,
-            'SHA1': sha1Hash,
-            'SHA224': sha224Hash,
-            'SHA256': sha256Hash,
-            'SHA384': sha384Hash,
-            'SHA512': sha512Hash,
-          };
-        });
-      }
-    } catch (error) {
-      debugPrint(error.toString());
-
-      showMessageDialog(
-        context,
-        AppLocalizations.of(context)!.error,
-        error.toString(),
-      );
-    } finally {}
-  }
-
-  Widget _form(BuildContext context) {
     return Form(
-      key: _formKey,
       child: TextFormField(
-        controller: _stringEditingController,
+        controller: editingController,
         keyboardType: TextInputType.multiline,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
@@ -88,12 +94,8 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
         validator: (String? value) {
           return _stringFieldValidator(context, value);
         },
-        onChanged: (String value) {
-          _calculate(context);
-        },
-        onFieldSubmitted: (String value) {
-          _calculate(context);
-        },
+        onChanged: (String value) {},
+        onFieldSubmitted: (String value) {},
       ),
     );
   }
@@ -109,37 +111,43 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
     );
   }
 
-  Widget _resultColumn(BuildContext context) {
+  Widget _resultColumn(
+    BuildContext context,
+    WidgetRef ref,
+    Map<String, String> hashes,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        for (MapEntry<String, dynamic> entry in _hashValues.entries)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
-            child: Card(
-              child: ListTile(
-                title: Text(entry.key),
-                subtitle: Text(entry.value),
-                trailing: IconButton(
-                  icon: const Icon(Icons.copy_rounded),
-                  onPressed: () {
-                    copyToClipboard(
-                      context,
-                      "${entry.key} ${AppLocalizations.of(context)!.hash}",
-                      entry.value,
-                    );
-                  },
-                  tooltip: AppLocalizations.of(context)!.copy_to_clipboard,
-                ),
+      children: hashes.entries.map((MapEntry<String, String> entry) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 16.0),
+          child: Card(
+            child: ListTile(
+              title: Text(entry.key),
+              subtitle: Text(entry.value),
+              trailing: IconButton(
+                icon: const Icon(Icons.copy_rounded),
+                onPressed: () {
+                  copyToClipboard(
+                    context,
+                    "${entry.key} ${AppLocalizations.of(context)!.hash}",
+                    entry.value,
+                  );
+                },
+                tooltip: AppLocalizations.of(context)!.copy_to_clipboard,
               ),
             ),
           ),
-      ],
+        );
+      }).toList(),
     );
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final String string = ref.watch(stringNotifierProvider);
+    final Map<String, String> hashes = ref.watch(hashProvider);
+
     return Scaffold(
       appBar: ApplicationToolBar(
         title: AppLocalizations.of(context)!.string_hash_calculator,
@@ -149,21 +157,14 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _form(context),
+            _form(context, ref),
             const SizedBox(height: 16.0),
-            _stringEditingController.text.isNotEmpty
-                ? _resultColumn(context)
+            string.isNotEmpty
+                ? _resultColumn(context, ref, hashes)
                 : _startNotice(context),
           ],
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _stringEditingController.dispose();
-
-    super.dispose();
   }
 }
