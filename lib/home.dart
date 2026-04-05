@@ -136,7 +136,7 @@ class HomePage extends StatelessWidget {
                               } else if (snapshot.hasError) {
                                 return Text(snapshot.error.toString());
                               } else {
-                                return Text(snapshot.data ?? '');
+                                return Text(snapshot.data ?? "");
                               }
                             },
                       ),
