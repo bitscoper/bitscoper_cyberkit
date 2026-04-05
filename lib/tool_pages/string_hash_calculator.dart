@@ -151,9 +151,9 @@ class StringHashCalculatorPageState extends State<StringHashCalculatorPage> {
           children: <Widget>[
             _form(context),
             const SizedBox(height: 16.0),
-            _stringEditingController.text.isEmpty
-                ? _startNotice(context)
-                : _resultColumn(context),
+            _stringEditingController.text.isNotEmpty
+                ? _resultColumn(context)
+                : _startNotice(context),
           ],
         ),
       ),

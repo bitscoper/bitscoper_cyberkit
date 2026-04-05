@@ -36,7 +36,7 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
 
   double _baseScore = 0.0;
   QualitativeSeverityRating _severityRating = QualitativeSeverityRating.none;
-  String _vectorString = '';
+  String _vectorString = "";
 
   Widget _subTitle(BuildContext context) {
     return Center(

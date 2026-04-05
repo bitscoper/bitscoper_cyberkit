@@ -56,7 +56,7 @@ class PingerPageState extends State<PingerPage> {
           final String response = (
             await Ping(
               _hostEditingController.text.trim(),
-              encoding: const Utf8Codec(),
+              encoding: const Utf8Codec(allowMalformed: false),
               count: 1,
             ).stream.first,
           ).toString();
@@ -72,9 +72,9 @@ class PingerPageState extends State<PingerPage> {
               _results.insert(
                 0,
                 PingResult(
-                  match.group(1)?.trim() ?? '',
-                  match.group(2)?.trim() ?? '',
-                  match.group(3)?.trim() ?? '',
+                  match.group(1)?.trim() ?? "",
+                  match.group(2)?.trim() ?? "",
+                  match.group(3)?.trim() ?? "",
                 ),
               );
             });

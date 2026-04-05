@@ -39,7 +39,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
 
   bool _isScanning = false;
   List<int> _openPorts = [];
-  String _scanInformation = '';
+  String _scanInformation = "";
 
   String? _hostFieldValidator(BuildContext context, String? value) {
     if ((value == null) || value.isEmpty) {

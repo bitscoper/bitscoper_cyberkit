@@ -6,66 +6,53 @@ import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/copy_to_clipboard.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
-class BaseEncoderPage extends StatefulWidget {
-  const BaseEncoderPage({super.key});
+final NotifierProvider<StringNotifier, String> stringNotifierProvider =
+    NotifierProvider.autoDispose<StringNotifier, String>(() {
+      return StringNotifier();
+    });
+
+class StringNotifier extends Notifier<String> {
+  late final TextEditingController controller;
 
   @override
-  BaseEncoderPageState createState() {
-    return BaseEncoderPageState();
+  String build() {
+    controller = TextEditingController();
+    controller.addListener(() {
+      state = controller.text;
+    });
+
+    ref.onDispose(controller.dispose);
+
+    return "";
   }
 }
 
-class BaseEncoderPageState extends State<BaseEncoderPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
+final Provider<Map<String, String>> basesProvider =
+    Provider<Map<String, String>>(
+      (Ref ref) => {
+        'Binary (Base2)': base2,
+        'Ternary (Base3)': base3,
+        'Quaternary (Base4)': base4,
+        'Quinary (Base5)': base5,
+        'Senary (Base6)': base6,
+        'Octal (Base8)': base8,
+        'Decimal (Base10)': base10,
+        'Duodecimal (Base12)': base12,
+        'Hexadecimal (Base16)': base16,
+        'Base32': base32,
+        'Base32Hex': base32hex,
+        'Base36': base36,
+        'Base58': base58,
+        'Base62': base62,
+        'Base64': base64,
+      },
+    );
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _stringEditingController =
-      TextEditingController();
-
-  late String _stringAsBase64;
-
-  final Map<String, String> _bases = {
-    'Binary (Base2)': base2,
-    'Ternary (Base3)': base3,
-    'Quaternary (Base4)': base4,
-    'Quinary (Base5)': base5,
-    'Senary (Base6)': base6,
-    'Octal (Base8)': base8,
-    'Decimal (Base10)': base10,
-    'Duodecimal (Base12)': base12,
-    'Hexadecimal (Base16)': base16,
-    'Base32': base32,
-    'Base32Hex': base32hex,
-    'Base36': base36,
-    'Base58': base58,
-    'Base62': base62,
-    'Base64': base64,
-  };
-
-  void _encodeStringToBase64(BuildContext context) {
-    try {
-      setState(() {
-        if (_formKey.currentState!.validate()) {
-          _stringAsBase64 = base64Encode(
-            utf8.encode(_stringEditingController.text),
-          ).replaceAll('=', '');
-        }
-      });
-    } catch (error) {
-      debugPrint(error.toString());
-
-      showMessageDialog(
-        context,
-        AppLocalizations.of(context)!.error,
-        error.toString(),
-      );
-    } finally {}
-  }
+class BaseEncoderPage extends ConsumerWidget {
+  const BaseEncoderPage({super.key});
 
   String? _stringFieldValidator(BuildContext context, String? value) {
     if ((value == null) || value.isEmpty) {
@@ -75,11 +62,33 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
     }
   }
 
-  Widget _form(BuildContext context) {
+  String _encodeStringToBase64(BuildContext context, String string) {
+    try {
+      if (string.isNotEmpty) {
+        return base64Encode(utf8.encode(string)).replaceAll("=", "");
+      } else {
+        return "";
+      }
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
+
+      return "";
+    } finally {}
+  }
+
+  Widget _form(BuildContext context, WidgetRef ref) {
+    final StringNotifier notifier = ref.read(stringNotifierProvider.notifier);
+    final TextEditingController editingController = notifier.controller;
+
     return Form(
-      key: _formKey,
       child: TextFormField(
-        controller: _stringEditingController,
+        controller: editingController,
         keyboardType: TextInputType.multiline,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
@@ -91,12 +100,8 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
         validator: (String? value) {
           return _stringFieldValidator(context, value);
         },
-        onChanged: (String value) {
-          _encodeStringToBase64(context);
-        },
-        onFieldSubmitted: (String value) {
-          _encodeStringToBase64(context);
-        },
+        onChanged: (String value) {},
+        onFieldSubmitted: (String value) {},
       ),
     );
   }
@@ -213,51 +218,59 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
     );
   }
 
-  Widget _resultColumn(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: _bases.entries.map((MapEntry<String, String> entry) {
-        String result = '';
+  Widget _resultColumn(BuildContext context, WidgetRef ref, String string) {
+    if (string.isNotEmpty) {
+      final Map<String, String> bases = ref.watch(basesProvider);
 
-        try {
-          final converter = BaseConversion(
-            from: base64,
-            to: entry.value,
-            zeroPadding: true,
-          );
-          result = converter(_stringAsBase64);
-        } catch (error) {
-          debugPrint(error.toString());
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: bases.entries.map((MapEntry<String, String> entry) {
+          String result = "";
 
-          showMessageDialog(
-            context,
-            AppLocalizations.of(context)!.error,
-            error.toString(),
-          );
-        } finally {}
+          try {
+            final BaseConversion converter = BaseConversion(
+              from: base64,
+              to: entry.value,
+              zeroPadding: true,
+            );
+            result = converter(_encodeStringToBase64(context, string));
+          } catch (error) {
+            debugPrint(error.toString());
 
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 8),
-          child: Card(
-            child: ListTile(
-              title: Text(entry.key),
-              subtitle: Text(result),
-              trailing: IconButton(
-                icon: const Icon(Icons.copy_rounded),
-                onPressed: () {
-                  copyToClipboard(context, entry.key, result);
-                },
-                tooltip: AppLocalizations.of(context)!.copy_to_clipboard,
+            showMessageDialog(
+              context,
+              AppLocalizations.of(context)!.error,
+              error.toString(),
+            );
+          } finally {}
+
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: Card(
+              child: ListTile(
+                title: Text(entry.key),
+                subtitle: Text(result),
+                trailing: IconButton(
+                  icon: const Icon(Icons.copy_rounded),
+                  onPressed: () {
+                    copyToClipboard(context, entry.key, result);
+                  },
+                  tooltip: AppLocalizations.of(context)!.copy_to_clipboard,
+                ),
               ),
             ),
-          ),
-        );
-      }).toList(),
-    );
+          );
+        }).toList(),
+      );
+    } else {
+      return const SizedBox.shrink();
+    }
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final String string = ref.watch(stringNotifierProvider);
+
     return Scaffold(
       appBar: ApplicationToolBar(
         title: AppLocalizations.of(context)!.base_encoder,
@@ -267,21 +280,14 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _form(context),
+            _form(context, ref),
             const SizedBox(height: 16.0),
-            _stringEditingController.text.isEmpty
-                ? _startNotice(context)
-                : _resultColumn(context),
+            string.isNotEmpty
+                ? _resultColumn(context, ref, string)
+                : _startNotice(context),
           ],
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _stringEditingController.dispose();
-
-    super.dispose();
   }
 }
