@@ -137,7 +137,7 @@ class ApplicationToolBar extends StatelessWidget
                           ? Icons.light_mode_rounded
                           : Icons.dark_mode_rounded,
                     ),
-                    const SizedBox(width: 12),
+                    const SizedBox(width: 16.0 * 0.75), // 12.0
                     Text(AppLocalizations.of(context)!.toggle_theme),
                   ],
                 ),
@@ -147,7 +147,7 @@ class ApplicationToolBar extends StatelessWidget
                 child: Row(
                   children: <Widget>[
                     const Icon(Icons.language_rounded),
-                    const SizedBox(width: 12),
+                    const SizedBox(width: 16.0 * 0.75), // 12.0
                     Text(AppLocalizations.of(context)!.change_locale),
                   ],
                 ),
