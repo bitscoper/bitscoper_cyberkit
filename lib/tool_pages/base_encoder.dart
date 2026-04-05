@@ -245,17 +245,7 @@ class BaseEncoderPageState extends State<BaseEncoderPage> {
               trailing: IconButton(
                 icon: const Icon(Icons.copy_rounded),
                 onPressed: () {
-                  try {
-                    copyToClipboard(context, entry.key, result);
-                  } catch (error) {
-                    debugPrint(error.toString());
-
-                    showMessageDialog(
-                      context,
-                      AppLocalizations.of(context)!.error,
-                      error.toString(),
-                    );
-                  } finally {}
+                  copyToClipboard(context, entry.key, result);
                 },
                 tooltip: AppLocalizations.of(context)!.copy_to_clipboard,
               ),
