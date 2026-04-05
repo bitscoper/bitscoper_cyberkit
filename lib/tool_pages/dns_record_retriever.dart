@@ -176,7 +176,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
 
         for (RecordType recordType in _selectedRecordTypes) {
           _recordTypeController.add(
-            recordType.toString().replaceFirst('RecordType.', '').toUpperCase(),
+            recordType.toString().replaceFirst('RecordType.', "").toUpperCase(),
           );
 
           final ResolveResponse response = await dnsolve.lookup(
