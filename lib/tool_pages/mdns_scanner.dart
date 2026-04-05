@@ -469,9 +469,9 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
             snapshot.error.toString(),
           );
 
-          return const SizedBox();
+          return const SizedBox.shrink();
         } else {
-          return const SizedBox();
+          return const SizedBox.shrink();
         }
       },
     );

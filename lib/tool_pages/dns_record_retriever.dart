@@ -302,7 +302,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                     "${_numberFormat.format(_selectedRecordTypes.length)} ${AppLocalizations.of(context)!.types}",
                   ),
                   onPressed: () {
-                    return _selectRecordTypes(context);
+                    _selectRecordTypes(context);
                   },
                 ),
               ),
@@ -358,9 +358,9 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                   snapshot.toString(),
                 );
 
-                return const SizedBox();
+                return const SizedBox.shrink();
               } else {
-                return const SizedBox();
+                return const SizedBox.shrink();
               }
             },
           ),
@@ -385,21 +385,11 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
               trailing: IconButton(
                 icon: const Icon(Icons.copy_rounded),
                 onPressed: () {
-                  try {
-                    copyToClipboard(
-                      context,
-                      '${record.type} ${AppLocalizations.of(context)!.dns_record}',
-                      record.record,
-                    );
-                  } catch (error) {
-                    debugPrint(error.toString());
-
-                    showMessageDialog(
-                      context,
-                      AppLocalizations.of(context)!.error,
-                      error.toString(),
-                    );
-                  } finally {}
+                  copyToClipboard(
+                    context,
+                    '${record.type} ${AppLocalizations.of(context)!.dns_record}',
+                    record.record,
+                  );
                 },
                 tooltip: AppLocalizations.of(context)!.copy_to_clipboard,
               ),
