@@ -1,16 +1,18 @@
-> [!WARNING]
-> Any unlawful usage is strictly prohibited.
-
 <div align="center">
   <img src="assets/icon/icon.png" height="128" alt="Bitscoper CyberKit" />
-</div>
-<div align="center">
 
 # Bitscoper CyberKit
 
 A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner, mDNS Scanner, UPnP Scanner, Route Tracer, TCP Port Scanner, Pinger, File Hash Calculator, String Hash Calculator, CVSS Calculator, Base Encoder, Morse Code Translator, QR Code Generator, OGP Data Extractor, Series URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Details Viewer.
 
 [![Build, Release, and Deploy](https://github.com/bitscoper/Bitscoper_CyberKit/actions/workflows/Build,%20Release,%20and%20Deploy.yaml/badge.svg)](https://github.com/bitscoper/Bitscoper_CyberKit/actions/workflows/Build,%20Release,%20and%20Deploy.yaml)
+
+</div>
+
+> [!WARNING]
+> Unlawful use is prohibited.
+
+<div align="center">
 
   <table>
     <tbody>
@@ -24,7 +26,7 @@ A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner
           <a href="https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox">
             <img src="3rd_Party_Service_Logos/Google_Play.png" height="48" alt="Google Play" />
           </a>
-          <br />(Paused Temporarily)
+          <br />(Temporarily Paused – No Longer Owned)
         </td>
         <td>
           <a href="https://github.com/bitscoper/Bitscoper_CyberKit/pkgs/container/bitscoper_cyberkit/">
@@ -125,7 +127,7 @@ Web_Application --> My_Server[My Server]
       </td>
       <td rowspan="4">
         <a href="https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox">Google Play</a>
-        <br />(Paused Temporarily)
+        <br />(Temporarily Paused – No Longer Owned)
       </td>
     </tr>
     <tr>
@@ -214,9 +216,6 @@ Web_Application --> My_Server[My Server]
     </tr>
   </table>
 </div>
-
-> [!IMPORTANT]
-> Versions submitted to Google Play and Microsoft Store may vary and be delayed.
 
 ### From GitHub Container Registry
 
@@ -415,5 +414,15 @@ keytool -genkey -v -keystore ~/Laboratory/Bitscoper_CyberKit/Android\ Key/KeySto
 base64 ~/Laboratory/Bitscoper_CyberKit/Android\ Key/KeyStore.jks > ~/Laboratory/Bitscoper_CyberKit/Android\ Key/KeyStore.b64
 ```
 
-> [!NOTE]
-> I sometimes clean up commit messages when they become too cringeworthy.
+## Notes
+
+- I write commit messages in Title Case and past tense, leaving out articles to keep them concise while still showing details.
+- I delete previous GitHub Actions runs, except for:
+  - **[#3](https://github.com/bitscoper/Bitscoper_CyberKit/actions/runs/14313849811):** Last build for web and deployment of the web application to the server
+  - **[#57](https://github.com/bitscoper/Bitscoper_CyberKit/actions/runs/21337182596):** Last build and push of the Docker image to the Amazon Elastic Container Registry Public Gallery
+- I only keep the latest release and the latest container version.
+- Versions I submit to the Microsoft Store may vary and be delayed.
+- Submission to Google Play is paused because I no longer own the account.
+- The free tier of the Amazon Elastic Container Registry Public Gallery has expired, and the container will soon be unavailable.
+- Building for the web and deployment is currently disabled due to a build failure.
+- I have deleted some commits in the past, but this is unlikely to happen again.
