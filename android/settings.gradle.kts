@@ -1,5 +1,15 @@
 // By Abdullah As-Sadeed
 
+toolchainManagement {
+    jvm {
+        javaRepositories {
+            repository("foojay") {
+                resolverClass.set(org.gradle.toolchains.foojay.FoojayToolchainResolver::class.java)
+            }
+        }
+    }
+}
+
 pluginManagement {
     val flutterSdkPath =
         run {
@@ -9,18 +19,24 @@ pluginManagement {
             require(flutterSdkPath != null) { "flutter.sdk not set in local.properties" }
             flutterSdkPath
         }
-    settings.ext["flutterSdkPath"] = flutterSdkPath
+    extra["flutterSdkPath"] = flutterSdkPath
 
     includeBuild("$flutterSdkPath/packages/flutter_tools/gradle")
 
     repositories {
         google()
-        mavenCentral()
+        mavenCentral {
+            setUrl("https://repo1.maven.org/maven2")
+        }
+        maven {
+            setUrl("https://repo1.maven.org/maven2")
+        }
         gradlePluginPortal()
     }
 }
 
 plugins {
+    id("org.gradle.toolchains.foojay-resolver") version "1.0.0"
     id("dev.flutter.flutter-plugin-loader") version "1.0.0"
     id("com.android.application") version "8.12.0" apply false // https://developer.android.com/build/releases/gradle-plugin
     id("org.jetbrains.kotlin.android") version "2.3.0" apply false // https://plugins.gradle.org/plugin/org.jetbrains.kotlin.android

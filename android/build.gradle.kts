@@ -3,7 +3,12 @@
 allprojects {
     repositories {
         google()
-        mavenCentral()
+        mavenCentral {
+            setUrl("https://repo1.maven.org/maven2")
+        }
+        maven {
+            setUrl("https://repo1.maven.org/maven2")
+        }
     }
 }
 
@@ -22,5 +27,5 @@ subprojects {
 }
 
 tasks.register<Delete>("clean") {
-    delete(rootProject.layout.buildDirectory)
+    delete(rootProject.layout.buildDirectory.asFile)
 }
