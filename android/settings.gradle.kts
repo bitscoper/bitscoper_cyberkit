@@ -38,8 +38,8 @@ pluginManagement {
 plugins {
     id("org.gradle.toolchains.foojay-resolver") version "1.0.0"
     id("dev.flutter.flutter-plugin-loader") version "1.0.0"
-    id("com.android.application") version "8.12.0" apply false // https://developer.android.com/build/releases/gradle-plugin
-    id("org.jetbrains.kotlin.android") version "2.3.0" apply false // https://plugins.gradle.org/plugin/org.jetbrains.kotlin.android
+    id("com.android.application") version "8.13.2" apply false // https://developer.android.com/build/releases/gradle-plugin
+    id("org.jetbrains.kotlin.android") version "2.3.20" apply false // https://plugins.gradle.org/plugin/org.jetbrains.kotlin.android
 }
 
 include(":app")
