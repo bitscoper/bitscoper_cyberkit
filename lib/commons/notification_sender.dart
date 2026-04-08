@@ -1,9 +1,6 @@
 /* By Abdullah As-Sadeed */
 
-import 'package:bitscoper_cyberkit/main.dart';
-import 'package:permission_handler/permission_handler.dart';
 import "dart:core";
-import "package:bitscoper_cyberkit/commons/permission_requester.dart";
 import "package:flutter_local_notifications/flutter_local_notifications.dart";
 import "package:flutter/material.dart";
 import "package:uuid/uuid.dart";
@@ -14,10 +11,6 @@ Future<void> sendNotification({
   required final String body,
   required final String payload,
 }) async {
-  await requestPermissions(navigatorKey.currentContext!, [
-    Permission.notification,
-  ]);
-
   final String iconPath = "assets/icon/icon.png";
   final String androidMonochromeIconName = "icon_monochrome";
   final String androidIconName = "icon";

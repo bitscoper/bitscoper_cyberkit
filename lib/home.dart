@@ -1,8 +1,8 @@
 /* By Abdullah As-Sadeed */
 
+import 'dart:io';
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
-import 'package:bitscoper_cyberkit/commons/permission_requester.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
 import 'package:bitscoper_cyberkit/tool_pages/base_encoder.dart';
@@ -24,10 +24,36 @@ import 'package:bitscoper_cyberkit/tool_pages/upnp_scanner.dart';
 import 'package:bitscoper_cyberkit/tool_pages/whois_retriever.dart';
 import 'package:bitscoper_cyberkit/tool_pages/wifi_details_viewer.dart';
 import 'package:bitscoper_cyberkit/version_checker.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:permission_guard/permission_guard.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+Future<List<Permission>> listStoragePermissions() async {
+  final List<Permission> permissions = [];
+
+  if (Platform.isAndroid) {
+    final DeviceInfoPlugin deviceInformationPlugin = DeviceInfoPlugin();
+    final AndroidDeviceInfo androidInformation =
+        await deviceInformationPlugin.androidInfo;
+    final int sdkVersion = androidInformation.version.sdkInt;
+
+    if (sdkVersion <= 32) {
+      permissions.add(Permission.storage);
+    } else if (sdkVersion >= 33) {
+      permissions.addAll([
+        Permission.audio,
+        Permission.photos,
+        Permission.videos,
+      ]);
+    }
+  } else if (Platform.isIOS) {
+    permissions.add(Permission.mediaLibrary);
+  }
+
+  return permissions;
+} // FIXME: Consider Other Platforms
 
 class _ToolCardWidget extends StatelessWidget {
   final IconData icon;
@@ -42,25 +68,45 @@ class _ToolCardWidget extends StatelessWidget {
     required this.page,
   });
 
+  Widget _permissionGuard(Widget child) {
+    if (permissionList.isNotEmpty) {
+      Widget current = child;
+
+      for (final Permission permission
+          in permissionList.whereType<Permission>()) {
+        current = PermissionGuard(
+          permission: permission,
+          options: const PermissionGuardOptions(
+            displayLoader: true,
+            requestOnInit: true,
+            validStatuses: [
+              PermissionStatus.granted,
+              PermissionStatus.limited,
+              PermissionStatus.provisional,
+            ],
+          ),
+          child: current,
+        );
+      }
+
+      return current;
+    } else {
+      return child;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
       child: InkWell(
         borderRadius: BorderRadius.circular(8.0),
-        onTap: () async {
+        onTap: () {
           try {
-            if (permissionList.isNotEmpty) {
-              await requestPermissions(
-                context,
-                permissionList.whereType<Permission>().toList(),
-              );
-            }
-
             Navigator.push(
               navigatorKey.currentContext!,
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return page;
+                  return _permissionGuard(page);
                 },
               ),
             );
@@ -230,12 +276,15 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  List<(String, IconData, List<Permission?>, StatefulWidget)> _buildTools(
-    BuildContext context,
-  ) {
+  Future<List<(String, IconData, List<Permission?>, StatefulWidget)>>
+  _buildTools(BuildContext context) async {
+    final List<Permission> storagePermissions = await listStoragePermissions();
+
     return [
       (
-        AppLocalizations.of(context)!.bluetooth_low_energy_scanner,
+        AppLocalizations.of(
+          navigatorKey.currentContext!,
+        )!.bluetooth_low_energy_scanner,
         Icons.bluetooth_searching_rounded,
         [
           Permission.bluetooth,
@@ -246,108 +295,107 @@ class HomePage extends StatelessWidget {
         const BluetoothLowEnergyScannerPage(),
       ),
       (
-        AppLocalizations.of(context)!.ipv4_subnet_scanner,
+        AppLocalizations.of(navigatorKey.currentContext!)!.ipv4_subnet_scanner,
         Icons.lan_rounded,
         [],
         const IPv4SubnetScannerPage(),
       ),
       (
-        AppLocalizations.of(context)!.mdns_scanner,
+        AppLocalizations.of(navigatorKey.currentContext!)!.mdns_scanner,
         Icons.stream_rounded,
         [],
         const MDNSScannerPage(),
       ),
       (
-        AppLocalizations.of(context)!.upnp_scanner,
+        AppLocalizations.of(navigatorKey.currentContext!)!.upnp_scanner,
         Icons.cast_rounded,
         [],
         const UPnPScannerPage(),
       ),
       (
-        AppLocalizations.of(context)!.route_tracer,
+        AppLocalizations.of(navigatorKey.currentContext!)!.route_tracer,
         Icons.track_changes_rounded,
         [],
         const RouteTracerPage(),
       ),
       (
-        AppLocalizations.of(context)!.tcp_port_scanner,
+        AppLocalizations.of(navigatorKey.currentContext!)!.tcp_port_scanner,
         Icons.radar_rounded,
         [],
         const TCPPortScannerPage(),
       ),
       (
-        AppLocalizations.of(context)!.pinger,
+        AppLocalizations.of(navigatorKey.currentContext!)!.pinger,
         Icons.network_ping_rounded,
         [],
         const PingerPage(),
       ),
       (
-        AppLocalizations.of(context)!.file_hash_calculator,
+        AppLocalizations.of(navigatorKey.currentContext!)!.file_hash_calculator,
         Icons.file_present_rounded,
-        [
-          Permission.audio,
-          Permission.mediaLibrary,
-          Permission.photos,
-          Permission.videos,
-        ],
+        storagePermissions,
         const FileHashCalculatorPage(),
       ),
       (
-        AppLocalizations.of(context)!.string_hash_calculator,
+        AppLocalizations.of(
+          navigatorKey.currentContext!,
+        )!.string_hash_calculator,
         Icons.text_snippet_rounded,
         [],
         const StringHashCalculatorPage(),
       ),
       (
-        AppLocalizations.of(context)!.cvss_calculator,
+        AppLocalizations.of(navigatorKey.currentContext!)!.cvss_calculator,
         Icons.security_rounded,
         [],
         const CVSSCalculatorPage(),
       ),
       (
-        AppLocalizations.of(context)!.base_encoder,
+        AppLocalizations.of(navigatorKey.currentContext!)!.base_encoder,
         Icons.numbers_rounded,
         [],
         const BaseEncoderPage(),
       ),
       (
-        AppLocalizations.of(context)!.morse_code_translator,
+        AppLocalizations.of(
+          navigatorKey.currentContext!,
+        )!.morse_code_translator,
         Icons.text_fields_rounded,
         [],
         const MorseCodeTranslatorPage(),
       ),
       (
-        AppLocalizations.of(context)!.qr_code_generator,
+        AppLocalizations.of(navigatorKey.currentContext!)!.qr_code_generator,
         Icons.qr_code_rounded,
-        [],
+        storagePermissions,
         const QRCodeGeneratorPage(),
       ),
       (
-        AppLocalizations.of(context)!.ogp_data_extractor,
+        AppLocalizations.of(navigatorKey.currentContext!)!.ogp_data_extractor,
         Icons.share_rounded,
         [],
         const OGPDataExtractorPage(),
       ),
       (
-        AppLocalizations.of(context)!.series_uri_crawler,
+        AppLocalizations.of(navigatorKey.currentContext!)!.series_uri_crawler,
         Icons.web_rounded,
         [],
         const SeriesURICrawlerPage(),
       ),
       (
-        AppLocalizations.of(context)!.dns_record_retriever,
+        AppLocalizations.of(navigatorKey.currentContext!)!.dns_record_retriever,
         Icons.dns_rounded,
         [],
         const DNSRecordRetrieverPage(),
       ),
       (
-        AppLocalizations.of(context)!.whois_retriever,
+        AppLocalizations.of(navigatorKey.currentContext!)!.whois_retriever,
         Icons.domain_rounded,
         [],
         const WHOISRetrieverPage(),
       ),
       (
-        AppLocalizations.of(context)!.wifi_details_viewer,
+        AppLocalizations.of(navigatorKey.currentContext!)!.wifi_details_viewer,
         Icons.network_check_rounded,
         [Permission.location, Permission.locationWhenInUse],
         const WiFiDetailsViewerPage(),
@@ -357,38 +405,68 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<(String, IconData, List<Permission?>, StatefulWidget)> tools =
-        _buildTools(context);
-
     return Scaffold(
       appBar: ApplicationToolBar(
         title: AppLocalizations.of(context)!.bitscoper_cyberkit,
       ),
       drawer: _drawer(context),
-      body: Padding(
-        padding: const EdgeInsets.all(32.0),
-        child: MasonryGridView.count(
-          crossAxisCount: _getCrossAxisCount(context),
-          mainAxisSpacing: 16,
-          crossAxisSpacing: 16,
-          itemCount: tools.length,
-          itemBuilder: (BuildContext context, int index) {
-            final (
-              String title,
-              IconData icon,
-              List<Permission?> permissionList,
-              StatefulWidget page,
-            ) = tools[index];
+      body:
+          FutureBuilder<
+            List<(String, IconData, List<Permission?>, StatefulWidget)>
+          >(
+            future: _buildTools(context),
+            builder:
+                (
+                  BuildContext context,
+                  AsyncSnapshot<
+                    List<(String, IconData, List<Permission?>, StatefulWidget)>
+                  >
+                  snapshot,
+                ) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(32.0),
+                        child: Text(snapshot.error.toString()),
+                      ),
+                    );
+                  }
 
-            return _ToolCardWidget(
-              title: title,
-              icon: icon,
-              permissionList: permissionList,
-              page: page,
-            );
-          },
-        ),
-      ),
+                  final List<
+                    (String, IconData, List<Permission?>, StatefulWidget)
+                  >
+                  tools = snapshot.data!;
+
+                  return Padding(
+                    padding: const EdgeInsets.all(32.0),
+                    child: MasonryGridView.count(
+                      crossAxisCount: _getCrossAxisCount(context),
+                      mainAxisSpacing: 16,
+                      crossAxisSpacing: 16,
+                      itemCount: tools.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final (
+                          String title,
+                          IconData icon,
+                          List<Permission?> permissionList,
+                          StatefulWidget page,
+                        ) = tools[index];
+
+                        return _ToolCardWidget(
+                          title: title,
+                          icon: icon,
+                          permissionList: permissionList,
+                          page: page,
+                        );
+                      },
+                    ),
+                  );
+                },
+          ),
     );
   }
 }
+
+// TODO: Add Requester for Notification Permission
