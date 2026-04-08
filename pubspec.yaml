@@ -14,8 +14,9 @@ dependencies:
   connectivity_plus: 7.0.0 # Locked for macOS & iOS Compatibility
   crypto: null
   cvss_vulnerability_scoring: null
-  dart_ping: null # !Web
   dart_ping_ios: null # Extends dart_ping for iOS
+  dart_ping: null # !Web
+  device_info_plus: null
   dnsolve: null # !macOS
   dynamic_color: null # !iOS !Web
   file_picker: null
@@ -42,7 +43,7 @@ dependencies:
   ogp_data_extract: null
   package_info_plus: null
   path_provider: null # !Web
-  permission_handler: null # !Linux # !macOS
+  permission_guard: null # !Linux # !macOS
   qr_flutter: null
   quick_actions: null # !Linux !macOS !Windows !Web
   shared_preferences: null
@@ -51,8 +52,8 @@ dependencies:
   upnp_client: null # !Web
   url_launcher: null
   uuid: null
-  widgets_to_image: null
   whois: null # !Web
+  widgets_to_image: null
   yaml: null
 
 dev_dependencies:
