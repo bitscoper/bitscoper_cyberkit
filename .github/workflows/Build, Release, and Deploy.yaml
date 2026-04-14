@@ -172,10 +172,15 @@ jobs:
 
   build-for-macos:
     name: Build for macOS
-    runs-on: macos-latest
+    runs-on: macos-26
     permissions:
       contents: read
     steps:
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: "26.4"
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2.23.0
         with:
@@ -207,10 +212,15 @@ jobs:
 
   build-for-ios:
     name: Build for iOS
-    runs-on: macos-latest
+    runs-on: macos-26
     permissions:
       contents: read
     steps:
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: "26.4"
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2.23.0
         with:
