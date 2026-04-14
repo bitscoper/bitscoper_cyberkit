@@ -309,6 +309,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get permissions_will_be_used => 'permissions will be used.';
 
   @override
+  String get pick_an_image_file_to_embed_in_qr_code =>
+      'Pick an Image File to Embed in QR Code';
+
+  @override
   String get ping => 'Ping';
 
   @override

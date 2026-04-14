@@ -686,6 +686,12 @@ abstract class AppLocalizations {
   /// **'permissions will be used.'**
   String get permissions_will_be_used;
 
+  /// No description provided for @pick_an_image_file_to_embed_in_qr_code.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick an Image File to Embed in QR Code'**
+  String get pick_an_image_file_to_embed_in_qr_code;
+
   /// No description provided for @ping.
   ///
   /// In en, this message translates to:
