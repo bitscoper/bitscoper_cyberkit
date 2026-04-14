@@ -20,6 +20,7 @@ dependencies:
   dnsolve: null # !macOS
   dynamic_color: null # !iOS !Web
   file_picker: null
+  file_saver: null
   flutter:
     sdk: flutter
   flutter_blue_plus: null
