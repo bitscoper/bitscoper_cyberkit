@@ -474,7 +474,7 @@ jobs:
   #         ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} << 'EOF'
   #           cd /var/www/clients/client1/web1/web/Bitscoper_CyberKit/
   #           rm -rf ./Application/
-  #           wget https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Web_Application.zip
+  #           wget https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Web_Application.zip
   #           unzip ./Web_Application.zip
   #           rm -rf ./Web_Application.zip
   #           mv ./Web_Application/ ./Application/

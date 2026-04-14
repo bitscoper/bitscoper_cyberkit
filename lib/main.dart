@@ -130,7 +130,7 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
         quickActions.initialize((shortcutType) async {
           if (shortcutType == 'source_code') {
             final Uri uri = Uri.parse(
-              "https://github.com/bitscoper/Bitscoper_CyberKit/",
+              "https://github.com/bitscoper/bitscoper_cyberkit/",
             );
 
             if (await canLaunchUrl(uri)) {
