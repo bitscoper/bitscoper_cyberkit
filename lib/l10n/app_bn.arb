@@ -98,6 +98,7 @@
   "permission_is_restricted": "অনুমতিটা সীমাবদ্ধভাবে মঞ্জুর করা হয়েছে",
   "permissions": "অনুমতিসমূহ",
   "permissions_will_be_used": "অনুমতিসমূহ ব্যবহার করা হবে।",
+  "pick_an_image_file_to_embed_in_qr_code": "QR কোডে এমবেড করার জন্য একটি ইমেজ ফাইল নির্বাচন করুন",
   "ping": "পিং",
   "pinger": "পিংগার",
   "port": "পোর্ট",

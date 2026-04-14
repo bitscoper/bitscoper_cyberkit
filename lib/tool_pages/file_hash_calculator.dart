@@ -29,9 +29,10 @@ class HashNotifier extends Notifier<List<Map<String, dynamic>>> {
 
   Future<void> _calculate(BuildContext context) async {
     try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
+      FilePickerResult? result = await FilePicker.pickFiles(
         type: FileType.any,
         allowMultiple: true,
+        dialogTitle: AppLocalizations.of(context)!.select_files,
       );
 
       if (result != null) {

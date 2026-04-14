@@ -312,6 +312,10 @@ class AppLocalizationsBn extends AppLocalizations {
   String get permissions_will_be_used => 'অনুমতিসমূহ ব্যবহার করা হবে।';
 
   @override
+  String get pick_an_image_file_to_embed_in_qr_code =>
+      'QR কোডে এমবেড করার জন্য একটি ইমেজ ফাইল নির্বাচন করুন';
+
+  @override
   String get ping => 'পিং';
 
   @override
