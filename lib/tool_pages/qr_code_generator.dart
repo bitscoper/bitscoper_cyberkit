@@ -109,12 +109,17 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
 
   void _pickImage(BuildContext context) async {
     try {
-      final FilePickerResult? filePickerResult = await FilePicker.platform
-          .pickFiles(
-            type: FileType.image,
-            allowMultiple: false,
-            withData: true,
-          );
+      final FilePickerResult? filePickerResult = await FilePicker.pickFiles(
+        lockParentWindow: true,
+        dialogTitle: AppLocalizations.of(
+          context,
+        )!.pick_an_image_file_to_embed_in_qr_code,
+        type: FileType.image,
+        allowMultiple: false,
+        readSequential: true,
+        withData: true,
+        compressionQuality: 0,
+      );
 
       if (filePickerResult != null &&
           filePickerResult.files.single.bytes != null) {

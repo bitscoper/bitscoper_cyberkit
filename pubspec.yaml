@@ -19,7 +19,7 @@ dependencies:
   device_info_plus: null
   dnsolve: null # !macOS
   dynamic_color: null # !iOS !Web
-  file_picker: null
+  file_picker: ^11.0.2 # Downgraded Once Automatically
   file_saver: null
   flutter:
     sdk: flutter
