@@ -5,7 +5,7 @@
 
 A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner, mDNS Scanner, UPnP Scanner, Route Tracer, TCP Port Scanner, Pinger, File Hash Calculator, String Hash Calculator, CVSS Calculator, Base Encoder, Morse Code Translator, QR Code Generator, OGP Data Extractor, Series URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Details Viewer.
 
-[![Build, Release, and Deploy](https://github.com/bitscoper/Bitscoper_CyberKit/actions/workflows/Build,%20Release,%20and%20Deploy.yaml/badge.svg)](https://github.com/bitscoper/Bitscoper_CyberKit/actions/workflows/Build,%20Release,%20and%20Deploy.yaml)
+[![Build, Release, and Deploy](https://github.com/bitscoper/bitscoper_cyberkit/actions/workflows/Build,%20Release,%20and%20Deploy.yaml/badge.svg)](https://github.com/bitscoper/bitscoper_cyberkit/actions/workflows/Build,%20Release,%20and%20Deploy.yaml)
 
 </div>
 
@@ -29,7 +29,7 @@ A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner
           <br />(Temporarily Paused – No Longer Owned)
         </td>
         <td>
-          <a href="https://github.com/bitscoper/Bitscoper_CyberKit/pkgs/container/bitscoper_cyberkit/">
+          <a href="https://github.com/bitscoper/bitscoper_cyberkit/pkgs/container/bitscoper_cyberkit/">
             <img src="3rd_Party_Service_Logos/Docker.svg" height="48" alt="GitHub Container Registry" />
           </a>
         </td>
@@ -44,7 +44,7 @@ A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner
   </table>
 </div>
 
-## [Latest Release](https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/)
+## [Latest Release](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/)
 
 <div align="center">
 
@@ -104,26 +104,26 @@ Web_Application --> My_Server[My Server]
     <tr>
       <th rowspan="2" colspan="2">Linux</th>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Linux_x64_Executable.zip">Linux_x64_Executable.zip</a>
+        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Linux_x64_Executable.zip">Linux_x64_Executable.zip</a>
       </td>
       <td rowspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Linux_x64_Debug_Symbols.zip">ZIP</a>
+        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Linux_x64_Debug_Symbols.zip">ZIP</a>
       </td>
       <td rowspan="2">-</td>
     </tr>
     <tr>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Bitscoper_CyberKit-18.1.1-x64.AppImage">Bitscoper_CyberKit-18.1.1-x64.AppImage</a>
+        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-18.1.1-x64.AppImage">Bitscoper_CyberKit-18.1.1-x64.AppImage</a>
       </td>
     </tr>
     <tr>
       <th rowspan="4" width="46">Android</th>
       <th>appbundle</th>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Android_appbundle.zip">Android_appbundle.zip</a>
+        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Android_appbundle.zip">Android_appbundle.zip</a>
       </td>
       <td>
-        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Android_appbundle_Debug_Symbols.zip">ZIP</a>
+        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Android_appbundle_Debug_Symbols.zip">ZIP</a>
       </td>
       <td rowspan="4">
         <a href="https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox">Google Play</a>
@@ -134,50 +134,50 @@ Web_Application --> My_Server[My Server]
       <th rowspan="3">APK</th>
       <td rowspan="2">ARM</td>
       <td>
-        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/APK_ARMEABI_V7A.zip">APK_ARMEABI_V7A.zip</a> (32-bit)
+        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/APK_ARMEABI_V7A.zip">APK_ARMEABI_V7A.zip</a> (32-bit)
       </td>
       <td rowspan="3">
-        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/APK_Debug_Symbols.zip">ZIP</a>
+        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/APK_Debug_Symbols.zip">ZIP</a>
       </td>
     </tr>
     <tr>
       <td>
-        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/APK_ARM64_V8A.zip">APK_ARM64_V8A.zip</a> (64-bit)
+        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/APK_ARM64_V8A.zip">APK_ARM64_V8A.zip</a> (64-bit)
       </td>
     </tr>
     <tr>
       <td>x86_64</td>
       <td>
-        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/APK_x86_64.zip">APK_x86_64.zip</a>
+        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/APK_x86_64.zip">APK_x86_64.zip</a>
       </td>
     </tr>
     <tr>
       <th colspan="2">macOS</th>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/macOS_Executable.zip">macOS_Executable.zip</a>
+        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/macOS_Executable.zip">macOS_Executable.zip</a>
       </td>
       <td>
-        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/macOS_Debug_Symbols.zip">ZIP</a>
+        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/macOS_Debug_Symbols.zip">ZIP</a>
       </td>
       <td>-</td>
     </tr>
     <tr>
       <th colspan="2">iOS</th>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/iOS_Executable.zip">iOS_Executable.zip</a>
+        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/iOS_Executable.zip">iOS_Executable.zip</a>
       </td>
       <td>
-        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/iOS_Executable_Debug_Symbols.zip">ZIP</a>
+        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/iOS_Executable_Debug_Symbols.zip">ZIP</a>
       </td>
       <td>-</td>
     </tr>
     <tr>
       <th rowspan="2" colspan="2">Windows</th>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Windows_x64_Executable.zip">Windows_x64_Executable.zip</a>
+        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Windows_x64_Executable.zip">Windows_x64_Executable.zip</a>
       </td>
       <td rowspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Windows_x64_Debug_Symbols.zip">ZIP</a>
+        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Windows_x64_Debug_Symbols.zip">ZIP</a>
       </td>
       <td rowspan="2">
         <a href="https://apps.microsoft.com/detail/9mv2046tz302">Microsoft Store</a>
@@ -185,13 +185,13 @@ Web_Application --> My_Server[My Server]
     </tr>
     <tr>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Windows_x64_MSIX_Package.zip">Windows_x64_MSIX_Package.zip</a>
+        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Windows_x64_MSIX_Package.zip">Windows_x64_MSIX_Package.zip</a>
       </td>
     </tr>
     <tr>
       <th colspan="2">Web</th>
       <td colspan="2">
-        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/releases/latest/download/Web_Application.zip">Web_Application.zip</a>
+        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Web_Application.zip">Web_Application.zip</a>
         <br />(Disabled due to Build Failure)
       </td>
       <td>-</td>
@@ -205,7 +205,7 @@ Web_Application --> My_Server[My Server]
       <td colspan="2" rowspan="2">-</td>
       <td rowspan="2">-</td>
       <td>
-        <a href="https://github.com/bitscoper/Bitscoper_CyberKit/pkgs/container/bitscoper_cyberkit/">GitHub Container Registry</a>
+        <a href="https://github.com/bitscoper/bitscoper_cyberkit/pkgs/container/bitscoper_cyberkit/">GitHub Container Registry</a>
       </td>
     </tr>
     <tr>
@@ -418,8 +418,8 @@ base64 ~/Laboratory/Bitscoper_CyberKit/Android\ Key/KeyStore.jks > ~/Laboratory/
 
 - I write commit messages in Title Case and past tense, leaving out articles to keep them concise while still showing details.
 - I delete previous GitHub Actions runs, except for:
-  - **[#3](https://github.com/bitscoper/Bitscoper_CyberKit/actions/runs/14313849811):** Last build for web and deployment of the web application to the server
-  - **[#57](https://github.com/bitscoper/Bitscoper_CyberKit/actions/runs/21337182596):** Last build and push of the Docker image to the Amazon Elastic Container Registry Public Gallery
+  - **[#3](https://github.com/bitscoper/bitscoper_cyberkit/actions/runs/14313849811):** Last build for web and deployment of the web application to the server
+  - **[#57](https://github.com/bitscoper/bitscoper_cyberkit/actions/runs/21337182596):** Last build and push of the Docker image to the Amazon Elastic Container Registry Public Gallery
 - I only keep the latest release and the latest container version.
 - Versions I submit to the Microsoft Store may vary and be delayed.
 - Submission to Google Play is paused because I no longer own the account.

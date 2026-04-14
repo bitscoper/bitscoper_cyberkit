@@ -215,7 +215,7 @@ class HomePage extends StatelessWidget {
                   onTap: () async {
                     try {
                       final Uri uri = Uri.parse(
-                        'https://github.com/bitscoper/Bitscoper_CyberKit/',
+                        'https://github.com/bitscoper/bitscoper_cyberkit/',
                       );
                       if (await canLaunchUrl(uri)) {
                         await launchUrl(uri);
@@ -239,7 +239,7 @@ class HomePage extends StatelessWidget {
                   onTap: () async {
                     try {
                       final Uri uri = Uri.parse(
-                        'https://github.com/bitscoper/Bitscoper_CyberKit/blob/main/PRIVACY_POLICY.md',
+                        'https://github.com/bitscoper/bitscoper_cyberkit/blob/main/PRIVACY_POLICY.md',
                       );
                       if (await canLaunchUrl(uri)) {
                         await launchUrl(uri);
