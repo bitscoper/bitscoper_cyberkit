@@ -6,6 +6,7 @@ import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:file_saver/file_saver.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -108,17 +109,12 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
 
   void _pickImage(BuildContext context) async {
     try {
-      final FilePickerResult? filePickerResult = await FilePicker.pickFiles(
-        lockParentWindow: true,
-        dialogTitle: AppLocalizations.of(
-          context,
-        )!.pick_an_image_file_to_embed_in_qr_code,
-        type: FileType.image,
-        allowMultiple: false,
-        readSequential: true,
-        withData: true,
-        compressionQuality: 0,
-      );
+      final FilePickerResult? filePickerResult = await FilePicker.platform
+          .pickFiles(
+            type: FileType.image,
+            allowMultiple: false,
+            withData: true,
+          );
 
       if (filePickerResult != null &&
           filePickerResult.files.single.bytes != null) {
@@ -561,24 +557,24 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
         );
 
         if (pngBytes != null) {
-          String? outputPath = await FilePicker.saveFile(
-            lockParentWindow: true,
-            dialogTitle: AppLocalizations.of(
-              navigatorKey.currentContext!,
-            )!.save_qr_code,
-            fileName: 'QR_Code_${DateTime.now().millisecondsSinceEpoch}.png',
-            type: FileType.image,
+          final String fileName =
+              'QR_Code_${DateTime.now().millisecondsSinceEpoch}.png';
+
+          await FileSaver.instance.saveFile(
+            name: fileName.replaceAll('.png', ''),
             bytes: pngBytes,
+            fileExtension: 'png',
+            mimeType: MimeType.png,
           );
 
-          if (outputPath != null) {
-            ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
-              SnackBar(
-                content: Text("Saved: $outputPath"),
-                showCloseIcon: true,
+          ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
+            SnackBar(
+              content: Text(
+                "${AppLocalizations.of(navigatorKey.currentContext!)!.saved}: $fileName",
               ),
-            );
-          }
+              showCloseIcon: true,
+            ),
+          );
         }
       }
     } catch (error) {
