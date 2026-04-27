@@ -1,6 +1,7 @@
 /* By Abdullah As-Sadeed */
 
-import 'dart:io';
+// import 'dart:io';
+// import 'package:device_info_plus/device_info_plus.dart';
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
@@ -24,36 +25,35 @@ import 'package:bitscoper_cyberkit/tool_pages/upnp_scanner.dart';
 import 'package:bitscoper_cyberkit/tool_pages/whois_retriever.dart';
 import 'package:bitscoper_cyberkit/tool_pages/wifi_details_viewer.dart';
 import 'package:bitscoper_cyberkit/version_checker.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_guard/permission_guard.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-Future<List<Permission>> listStoragePermissions() async {
-  final List<Permission> permissions = [];
+// Future<List<Permission>> listStoragePermissions() async {
+//   final List<Permission> permissions = [];
 
-  if (Platform.isAndroid) {
-    final DeviceInfoPlugin deviceInformationPlugin = DeviceInfoPlugin();
-    final AndroidDeviceInfo androidInformation =
-        await deviceInformationPlugin.androidInfo;
-    final int sdkVersion = androidInformation.version.sdkInt;
+//   if (Platform.isAndroid) {
+//     final DeviceInfoPlugin deviceInformationPlugin = DeviceInfoPlugin();
+//     final AndroidDeviceInfo androidInformation =
+//         await deviceInformationPlugin.androidInfo;
+//     final int sdkVersion = androidInformation.version.sdkInt;
 
-    if (sdkVersion <= 32) {
-      permissions.add(Permission.storage);
-    } else if (sdkVersion >= 33) {
-      permissions.addAll([
-        Permission.audio,
-        Permission.photos,
-        Permission.videos,
-      ]);
-    }
-  } else if (Platform.isIOS) {
-    permissions.add(Permission.mediaLibrary);
-  }
+//     if (sdkVersion <= 32) {
+//       permissions.add(Permission.storage);
+//     } else if (sdkVersion >= 33) {
+//       permissions.addAll([
+//         Permission.audio,
+//         Permission.photos,
+//         Permission.videos,
+//       ]);
+//     }
+//   } else if (Platform.isIOS) {
+//     permissions.add(Permission.mediaLibrary);
+//   }
 
-  return permissions;
-} // FIXME: Consider Other Platforms
+//   return permissions;
+// } // FIXME: Consider Other Platforms
 
 class _ToolCardWidget extends StatelessWidget {
   final IconData icon;
@@ -278,7 +278,7 @@ class HomePage extends StatelessWidget {
 
   Future<List<(String, IconData, List<Permission?>, StatefulWidget)>>
   _buildTools(BuildContext context) async {
-    final List<Permission> storagePermissions = await listStoragePermissions();
+    // final List<Permission> storagePermissions = await listStoragePermissions();
 
     return [
       (
@@ -333,7 +333,7 @@ class HomePage extends StatelessWidget {
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.file_hash_calculator,
         Icons.file_present_rounded,
-        storagePermissions,
+        [],
         const FileHashCalculatorPage(),
       ),
       (
@@ -367,7 +367,7 @@ class HomePage extends StatelessWidget {
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.qr_code_generator,
         Icons.qr_code_rounded,
-        storagePermissions,
+        [],
         const QRCodeGeneratorPage(),
       ),
       (
