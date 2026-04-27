@@ -9,6 +9,7 @@ environment:
   sdk: ">=3.11.4" # Flutter 3.41.6
 
 dependencies:
+  # device_info_plus: null
   async: any
   b: null
   connectivity_plus: 7.0.0 # Locked for macOS & iOS Compatibility
@@ -16,7 +17,6 @@ dependencies:
   cvss_vulnerability_scoring: null
   dart_ping_ios: null # Extends dart_ping for iOS
   dart_ping: null # !Web
-  device_info_plus: null
   dnsolve: null # !macOS
   dynamic_color: null # !iOS !Web
   file_picker: ^11.0.2 # Downgraded Once Automatically
