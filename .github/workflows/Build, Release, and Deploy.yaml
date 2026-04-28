@@ -271,7 +271,7 @@ jobs:
 
       - name: Rename Build Artifacts
         run: |
-          Rename-Item build\Debug_Symbols\Windows\app.windows-x64.symbols build\Debug_Symbols\Windows\Bitscoper_CyberKit-Windows_x64.symbols
+          Rename-Item -Path "build\Debug_Symbols\Windows\app.windows-x64.symbols" -NewName "Bitscoper_CyberKit-Windows_x64.symbols"
         shell: powershell
 
       - name: Upload Build Artifacts
