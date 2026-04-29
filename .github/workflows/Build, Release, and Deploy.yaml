@@ -388,7 +388,7 @@ jobs:
             ./Windows/Windows_x64_Executable.zip
             ./Windows/Bitscoper_CyberKit.msix
             ./Windows/Bitscoper_CyberKit-Windows_x64.symbols
-            # ./Web/Release/Web_Application.zip
+          # ./Web/Release/Web_Application.zip
           tag: v${{ env.VERSION }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
