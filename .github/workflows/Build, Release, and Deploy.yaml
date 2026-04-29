@@ -35,14 +35,10 @@ jobs:
         shell: bash
 
       - name: Build for Linux
-        run: flutter build linux --release --obfuscate --split-debug-info=./build/Debug_Symbols/Linux_x64/ -v
+        run: flutter build linux --release --obfuscate --split-debug-info=./build/Debug_Symbols/ -v
         shell: bash
 
-      - name: Rename Build Artifacts
-        run: mv ./build/Debug_Symbols/Linux_x64/app.linux-x64.symbols ./build/Debug_Symbols/Linux_x64/Bitscoper_CyberKit-Linux_x64.symbols
-        shell: bash
-
-      - name: Download appimagetool (x86_64) and Make It Executable
+      - name: Download appimagetool (x86_64) and Permit Execution
         run: |
           wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
           chmod +x ./appimagetool-x86_64.AppImage
@@ -60,10 +56,23 @@ jobs:
           chmod +x ./Linux_Extras/Bitscoper_CyberKit.AppDir/Bitscoper_CyberKit
         shell: bash
 
-      - name: Create AppImage and Make It Executable
+      - name: Get Version
+        run: echo "VERSION=$(grep '^version:' ./pubspec.yaml | awk '{print $2}')" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Create AppImage and Permit Execution
         run: |
-          ./appimagetool-x86_64.AppImage ./Linux_Extras/Bitscoper_CyberKit.AppDir ./Bitscoper_CyberKit-x64.AppImage
-          chmod +x ./Bitscoper_CyberKit-x64.AppImage
+          APPIMAGE_VERSION=${VERSION%%+*}
+          mkdir -p ./build/Release/
+          ./appimagetool-x86_64.AppImage ./Linux_Extras/Bitscoper_CyberKit.AppDir ./build/Release/Bitscoper_CyberKit-$APPIMAGE_VERSION-x64.AppImage
+          chmod +x ./build/Release/*.AppImage
+        shell: bash
+
+      - name: Rename, Move, and Archive Build Artifacts
+        run: |
+          mv ./build/Debug_Symbols/app.linux-x64.symbols ./build/Release/Bitscoper_CyberKit-Linux_x64.symbols
+          cd ./build/linux/x64/release/bundle/
+          zip -r ../../../../Release/Linux_x64_Executable.zip ./*
         shell: bash
 
       - name: Upload Build Artifacts
@@ -71,9 +80,9 @@ jobs:
         with:
           name: Linux
           path: |
-            build/linux/x64/release/bundle/*
-            Bitscoper_CyberKit-x64.AppImage
-            build/Debug_Symbols/Linux_x64/Bitscoper_CyberKit-Linux_x64.symbols
+            build/Release/Linux_x64_Executable.zip
+            build/Release/*.AppImage
+            build/Release/Bitscoper_CyberKit-Linux_x64.symbols
 
   build-for-android:
     name: Build for Android
@@ -105,31 +114,35 @@ jobs:
           echo "storeFile=./KeyStore.jks" >> ./android/key.properties
         shell: bash
 
-      - name: Create keystore
+      - name: Create KeyStore.jks
         run: |
           echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > ./android/app/KeyStore.jks
         shell: bash
 
       - name: Build appbundle
-        run: flutter build appbundle --release --obfuscate --split-debug-info=./build/Debug_Symbols/Android/ -v
+        run: flutter build appbundle --release --obfuscate --split-debug-info=./build/Debug_Symbols/ -v
         shell: bash
 
       - name: Build APKs
-        run: flutter build apk --split-per-abi --release --obfuscate --split-debug-info=./build/Debug_Symbols/Android/ -v
+        run: flutter build apk --split-per-abi --release --obfuscate --split-debug-info=./build/Debug_Symbols/ -v
         shell: bash
 
-      - name: Rename Build Artifacts
+      - name: Rename, Move, and Archive Build Artifacts
         run: |
-          mv ./build/app/outputs/bundle/release/app-release.aab ./build/app/outputs/bundle/release/Bitscoper_CyberKit.aab
-          mv ./build/Debug_Symbols/Android/app.android-x64.symbols ./build/Debug_Symbols/Android/Bitscoper_CyberKit-Android_x64.symbols
-          mv ./build/Debug_Symbols/Android/app.android-arm64.symbols ./build/Debug_Symbols/Android/Bitscoper_CyberKit-Android_ARM64.symbols
-          mv ./build/Debug_Symbols/Android/app.android-arm.symbols ./build/Debug_Symbols/Android/Bitscoper_CyberKit-Android_ARM.symbols
-          mv ./build/app/outputs/flutter-apk/app-x86_64-release.apk ./build/app/outputs/flutter-apk/Bitscoper_CyberKit-x86_64.apk
-          mv ./build/app/outputs/flutter-apk/app-x86_64-release.apk.sha1 ./build/app/outputs/flutter-apk/Bitscoper_CyberKit-x86_64.apk.sha1
-          mv ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk ./build/app/outputs/flutter-apk/Bitscoper_CyberKit-ARM64_V8A.apk
-          mv ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk.sha1 ./build/app/outputs/flutter-apk/Bitscoper_CyberKit-ARM64_V8A.apk.sha1
-          mv ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk ./build/app/outputs/flutter-apk/Bitscoper_CyberKit-ARMEABI_V7A.apk
-          mv ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk.sha1 ./build/app/outputs/flutter-apk/Bitscoper_CyberKit-ARMEABI_V7A.apk.sha1
+          mkdir -p ./build/Release/
+          mv ./build/app/outputs/bundle/release/app-release.aab ./build/Release/Bitscoper_CyberKit.aab
+          mv ./build/Debug_Symbols/app.android-x64.symbols ./build/Release/Bitscoper_CyberKit-Android_x64.symbols
+          mv ./build/Debug_Symbols/app.android-arm64.symbols ./build/Release/Bitscoper_CyberKit-Android_ARM64.symbols
+          mv ./build/Debug_Symbols/app.android-arm.symbols ./build/Release/Bitscoper_CyberKit-Android_ARM.symbols
+          mv ./build/app/outputs/flutter-apk/app-x86_64-release.apk ./build/Release/Bitscoper_CyberKit-x86_64.apk
+          mv ./build/app/outputs/flutter-apk/app-x86_64-release.apk.sha1 ./build/Release/Bitscoper_CyberKit-x86_64.apk.sha1
+          mv ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk ./build/Release/Bitscoper_CyberKit-ARM64_V8A.apk
+          mv ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk.sha1 ./build/Release/Bitscoper_CyberKit-ARM64_V8A.apk.sha1
+          mv ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk ./build/Release/Bitscoper_CyberKit-ARMEABI_V7A.apk
+          mv ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk.sha1 ./build/Release/Bitscoper_CyberKit-ARMEABI_V7A.apk.sha1
+          cd ./build/Release/
+          zip -r ./Android_Debug_Symbols.zip ./Bitscoper_CyberKit-Android_x64.symbols ./Bitscoper_CyberKit-Android_ARM64.symbols ./Bitscoper_CyberKit-Android_ARM.symbols
+          zip -r ./APK_Checksums.zip ./Bitscoper_CyberKit-x86_64.apk.sha1 ./Bitscoper_CyberKit-ARM64_V8A.apk.sha1 ./Bitscoper_CyberKit-ARMEABI_V7A.apk.sha1
         shell: bash
 
       - name: Upload Build Artifacts
@@ -137,16 +150,12 @@ jobs:
         with:
           name: Android
           path: |
-            build/app/outputs/bundle/release/Bitscoper_CyberKit.aab
-            build/Debug_Symbols/Android/Bitscoper_CyberKit-Android_x64.symbols
-            build/Debug_Symbols/Android/Bitscoper_CyberKit-Android_ARM64.symbols
-            build/Debug_Symbols/Android/Bitscoper_CyberKit-Android_ARM.symbols
-            build/app/outputs/flutter-apk/Bitscoper_CyberKit-x86_64.apk
-            build/app/outputs/flutter-apk/Bitscoper_CyberKit-x86_64.apk.sha1
-            build/app/outputs/flutter-apk/Bitscoper_CyberKit-ARM64_V8A.apk
-            build/app/outputs/flutter-apk/Bitscoper_CyberKit-ARM64_V8A.apk.sha1
-            build/app/outputs/flutter-apk/Bitscoper_CyberKit-ARMEABI_V7A.apk
-            build/app/outputs/flutter-apk/Bitscoper_CyberKit-ARMEABI_V7A.apk.sha1
+            build/Release/Bitscoper_CyberKit.aab
+            build/Release/Android_Debug_Symbols.zip
+            build/Release/Bitscoper_CyberKit-x86_64.apk
+            build/Release/Bitscoper_CyberKit-ARM64_V8A.apk
+            build/Release/Bitscoper_CyberKit-ARMEABI_V7A.apk
+            build/Release/APK_Checksums.zip
 
   build-for-macos:
     name: Build for macOS
@@ -174,13 +183,17 @@ jobs:
         run: flutter pub get -v
 
       - name: Build for macOS
-        run: flutter build macos --release --obfuscate --split-debug-info=./build/Debug_Symbols/macOS/ -v
+        run: flutter build macos --release --obfuscate --split-debug-info=./build/Debug_Symbols/ -v
 
-      - name: Rename Build Artifacts
+      - name: Rename, Move, and Archive Build Artifacts
         run: |
-          mv ./build/macos/Build/Products/Release/Bitscoper\ CyberKit.app ./build/macos/Build/Products/Release/Bitscoper_CyberKit-macOS.app
-          mv ./build/Debug_Symbols/macOS/app.darwin-x86_64.symbols ./build/Debug_Symbols/macOS/Bitscoper_CyberKit-macOS_x86_64.symbols
-          mv ./build/Debug_Symbols/macOS/app.darwin-arm64.symbols ./build/Debug_Symbols/macOS/Bitscoper_CyberKit-macOS_ARM64.symbols
+          mkdir -p ./build/Release/
+          mv ./build/macos/Build/Products/Release/Bitscoper\ CyberKit.app ./build/Release/Bitscoper_CyberKit-macOS.app
+          mv ./build/Debug_Symbols/app.darwin-x86_64.symbols ./build/Release/Bitscoper_CyberKit-macOS_x86_64.symbols
+          mv ./build/Debug_Symbols/app.darwin-arm64.symbols ./build/Release/Bitscoper_CyberKit-macOS_ARM64.symbols
+          cd ./build/Release/
+          zip -r ./macOS_Executable.zip ./Bitscoper_CyberKit-macOS.app
+          zip -r ./macOS_Debug_Symbols.zip ./Bitscoper_CyberKit-macOS_x86_64.symbols ./Bitscoper_CyberKit-macOS_ARM64.symbols
         shell: bash
 
       - name: Upload Build Artifacts
@@ -188,9 +201,8 @@ jobs:
         with:
           name: macOS
           path: |
-            build/macos/Build/Products/Release/Bitscoper_CyberKit-macOS.app
-            build/Debug_Symbols/macOS/Bitscoper_CyberKit-macOS_x86_64.symbols
-            build/Debug_Symbols/macOS/Bitscoper_CyberKit-macOS_ARM64.symbols
+            build/Release/macOS_Executable.zip
+            build/Release/macOS_Debug_Symbols.zip
 
   build-for-ios:
     name: Build for iOS
@@ -218,15 +230,18 @@ jobs:
         run: flutter pub get -v
 
       - name: Build iOS Executable
-        run: flutter build ios --no-codesign --release --obfuscate --split-debug-info=./build/Debug_Symbols/iOS_Executable/ -v
+        run: flutter build ios --no-codesign --release --obfuscate --split-debug-info=./build/Debug_Symbols/ -v
 
       # - name: Build IPA
-      #   run: flutter build ipa --no-codesign --release --obfuscate --split-debug-info=./build/Debug_Symbols/IPA/ -v
+      #   run: flutter build ipa --no-codesign --release --obfuscate --split-debug-info=./build/Debug_Symbols/ -v
 
       - name: Rename Build Artifacts
         run: |
-          mv ./build/ios/iphoneos/Runner.app ./build/ios/iphoneos/Bitscoper_CyberKit-iOS.app
-          mv build/Debug_Symbols/iOS_Executable/app.ios-arm64.symbols build/Debug_Symbols/iOS_Executable/Bitscoper_CyberKit-iOS_ARM64.symbols
+          mkdir -p ./build/Release/
+          mv ./build/ios/iphoneos/Runner.app ./build/Release/Bitscoper_CyberKit-iOS.app
+          mv ./build/Debug_Symbols/app.ios-arm64.symbols ./build/Release/Bitscoper_CyberKit-iOS_ARM64.symbols
+          cd ./build/Release/
+          zip -r ./iOS_Executable.zip ./Bitscoper_CyberKit-iOS.app
         shell: bash
 
       - name: Upload Build Artifacts
@@ -234,8 +249,8 @@ jobs:
         with:
           name: iOS
           path: |
-            build/ios/iphoneos/Bitscoper_CyberKit-iOS.app
-            build/Debug_Symbols/iOS_Executable/Bitscoper_CyberKit-iOS_ARM64.symbols
+            build/Release/iOS_Executable.zip
+            build/Release/Bitscoper_CyberKit-iOS_ARM64.symbols
 
   build-for-windows:
     name: Build for Windows
@@ -263,15 +278,13 @@ jobs:
         run: dart run msix:create
         shell: powershell
 
-      - name: Move MSIX Package
+      - name: Rename, Move, and Archive Build Artifacts
         run: |
-          New-Item -ItemType Directory -Force -Path build\windows\x64\runner\Release_MSIX
-          Move-Item -Path build\windows\x64\runner\Release\Bitscoper_CyberKit.msix -Destination build\windows\x64\runner\Release_MSIX/Bitscoper_CyberKit.msix
-        shell: powershell
-
-      - name: Rename Build Artifacts
-        run: |
-          Rename-Item -Path "build\Debug_Symbols\Windows\app.windows-x64.symbols" -NewName "Bitscoper_CyberKit-Windows_x64.symbols"
+          New-Item -ItemType Directory -Force -Path .\build\Release\
+          Move-Item -Path .\build\windows\x64\runner\Release\Bitscoper_CyberKit.msix -Destination .\build\Release\Bitscoper_CyberKit.msix
+          Move-Item -Path .\build\Debug_Symbols\Windows\app.windows-x64.symbols -Destination .\build\Release\Bitscoper_CyberKit-Windows_x64.symbols
+          cd .\build\windows\x64\runner\Release\
+          Compress-Archive -Path .\* -DestinationPath ..\..\..\..\Release\Windows_x64_Executable.zip
         shell: powershell
 
       - name: Upload Build Artifacts
@@ -279,9 +292,9 @@ jobs:
         with:
           name: Windows
           path: |
-            build\windows\x64\runner\Release\*
-            build\windows\x64\runner\Release_MSIX\Bitscoper_CyberKit.msix
-            build\Debug_Symbols\Windows\Bitscoper_CyberKit-Windows_x64.symbols
+            build\Release\Windows_x64_Executable.zip
+            build\Release\Bitscoper_CyberKit.msix
+            build\Release\Bitscoper_CyberKit-Windows_x64.symbols
 
   # build-for-web:
   #   name: Build for Web
@@ -309,11 +322,18 @@ jobs:
   #       run: flutter build web --release -v
   #       shell: bash
 
+  #     - name: Archive Build Artifacts
+  #       run: |
+  #         mkdir -p ./build/Release/
+  #         cd ./build/web/
+  #         zip -r ../Release/Web_Application.zip ./*
+  #       shell: bash
+
   #     - name: Upload Build Artifacts
   #       uses: actions/upload-artifact@v7.0.0
   #       with:
   #         name: Web
-  #         path: build/web/*
+  #         path: build/Release/Web_Application.zip
 
   upload-release:
     name: Upload Release
@@ -335,26 +355,8 @@ jobs:
       - name: Download All Artifacts
         uses: actions/download-artifact@v8.0.1
 
-      - name: Archive Build Artifacts and Debug Symbols
-        run: |
-          zip -r ./Linux_x64_Executable.zip ./Linux/* -x "*.AppImage" -x "*.symbols"
-          zip -r ./Android_Debug_Symbols.zip ./Android/*.symbols
-          zip -r ./APK_Checksums.zip ./Android/*.sha1
-          zip -r ./macOS_Executable.zip ./macOS/Bitscoper_CyberKit-macOS.app
-          zip -r ./macOS_Debug_Symbols.zip ./macOS/*.symbols
-          zip -r ./iOS_Executable.zip ./iOS/Bitscoper_CyberKit-iOS.app
-          zip -r ./Windows_x64_Executable.zip ./Windows/* -x "*.msix" -x "*.symbols"
-          # zip -r ./Web_Application.zip ./Web/*
-        shell: bash
-
       - name: Get Version
         run: echo "VERSION=$(grep '^version:' ./pubspec.yaml | awk '{print $2}')" >> $GITHUB_ENV
-        shell: bash
-
-      - name: Rename AppImage
-        run: |
-          APPIMAGE_VERSION=${VERSION%%+*}
-          mv ./Linux/Bitscoper_CyberKit-x64.AppImage ./Linux/Bitscoper_CyberKit-$APPIMAGE_VERSION-x64.AppImage
         shell: bash
 
       - name: Delete Existing Tag and Release (If Any)
@@ -370,16 +372,23 @@ jobs:
         uses: ncipollo/release-action@v1.21.0
         with:
           artifacts: |
+            ./Linux/Linux_x64_Executable.zip
             ./Linux/*.AppImage
             ./Linux/Bitscoper_CyberKit-Linux_x64.symbols
             ./Android/Bitscoper_CyberKit.aab
+            ./Android/Android_Debug_Symbols.zip
             ./Android/Bitscoper_CyberKit-x86_64.apk
             ./Android/Bitscoper_CyberKit-ARM64_V8A.apk
             ./Android/Bitscoper_CyberKit-ARMEABI_V7A.apk
+            ./Android/APK_Checksums.zip
+            ./macOS/macOS_Executable.zip
+            ./macOS/macOS_Debug_Symbols.zip
+            ./iOS/iOS_Executable.zip
             ./iOS/Bitscoper_CyberKit-iOS_ARM64.symbols
+            ./Windows/Windows_x64_Executable.zip
             ./Windows/Bitscoper_CyberKit.msix
             ./Windows/Bitscoper_CyberKit-Windows_x64.symbols
-            ./*.zip
+            # ./Web/Release/Web_Application.zip
           tag: v${{ env.VERSION }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
