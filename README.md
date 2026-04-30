@@ -13,7 +13,6 @@ A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner
 > Unlawful use is prohibited.
 
 <div align="center">
-
   <table>
     <tbody>
       <tr>
@@ -22,22 +21,10 @@ A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner
             <img src="https://get.microsoft.com/images/en-us%20dark.svg" height="48" alt="Microsoft Store" />
           </a>
         </td>
-        <td align="center">
-          <a href="https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox">
-            <img src="3rd_Party_Service_Logos/Google_Play.png" height="48" alt="Google Play" />
-          </a>
-          <br />(Temporarily Paused – No Longer Owned)
-        </td>
         <td>
           <a href="https://github.com/bitscoper/bitscoper_cyberkit/pkgs/container/bitscoper_cyberkit/">
-            <img src="3rd_Party_Service_Logos/Docker.svg" height="48" alt="GitHub Container Registry" />
+            <img src="https://dl.svgcdn.com/png/logos/docker-icon-800.png" height="48" alt="GitHub Container Registry" />
           </a>
-        </td>
-        <td align="center">
-          <a href="https://gallery.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit/">
-            <img src="3rd_Party_Service_Logos/Amazon_ECR.svg" height="48" alt="Amazon Elastic Container Registry Public Gallery" />
-          </a>
-          <br />(Free Tier Expired)
         </td>
       </tr>
     </tbody>
@@ -46,214 +33,60 @@ A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner
 
 ## [Latest Release](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/)
 
-<div align="center">
+### Linux
 
-```mermaid
-flowchart LR
+- **x64 Executable:** [Linux_x64_Executable.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Linux_x64_Executable.zip)
+- **x64 AppImage:** [Bitscoper_CyberKit-18.1.1-x64.AppImage](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-18.1.1-x64.AppImage)
+- **x64 Debug Symbols:** [Bitscoper_CyberKit-Linux_x64.symbols](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-Linux_x64.symbols)
 
-Code --> Release[Release]
+### Android
 
-Code[Code] --> Linux{Linux}
-Linux --> Linux_x64_Executable(x64 Executable)
-Linux_x64_Executable --> Linux_x64_AppImage(x64 AppImage)
-Linux_x64_Executable --> Release[Release]
-Linux_x64_AppImage --> Release[Release]
-Linux_x64_Executable --> Linux_Docker_Image(Docker Image)
-Linux_Docker_Image --> GHCR[GHCR]
-Linux_Docker_Image --> Amazon_ECR_Public_Gallery[Amazon Elastic Container Registry Public Gallery]
+Submission to [Google Play](https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox) is paused because I no longer own the account.
 
-Code --> Android{Android}
-Android --> |Signing| Android_appbundle(appbundle)
-Android --> |Signing| Android_ARMEABI_V7A_APK(ARMEABI-V7A APK)
-Android --> |Signing| Android_ARM64_V8A_APK(ARM64-V8A APK)
-Android --> |Signing| Android_x86_64_APK(x86_64 APK)
-Android_appbundle --> Release[Release]
-Android_x86_64_APK --> Release[Release]
-Android_ARM64_V8A_APK --> Release[Release]
-Android_ARMEABI_V7A_APK --> Release[Release]
-Android_appbundle --> |Manual Submission| Google_Play[Google Play]
+- **appbundle:** [Bitscoper_CyberKit.aab](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit.aab)
+- **x86_64 APK:** [Bitscoper_CyberKit-x86_64.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-x86_64.apk)
+- **ARM64-V8A APK:** [Bitscoper_CyberKit-ARM64_V8A.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-ARM64_V8A.apk)
+- **ARMEABI-V7A:** [Bitscoper_CyberKit-ARMEABI_V7A.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-ARMEABI_V7A.apk)
+- **APK Checksums:** [APK_Checksums.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/APK_Checksums.zip)
+- **Debug Symbols:** [Android_Debug_Symbols.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Android_Debug_Symbols.zip)
 
-Code --> macOS{macOS}
-macOS --> macOS_Executable(Executable)
-macOS_Executable --> Release[Release]
+### macOS
 
-Code --> iOS{iOS}
-iOS --> |Not Signing Yet| iOS_Executable(Executable)
-iOS_Executable --> Release[Release]
+- **Executable:** [macOS_Executable.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/macOS_Executable.zip)
+- **Debug Symbols:** [macOS_Debug_Symbols.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/macOS_Debug_Symbols.zip)
 
-Code --> Windows{Windows}
-Windows --> Windows_x64_Executable(x64 Executable)
-Windows_x64_Executable --> |Signing| Windows_x64_MSIX_Package(MSIX Package)
-Windows_x64_Executable --> Release[Release]
-Windows_x64_MSIX_Package --> Release[Release]
-Windows_x64_MSIX_Package --> |Manual Submission| Microsoft_Store[Microsoft Store]
+### iOS
 
-Code --> Web{Web}
-Web --> |Disabled due to Build Failure| Web_Application(Application)
-Web_Application --> Release[Release]
-Web_Application --> My_Server[My Server]
-```
+- **Executable:** [iOS_Executable.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/iOS_Executable.zip)
+- **ARM64 Debug Symbols:** [Bitscoper_CyberKit-iOS_ARM64.symbols](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-iOS_ARM64.symbols)
 
-  <table>
-    <tr>
-      <th colspan="2">Platform</th>
-      <th colspan="2">Builds</th>
-      <th>Debug Symbols</th>
-      <th>Stores / Repositories / Deployments</th>
-    </tr>
-    <tr>
-      <th rowspan="2" colspan="2">Linux</th>
-      <td colspan="2">
-        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Linux_x64_Executable.zip">Linux_x64_Executable.zip</a>
-      </td>
-      <td rowspan="2">
-        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Linux_x64_Debug_Symbols.zip">ZIP</a>
-      </td>
-      <td rowspan="2">-</td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-18.1.1-x64.AppImage">Bitscoper_CyberKit-18.1.1-x64.AppImage</a>
-      </td>
-    </tr>
-    <tr>
-      <th rowspan="4" width="46">Android</th>
-      <th>appbundle</th>
-      <td colspan="2">
-        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Android_appbundle.zip">Android_appbundle.zip</a>
-      </td>
-      <td>
-        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Android_appbundle_Debug_Symbols.zip">ZIP</a>
-      </td>
-      <td rowspan="4">
-        <a href="https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox">Google Play</a>
-        <br />(Temporarily Paused – No Longer Owned)
-      </td>
-    </tr>
-    <tr>
-      <th rowspan="3">APK</th>
-      <td rowspan="2">ARM</td>
-      <td>
-        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/APK_ARMEABI_V7A.zip">APK_ARMEABI_V7A.zip</a> (32-bit)
-      </td>
-      <td rowspan="3">
-        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/APK_Debug_Symbols.zip">ZIP</a>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/APK_ARM64_V8A.zip">APK_ARM64_V8A.zip</a> (64-bit)
-      </td>
-    </tr>
-    <tr>
-      <td>x86_64</td>
-      <td>
-        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/APK_x86_64.zip">APK_x86_64.zip</a>
-      </td>
-    </tr>
-    <tr>
-      <th colspan="2">macOS</th>
-      <td colspan="2">
-        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/macOS_Executable.zip">macOS_Executable.zip</a>
-      </td>
-      <td>
-        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/macOS_Debug_Symbols.zip">ZIP</a>
-      </td>
-      <td>-</td>
-    </tr>
-    <tr>
-      <th colspan="2">iOS</th>
-      <td colspan="2">
-        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/iOS_Executable.zip">iOS_Executable.zip</a>
-      </td>
-      <td>
-        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/iOS_Executable_Debug_Symbols.zip">ZIP</a>
-      </td>
-      <td>-</td>
-    </tr>
-    <tr>
-      <th rowspan="2" colspan="2">Windows</th>
-      <td colspan="2">
-        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Windows_x64_Executable.zip">Windows_x64_Executable.zip</a>
-      </td>
-      <td rowspan="2">
-        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Windows_x64_Debug_Symbols.zip">ZIP</a>
-      </td>
-      <td rowspan="2">
-        <a href="https://apps.microsoft.com/detail/9mv2046tz302">Microsoft Store</a>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Windows_x64_MSIX_Package.zip">Windows_x64_MSIX_Package.zip</a>
-      </td>
-    </tr>
-    <tr>
-      <th colspan="2">Web</th>
-      <td colspan="2">
-        <a href="https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Web_Application.zip">Web_Application.zip</a>
-        <br />(Disabled due to Build Failure)
-      </td>
-      <td>-</td>
-      <td>
-        <a href="https://bitscoper.dev/Bitscoper_CyberKit/Application/">(My Server)</a>
-        <br />(Disabled due to Build Failure)
-      </td>
-    </tr>
-    <tr>
-      <th colspan="2" rowspan="2">Docker / Podman</th>
-      <td colspan="2" rowspan="2">-</td>
-      <td rowspan="2">-</td>
-      <td>
-        <a href="https://github.com/bitscoper/bitscoper_cyberkit/pkgs/container/bitscoper_cyberkit/">GitHub Container Registry</a>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="https://gallery.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit/">Amazon Elastic Container Registry Public Gallery</a>
-        <br />(Free Tier Expired)
-      </td>
-    </tr>
-  </table>
-</div>
+### Windows
 
-### From GitHub Container Registry
+Versions I submit to the [Microsoft Store](https://apps.microsoft.com/detail/9mv2046tz302) may vary and be delayed.
 
-#### Pull
+- **x64 Executable:** [Windows_x64_Executable.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Windows_x64_Executable.zip)
+- **MSIX**: [Bitscoper_CyberKit.msix](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit.msix)
+- **x64 Debug Symbols**: [Bitscoper_CyberKit-Windows_x64.symbols](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-Windows_x64.symbols)
+
+### Podman / Docker
+
+Available only on the [GitHub Container Registry](https://github.com/bitscoper/bitscoper_cyberkit/pkgs/container/bitscoper_cyberkit/). The free tier of the [Amazon Elastic Container Registry Public Gallery](https://gallery.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit/) has expired.
+
+#### Pull Image
 
 ```sh
-podman pull ghcr.io/bitscoper/bitscoper_cyberkit:latest
-# or
-docker pull ghcr.io/bitscoper/bitscoper_cyberkit:latest
+podman pull ghcr.io/bitscoper/bitscoper_cyberkit:latest || docker pull ghcr.io/bitscoper/bitscoper_cyberkit:latest
 ```
 
-#### Run
+#### Run Container
 
 ```sh
-podman run -it --rm ghcr.io/bitscoper/bitscoper_cyberkit:latest
-# or
-docker run -it --rm ghcr.io/bitscoper/bitscoper_cyberkit:latest
+podman run -it --rm ghcr.io/bitscoper/bitscoper_cyberkit:latest || docker run -it --rm ghcr.io/bitscoper/bitscoper_cyberkit:latest
 ```
 
-### From Amazon Elastic Container Registry Public Gallery
+### Web
 
-(Free Tier Expired)
-
-#### Pull
-
-```sh
-podman pull public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit:latest
-# or
-docker pull public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit:latest
-```
-
-#### Run
-
-```sh
-podman run -it --rm public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit:latest
-# or
-docker run -it --rm public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit:latest
-```
+- **Web Application:** [Web_Application.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Web_Application.zip) (Disabled due to Build Failure)
 
 ## Tools
 
@@ -332,7 +165,7 @@ Displays details of the currently connected Wireless Fidelity (Wi-Fi) network.
 ## Compatibility
 
 | Tool | Linux | Android | macOS | iOS | Windows | ~~Web~~ |
-|--------|-------|---------|-------|-----|---------|-----|
+| -------- | ------- | --------- | ------- | ----- | --------- | ----- |
 | Bluetooth Low Energy Scanner | ✅ | ✅ | ✅ | ✅ | ✅ | ~~✅~~ |
 | IPv4 Subnet Scanner | ✅ | ✅ | ✅ | ✅ | ✅ | ~~❌~~ |
 | mDNS Scanner | ✅ | ✅ | ✅ | ✅ | ✅ | ~~❌~~ |
@@ -352,15 +185,63 @@ Displays details of the currently connected Wireless Fidelity (Wi-Fi) network.
 | WHOIS Retriever | ✅ | ✅ | ✅ | ✅ | ✅ | ~~❌~~ |
 | Wi-Fi Details Viewer | ✅ | ✅ | ✅ | ✅ | ✅ | ~~✅~~ |
 
+## Release Flow
+
+```mermaid
+flowchart LR
+
+Code --> Release[Release]
+
+Code[Code] --> Linux{Linux}
+Linux --> Linux_x64_Executable(x64 Executable)
+Linux_x64_Executable --> Linux_x64_AppImage(x64 AppImage)
+Linux_x64_Executable --> Release[Release]
+Linux_x64_AppImage --> Release[Release]
+Linux_x64_Executable --> Linux_Docker_Image(Docker Image)
+Linux_Docker_Image --> GHCR[GHCR]
+Linux_Docker_Image --> Amazon_ECR_Public_Gallery[Amazon Elastic Container Registry Public Gallery]
+
+Code --> Android{Android}
+Android --> |Signing| Android_appbundle(appbundle)
+Android --> |Signing| Android_ARMEABI_V7A_APK(ARMEABI-V7A APK)
+Android --> |Signing| Android_ARM64_V8A_APK(ARM64-V8A APK)
+Android --> |Signing| Android_x86_64_APK(x86_64 APK)
+Android_appbundle --> Release[Release]
+Android_x86_64_APK --> Release[Release]
+Android_ARM64_V8A_APK --> Release[Release]
+Android_ARMEABI_V7A_APK --> Release[Release]
+Android_appbundle --> |Manual Submission| Google_Play[Google Play]
+
+Code --> macOS{macOS}
+macOS --> macOS_Executable(Executable)
+macOS_Executable --> Release[Release]
+
+Code --> iOS{iOS}
+iOS --> |Not Signing Yet| iOS_Executable(Executable)
+iOS_Executable --> Release[Release]
+
+Code --> Windows{Windows}
+Windows --> Windows_x64_Executable(x64 Executable)
+Windows_x64_Executable --> |Signing| Windows_MSIX(MSIX)
+Windows_x64_Executable --> Release[Release]
+Windows_MSIX --> Release[Release]
+Windows_MSIX --> |Manual Submission| Microsoft_Store[Microsoft Store]
+
+Code --> Web{Web}
+Web --> |Disabled due to Build Failure| Web_Application(Application)
+Web_Application --> Release[Release]
+Web_Application --> My_Server[My Server]
+```
+
 ## Using Podman / Docker Locally on Linux
 
-### Build
+### Build Image
 
 ```sh
 docker build -t bitscoper_cyberkit .
 ```
 
-### Run
+### Run Container on Wayland
 
 ```sh
 xhost +si:localuser:root && docker run -it --rm -e DISPLAY=$DISPLAY -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY -v /run/user/$(id -u)/wayland-0:/run/user/$(id -u)/wayland-0 -e XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR bitscoper_cyberkit
