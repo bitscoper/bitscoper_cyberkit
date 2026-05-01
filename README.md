@@ -26,6 +26,11 @@ A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner
             <img src="https://dl.svgcdn.com/png/logos/docker-icon-800.png" height="48" alt="GitHub Container Registry" />
           </a>
         </td>
+        <td>
+          <a href="http://apps.obtainium.imranr.dev/redirect.html?r=obtainium://add/https://github.com/bitscoper/bitscoper_cyberkit/">
+            <img src="https://raw.githubusercontent.com/ImranR98/Obtainium/main/assets/graphics/badge_obtainium.png" height="48" alt="Obtainium" />
+          </a>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -41,7 +46,7 @@ A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner
 
 ### Android
 
-Submission to [Google Play](https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox) is paused because I no longer own the account.
+Submission to [Google Play](https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox) is paused because I no longer own the account. [Obtainium](http://apps.obtainium.imranr.dev/redirect.html?r=obtainium://add/https://github.com/bitscoper/bitscoper_cyberkit/) can be used to directly install APKs from the [latest GitHub release](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/).
 
 - **appbundle:** [Bitscoper_CyberKit.aab](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit.aab)
 - **x86_64 APK:** [Bitscoper_CyberKit-x86_64.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-x86_64.apk)
