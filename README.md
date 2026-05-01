@@ -67,11 +67,19 @@ Submission to [Google Play](https://play.google.com/store/apps/details?id=bitsco
 
 ### Windows
 
-Versions I submit to the [Microsoft Store](https://apps.microsoft.com/detail/9mv2046tz302) may vary and be delayed.
-
 - **x64 Executable:** [Windows_x64_Executable.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Windows_x64_Executable.zip)
 - **MSIX**: [Bitscoper_CyberKit.msix](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit.msix)
 - **x64 Debug Symbols**: [Bitscoper_CyberKit-Windows_x64.symbols](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-Windows_x64.symbols)
+
+- **Microsoft Store:** [9MV2046TZ302](https://apps.microsoft.com/detail/9mv2046tz302)
+
+#### WinGet
+
+```powershell
+winget.exe install --id "9MV2046TZ302" --exact --source msstore --accept-source-agreements --disable-interactivity --silent --accept-package-agreements --force
+```
+
+Versions I submit to the Microsoft Store may vary and be delayed.
 
 ### Podman / Docker
 
