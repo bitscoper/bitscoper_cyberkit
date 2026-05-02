@@ -225,14 +225,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
-  dashmon:
-    dependency: "direct dev"
-    description:
-      name: dashmon
-      sha256: "752a7af4d2c3769fbad66eb6ed40638fcb6ab6798ab2bbdd399cc17ba1b47ddf"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.3"
   dbus:
     dependency: transitive
     description:
@@ -265,14 +257,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
-  dynamic_color:
-    dependency: "direct main"
-    description:
-      name: dynamic_color
-      sha256: "43a5a6679649a7731ab860334a5812f2067c2d9ce6452cf069c5e0c25336c17c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.8.1"
   equatable:
     dependency: transitive
     description:
@@ -542,14 +526,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.3"
-  google_fonts:
-    dependency: "direct main"
-    description:
-      name: google_fonts
-      sha256: db9df7a5898d894eeda4c78143f35c30a243558be439518972366880b80bf88e
-      url: "https://pub.dev"
-    source: hosted
-    version: "8.0.2"
   hooks:
     dependency: transitive
     description:
@@ -1114,10 +1090,10 @@ packages:
     dependency: transitive
     description:
       name: quick_actions_android
-      sha256: "8e491323342fa68420ca26a9bd5a2bbcdb526bda33db45b6427c6d139fb7316d"
+      sha256: "6fbdda87fbedd0602b91f35d870c2cbcb6d053bc863efb76c6e7f60f1d8e3fd6"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.29"
+    version: "1.0.30"
   quick_actions_ios:
     dependency: transitive
     description:
@@ -1503,10 +1479,10 @@ packages:
     dependency: transitive
     description:
       name: vm_service
-      sha256: "046d3928e16fa4dc46e8350415661755ab759d9fc97fc21b5ab295f71e4f0499"
+      sha256: "0016aef94fc66495ac78af5859181e3f3bf2026bd8eecc72b9565601e19ab360"
       url: "https://pub.dev"
     source: hosted
-    version: "15.1.0"
+    version: "15.2.0"
   watcher:
     dependency: transitive
     description:
