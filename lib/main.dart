@@ -6,8 +6,6 @@ import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:network_tools_flutter/network_tools_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:quick_actions/quick_actions.dart';
@@ -18,11 +16,6 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  LicenseRegistry.addLicense(() async* {
-    final license = await rootBundle.loadString('google_fonts/OFL.txt');
-    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
-  });
 
   await configureNetworkToolsFlutter(
     (await getApplicationSupportDirectory()).path,
@@ -238,10 +231,10 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
   }
 
   ThemeData _buildTheme(Brightness brightness) {
-    ThemeData baseTheme = ThemeData(brightness: brightness);
-
-    return baseTheme.copyWith(
-      textTheme: GoogleFonts.notoSansTextTheme(baseTheme.textTheme),
+    return ThemeData(
+      useMaterial3: true,
+      useSystemColors: true,
+      brightness: brightness,
     );
   }
 
