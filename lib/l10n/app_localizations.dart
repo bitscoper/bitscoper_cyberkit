@@ -152,6 +152,18 @@ abstract class AppLocalizations {
   /// **'Attack Vector'**
   String get attack_vector;
 
+  /// No description provided for @attention.
+  ///
+  /// In en, this message translates to:
+  /// **'Attention'**
+  String get attention;
+
+  /// No description provided for @attention_to_update_checker.
+  ///
+  /// In en, this message translates to:
+  /// **'The update checker only checks whether a newer release is available in the application’s GitHub repository. It neither runs automatically nor downloads or installs anything. If you installed the application from an application store, you should use the corresponding client instead.'**
+  String get attention_to_update_checker;
+
   /// No description provided for @automatic.
   ///
   /// In en, this message translates to:
