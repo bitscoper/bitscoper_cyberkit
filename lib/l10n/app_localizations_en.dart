@@ -36,6 +36,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get attack_vector => 'Attack Vector';
 
   @override
+  String get attention => 'Attention';
+
+  @override
+  String get attention_to_update_checker =>
+      'The update checker only checks whether a newer release is available in the application’s GitHub repository. It neither runs automatically nor downloads or installs anything. If you installed the application from an application store, you should use the corresponding client instead.';
+
+  @override
   String get automatic => 'Automatic';
 
   @override
