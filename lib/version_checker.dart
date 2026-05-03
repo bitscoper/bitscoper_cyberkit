@@ -21,66 +21,75 @@ Future<void> checkVersion(BuildContext context) async {
   try {
     Navigator.of(context).pop();
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(AppLocalizations.of(context)!.checking_version),
-        showCloseIcon: true,
-      ),
-    );
-
-    final response = await http.get(
-      Uri.parse(
-        'https://raw.githubusercontent.com/bitscoper/Bitscoper_CyberKit/refs/heads/main/pubspec.yaml',
-      ),
-    );
-
-    if (response.statusCode == 200) {
-      final String localVersion = await getLocalVersion();
-
-      final dynamic yamlMap = loadYaml(response.body);
-      final String latestVersion = yamlMap['version'].toString();
-
-      final String latestVersionShort = skipBuildNumber(latestVersion);
-      final String localVersionShort = skipBuildNumber(localVersion);
-
-      if (latestVersionShort != localVersionShort) {
-        ScaffoldMessenger.of(
-          navigatorKey.currentContext!,
-        ).hideCurrentSnackBar();
-
-        ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
+    showMessageDialog(
+      context,
+      AppLocalizations.of(context)!.attention,
+      AppLocalizations.of(context)!.attention_to_update_checker,
+      onOK: () async {
+        ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(
-              "${AppLocalizations.of(navigatorKey.currentContext!)!.latest_version}: $latestVersionShort\n${AppLocalizations.of(navigatorKey.currentContext!)!.your_version}: $localVersion",
-            ),
+            content: Text(AppLocalizations.of(context)!.checking_version),
             showCloseIcon: true,
           ),
         );
-      } else {
-        ScaffoldMessenger.of(
-          navigatorKey.currentContext!,
-        ).hideCurrentSnackBar();
 
-        ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
-          SnackBar(
-            content: Text(
-              AppLocalizations.of(
-                navigatorKey.currentContext!,
-              )!.you_are_using_the_latest_version,
-            ),
-            showCloseIcon: true,
+        final response = await http.get(
+          Uri.parse(
+            'https://raw.githubusercontent.com/bitscoper/bitscoper_cyberkit/refs/heads/main/pubspec.yaml',
           ),
         );
-      }
-    } else {
-      ScaffoldMessenger.of(navigatorKey.currentContext!).hideCurrentSnackBar();
 
-      showMessageDialog(
-        navigatorKey.currentContext!,
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        response.statusCode.toString(),
-      );
-    }
+        if (response.statusCode == 200) {
+          final String localVersion = await getLocalVersion();
+
+          final dynamic yamlMap = loadYaml(response.body);
+          final String latestVersion = yamlMap['version'].toString();
+
+          final String latestVersionShort = skipBuildNumber(latestVersion);
+          final String localVersionShort = skipBuildNumber(localVersion);
+
+          if (latestVersionShort != localVersionShort) {
+            ScaffoldMessenger.of(
+              navigatorKey.currentContext!,
+            ).hideCurrentSnackBar();
+
+            ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
+              SnackBar(
+                content: Text(
+                  "${AppLocalizations.of(navigatorKey.currentContext!)!.latest_version}: $latestVersionShort\n${AppLocalizations.of(navigatorKey.currentContext!)!.your_version}: $localVersion",
+                ),
+                showCloseIcon: true,
+              ),
+            );
+          } else {
+            ScaffoldMessenger.of(
+              navigatorKey.currentContext!,
+            ).hideCurrentSnackBar();
+
+            ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
+              SnackBar(
+                content: Text(
+                  AppLocalizations.of(
+                    navigatorKey.currentContext!,
+                  )!.you_are_using_the_latest_version,
+                ),
+                showCloseIcon: true,
+              ),
+            );
+          }
+        } else {
+          ScaffoldMessenger.of(
+            navigatorKey.currentContext!,
+          ).hideCurrentSnackBar();
+
+          showMessageDialog(
+            navigatorKey.currentContext!,
+            AppLocalizations.of(navigatorKey.currentContext!)!.error,
+            response.statusCode.toString(),
+          );
+        }
+      },
+    );
   } catch (error) {
     ScaffoldMessenger.of(navigatorKey.currentContext!).hideCurrentSnackBar();
 

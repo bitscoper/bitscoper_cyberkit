@@ -36,6 +36,13 @@ class AppLocalizationsBn extends AppLocalizations {
   String get attack_vector => 'অ্যাটাক ভেক্টর';
 
   @override
+  String get attention => 'দৃষ্টি আকর্ষণ';
+
+  @override
+  String get attention_to_update_checker =>
+      'এই আপডেট চেকার শুধু অ্যাপ্লিকেশনের GitHub রিপোজিটরিতে নতুন কোনো রিলিজ আছে কিনা তা জানায়। এটা স্বয়ংক্রিয়ভাবে চালু হয় না এবং কোনো কিছু ডাউনলোড বা ইনস্টলও করে না। আপনি যদি অ্যাপ্লিকেশনটি কোনো অ্যাপ্লিকেশন স্টোর থেকে ইনস্টল করে থাকেন, তাহলে সংশ্লিষ্ট ক্লায়েন্টটি ব্যবহার করুন।';
+
+  @override
   String get automatic => 'স্বয়ংক্রিয়';
 
   @override
