@@ -11,56 +11,56 @@ environment:
 dependencies:
   # device_info_plus: null
   # dynamic_color: null # !iOS !Web
-  async: any
-  b: null
+  async: ^2.13.1
+  b: ^0.2.0
   connectivity_plus: 7.0.0 # Locked for macOS & iOS Compatibility
-  crypto: null
-  cvss_vulnerability_scoring: null
-  dart_ping_ios: null # Extends dart_ping for iOS
-  dart_ping: null # !Web
-  dnsolve: null # !macOS
+  crypto: ^3.0.7
+  cvss_vulnerability_scoring: ^1.0.0
+  dart_ping_ios: ^4.0.2 # Extends dart_ping for iOS
+  dart_ping: ^9.0.1 # !Web
+  dnsolve: ^3.0.0 # !macOS
   file_picker: ^11.0.2 # Downgraded Once Automatically
-  file_saver: null
+  file_saver: ^0.3.1
   flutter:
     sdk: flutter
-  flutter_blue_plus: null
-  flutter_colorpicker: null
-  flutter_local_notifications: null # !Web
+  flutter_blue_plus: ^2.2.1
+  flutter_colorpicker: ^1.1.0
+  flutter_local_notifications: ^21.0.0 # !Web
   flutter_localizations:
     sdk: flutter
-  flutter_native_splash: null # !Linux !maxOS !Windows
-  flutter_riverpod: null
-  flutter_staggered_grid_view: null
+  flutter_native_splash: ^2.4.7 # !Linux !maxOS !Windows
+  flutter_riverpod: ^3.3.1
+  flutter_staggered_grid_view: ^0.7.0
   flutter_traceroute:
     git:
       url: https://github.com/Koizeay/flutter_traceroute.git # !Linux !macOS !Windows !Web
-  html: null
-  http: null
-  intl: any
-  morse_code_translator: null
-  network_info_plus: null
+  html: ^0.15.6
+  http: ^1.6.0
+  intl: ^0.20.2
+  morse_code_translator: ^0.0.1
+  network_info_plus: ^7.0.0
   network_tools_flutter: 2.0.7 # Locked due to Two Call Stacks Being "Paused on Entry" # !Web
-  ogp_data_extract: null
-  package_info_plus: null
-  path_provider: null # !Web
-  permission_guard: null # !Linux # !macOS
-  qr_flutter: null
-  quick_actions: null # !Linux !macOS !Windows !Web
-  shared_preferences: null
-  tcp_scanner: null # !Web
-  timelines_plus: null
-  upnp_client: null # !Web
-  url_launcher: null
-  uuid: null
-  whois: null # !Web
-  widgets_to_image: null
-  yaml: null
+  ogp_data_extract: ^0.2.2
+  package_info_plus: ^9.0.1
+  path_provider: ^2.1.5 # !Web
+  permission_guard: ^2.0.1 # !Linux # !macOS
+  qr_flutter: ^4.1.0
+  quick_actions: ^1.1.0 # !Linux !macOS !Windows !Web
+  shared_preferences: ^2.5.5
+  tcp_scanner: ^2.0.5 # !Web
+  timelines_plus: ^2.0.0
+  upnp_client: ^1.0.4 # !Web
+  url_launcher: ^6.3.2
+  uuid: ^4.5.3
+  whois: ^1.0.0 # !Web
+  widgets_to_image: ^2.0.1
+  yaml: ^3.1.3
 
 dev_dependencies:
-  flutter_launcher_icons: null
-  flutter_lints: null
-  msix: null
-  rename: null
+  flutter_launcher_icons: ^0.14.4
+  flutter_lints: ^6.0.0
+  msix: ^3.16.13
+  rename: ^3.1.0
 
 flutter:
   assets:
@@ -105,7 +105,7 @@ flutter_native_splash:
 msix_config:
   display_name: Bitscoper CyberKit
   identity_name: 18862TeleChirkut.BitscoperCyberKit
-  publisher_display_name: Bitscoper
+  publisher_display_name: bitscoper
   publisher: CN=37755377-8C56-44E3-8D7A-0F1AD45034D2
   logo_path: assets/icon/maskable_icon_x512.png
   trim_logo: false
