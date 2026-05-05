@@ -62,14 +62,13 @@ jobs:
 
       - name: Copy Build Artifacts, and Icon into AppDir
         run: |
-          cp -r ./build/linux/x64/release/bundle/* ./Linux_Extras/Bitscoper_CyberKit.AppDir/
-          cp ./assets/icon/maskable_icon_x512.png ./Linux_Extras/Bitscoper_CyberKit.AppDir/Bitscoper_CyberKit.png
+          cp -r ./build/linux/x64/release/bundle/* ./Bitscoper_CyberKit.AppDir/
         shell: bash
 
       - name: Permit Execution of AppRun and Binary
         run: |
-          chmod +x ./Linux_Extras/Bitscoper_CyberKit.AppDir/AppRun
-          chmod +x ./Linux_Extras/Bitscoper_CyberKit.AppDir/Bitscoper_CyberKit
+          chmod +x ./Bitscoper_CyberKit.AppDir/AppRun
+          chmod +x ./Bitscoper_CyberKit.AppDir/Bitscoper_CyberKit
         shell: bash
 
       - name: Get Version
@@ -80,7 +79,7 @@ jobs:
         run: |
           APPIMAGE_VERSION=${VERSION%%+*}
           mkdir -p ./build/Release/
-          ./appimagetool-x86_64.AppImage ./Linux_Extras/Bitscoper_CyberKit.AppDir ./build/Release/Bitscoper_CyberKit-$APPIMAGE_VERSION-x64.AppImage
+          ./appimagetool-x86_64.AppImage ./Bitscoper_CyberKit.AppDir ./build/Release/Bitscoper_CyberKit-$APPIMAGE_VERSION-x64.AppImage
           chmod +x ./build/Release/*.AppImage
         shell: bash
 
