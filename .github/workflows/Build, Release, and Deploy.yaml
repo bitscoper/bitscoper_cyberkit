@@ -31,6 +31,7 @@ jobs:
         uses: subosito/flutter-action@v2.23.0
         with:
           channel: stable
+          flutter-version: 3.41.6
 
       - name: Install Dependencies
         run: |
@@ -91,7 +92,7 @@ jobs:
         shell: bash
 
       - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v7.0.0
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: Linux
           path: |
@@ -109,6 +110,7 @@ jobs:
         uses: subosito/flutter-action@v2.23.0
         with:
           channel: stable
+          flutter-version: 3.41.6
 
       - name: Run flutter doctor
         run: flutter doctor -v
@@ -161,7 +163,7 @@ jobs:
         shell: bash
 
       - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v7.0.0
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: Android
           path: |
@@ -179,7 +181,7 @@ jobs:
       contents: read
     steps:
       - name: Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
+        uses: maxim-lobanov/setup-xcode@v1.7.0
         with:
           xcode-version: "26.4"
 
@@ -187,6 +189,7 @@ jobs:
         uses: subosito/flutter-action@v2.23.0
         with:
           channel: stable
+          flutter-version: 3.41.6
 
       - name: Run flutter doctor
         run: flutter doctor -v
@@ -212,7 +215,7 @@ jobs:
         shell: bash
 
       - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v7.0.0
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: macOS
           path: |
@@ -226,7 +229,7 @@ jobs:
       contents: read
     steps:
       - name: Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
+        uses: maxim-lobanov/setup-xcode@v1.7.0
         with:
           xcode-version: "26.4"
 
@@ -234,6 +237,7 @@ jobs:
         uses: subosito/flutter-action@v2.23.0
         with:
           channel: stable
+          flutter-version: 3.41.6
 
       - name: Run flutter doctor
         run: flutter doctor -v
@@ -260,7 +264,7 @@ jobs:
         shell: bash
 
       - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v7.0.0
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: iOS
           path: |
@@ -277,6 +281,7 @@ jobs:
         uses: subosito/flutter-action@v2.23.0
         with:
           channel: stable
+          flutter-version: 3.41.6
 
       - name: Run flutter doctor
         run: flutter doctor -v
@@ -303,7 +308,7 @@ jobs:
         shell: powershell
 
       - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v7.0.0
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: Windows
           path: |
@@ -321,6 +326,7 @@ jobs:
   #       uses: subosito/flutter-action@v2.23.0
   #       with:
   #         channel: stable
+  #         flutter-version: 3.41.6
 
   #     - name: Run flutter doctor
   #       run: flutter doctor -v
@@ -345,7 +351,7 @@ jobs:
   #       shell: bash
 
   #     - name: Upload Build Artifacts
-  #       uses: actions/upload-artifact@v7.0.0
+  #       uses: actions/upload-artifact@v7.0.1
   #       with:
   #         name: Web
   #         path: build/Release/Web_Application.zip
