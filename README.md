@@ -41,8 +41,7 @@ A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner
 ### Linux
 
 - **x64 Executable:** [Linux_x64_Executable.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Linux_x64_Executable.zip)
-- **x64 AppImage:** [Bitscoper_CyberKit-18.1.2-x64.AppImage](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-18.1.2-x64.AppImage)
-- **x64 Debug Symbols:** [Bitscoper_CyberKit-Linux_x64.symbols](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-Linux_x64.symbols)
+- **x64 AppImage:** [Bitscoper_CyberKit-18.1.3-x64.AppImage](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-18.1.3-x64.AppImage)
 
 ### Android
 
@@ -53,23 +52,19 @@ Submission to [Google Play](https://play.google.com/store/apps/details?id=bitsco
 - **ARM64-V8A APK:** [Bitscoper_CyberKit-ARM64_V8A.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-ARM64_V8A.apk)
 - **ARMEABI-V7A:** [Bitscoper_CyberKit-ARMEABI_V7A.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-ARMEABI_V7A.apk)
 - **APK Checksums:** [APK_Checksums.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/APK_Checksums.zip)
-- **Debug Symbols:** [Android_Debug_Symbols.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Android_Debug_Symbols.zip)
 
 ### macOS
 
 - **Executable:** [macOS_Executable.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/macOS_Executable.zip)
-- **Debug Symbols:** [macOS_Debug_Symbols.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/macOS_Debug_Symbols.zip)
 
 ### iOS
 
 - **Executable:** [iOS_Executable.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/iOS_Executable.zip)
-- **ARM64 Debug Symbols:** [Bitscoper_CyberKit-iOS_ARM64.symbols](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-iOS_ARM64.symbols)
 
 ### Windows
 
 - **x64 Executable:** [Windows_x64_Executable.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Windows_x64_Executable.zip)
 - **MSIX**: [Bitscoper_CyberKit.msix](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit.msix)
-- **x64 Debug Symbols**: [Bitscoper_CyberKit-Windows_x64.symbols](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-Windows_x64.symbols)
 
 - **Microsoft Store:** [9MV2046TZ302](https://apps.microsoft.com/detail/9mv2046tz302)
 
