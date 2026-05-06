@@ -6,7 +6,7 @@ on:
     branches:
       - main
 jobs:
-  validate-fastlane-metadata:
+  validate_fastlane_metadata:
     name: Validate Fastlane Metadata
     runs-on: ubuntu-latest
     permissions:
@@ -21,7 +21,7 @@ jobs:
           fastlaneDir: ./fastlane/metadata/android
           usePlayStoreLocales: true
 
-  build-for-linux:
+  build_for_linux:
     name: Build for Linux
     runs-on: ubuntu-latest
     permissions:
@@ -32,6 +32,12 @@ jobs:
         with:
           channel: stable
           flutter-version: 3.41.6
+
+      - name: Disable Analytics of Dart and Flutter
+        run: |
+          dart --disable-analytics
+          flutter --disable-analytics
+        shell: bash
 
       - name: Install Dependencies
         run: |
@@ -51,7 +57,7 @@ jobs:
         shell: bash
 
       - name: Build for Linux
-        run: flutter build linux --release --obfuscate --split-debug-info=./build/Debug_Symbols/ -v
+        run: flutter build linux --release
         shell: bash
 
       - name: Download appimagetool (x86_64) and Permit Execution
@@ -85,7 +91,6 @@ jobs:
 
       - name: Rename, Move, and Archive Build Artifacts
         run: |
-          mv ./build/Debug_Symbols/app.linux-x64.symbols ./build/Release/Bitscoper_CyberKit-Linux_x64.symbols
           cd ./build/linux/x64/release/bundle/
           zip -r ../../../../Release/Linux_x64_Executable.zip ./*
         shell: bash
@@ -97,9 +102,8 @@ jobs:
           path: |
             build/Release/Linux_x64_Executable.zip
             build/Release/*.AppImage
-            build/Release/Bitscoper_CyberKit-Linux_x64.symbols
 
-  build-for-android:
+  build_for_android:
     name: Build for Android
     runs-on: ubuntu-latest
     permissions:
@@ -111,6 +115,12 @@ jobs:
           channel: stable
           flutter-version: 3.41.6
 
+      - name: Disable Analytics of Dart and Flutter
+        run: |
+          dart --disable-analytics
+          flutter --disable-analytics
+        shell: bash
+
       - name: Run flutter doctor
         run: flutter doctor -v
         shell: bash
@@ -120,6 +130,10 @@ jobs:
 
       - name: Get Dependencies
         run: flutter pub get -v
+        shell: bash
+
+      - name: Patch JNI CMakeLists to Remove build-id
+        run: sed -i -e 's/-Wl,/-Wl,--build-id=none,/' "${HOME}/.pub-cache/hosted"/*/jni-*/src/CMakeLists.txt
         shell: bash
 
       - name: Create key.properties
@@ -136,20 +150,17 @@ jobs:
         shell: bash
 
       - name: Build appbundle
-        run: flutter build appbundle --release --obfuscate --split-debug-info=./build/Debug_Symbols/ -v
+        run: flutter build appbundle --release
         shell: bash
 
       - name: Build APKs
-        run: flutter build apk --split-per-abi --release --obfuscate --split-debug-info=./build/Debug_Symbols/ -v
+        run: flutter build apk --split-per-abi --release
         shell: bash
 
       - name: Rename, Move, and Archive Build Artifacts
         run: |
           mkdir -p ./build/Release/
           mv ./build/app/outputs/bundle/release/app-release.aab ./build/Release/Bitscoper_CyberKit.aab
-          mv ./build/Debug_Symbols/app.android-x64.symbols ./build/Release/Bitscoper_CyberKit-Android_x64.symbols
-          mv ./build/Debug_Symbols/app.android-arm64.symbols ./build/Release/Bitscoper_CyberKit-Android_ARM64.symbols
-          mv ./build/Debug_Symbols/app.android-arm.symbols ./build/Release/Bitscoper_CyberKit-Android_ARM.symbols
           mv ./build/app/outputs/flutter-apk/app-x86_64-release.apk ./build/Release/Bitscoper_CyberKit-x86_64.apk
           mv ./build/app/outputs/flutter-apk/app-x86_64-release.apk.sha1 ./build/Release/Bitscoper_CyberKit-x86_64.apk.sha1
           mv ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk ./build/Release/Bitscoper_CyberKit-ARM64_V8A.apk
@@ -157,7 +168,6 @@ jobs:
           mv ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk ./build/Release/Bitscoper_CyberKit-ARMEABI_V7A.apk
           mv ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk.sha1 ./build/Release/Bitscoper_CyberKit-ARMEABI_V7A.apk.sha1
           cd ./build/Release/
-          zip -r ./Android_Debug_Symbols.zip ./Bitscoper_CyberKit-Android_x64.symbols ./Bitscoper_CyberKit-Android_ARM64.symbols ./Bitscoper_CyberKit-Android_ARM.symbols
           zip -r ./APK_Checksums.zip ./Bitscoper_CyberKit-x86_64.apk.sha1 ./Bitscoper_CyberKit-ARM64_V8A.apk.sha1 ./Bitscoper_CyberKit-ARMEABI_V7A.apk.sha1
         shell: bash
 
@@ -167,13 +177,12 @@ jobs:
           name: Android
           path: |
             build/Release/Bitscoper_CyberKit.aab
-            build/Release/Android_Debug_Symbols.zip
             build/Release/Bitscoper_CyberKit-x86_64.apk
             build/Release/Bitscoper_CyberKit-ARM64_V8A.apk
             build/Release/Bitscoper_CyberKit-ARMEABI_V7A.apk
             build/Release/APK_Checksums.zip
 
-  build-for-macos:
+  build_for_macos:
     name: Build for macOS
     runs-on: macos-26
     permissions:
@@ -190,38 +199,42 @@ jobs:
           channel: stable
           flutter-version: 3.41.6
 
+      - name: Disable Analytics of Dart and Flutter
+        run: |
+          dart --disable-analytics
+          flutter --disable-analytics
+        shell: bash
+
       - name: Run flutter doctor
         run: flutter doctor -v
+        shell: bash
 
       - name: Checkout Repository
         uses: actions/checkout@v6.0.2
 
       - name: Get Dependencies
         run: flutter pub get -v
+        shell: bash
 
       - name: Build for macOS
-        run: flutter build macos --release --obfuscate --split-debug-info=./build/Debug_Symbols/ -v
+        run: flutter build macos --release
+        shell: bash
 
       - name: Rename, Move, and Archive Build Artifacts
         run: |
           mkdir -p ./build/Release/
           mv ./build/macos/Build/Products/Release/Bitscoper\ CyberKit.app ./build/Release/Bitscoper_CyberKit-macOS.app
-          mv ./build/Debug_Symbols/app.darwin-x86_64.symbols ./build/Release/Bitscoper_CyberKit-macOS_x86_64.symbols
-          mv ./build/Debug_Symbols/app.darwin-arm64.symbols ./build/Release/Bitscoper_CyberKit-macOS_ARM64.symbols
           cd ./build/Release/
           zip -r ./macOS_Executable.zip ./Bitscoper_CyberKit-macOS.app
-          zip -r ./macOS_Debug_Symbols.zip ./Bitscoper_CyberKit-macOS_x86_64.symbols ./Bitscoper_CyberKit-macOS_ARM64.symbols
         shell: bash
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v7.0.1
         with:
           name: macOS
-          path: |
-            build/Release/macOS_Executable.zip
-            build/Release/macOS_Debug_Symbols.zip
+          path: build/Release/macOS_Executable.zip
 
-  build-for-ios:
+  build_for_ios:
     name: Build for iOS
     runs-on: macos-26
     permissions:
@@ -238,26 +251,35 @@ jobs:
           channel: stable
           flutter-version: 3.41.6
 
+      - name: Disable Analytics of Dart and Flutter
+        run: |
+          dart --disable-analytics
+          flutter --disable-analytics
+        shell: bash
+
       - name: Run flutter doctor
         run: flutter doctor -v
+        shell: bash
 
       - name: Checkout Repository
         uses: actions/checkout@v6.0.2
 
       - name: Get Dependencies
         run: flutter pub get -v
+        shell: bash
 
       - name: Build iOS Executable
-        run: flutter build ios --no-codesign --release --obfuscate --split-debug-info=./build/Debug_Symbols/ -v
+        run: flutter build ios --no-codesign --release
+        shell: bash
 
       # - name: Build IPA
-      #   run: flutter build ipa --no-codesign --release --obfuscate --split-debug-info=./build/Debug_Symbols/ -v
+      #   run: flutter build ipa --no-codesign --release
+      #   shell: bash
 
       - name: Rename Build Artifacts
         run: |
           mkdir -p ./build/Release/
           mv ./build/ios/iphoneos/Runner.app ./build/Release/Bitscoper_CyberKit-iOS.app
-          mv ./build/Debug_Symbols/app.ios-arm64.symbols ./build/Release/Bitscoper_CyberKit-iOS_ARM64.symbols
           cd ./build/Release/
           zip -r ./iOS_Executable.zip ./Bitscoper_CyberKit-iOS.app
         shell: bash
@@ -266,11 +288,9 @@ jobs:
         uses: actions/upload-artifact@v7.0.1
         with:
           name: iOS
-          path: |
-            build/Release/iOS_Executable.zip
-            build/Release/Bitscoper_CyberKit-iOS_ARM64.symbols
+          path: build/Release/iOS_Executable.zip
 
-  build-for-windows:
+  build_for_windows:
     name: Build for Windows
     runs-on: windows-latest
     permissions:
@@ -281,6 +301,12 @@ jobs:
         with:
           channel: stable
           flutter-version: 3.41.6
+
+      - name: Disable Analytics of Dart and Flutter
+        run: |
+          dart --disable-analytics
+          flutter --disable-analytics
+        shell: powershell
 
       - name: Run flutter doctor
         run: flutter doctor -v
@@ -301,7 +327,6 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force -Path .\build\Release\
           Move-Item -Path .\build\windows\x64\runner\Release\Bitscoper_CyberKit.msix -Destination .\build\Release\Bitscoper_CyberKit.msix
-          Move-Item -Path .\build\Debug_Symbols\Windows\app.windows-x64.symbols -Destination .\build\Release\Bitscoper_CyberKit-Windows_x64.symbols
           cd .\build\windows\x64\runner\Release\
           Compress-Archive -Path .\* -DestinationPath ..\..\..\..\Release\Windows_x64_Executable.zip
         shell: powershell
@@ -313,9 +338,8 @@ jobs:
           path: |
             build\Release\Windows_x64_Executable.zip
             build\Release\Bitscoper_CyberKit.msix
-            build\Release\Bitscoper_CyberKit-Windows_x64.symbols
 
-  # build-for-web:
+  # build_for_web:
   #   name: Build for Web
   #   runs-on: ubuntu-latest
   #   permissions:
@@ -326,6 +350,12 @@ jobs:
   #       with:
   #         channel: stable
   #         flutter-version: 3.41.6
+
+  #     - name: Disable Analytics of Dart and Flutter
+  #       run: |
+  #         dart --disable-analytics
+  #         flutter --disable-analytics
+  #       shell: bash
 
   #     - name: Run flutter doctor
   #       run: flutter doctor -v
@@ -355,15 +385,15 @@ jobs:
   #         name: Web
   #         path: build/Release/Web_Application.zip
 
-  upload-release:
+  upload_release:
     name: Upload Release
     needs: [
-        build-for-linux,
-        build-for-android,
-        build-for-macos,
-        build-for-ios,
-        build-for-windows,
-        # build-for-web,
+        build_for_linux,
+        build_for_android,
+        build_for_macos,
+        build_for_ios,
+        build_for_windows,
+        # build_for_web,
       ]
     runs-on: ubuntu-latest
     permissions:
@@ -394,47 +424,27 @@ jobs:
           artifacts: |
             ./Linux/Linux_x64_Executable.zip
             ./Linux/*.AppImage
-            ./Linux/Bitscoper_CyberKit-Linux_x64.symbols
             ./Android/Bitscoper_CyberKit.aab
-            ./Android/Android_Debug_Symbols.zip
             ./Android/Bitscoper_CyberKit-x86_64.apk
             ./Android/Bitscoper_CyberKit-ARM64_V8A.apk
             ./Android/Bitscoper_CyberKit-ARMEABI_V7A.apk
             ./Android/APK_Checksums.zip
             ./macOS/macOS_Executable.zip
-            ./macOS/macOS_Debug_Symbols.zip
             ./iOS/iOS_Executable.zip
-            ./iOS/Bitscoper_CyberKit-iOS_ARM64.symbols
             ./Windows/Windows_x64_Executable.zip
             ./Windows/Bitscoper_CyberKit.msix
-            ./Windows/Bitscoper_CyberKit-Windows_x64.symbols
           # ./Web/Release/Web_Application.zip
           tag: v${{ env.VERSION }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
-  update-docker-image:
+  update_docker_image:
     name: Update Docker Images
-    needs: [upload-release]
+    needs: [upload_release]
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
     steps:
-      - name: Install Python
-        uses: actions/setup-python@v6.2.0
-        with:
-          python-version: "3.13"
-
-      - name: Install PIP
-        run: |
-          python -m pip install --upgrade pip
-        shell: bash
-
-      # - name: Install AWS CLI
-      #   run: |
-      #     pip install --upgrade awscli
-      #   shell: bash
-
       - name: Checkout Repository
         uses: actions/checkout@v6.0.2
 
@@ -445,7 +455,22 @@ jobs:
           docker push ghcr.io/bitscoper/bitscoper_cyberkit:latest
         shell: bash
 
-      # - name: Build and Push Docker Image to Amazon ECR
+      # - name: Install Python for AWS CLI
+      #   uses: actions/setup-python@v6.2.0
+      #   with:
+      #     python-version: "3.13"
+
+      # - name: Install PIP for AWS CLI
+      #   run: |
+      #     python -m pip install --upgrade pip
+      #   shell: bash
+
+      # - name: Install AWS CLI
+      #   run: |
+      #     pip install --upgrade awscli
+      #   shell: bash
+
+      # - name: Build and Push Docker Image to Amazon ECR Public Gallery
       #   run: |
       #     aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
       #     aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -456,9 +481,9 @@ jobs:
       #     docker push public.ecr.aws/n7r2f3q1/bitscoper/bitscoper_cyberkit:latest
       #   shell: bash
 
-  # deploy-web-application-to-server:
+  # deploy_web_application_to_server:
   #   name: Deploy Web Application to Server
-  #   needs: [upload-release]
+  #   needs: [upload_release]
   #   runs-on: ubuntu-latest
   #   permissions:
   #     contents: read
