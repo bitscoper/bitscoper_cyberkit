@@ -47,11 +47,21 @@ A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner
 
 Submission to [Google Play](https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox) is paused because I no longer own the account. [Obtainium](http://apps.obtainium.imranr.dev/redirect.html?r=obtainium://add/https://github.com/bitscoper/bitscoper_cyberkit/) can be used to directly install APKs from the [latest GitHub release](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/).
 
-- **appbundle:** [Bitscoper_CyberKit.aab](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit.aab)
-- **x86_64 APK:** [Bitscoper_CyberKit-x86_64.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-x86_64.apk)
-- **ARM64-V8A APK:** [Bitscoper_CyberKit-ARM64_V8A.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-ARM64_V8A.apk)
-- **ARMEABI-V7A:** [Bitscoper_CyberKit-ARMEABI_V7A.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-ARMEABI_V7A.apk)
-- **APK Checksums:** [APK_Checksums.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/APK_Checksums.zip)
+#### Signed
+
+- **appbundle:** [Bitscoper_CyberKit-Signed.aab](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-Signed.aab)
+- **x86_64 APK:** [Bitscoper_CyberKit-x86_64-Signed.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-x86_64-Signed.apk)
+- **ARM64-V8A APK:** [Bitscoper_CyberKit-ARM64_V8A-Signed.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-ARM64_V8A-Signed.apk)
+- **ARMEABI-V7A:** [Bitscoper_CyberKit-ARMEABI_V7A-Signed.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-ARMEABI_V7A-Signed.apk)
+- **APK Checksums:** [Signed_APK_Checksums.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Signed_APK_Checksums.zip)
+
+#### Unsigned
+
+- **appbundle:** [Bitscoper_CyberKit-Unsigned.aab](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-Unsigned.aab)
+- **x86_64 APK:** [Bitscoper_CyberKit-x86_64-Unsigned.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-x86_64-Unsigned.apk)
+- **ARM64-V8A APK:** [Bitscoper_CyberKit-ARM64_V8A-Unsigned.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-ARM64_V8A-Unsigned.apk)
+- **ARMEABI-V7A:** [Bitscoper_CyberKit-ARMEABI_V7A-Unsigned.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-ARMEABI_V7A-Unsigned.apk)
+- **APK Checksums:** [Unsigned_APK_Checksums.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Unsigned_APK_Checksums.zip)
 
 ### macOS
 
@@ -294,21 +304,22 @@ flutter gen-l10n
 #### Generation
 
 ```sh
-keytool -genkey -v -keystore ~/Laboratory/Bitscoper_CyberKit/Android\ Key/KeyStore.jks -keyalg RSA -keysize 4096 -validity 10000 -alias Bitscoper_CyberKit
+keytool -genkey -v -keystore ./Android\ Key/KeyStore.jks -keyalg RSA -keysize 4096 -validity 10000 -alias Bitscoper_CyberKit
 ```
 
 #### Conversion to Base64
 
 ```sh
-base64 ~/Laboratory/Bitscoper_CyberKit/Android\ Key/KeyStore.jks > ~/Laboratory/Bitscoper_CyberKit/Android\ Key/KeyStore.b64
+base64 ./Android\ Key/KeyStore.jks > ./Android\ Key/KeyStore.b64
 ```
 
 ## Notes
 
 - I write commit messages in Title Case and past tense, leaving out articles to keep them concise while still showing details.
 - I delete previous GitHub Actions runs, except for:
-  - **[#3](https://github.com/bitscoper/bitscoper_cyberkit/actions/runs/14313849811):** Last build for web and deployment of the web application to the server
-  - **[#57](https://github.com/bitscoper/bitscoper_cyberkit/actions/runs/21337182596):** Last build and push of the Docker image to the Amazon Elastic Container Registry Public Gallery
+  - **[#3](https://github.com/bitscoper/bitscoper_cyberkit/actions/runs/14313849811/):** Last build for web and deployment of the web application to the server
+  - **[#57](https://github.com/bitscoper/bitscoper_cyberkit/actions/runs/21337182596/):** Last build and push of the Docker image to the Amazon Elastic Container Registry Public Gallery
+  - **[#132](https://github.com/bitscoper/bitscoper_cyberkit/actions/runs/25374885225/):** Last build with obfuscation and splitting of debug symbols
 - I only keep the latest release and the latest container version.
 - Versions I submit to the Microsoft Store may vary and be delayed.
 - Submission to Google Play is paused because I no longer own the account.
