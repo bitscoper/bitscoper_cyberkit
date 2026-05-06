@@ -149,26 +149,52 @@ jobs:
           echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > ./android/app/KeyStore.jks
         shell: bash
 
-      - name: Build appbundle
+      - name: Build Signed appbundle
         run: flutter build appbundle --release
         shell: bash
 
-      - name: Build APKs
+      - name: Build Signed APKs
         run: flutter build apk --split-per-abi --release
         shell: bash
 
-      - name: Rename, Move, and Archive Build Artifacts
+      - name: Rename, Move, and Archive Signed Build Artifacts
         run: |
           mkdir -p ./build/Release/
-          mv ./build/app/outputs/bundle/release/app-release.aab ./build/Release/Bitscoper_CyberKit.aab
-          mv ./build/app/outputs/flutter-apk/app-x86_64-release.apk ./build/Release/Bitscoper_CyberKit-x86_64.apk
-          mv ./build/app/outputs/flutter-apk/app-x86_64-release.apk.sha1 ./build/Release/Bitscoper_CyberKit-x86_64.apk.sha1
-          mv ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk ./build/Release/Bitscoper_CyberKit-ARM64_V8A.apk
-          mv ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk.sha1 ./build/Release/Bitscoper_CyberKit-ARM64_V8A.apk.sha1
-          mv ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk ./build/Release/Bitscoper_CyberKit-ARMEABI_V7A.apk
-          mv ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk.sha1 ./build/Release/Bitscoper_CyberKit-ARMEABI_V7A.apk.sha1
+          mv ./build/app/outputs/bundle/release/app-release.aab ./build/Release/Bitscoper_CyberKit-Signed.aab
+          mv ./build/app/outputs/flutter-apk/app-x86_64-release.apk ./build/Release/Bitscoper_CyberKit-x86_64-Signed.apk
+          mv ./build/app/outputs/flutter-apk/app-x86_64-release.apk.sha1 ./build/Release/Bitscoper_CyberKit-x86_64-Signed.apk.sha1
+          mv ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk ./build/Release/Bitscoper_CyberKit-ARM64_V8A-Signed.apk
+          mv ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk.sha1 ./build/Release/Bitscoper_CyberKit-ARM64_V8A-Signed.apk.sha1
+          mv ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk ./build/Release/Bitscoper_CyberKit-ARMEABI_V7A-Signed.apk
+          mv ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk.sha1 ./build/Release/Bitscoper_CyberKit-ARMEABI_V7A-Signed.apk.sha1
           cd ./build/Release/
-          zip -r ./APK_Checksums.zip ./Bitscoper_CyberKit-x86_64.apk.sha1 ./Bitscoper_CyberKit-ARM64_V8A.apk.sha1 ./Bitscoper_CyberKit-ARMEABI_V7A.apk.sha1
+          zip -r ./Signed_APK_Checksums.zip ./Bitscoper_CyberKit-x86_64-Signed.apk.sha1 ./Bitscoper_CyberKit-ARM64_V8A-Signed.apk.sha1 ./Bitscoper_CyberKit-ARMEABI_V7A-Signed.apk.sha1
+        shell: bash
+
+      - name: Disable Signing
+        run: sed -r '/signingConfigs.getByName/d ; /signingConfigs \{/,/^    \}/d' -i ./android/app/build.gradle.kts
+        shell: bash
+
+      - name: Build Unsigned appbundle
+        run: flutter build appbundle --release
+        shell: bash
+
+      - name: Build Unsigned APKs
+        run: flutter build apk --split-per-abi --release
+        shell: bash
+
+      - name: Rename, Move, and Archive Unsigned Build Artifacts
+        run: |
+          mkdir -p ./build/Release/
+          mv ./build/app/outputs/bundle/release/app-release.aab ./build/Release/Bitscoper_CyberKit-Unsigned.aab
+          mv ./build/app/outputs/flutter-apk/app-x86_64-release.apk ./build/Release/Bitscoper_CyberKit-x86_64-Unsigned.apk
+          mv ./build/app/outputs/flutter-apk/app-x86_64-release.apk.sha1 ./build/Release/Bitscoper_CyberKit-x86_64-Unsigned.apk.sha1
+          mv ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk ./build/Release/Bitscoper_CyberKit-ARM64_V8A-Unsigned.apk
+          mv ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk.sha1 ./build/Release/Bitscoper_CyberKit-ARM64_V8A-Unsigned.apk.sha1
+          mv ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk ./build/Release/Bitscoper_CyberKit-ARMEABI_V7A-Unsigned.apk
+          mv ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk.sha1 ./build/Release/Bitscoper_CyberKit-ARMEABI_V7A-Unsigned.apk.sha1
+          cd ./build/Release/
+          zip -r ./Unsigned_APK_Checksums.zip ./Bitscoper_CyberKit-x86_64-Unsigned.apk.sha1 ./Bitscoper_CyberKit-ARM64_V8A-Unsigned.apk.sha1 ./Bitscoper_CyberKit-ARMEABI_V7A-Unsigned.apk.sha1
         shell: bash
 
       - name: Upload Build Artifacts
@@ -176,11 +202,16 @@ jobs:
         with:
           name: Android
           path: |
-            build/Release/Bitscoper_CyberKit.aab
-            build/Release/Bitscoper_CyberKit-x86_64.apk
-            build/Release/Bitscoper_CyberKit-ARM64_V8A.apk
-            build/Release/Bitscoper_CyberKit-ARMEABI_V7A.apk
-            build/Release/APK_Checksums.zip
+            build/Release/Bitscoper_CyberKit-Signed.aab
+            build/Release/Bitscoper_CyberKit-x86_64-Signed.apk
+            build/Release/Bitscoper_CyberKit-ARM64_V8A-Signed.apk
+            build/Release/Bitscoper_CyberKit-ARMEABI_V7A-Signed.apk
+            build/Release/Signed_APK_Checksums.zip
+            build/Release/Bitscoper_CyberKit-Unsigned.aab
+            build/Release/Bitscoper_CyberKit-x86_64-Unsigned.apk
+            build/Release/Bitscoper_CyberKit-ARM64_V8A-Unsigned.apk
+            build/Release/Bitscoper_CyberKit-ARMEABI_V7A-Unsigned.apk
+            build/Release/Unsigned_APK_Checksums.zip
 
   build_for_macos:
     name: Build for macOS
@@ -424,11 +455,16 @@ jobs:
           artifacts: |
             ./Linux/Linux_x64_Executable.zip
             ./Linux/*.AppImage
-            ./Android/Bitscoper_CyberKit.aab
-            ./Android/Bitscoper_CyberKit-x86_64.apk
-            ./Android/Bitscoper_CyberKit-ARM64_V8A.apk
-            ./Android/Bitscoper_CyberKit-ARMEABI_V7A.apk
-            ./Android/APK_Checksums.zip
+            ./Android/Bitscoper_CyberKit-Signed.aab
+            ./Android/Bitscoper_CyberKit-x86_64-Signed.apk
+            ./Android/Bitscoper_CyberKit-ARM64_V8A-Signed.apk
+            ./Android/Bitscoper_CyberKit-ARMEABI_V7A-Signed.apk
+            ./Android/Signed_APK_Checksums.zip
+            ./Android/Bitscoper_CyberKit-Unsigned.aab
+            ./Android/Bitscoper_CyberKit-x86_64-Unsigned.apk
+            ./Android/Bitscoper_CyberKit-ARM64_V8A-Unsigned.apk
+            ./Android/Bitscoper_CyberKit-ARMEABI_V7A-Unsigned.apk
+            ./Android/Unsigned_APK_Checksums.zip
             ./macOS/macOS_Executable.zip
             ./iOS/iOS_Executable.zip
             ./Windows/Windows_x64_Executable.zip
@@ -470,7 +506,7 @@ jobs:
       #     pip install --upgrade awscli
       #   shell: bash
 
-      # - name: Build and Push Docker Image to Amazon ECR Public Gallery
+      # - name: Build and Push Docker Image to Amazon Elastic Container Registry Public Gallery
       #   run: |
       #     aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
       #     aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
