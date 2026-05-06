@@ -1,9 +1,13 @@
 # By Abdullah As-Sadeed
 
 name: bitscoper_cyberkit
-description: A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner, mDNS Scanner, UPnP Scanner, Route Tracer, TCP Port Scanner, Pinger, File Hash Calculator, String Hash Calculator, CVSS Calculator, Base Encoder, Morse Code Translator, QR Code Generator, OGP Data Extractor, Series URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Details Viewer.
+description: A Flutter application offering Bluetooth Low Energy Scanner, IPv4
+  Subnet Scanner, mDNS Scanner, UPnP Scanner, Route Tracer, TCP Port Scanner,
+  Pinger, File Hash Calculator, String Hash Calculator, CVSS Calculator, Base
+  Encoder, Morse Code Translator, QR Code Generator, OGP Data Extractor, Series
+  URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Details Viewer.
 publish_to: none
-version: 18.1.2+36
+version: 18.1.3+37
 
 environment:
   sdk: ">=3.11.4" # Flutter 3.41.6
@@ -23,7 +27,7 @@ dependencies:
   file_saver: ^0.3.1
   flutter:
     sdk: flutter
-  flutter_blue_plus: ^2.2.1
+  flutter_blue_plus: ^2.2.3
   flutter_colorpicker: ^1.1.0
   flutter_local_notifications: ^21.0.0 # !Web
   flutter_localizations:
@@ -112,13 +116,12 @@ msix_config:
   languages: en-US
   execution_alias: Bitscoper_CyberKit
   enable_at_startup: false
-  capabilities:
-    internetClient, internetClientServer, privateNetworkClientServer,
+  capabilities: internetClient, internetClientServer, privateNetworkClientServer,
     removableStorage, wiFiControl
   architecture: x64
   store: true
   build_windows: true
-  windows_build_args: --release --obfuscate --split-debug-info=./build/Debug_Symbols/Windows/
+  windows_build_args: --release
   debug: false
-  msix_version: 18.1.2.0
+  msix_version: 18.1.3.0
   output_name: Bitscoper_CyberKit
