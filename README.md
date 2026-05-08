@@ -6,6 +6,8 @@
 A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner, mDNS Scanner, UPnP Scanner, Route Tracer, TCP Port Scanner, Pinger, File Hash Calculator, String Hash Calculator, CVSS Calculator, Base Encoder, Morse Code Translator, QR Code Generator, OGP Data Extractor, Series URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Details Viewer.
 
 [![Build, Release, and Deploy](https://github.com/bitscoper/bitscoper_cyberkit/actions/workflows/Build,%20Release,%20and%20Deploy.yaml/badge.svg)](https://github.com/bitscoper/bitscoper_cyberkit/actions/workflows/Build,%20Release,%20and%20Deploy.yaml)
+[![IzzyOnDroid F-Droid Reproducible Builds Status](https://shields.rbtlog.dev/simple/bitscoper.bitscoper_cyberkit)](https://shields.rbtlog.dev/bitscoper.bitscoper_cyberkit)
+[![IzzyOnDroid F-Droid Yearly Downloads](https://img.shields.io/badge/dynamic/json?url=https://dlstats.izzyondroid.org/iod-stats-collector/stats/basic/yearly/rolling.json&query=$.['bitscoper.bitscoper_cyberkit']&label=IzzyOnDroid%20Yearly%20Downloads)](https://apt.izzysoft.de/packages/bitscoper.bitscoper_cyberkit/)
 
 </div>
 
@@ -16,17 +18,24 @@ A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner
   <table>
     <tbody>
       <tr>
-        <td>
+        <td align="center">
           <a href="https://apps.microsoft.com/detail/9mv2046tz302">
             <img src="https://get.microsoft.com/images/en-us%20dark.svg" height="48" alt="Microsoft Store" />
           </a>
         </td>
-        <td>
+        <td align="center">
           <a href="https://github.com/bitscoper/bitscoper_cyberkit/pkgs/container/bitscoper_cyberkit/">
             <img src="https://dl.svgcdn.com/png/logos/docker-icon-800.png" height="48" alt="GitHub Container Registry" />
           </a>
         </td>
-        <td>
+      </tr>
+      <tr>
+        <td align="center">
+          <a href="https://apt.izzysoft.de/packages/bitscoper.bitscoper_cyberkit/">
+            <img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroidButtonGreyBorder_nofont.png" height="48" alt="IzzyOnDroid F-Droid Repository" />
+          </a>
+        </td>
+        <td align="center">
           <a href="http://apps.obtainium.imranr.dev/redirect.html?r=obtainium://add/https://github.com/bitscoper/bitscoper_cyberkit/">
             <img src="https://raw.githubusercontent.com/ImranR98/Obtainium/main/assets/graphics/badge_obtainium.png" height="48" alt="Obtainium" />
           </a>
