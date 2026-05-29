@@ -62,7 +62,7 @@ Submission to [Google Play](https://play.google.com/store/apps/details?id=bitsco
 #### Signed
 
 - **appbundle:** [Bitscoper_CyberKit-Signed.aab](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-Signed.aab)
-- **All ABIs APK:** [Bitscoper_CyberKit-All_ABIs-Signed.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-All_ABIs-Signed.apk)
+- **All-ABIs APK:** [Bitscoper_CyberKit-All_ABIs-Signed.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-All_ABIs-Signed.apk)
 - **x86_64 APK:** [Bitscoper_CyberKit-x86_64-Signed.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-x86_64-Signed.apk)
 - **ARM64-V8A APK:** [Bitscoper_CyberKit-ARM64_V8A-Signed.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-ARM64_V8A-Signed.apk)
 - **ARMEABI-V7A:** [Bitscoper_CyberKit-ARMEABI_V7A-Signed.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-ARMEABI_V7A-Signed.apk)
@@ -71,7 +71,7 @@ Submission to [Google Play](https://play.google.com/store/apps/details?id=bitsco
 #### Unsigned
 
 - **appbundle:** [Bitscoper_CyberKit-Unsigned.aab](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-Unsigned.aab)
-- - **All ABIs APK:** [Bitscoper_CyberKit-All_ABIs-Unsigned.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-All_ABIs-Unsigned.apk)
+- **All-ABIs APK:** [Bitscoper_CyberKit-All_ABIs-Unsigned.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-All_ABIs-Unsigned.apk)
 - **x86_64 APK:** [Bitscoper_CyberKit-x86_64-Unsigned.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-x86_64-Unsigned.apk)
 - **ARM64-V8A APK:** [Bitscoper_CyberKit-ARM64_V8A-Unsigned.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-ARM64_V8A-Unsigned.apk)
 - **ARMEABI-V7A:** [Bitscoper_CyberKit-ARMEABI_V7A-Unsigned.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-ARMEABI_V7A-Unsigned.apk)
@@ -233,17 +233,20 @@ Linux_x64_Executable --> Release[Release]
 Linux_x64_AppImage --> Release[Release]
 Linux_x64_Executable --> Linux_Docker_Image(Docker Image)
 Linux_Docker_Image --> GHCR[GHCR]
-Linux_Docker_Image --> Amazon_ECR_Public_Gallery[Amazon Elastic Container Registry Public Gallery]
+Linux_Docker_Image --> |Expired Free Tier| Amazon_ECR_Public_Gallery[Amazon Elastic Container Registry Public Gallery]
 
 Code --> Android{Android}
-Android --> |Signing| Android_appbundle(appbundle)
-Android --> |Signing| Android_ARMEABI_V7A_APK(ARMEABI-V7A APK)
-Android --> |Signing| Android_ARM64_V8A_APK(ARM64-V8A APK)
-Android --> |Signing| Android_x86_64_APK(x86_64 APK)
+Android --> |Signing & Not Signing| Android_appbundle(appbundle)
+Android --> |Signing & Not Signing| Android_All_ABIs_APK(All-ABIs APK)
+Android --> |Signing & Not Signing| Android_ARMEABI_V7A_APK(ARMEABI-V7A APK)
+Android --> |Signing & Not Signing| Android_ARM64_V8A_APK(ARM64-V8A APK)
+Android --> |Signing & Not Signing| Android_x86_64_APK(x86_64 APK)
 Android_appbundle --> Release[Release]
+Android_All_ABIs_APK --> Release[Release]
 Android_x86_64_APK --> Release[Release]
 Android_ARM64_V8A_APK --> Release[Release]
 Android_ARMEABI_V7A_APK --> Release[Release]
+Android_ARM64_V8A_APK --> IzzyOnDroid_FDroid_Repository(IzzyOnDroid F-Droid Repository)
 Android_appbundle --> |Manual Submission| Google_Play[Google Play]
 
 Code --> macOS{macOS}
@@ -339,6 +342,6 @@ base64 ./Android\ Key/KeyStore.jks > ./Android\ Key/KeyStore.b64
 - I only keep the latest release and the latest container version.
 - Versions I submit to the Microsoft Store may vary and be delayed.
 - Submission to Google Play is paused because I no longer own the account.
-- The free tier of the Amazon Elastic Container Registry Public Gallery has expired, and the container will soon be unavailable.
+- The free tier of the Amazon Elastic Container Registry Public Gallery has expired.
 - Building for the web and deployment is currently disabled due to a build failure.
 - I have deleted some commits in the past, but this is unlikely to happen again.
