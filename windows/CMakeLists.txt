@@ -2,6 +2,10 @@
 cmake_minimum_required(VERSION 3.14)
 project(bitscoper_cyberkit LANGUAGES CXX)
 
+if(MSVC)
+  add_compile_definitions(_SILENCE_EXPERIMENTAL_COROUTINE_DEPRECATION_WARNINGS)
+endif()
+
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
 set(BINARY_NAME "bitscoper_cyberkit")
@@ -41,7 +45,6 @@ function(APPLY_STANDARD_SETTINGS TARGET)
   target_compile_features(${TARGET} PUBLIC cxx_std_17)
   target_compile_options(${TARGET} PRIVATE /W4 /WX /wd"4100" /wd"4456")
   target_compile_options(${TARGET} PRIVATE /EHsc)
-  # target_compile_options(${TARGET} PRIVATE /await)
   target_compile_definitions(${TARGET} PRIVATE "_HAS_EXCEPTIONS=0")
   target_compile_definitions(${TARGET} PRIVATE "$<$<CONFIG:Debug>:_DEBUG>")
 endfunction()
