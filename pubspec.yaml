@@ -7,7 +7,7 @@ description: A Flutter application offering Bluetooth Low Energy Scanner, IPv4
   Encoder, Morse Code Translator, QR Code Generator, OGP Data Extractor, Series
   URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Details Viewer.
 publish_to: none
-version: 18.1.3+37
+version: 18.1.4+38
 
 environment:
   sdk: ">=3.11.4" # Flutter 3.41.6
@@ -124,5 +124,5 @@ msix_config:
   build_windows: true
   windows_build_args: --release
   debug: false
-  msix_version: 18.1.3.0
+  msix_version: 18.1.4.0
   output_name: Bitscoper_CyberKit

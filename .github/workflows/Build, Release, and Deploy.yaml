@@ -468,11 +468,13 @@ jobs:
             ./Linux/Linux_x64_Executable.zip
             ./Linux/*.AppImage
             ./Android/Bitscoper_CyberKit-Signed.aab
+            ./Android/Bitscoper_CyberKit-All_ABIs-Signed.apk
             ./Android/Bitscoper_CyberKit-x86_64-Signed.apk
             ./Android/Bitscoper_CyberKit-ARM64_V8A-Signed.apk
             ./Android/Bitscoper_CyberKit-ARMEABI_V7A-Signed.apk
             ./Android/Signed_APK_Checksums.zip
             ./Android/Bitscoper_CyberKit-Unsigned.aab
+            ./Android/Bitscoper_CyberKit-All_ABIs-Unsigned.apk
             ./Android/Bitscoper_CyberKit-x86_64-Unsigned.apk
             ./Android/Bitscoper_CyberKit-ARM64_V8A-Unsigned.apk
             ./Android/Bitscoper_CyberKit-ARMEABI_V7A-Unsigned.apk

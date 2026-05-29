@@ -50,15 +50,19 @@ A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner
 ### Linux
 
 - **x64 Executable:** [Linux_x64_Executable.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Linux_x64_Executable.zip)
-- **x64 AppImage:** [Bitscoper_CyberKit-18.1.3-x64.AppImage](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-18.1.3-x64.AppImage)
+- **x64 AppImage:** [Bitscoper_CyberKit-18.1.4-x64.AppImage](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-18.1.4-x64.AppImage)
 
 ### Android
 
-Submission to [Google Play](https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox) is paused because I no longer own the account. [Obtainium](http://apps.obtainium.imranr.dev/redirect.html?r=obtainium://add/https://github.com/bitscoper/bitscoper_cyberkit/) can be used to directly install APKs from the [latest GitHub release](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/).
+Submission to [Google Play](https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox) is paused because I no longer own the account.
+
+- **IzzyOnDroid F-Droid Repository:** [bitscoper.bitscoper_cyberkit](https://apt.izzysoft.de/packages/bitscoper.bitscoper_cyberkit/)
+- **Obtainium:** [obtainium://add/https://github.com/bitscoper/bitscoper_cyberkit/](http://apps.obtainium.imranr.dev/redirect.html?r=obtainium://add/https://github.com/bitscoper/bitscoper_cyberkit/)
 
 #### Signed
 
 - **appbundle:** [Bitscoper_CyberKit-Signed.aab](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-Signed.aab)
+- **All ABIs APK:** [Bitscoper_CyberKit-All_ABIs-Signed.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-All_ABIs-Signed.apk)
 - **x86_64 APK:** [Bitscoper_CyberKit-x86_64-Signed.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-x86_64-Signed.apk)
 - **ARM64-V8A APK:** [Bitscoper_CyberKit-ARM64_V8A-Signed.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-ARM64_V8A-Signed.apk)
 - **ARMEABI-V7A:** [Bitscoper_CyberKit-ARMEABI_V7A-Signed.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-ARMEABI_V7A-Signed.apk)
@@ -67,10 +71,13 @@ Submission to [Google Play](https://play.google.com/store/apps/details?id=bitsco
 #### Unsigned
 
 - **appbundle:** [Bitscoper_CyberKit-Unsigned.aab](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-Unsigned.aab)
+- - **All ABIs APK:** [Bitscoper_CyberKit-All_ABIs-Unsigned.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-All_ABIs-Unsigned.apk)
 - **x86_64 APK:** [Bitscoper_CyberKit-x86_64-Unsigned.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-x86_64-Unsigned.apk)
 - **ARM64-V8A APK:** [Bitscoper_CyberKit-ARM64_V8A-Unsigned.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-ARM64_V8A-Unsigned.apk)
 - **ARMEABI-V7A:** [Bitscoper_CyberKit-ARMEABI_V7A-Unsigned.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-ARMEABI_V7A-Unsigned.apk)
 - **APK Checksums:** [Unsigned_APK_Checksums.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Unsigned_APK_Checksums.zip)
+
+If you are unsure, choose the signed APK that supports all ABIs: [Bitscoper_CyberKit-All_ABIs-Signed.apk](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-All_ABIs-Signed.apk).
 
 ### macOS
 
@@ -82,10 +89,10 @@ Submission to [Google Play](https://play.google.com/store/apps/details?id=bitsco
 
 ### Windows
 
+- **Microsoft Store:** [9MV2046TZ302](https://apps.microsoft.com/detail/9mv2046tz302)
+
 - **x64 Executable:** [Windows_x64_Executable.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Windows_x64_Executable.zip)
 - **MSIX**: [Bitscoper_CyberKit.msix](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit.msix)
-
-- **Microsoft Store:** [9MV2046TZ302](https://apps.microsoft.com/detail/9mv2046tz302)
 
 #### WinGet
 
@@ -191,26 +198,26 @@ Displays details of the currently connected Wireless Fidelity (Wi-Fi) network.
 
 ## Compatibility
 
-| Tool | Linux | Android | macOS | iOS | Windows | ~~Web~~ |
-| -------- | ------- | --------- | ------- | ----- | --------- | ----- |
-| Bluetooth Low Energy Scanner | ✅ | ✅ | ✅ | ✅ | ✅ | ~~✅~~ |
-| IPv4 Subnet Scanner | ✅ | ✅ | ✅ | ✅ | ✅ | ~~❌~~ |
-| mDNS Scanner | ✅ | ✅ | ✅ | ✅ | ✅ | ~~❌~~ |
-| UPnP Scanner | ✅ | ✅ | ✅ | ✅ | ✅ | ~~❌~~ |
-| Route Tracer | ❌ | ✅ | ❌ | ✅ | ❌ | ~~❌~~ |
-| TCP Port Scanner | ✅ | ✅ | ✅ | ✅ | ✅ | ~~❌~~ |
-| Pinger | ✅ | ✅ | ✅ | ✅ | ✅ | ~~❌~~ |
-| File Hash Calculator | ✅ | ✅ | ✅ | ✅ | ✅ | ~~✅~~ |
-| String Hash Calculator | ✅ | ✅ | ✅ | ✅ | ✅ | ~~✅~~ |
-| CVSS Calculator | ✅ | ✅ | ✅ | ✅ | ✅ | ~~✅~~ |
-| Base Encoder | ✅ | ✅ | ✅ | ✅ | ✅ | ~~✅~~ |
-| Morse Code Translator | ✅ | ✅ | ✅ | ✅ | ✅ | ~~✅~~ |
-| QR Code Generator | ✅ | ✅ | ✅ | ✅ | ✅ | ~~✅~~ |
-| OGP Data Extractor | ✅ | ✅ | ✅ | ✅ | ✅ | ~~✅~~ |
-| Series URI Crawler | ✅ | ✅ | ✅ | ✅ | ✅ | ~~✅~~ |
-| DNS Record Retriever | ✅ | ✅ | ❌ | ✅ | ✅ | ~~✅~~ |
-| WHOIS Retriever | ✅ | ✅ | ✅ | ✅ | ✅ | ~~❌~~ |
-| Wi-Fi Details Viewer | ✅ | ✅ | ✅ | ✅ | ✅ | ~~✅~~ |
+| Tool                         | Linux | Android | macOS | iOS | Windows | ~~Web~~ |
+| ---------------------------- | ----- | ------- | ----- | --- | ------- | ------- |
+| Bluetooth Low Energy Scanner | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
+| IPv4 Subnet Scanner          | ✅    | ✅      | ✅    | ✅  | ✅      | ~~❌~~  |
+| mDNS Scanner                 | ✅    | ✅      | ✅    | ✅  | ✅      | ~~❌~~  |
+| UPnP Scanner                 | ✅    | ✅      | ✅    | ✅  | ✅      | ~~❌~~  |
+| Route Tracer                 | ❌    | ✅      | ❌    | ✅  | ❌      | ~~❌~~  |
+| TCP Port Scanner             | ✅    | ✅      | ✅    | ✅  | ✅      | ~~❌~~  |
+| Pinger                       | ✅    | ✅      | ✅    | ✅  | ✅      | ~~❌~~  |
+| File Hash Calculator         | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
+| String Hash Calculator       | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
+| CVSS Calculator              | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
+| Base Encoder                 | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
+| Morse Code Translator        | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
+| QR Code Generator            | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
+| OGP Data Extractor           | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
+| Series URI Crawler           | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
+| DNS Record Retriever         | ✅    | ✅      | ❌    | ✅  | ✅      | ~~✅~~  |
+| WHOIS Retriever              | ✅    | ✅      | ✅    | ✅  | ✅      | ~~❌~~  |
+| Wi-Fi Details Viewer         | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
 
 ## Release Flow
 
