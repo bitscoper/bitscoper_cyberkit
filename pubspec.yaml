@@ -23,11 +23,11 @@ dependencies:
   dart_ping_ios: ^4.0.2 # Extends dart_ping for iOS
   dart_ping: ^9.0.1 # !Web
   dnsolve: ^3.0.0 # !macOS
-  file_picker: ^11.0.2 # Downgraded Once Automatically
-  file_saver: ^0.3.1
+  file_picker: ^12.0.0-beta.5
+  file_saver: ^0.4.0
   flutter:
     sdk: flutter
-  flutter_blue_plus: ^2.2.3
+  flutter_blue_plus: ^2.3.4
   flutter_colorpicker: ^1.1.0
   flutter_local_notifications: ^21.0.0 # !Web
   flutter_localizations:
@@ -42,10 +42,10 @@ dependencies:
   http: ^1.6.0
   intl: ^0.20.2
   morse_code_translator: ^0.0.1
-  network_info_plus: ^7.0.0
+  network_info_plus: ^8.1.0
   network_tools_flutter: 2.0.7 # Locked due to Two Call Stacks Being "Paused on Entry" # !Web
   ogp_data_extract: ^0.2.2
-  package_info_plus: ^9.0.1
+  package_info_plus: ^10.1.0
   path_provider: ^2.1.5 # !Web
   permission_guard: ^2.0.1 # !Linux # !macOS
   qr_flutter: ^4.1.0
@@ -116,7 +116,8 @@ msix_config:
   languages: en-US
   execution_alias: Bitscoper_CyberKit
   enable_at_startup: false
-  capabilities: internetClient, internetClientServer, privateNetworkClientServer,
+  capabilities:
+    internetClient, internetClientServer, privateNetworkClientServer,
     removableStorage, wiFiControl
   architecture: x64
   store: true
