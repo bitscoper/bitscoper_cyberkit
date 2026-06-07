@@ -57,6 +57,16 @@ A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner
 Submission to [Google Play](https://play.google.com/store/apps/details?id=bitscoper.bitscoper_cyber_toolbox) is paused because I no longer own the account.
 
 - **IzzyOnDroid F-Droid Repository:** [bitscoper.bitscoper_cyberkit](https://apt.izzysoft.de/packages/bitscoper.bitscoper_cyberkit/)
+
+You can also use `fdroidcl` to install the application from the F-Droid repository mentioned above using Android Debug Bridge (ADB).
+
+```sh
+fdroidcl repo add "IzzyOnDroid" "https://apt.izzysoft.de/fdroid/repo"
+fdroidcl repo enable "IzzyOnDroid"
+fdroidcl update
+fdroidcl install bitscoper.bitscoper_cyberkit
+```
+
 - **Obtainium:** [obtainium://add/https://github.com/bitscoper/bitscoper_cyberkit/](http://apps.obtainium.imranr.dev/redirect.html?r=obtainium://add/https://github.com/bitscoper/bitscoper_cyberkit/)
 
 #### Signed
