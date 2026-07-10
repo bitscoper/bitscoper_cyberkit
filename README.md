@@ -345,11 +345,6 @@ base64 ./Android\ Key/KeyStore.jks > ./Android\ Key/KeyStore.b64
 ## Notes
 
 - I write commit messages in Title Case and past tense, leaving out articles to keep them concise while still showing details.
-- I delete previous GitHub Actions runs, except for:
-  - **[#3](https://github.com/bitscoper/bitscoper_cyberkit/actions/runs/14313849811/):** Last build for web and deployment of the web application to the server
-  - **[#57](https://github.com/bitscoper/bitscoper_cyberkit/actions/runs/21337182596/):** Last build and push of the Docker image to the Amazon Elastic Container Registry Public Gallery
-  - **[#132](https://github.com/bitscoper/bitscoper_cyberkit/actions/runs/25374885225/):** Last build with obfuscation and splitting of debug symbols
-- I only keep the latest release and the latest container version.
 - Versions I submit to the Microsoft Store may vary and be delayed.
 - Submission to Google Play is paused because I no longer own the account.
 - The free tier of the Amazon Elastic Container Registry Public Gallery has expired.
