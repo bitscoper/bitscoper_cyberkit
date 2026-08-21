@@ -37,7 +37,7 @@ dependencies:
   flutter_staggered_grid_view: ^0.7.0
   flutter_traceroute:
     git:
-      url: https://github.com/Koizeay/flutter_traceroute.git # !Linux !macOS !Windows !Web
+      url: https://github.com/bitscoper/flutter_traceroute.git # !Linux !macOS !Windows !Web
   html: ^0.15.6
   http: ^1.6.0
   intl: ^0.20.3

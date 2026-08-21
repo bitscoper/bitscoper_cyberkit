@@ -549,8 +549,8 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: f9a0df89278f59d17784daeee6a37e5c1a0d7399
-      url: "https://github.com/Koizeay/flutter_traceroute.git"
+      resolved-ref: "913bb4ea096c711618b15d81daef586c8178be2a"
+      url: "https://github.com/bitscoper/flutter_traceroute.git"
     source: git
     version: "0.0.2+3"
   flutter_web_plugins:
