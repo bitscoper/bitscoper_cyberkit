@@ -1,6 +1,5 @@
 /* By Abdullah As-Sadeed */
 
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
