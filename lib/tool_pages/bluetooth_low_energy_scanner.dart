@@ -1,6 +1,7 @@
 /* By Abdullah As-Sadeed */
 
 import 'dart:async';
+
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
@@ -138,7 +139,7 @@ class BluetoothLowEnergyScannerPageState
     );
   }
 
-  Widget _buildDeviceCard(BuildContext context, final ScanResult scanResult) {
+  Widget _buildDeviceCard(BuildContext context, ScanResult scanResult) {
     final BluetoothDevice device = scanResult.device;
     final AdvertisementData advertisement = scanResult.advertisementData;
 

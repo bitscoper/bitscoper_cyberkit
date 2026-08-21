@@ -1,6 +1,7 @@
 /* By Abdullah As-Sadeed */
 
 import 'dart:io';
+
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
@@ -195,7 +196,7 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
     } finally {}
   }
 
-  Widget _buildDeviceCard(BuildContext context, final Device device) {
+  Widget _buildDeviceCard(BuildContext context, Device device) {
     final String dump = device.toString();
     final String name = _extractName(context, dump);
     final String host = _extractIPAddress(context, dump);

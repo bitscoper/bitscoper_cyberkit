@@ -49,9 +49,8 @@ Future<void> checkVersion(BuildContext context) async {
           final String localVersionShort = skipBuildNumber(localVersion);
 
           if (latestVersionShort != localVersionShort) {
-            ScaffoldMessenger.of(
-              navigatorKey.currentContext!,
-            ).hideCurrentSnackBar();
+            ScaffoldMessenger.of(navigatorKey.currentContext!)
+                .hideCurrentSnackBar();
 
             ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
               SnackBar(
@@ -62,25 +61,22 @@ Future<void> checkVersion(BuildContext context) async {
               ),
             );
           } else {
-            ScaffoldMessenger.of(
-              navigatorKey.currentContext!,
-            ).hideCurrentSnackBar();
+            ScaffoldMessenger.of(navigatorKey.currentContext!)
+                .hideCurrentSnackBar();
 
             ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
               SnackBar(
                 content: Text(
-                  AppLocalizations.of(
-                    navigatorKey.currentContext!,
-                  )!.you_are_using_the_latest_version,
+                  AppLocalizations.of(navigatorKey.currentContext!)!
+                      .you_are_using_the_latest_version,
                 ),
                 showCloseIcon: true,
               ),
             );
           }
         } else {
-          ScaffoldMessenger.of(
-            navigatorKey.currentContext!,
-          ).hideCurrentSnackBar();
+          ScaffoldMessenger.of(navigatorKey.currentContext!)
+              .hideCurrentSnackBar();
 
           showMessageDialog(
             navigatorKey.currentContext!,

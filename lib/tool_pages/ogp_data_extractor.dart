@@ -51,12 +51,10 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
         );
 
         await sendNotification(
-          title: AppLocalizations.of(
-            navigatorKey.currentContext!,
-          )!.ogp_data_extractor,
-          subtitle: AppLocalizations.of(
-            navigatorKey.currentContext!,
-          )!.bitscoper_cyberkit,
+          title: AppLocalizations.of(navigatorKey.currentContext!)!
+              .ogp_data_extractor,
+          subtitle: AppLocalizations.of(navigatorKey.currentContext!)!
+              .bitscoper_cyberkit,
           body: AppLocalizations.of(navigatorKey.currentContext!)!.extracted,
           payload: "OGP_Data_Extractor",
         );

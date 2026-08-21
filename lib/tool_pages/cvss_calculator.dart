@@ -41,9 +41,8 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
   Widget _subTitle(BuildContext context) {
     return Center(
       child: Text(
-        AppLocalizations.of(
-          context,
-        )!.common_vulnerability_scoring_system_v3_1_base_score,
+        AppLocalizations.of(context)!
+            .common_vulnerability_scoring_system_v3_1_base_score,
         textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.bodyLarge,
       ),

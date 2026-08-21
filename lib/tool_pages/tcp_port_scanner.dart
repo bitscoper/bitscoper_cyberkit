@@ -1,6 +1,7 @@
 /* By Abdullah As-Sadeed */
 
 import 'dart:async';
+
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/commons/notification_sender.dart';
@@ -151,9 +152,8 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                     keyboardType: TextInputType.url,
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
-                      labelText: AppLocalizations.of(
-                        context,
-                      )!.a_host_or_ip_address,
+                      labelText: AppLocalizations.of(context)!
+                          .a_host_or_ip_address,
                       hintText: 'bitscoper.dev',
                     ),
                     showCursor: true,

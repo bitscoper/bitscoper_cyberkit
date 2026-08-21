@@ -1,6 +1,7 @@
 /* By Abdullah As-Sadeed */
 
 import 'dart:typed_data';
+
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
@@ -109,21 +110,18 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
 
   void _pickImage(BuildContext context) async {
     try {
-      final FilePickerResult? filePickerResult = await FilePicker.pickFiles(
-        lockParentWindow: true,
-        dialogTitle: AppLocalizations.of(
-          context,
-        )!.pick_an_image_file_to_embed_in_qr_code,
+      final PlatformFile? file = await FilePicker.pickFile(
+        linuxOptions: LinuxOptions(lockParentWindow: true),
+        androidOptions: AndroidOptions(),
+        windowsOptions: WindowsOptions(lockParentWindow: true),
+        webOptions: WebOptions(),
+        dialogTitle: AppLocalizations.of(context)!
+            .pick_an_image_file_to_embed_in_qr_code,
         type: FileType.image,
-        allowMultiple: false,
-        readSequential: true,
-        withData: true,
-        compressionQuality: 0,
       );
 
-      if (filePickerResult != null &&
-          filePickerResult.files.single.bytes != null) {
-        _embeddedImageBytes = filePickerResult.files.single.bytes!;
+      if (file != null) {
+        _embeddedImageBytes = await file.readAsBytes();
       }
 
       setState(() {});
@@ -280,9 +278,8 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
                 flex: 1,
                 child: DropdownButtonFormField(
                   decoration: InputDecoration(
-                    labelText: AppLocalizations.of(
-                      context,
-                    )!.error_correction_level,
+                    labelText: AppLocalizations.of(context)!
+                        .error_correction_level,
                   ),
                   items: [
                     DropdownMenuItem(

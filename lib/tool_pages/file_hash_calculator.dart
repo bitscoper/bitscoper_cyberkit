@@ -2,6 +2,7 @@
 
 import 'dart:io';
 import 'dart:typed_data';
+
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/copy_to_clipboard.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
@@ -29,31 +30,25 @@ class HashNotifier extends Notifier<List<Map<String, dynamic>>> {
 
   Future<void> _calculate(BuildContext context) async {
     try {
-      FilePickerResult? result = await FilePicker.pickFiles(
-        type: FileType.any,
-        allowMultiple: true,
+      final List<PlatformFile> files = await FilePicker.pickFiles(
+        linuxOptions: LinuxOptions(lockParentWindow: true),
+        androidOptions: AndroidOptions(),
+        windowsOptions: WindowsOptions(lockParentWindow: true),
+        webOptions: WebOptions(),
         dialogTitle: AppLocalizations.of(context)!.select_files,
+        type: FileType.any,
       );
 
-      if (result != null) {
-        final List<File> selectedFiles = result.paths
-            .where((String? path) {
-              return (path != null);
-            })
-            .map((String? path) {
-              return File(path!);
-            })
-            .toList();
-
+      if (files.isNotEmpty) {
         _isCalculating = true;
         state = [...state];
 
         final List<Map<String, String>> hashes = await Future.wait(
-          selectedFiles.map((File file) async {
+          files.map((PlatformFile file) async {
             final Uint8List bytes = await file.readAsBytes();
 
             return {
-              'File Name': file.path.split('/').last,
+              'File Name': file.name,
               'MD5': md5.convert(bytes).toString(),
               'SHA1': sha1.convert(bytes).toString(),
               'SHA224': sha224.convert(bytes).toString(),
@@ -69,12 +64,10 @@ class HashNotifier extends Notifier<List<Map<String, dynamic>>> {
         state = [...state];
 
         await sendNotification(
-          title: AppLocalizations.of(
-            navigatorKey.currentContext!,
-          )!.file_hash_calculator,
-          subtitle: AppLocalizations.of(
-            navigatorKey.currentContext!,
-          )!.bitscoper_cyberkit,
+          title: AppLocalizations.of(navigatorKey.currentContext!)!
+              .file_hash_calculator,
+          subtitle: AppLocalizations.of(navigatorKey.currentContext!)!
+              .bitscoper_cyberkit,
           body: AppLocalizations.of(navigatorKey.currentContext!)!.calculated,
           payload: "File_Hash_Calculator",
         );
@@ -165,9 +158,8 @@ class FileHashCalculatorPage extends ConsumerWidget {
                               entry.value,
                             );
                           },
-                          tooltip: AppLocalizations.of(
-                            context,
-                          )!.copy_to_clipboard,
+                          tooltip: AppLocalizations.of(context)!
+                              .copy_to_clipboard,
                         ),
                       ),
                 ],

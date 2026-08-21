@@ -1,6 +1,7 @@
 /* By Abdullah As-Sadeed */
 
 import 'dart:async';
+
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/copy_to_clipboard.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
@@ -199,12 +200,10 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
         }
 
         await sendNotification(
-          title: AppLocalizations.of(
-            navigatorKey.currentContext!,
-          )!.dns_record_retriever,
-          subtitle: AppLocalizations.of(
-            navigatorKey.currentContext!,
-          )!.bitscoper_cyberkit,
+          title: AppLocalizations.of(navigatorKey.currentContext!)!
+              .dns_record_retriever,
+          subtitle: AppLocalizations.of(navigatorKey.currentContext!)!
+              .bitscoper_cyberkit,
           body: AppLocalizations.of(navigatorKey.currentContext!)!.retrieved,
           payload: "DNS_Record_Retriever",
         );

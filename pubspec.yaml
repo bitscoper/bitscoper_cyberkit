@@ -7,55 +7,55 @@ description: A Flutter application offering Bluetooth Low Energy Scanner, IPv4
   Encoder, Morse Code Translator, QR Code Generator, OGP Data Extractor, Series
   URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Details Viewer.
 publish_to: none
-version: 18.1.4+38
+version: 18.1.8+40
 
 environment:
-  sdk: ">=3.11.4" # Flutter 3.41.6
+  sdk: ">=3.13.0" # Flutter 3.47.0
 
 dependencies:
   # device_info_plus: null
   # dynamic_color: null # !iOS !Web
   async: ^2.13.1
   b: ^0.2.0
-  connectivity_plus: 7.0.0 # Locked for macOS & iOS Compatibility
+  connectivity_plus: ^7.3.1
   crypto: ^3.0.7
   cvss_vulnerability_scoring: ^1.0.0
-  dart_ping_ios: ^4.0.2 # Extends dart_ping for iOS
+  dart_ping_ios: ^4.0.2
   dart_ping: ^9.0.1 # !Web
   dnsolve: ^3.0.0 # !macOS
-  file_picker: ^12.0.0-beta.5
+  file_picker: ^12.0.0
   file_saver: ^0.4.0
   flutter:
     sdk: flutter
-  flutter_blue_plus: ^2.3.4
+  flutter_blue_plus: ^2.3.12
   flutter_colorpicker: ^1.1.0
-  flutter_local_notifications: ^21.0.0 # !Web
+  flutter_local_notifications: ^22.3.0 # !Web
   flutter_localizations:
     sdk: flutter
-  flutter_native_splash: ^2.4.7 # !Linux !maxOS !Windows
-  flutter_riverpod: ^3.3.1
+  flutter_native_splash: ^2.4.8 # !Linux !maxOS !Windows
+  flutter_riverpod: ^3.4.2
   flutter_staggered_grid_view: ^0.7.0
   flutter_traceroute:
     git:
       url: https://github.com/Koizeay/flutter_traceroute.git # !Linux !macOS !Windows !Web
   html: ^0.15.6
   http: ^1.6.0
-  intl: ^0.20.2
+  intl: ^0.20.3
   morse_code_translator: ^0.0.1
-  network_info_plus: ^8.1.0
-  network_tools_flutter: 2.0.7 # Locked due to Two Call Stacks Being "Paused on Entry" # !Web
+  network_info_plus: ^8.2.1
+  network_tools_flutter: ^3.0.4 # !Web
   ogp_data_extract: ^0.2.2
-  package_info_plus: ^10.1.0
-  path_provider: ^2.1.5 # !Web
+  package_info_plus: ^10.2.1
+  path_provider: ^2.1.6 # !Web
   permission_guard: ^2.0.1 # !Linux # !macOS
   qr_flutter: ^4.1.0
   quick_actions: ^1.1.0 # !Linux !macOS !Windows !Web
   shared_preferences: ^2.5.5
   tcp_scanner: ^2.0.5 # !Web
-  timelines_plus: ^2.0.0
-  upnp_client: ^1.0.4 # !Web
+  timelines_plus: ^2.0.1
+  upnp_client: ^1.2.2 # !Web
   url_launcher: ^6.3.2
-  uuid: ^4.5.3
+  uuid: ^4.6.0
   whois: ^1.0.0 # !Web
   widgets_to_image: ^2.0.1
   yaml: ^3.1.3
@@ -63,7 +63,7 @@ dependencies:
 dev_dependencies:
   flutter_launcher_icons: ^0.14.4
   flutter_lints: ^6.0.0
-  msix: ^3.16.13
+  msix: ^3.18.0
   rename: ^3.1.0
 
 flutter:
@@ -124,5 +124,5 @@ msix_config:
   build_windows: true
   windows_build_args: --release
   debug: false
-  msix_version: 18.1.4.0
+  msix_version: 18.1.8.0
   output_name: Bitscoper_CyberKit

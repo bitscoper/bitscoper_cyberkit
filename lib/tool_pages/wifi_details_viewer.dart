@@ -123,16 +123,14 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
           ),
           _wifiDetailsCard(
             context,
-            AppLocalizations.of(
-              context,
-            )!.internet_protocol_version_4_ipv4_address,
+            AppLocalizations.of(context)!
+                .internet_protocol_version_4_ipv4_address,
             _ipAddress,
           ),
           _wifiDetailsCard(
             context,
-            AppLocalizations.of(
-              context,
-            )!.internet_protocol_version_6_ipv6_address,
+            AppLocalizations.of(context)!
+                .internet_protocol_version_6_ipv6_address,
             _ipV6Address,
           ),
           _wifiDetailsCard(

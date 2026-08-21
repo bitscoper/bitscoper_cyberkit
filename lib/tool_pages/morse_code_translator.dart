@@ -131,9 +131,8 @@ class MorseCodeTranslatorPage extends ConsumerWidget {
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
           labelText: AppLocalizations.of(context)!.a_string,
-          hintText: AppLocalizations.of(
-            context,
-          )!.abdullah_as_sadeed.toUpperCase(),
+          hintText: AppLocalizations.of(context)!.abdullah_as_sadeed
+              .toUpperCase(),
           suffixIcon: IconButton(
             icon: const Icon(Icons.copy_rounded),
             onPressed: () {
@@ -172,8 +171,7 @@ class MorseCodeTranslatorPage extends ConsumerWidget {
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
           labelText: AppLocalizations.of(context)!.morse_code,
-          hintText:
-              '.- -... -.. ..- .-.. .-.. .- .... / .- ... -....- ... .- -.. . . -..',
+          hintText: '.- -... -.. ..- .-.. .-.. .- .... / .- ... -....- ... .- -.. . . -..',
           suffixIcon: IconButton(
             icon: const Icon(Icons.copy_rounded),
             onPressed: () {

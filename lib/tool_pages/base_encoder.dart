@@ -1,6 +1,7 @@
 /* By Abdullah As-Sadeed */
 
 import 'dart:convert';
+
 import 'package:b/b.dart';
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/copy_to_clipboard.dart';
@@ -112,9 +113,8 @@ class BaseEncoderPage extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            AppLocalizations.of(
-              context,
-            )!.start_typing_a_string_to_encode_it_into_the_bases,
+            AppLocalizations.of(context)!
+                .start_typing_a_string_to_encode_it_into_the_bases,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8.0),

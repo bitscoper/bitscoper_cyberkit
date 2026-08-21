@@ -57,9 +57,8 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
       return AppLocalizations.of(context)!.enter_a_positive_integer;
     } else if (int.tryParse(value)! >
         int.tryParse(_upperLimitEditingController.text.trim())!) {
-      return AppLocalizations.of(
-        context,
-      )!.upper_limit_must_be_greater_than_lower_limit;
+      return AppLocalizations.of(context)!
+          .upper_limit_must_be_greater_than_lower_limit;
     } else {
       return null;
     }
@@ -74,9 +73,8 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
       return AppLocalizations.of(context)!.enter_a_positive_integer;
     } else if (int.tryParse(value)! <
         int.tryParse(_lowerLimitEditingController.text.trim())!) {
-      return AppLocalizations.of(
-        context,
-      )!.upper_limit_must_be_greater_than_lower_limit;
+      return AppLocalizations.of(context)!
+          .upper_limit_must_be_greater_than_lower_limit;
     } else {
       return null;
     }
@@ -124,12 +122,10 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
         }
 
         await sendNotification(
-          title: AppLocalizations.of(
-            navigatorKey.currentContext!,
-          )!.series_uri_crawler,
-          subtitle: AppLocalizations.of(
-            navigatorKey.currentContext!,
-          )!.bitscoper_cyberkit,
+          title: AppLocalizations.of(navigatorKey.currentContext!)!
+              .series_uri_crawler,
+          subtitle: AppLocalizations.of(navigatorKey.currentContext!)!
+              .bitscoper_cyberkit,
           body: AppLocalizations.of(navigatorKey.currentContext!)!.crawled,
           payload: "Series_URI_Crawler",
         );

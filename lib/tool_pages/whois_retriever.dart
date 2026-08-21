@@ -60,12 +60,10 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
         });
 
         await sendNotification(
-          title: AppLocalizations.of(
-            navigatorKey.currentContext!,
-          )!.whois_retriever,
-          subtitle: AppLocalizations.of(
-            navigatorKey.currentContext!,
-          )!.bitscoper_cyberkit,
+          title: AppLocalizations.of(navigatorKey.currentContext!)!
+              .whois_retriever,
+          subtitle: AppLocalizations.of(navigatorKey.currentContext!)!
+              .bitscoper_cyberkit,
           body: AppLocalizations.of(navigatorKey.currentContext!)!.retrieved,
           payload: "WHOIS_Retriever",
         );

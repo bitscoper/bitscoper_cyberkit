@@ -225,9 +225,8 @@ class HomePage extends StatelessWidget {
 
                       showMessageDialog(
                         navigatorKey.currentContext!,
-                        AppLocalizations.of(
-                          navigatorKey.currentContext!,
-                        )!.error,
+                        AppLocalizations.of(navigatorKey.currentContext!)!
+                            .error,
                         error.toString(),
                       );
                     } finally {}
@@ -249,9 +248,8 @@ class HomePage extends StatelessWidget {
 
                       showMessageDialog(
                         navigatorKey.currentContext!,
-                        AppLocalizations.of(
-                          navigatorKey.currentContext!,
-                        )!.error,
+                        AppLocalizations.of(navigatorKey.currentContext!)!
+                            .error,
                         error.toString(),
                       );
                     } finally {}
@@ -264,9 +262,8 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Center(
               child: Text(
-                AppLocalizations.of(
-                  context,
-                )!.the_application_displays_error_messages_as_caught,
+                AppLocalizations.of(context)!
+                    .the_application_displays_error_messages_as_caught,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -282,9 +279,8 @@ class HomePage extends StatelessWidget {
 
     return [
       (
-        AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.bluetooth_low_energy_scanner,
+        AppLocalizations.of(navigatorKey.currentContext!)!
+            .bluetooth_low_energy_scanner,
         Icons.bluetooth_searching_rounded,
         [
           Permission.bluetooth,
@@ -337,9 +333,8 @@ class HomePage extends StatelessWidget {
         const FileHashCalculatorPage(),
       ),
       (
-        AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.string_hash_calculator,
+        AppLocalizations.of(navigatorKey.currentContext!)!
+            .string_hash_calculator,
         Icons.text_snippet_rounded,
         [],
         const StringHashCalculatorPage(),
@@ -357,9 +352,8 @@ class HomePage extends StatelessWidget {
         const BaseEncoderPage(),
       ),
       (
-        AppLocalizations.of(
-          navigatorKey.currentContext!,
-        )!.morse_code_translator,
+        AppLocalizations.of(navigatorKey.currentContext!)!
+            .morse_code_translator,
         Icons.text_fields_rounded,
         [],
         const MorseCodeTranslatorPage(),

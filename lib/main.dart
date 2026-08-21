@@ -179,9 +179,8 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
         ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
           SnackBar(
             content: Text(
-              AppLocalizations.of(
-                navigatorKey.currentContext!,
-              )!.your_preference_has_been_saved,
+              AppLocalizations.of(navigatorKey.currentContext!)!
+                  .your_preference_has_been_saved,
             ),
             showCloseIcon: true,
           ),
@@ -212,9 +211,8 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
       ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
         SnackBar(
           content: Text(
-            AppLocalizations.of(
-              navigatorKey.currentContext!,
-            )!.your_preference_has_been_saved,
+            AppLocalizations.of(navigatorKey.currentContext!)!
+                .your_preference_has_been_saved,
           ),
           showCloseIcon: true,
         ),

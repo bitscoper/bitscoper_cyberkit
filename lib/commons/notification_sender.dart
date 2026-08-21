@@ -1,15 +1,16 @@
 /* By Abdullah As-Sadeed */
 
 import "dart:core";
+
 import "package:flutter_local_notifications/flutter_local_notifications.dart";
 import "package:flutter/material.dart";
 import "package:uuid/uuid.dart";
 
 Future<void> sendNotification({
-  required final String title,
-  required final String subtitle,
-  required final String body,
-  required final String payload,
+  required String title,
+  required String subtitle,
+  required String body,
+  required String payload,
 }) async {
   final String iconPath = "assets/icon/icon.png";
   final String androidMonochromeIconName = "icon_monochrome";
@@ -50,9 +51,8 @@ Future<void> sendNotification({
       WindowsInitializationSettings(
         appUserModelId: "18862TeleChirkut.BitscoperCyberKit",
         appName: "Bitscoper CyberKit",
-        iconPath: WindowsImage.getAssetUri(
-          windowsIconPath,
-        ).toString(), // FIXME: Debug
+        iconPath: WindowsImage.getAssetUri(windowsIconPath)
+            .toString(), // FIXME: Debug
         guid: Uuid().v4(),
       );
 

@@ -89,7 +89,7 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
     );
   }
 
-  Future<Widget> _buildInformationCard(final ActiveHost host) async {
+  Future<Widget> _buildInformationCard(ActiveHost host) async {
     final MdnsInfo? mdnsInformation = await host.mdnsInfo;
 
     return Card(
@@ -368,9 +368,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                 color: Theme.of(navigatorKey.currentContext!).hoverColor,
                 child: ListTile(
                   title: Text(
-                    AppLocalizations.of(
-                      navigatorKey.currentContext!,
-                    )!.txt_record,
+                    AppLocalizations.of(navigatorKey.currentContext!)!
+                        .txt_record,
                   ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -431,9 +430,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                           padding: const EdgeInsets.all(16.0),
                           child: ListTile(
                             title: Text(
-                              AppLocalizations.of(
-                                navigatorKey.currentContext!,
-                              )!.value,
+                              AppLocalizations.of(navigatorKey.currentContext!)!
+                                  .value,
                             ),
                             subtitle: Text(
                               mdnsInformation.txtResourceRecord.text,
