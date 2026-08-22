@@ -1,12 +1,14 @@
 /* By Abdullah As-Sadeed */
 
+import 'dart:async';
+
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:network_tools_flutter/network_tools_flutter.dart';
+import 'package:multicast_dns/multicast_dns.dart';
 
 class MDNSScannerPage extends StatefulWidget {
   const MDNSScannerPage({super.key});
@@ -18,25 +20,230 @@ class MDNSScannerPage extends StatefulWidget {
 }
 
 class MDNSScannerPageState extends State<MDNSScannerPage> {
+  final MDnsClient _client = MDnsClient();
+
   bool _isScanning = false;
-  List<ActiveHost> hosts = [];
+  final List<
+    ({
+      List<IPAddressResourceRecord> ipAddressResourceRecords,
+      PtrResourceRecord pointerResourceRecord,
+      SrvResourceRecord serviceResourceRecord,
+      TxtResourceRecord? textResourceRecord,
+    })
+  >
+  _hosts = [];
 
   @override
   void initState() {
     super.initState();
   }
 
-  void _scan() async {
+  Future<List<PtrResourceRecord>?> _findServiceTypes(MDnsClient client) async {
+    try {
+      final List<PtrResourceRecord> serviceTypes = <PtrResourceRecord>[];
+
+      await for (final PtrResourceRecord pointerResourceRecord
+          in client.lookup<PtrResourceRecord>(
+            ResourceRecordQuery.serverPointer('_services._dns-sd._udp.local'),
+          )) {
+        if (!serviceTypes.contains(pointerResourceRecord)) {
+          serviceTypes.add(pointerResourceRecord);
+        }
+      }
+
+      return serviceTypes;
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
+
+      return null;
+    } finally {}
+  }
+
+  Future<List<PtrResourceRecord>?> _findServices(
+    MDnsClient client,
+    String serviceType,
+  ) async {
+    try {
+      final List<PtrResourceRecord> services = <PtrResourceRecord>[];
+
+      await for (final PtrResourceRecord pointerResourceRecord
+          in client.lookup<PtrResourceRecord>(
+            ResourceRecordQuery.serverPointer(serviceType),
+          )) {
+        if (!services.contains(pointerResourceRecord)) {
+          services.add(pointerResourceRecord);
+        }
+      }
+
+      return services;
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
+
+      return null;
+    } finally {}
+  }
+
+  Future<List<IPAddressResourceRecord>?> _findIpAddessResourceRecords(
+    MDnsClient client,
+    String target,
+  ) async {
+    try {
+      final List<IPAddressResourceRecord> ipAddressResourceRecords =
+          <IPAddressResourceRecord>[];
+
+      await for (final IPAddressResourceRecord iPAddressResourceRecord
+          in client.lookup<IPAddressResourceRecord>(
+            ResourceRecordQuery.addressIPv4(target),
+          )) {
+        if (!ipAddressResourceRecords.contains(iPAddressResourceRecord)) {
+          ipAddressResourceRecords.add(iPAddressResourceRecord);
+        }
+      }
+
+      await for (final IPAddressResourceRecord iPAddressResourceRecord
+          in client.lookup<IPAddressResourceRecord>(
+            ResourceRecordQuery.addressIPv6(target),
+          )) {
+        if (!ipAddressResourceRecords.contains(iPAddressResourceRecord)) {
+          ipAddressResourceRecords.add(iPAddressResourceRecord);
+        }
+      }
+
+      return ipAddressResourceRecords;
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
+
+      return null;
+    } finally {}
+  }
+
+  Future<SrvResourceRecord?> _findServiceResourceRecord(
+    MDnsClient client,
+    String serviceName,
+  ) async {
+    try {
+      await for (final SrvResourceRecord serviceResourceRecord
+          in client.lookup<SrvResourceRecord>(
+            ResourceRecordQuery.service(serviceName),
+          )) {
+        return serviceResourceRecord;
+      }
+
+      return null;
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
+
+      return null;
+    } finally {}
+  }
+
+  Future<TxtResourceRecord?> _findTextResourceRecord(
+    MDnsClient client,
+    String serviceName,
+  ) async {
+    try {
+      await for (final TxtResourceRecord textResourceRecord
+          in client.lookup<TxtResourceRecord>(
+            ResourceRecordQuery.text(serviceName),
+          )) {
+        return textResourceRecord;
+      }
+
+      return null;
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
+
+      return null;
+    } finally {}
+  }
+
+  Future<void> _scan() async {
     try {
       setState(() {
         _isScanning = true;
-        hosts = [];
+        _hosts.clear();
       });
 
-      hosts = await MdnsScannerService.instance.searchMdnsDevices();
+      await _client.start();
+
+      final List<PtrResourceRecord>? serviceTypes = await _findServiceTypes(
+        _client,
+      );
+
+      for (final PtrResourceRecord serviceType in serviceTypes!) {
+        if (_isScanning) {
+          final List<PtrResourceRecord>? services = await _findServices(
+            _client,
+            serviceType.domainName,
+          );
+
+          for (final PtrResourceRecord service in services!) {
+            if (_isScanning) {
+              final SrvResourceRecord? serviceResourceRecord =
+                  await _findServiceResourceRecord(_client, service.domainName);
+
+              if (serviceResourceRecord == null) {
+                continue;
+              }
+
+              final List<IPAddressResourceRecord>? ipAddressResourceRecords =
+                  await _findIpAddessResourceRecords(
+                    _client,
+                    serviceResourceRecord.target,
+                  );
+
+              final TxtResourceRecord? textResourceRecord =
+                  await _findTextResourceRecord(_client, service.domainName);
+
+              setState(() {
+                _hosts.add((
+                  ipAddressResourceRecords: ipAddressResourceRecords!,
+                  pointerResourceRecord: service,
+                  serviceResourceRecord: serviceResourceRecord,
+                  textResourceRecord: textResourceRecord,
+                ));
+              });
+            } else {
+              break;
+            }
+          }
+        } else {
+          break;
+        }
+      }
 
       setState(() {
-        hosts;
+        _hosts;
       });
     } catch (error) {
       debugPrint(error.toString());
@@ -47,12 +254,18 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
         error.toString(),
       );
     } finally {
-      _isScanning = false;
+      _client.stop();
+
+      setState(() {
+        _isScanning = false;
+      });
     }
   }
 
   void _stop(BuildContext context) {
     try {
+      _client.stop();
+
       setState(() {
         _isScanning = false;
       });
@@ -64,6 +277,28 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
         AppLocalizations.of(context)!.error,
         error.toString(),
       );
+    } finally {}
+  }
+
+  String? _extractServiceType(String value) {
+    try {
+      final List<String> parts = value.split('.');
+
+      if (parts.length >= 3) {
+        return '${parts[parts.length - 3]}.${parts[parts.length - 2]}';
+      }
+
+      return value;
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(
+        context,
+        AppLocalizations.of(context)!.error,
+        error.toString(),
+      );
+
+      return null;
     } finally {}
   }
 
@@ -89,157 +324,106 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
     );
   }
 
-  Future<Widget> _buildInformationCard(ActiveHost host) async {
-    final MdnsInfo? mdnsInformation = await host.mdnsInfo;
+  Widget _buildInformationRow(
+    BuildContext context,
+    String title,
+    String value,
+  ) {
+    return Text.rich(
+      TextSpan(
+        children: [
+          TextSpan(
+            text: "$title: ",
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          TextSpan(text: value),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInformationCard(
+    ({
+      List<IPAddressResourceRecord> ipAddressResourceRecords,
+      PtrResourceRecord pointerResourceRecord,
+      SrvResourceRecord serviceResourceRecord,
+      TxtResourceRecord? textResourceRecord,
+    })
+    host,
+  ) {
+    final String dateTimeFormat = "MMMM dd, yyyy hh:mm:ss a";
 
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: ListTile(
-        title: Text(mdnsInformation!.mdnsName),
+        title: Text(host.pointerResourceRecord.domainName),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text:
-                        "${AppLocalizations.of(navigatorKey.currentContext!)!.name_or_target}: ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(text: mdnsInformation.mdnsName),
-                ],
-              ),
+            _buildInformationRow(
+              context,
+              AppLocalizations.of(context)!.name_or_target,
+              host.pointerResourceRecord.domainName,
             ),
-            Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text:
-                        "${AppLocalizations.of(navigatorKey.currentContext!)!.domain_name_or_bundle_identifier}: ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(text: mdnsInformation.mdnsDomainName),
-                ],
-              ),
+            _buildInformationRow(
+              context,
+              AppLocalizations.of(context)!.domain_name_or_bundle_identifier,
+              host.pointerResourceRecord.name,
             ),
-            Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text:
-                        "${AppLocalizations.of(navigatorKey.currentContext!)!.service_target}: ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(text: mdnsInformation.mdnsSrvTarget),
-                ],
-              ),
+            _buildInformationRow(
+              context,
+              AppLocalizations.of(context)!.service_target,
+              host.serviceResourceRecord.target,
             ),
-            Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text:
-                        "${AppLocalizations.of(navigatorKey.currentContext!)!.address}: ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(text: host.address),
-                ],
-              ),
+            _buildInformationRow(
+              context,
+              AppLocalizations.of(context)!.address,
+              host.ipAddressResourceRecords
+                  .map((IPAddressResourceRecord record) {
+                    return record.address.address;
+                  })
+                  .join(', '),
             ),
-            Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text:
-                        "${AppLocalizations.of(navigatorKey.currentContext!)!.port}: ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(text: '${mdnsInformation.mdnsPort}'),
-                ],
-              ),
+            _buildInformationRow(
+              context,
+              AppLocalizations.of(context)!.port,
+              '${host.serviceResourceRecord.port}',
             ),
-            Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text:
-                        "${AppLocalizations.of(navigatorKey.currentContext!)!.service_type}: ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(text: mdnsInformation.mdnsServiceType),
-                ],
-              ),
+            _buildInformationRow(
+              context,
+              AppLocalizations.of(context)!.service_type,
+              _extractServiceType(host.pointerResourceRecord.domainName)!,
             ),
             const SizedBox(height: 8.0),
             Card(
-              color: Theme.of(navigatorKey.currentContext!).hoverColor,
+              color: Theme.of(context).hoverColor,
               child: ListTile(
-                title: Text(
-                  AppLocalizations.of(navigatorKey.currentContext!)!.ptr_record,
-                ),
+                title: Text(AppLocalizations.of(context)!.ptr_record),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text:
-                                "${AppLocalizations.of(navigatorKey.currentContext!)!.name}: ",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          TextSpan(
-                            text: mdnsInformation.ptrResourceRecord.name,
-                          ),
-                        ],
-                      ),
+                    _buildInformationRow(
+                      context,
+                      AppLocalizations.of(context)!.name,
+                      host.pointerResourceRecord.name,
                     ),
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text:
-                                "${AppLocalizations.of(navigatorKey.currentContext!)!.domain_name}: ",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          TextSpan(
-                            text: mdnsInformation.ptrResourceRecord.domainName,
-                          ),
-                        ],
-                      ),
+                    _buildInformationRow(
+                      context,
+                      AppLocalizations.of(context)!.domain_name,
+                      host.pointerResourceRecord.domainName,
                     ),
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text:
-                                "${AppLocalizations.of(navigatorKey.currentContext!)!.record_type}: ",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          TextSpan(
-                            text:
-                                "${mdnsInformation.ptrResourceRecord.resourceRecordType}",
-                          ),
-                        ],
-                      ),
+                    _buildInformationRow(
+                      context,
+                      AppLocalizations.of(context)!.record_type,
+                      '${host.pointerResourceRecord.resourceRecordType}',
                     ),
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text:
-                                "${AppLocalizations.of(navigatorKey.currentContext!)!.validity}: ",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          TextSpan(
-                            text: DateFormat('MMMM dd, yyyy hh:mm:ss a').format(
-                              DateTime.fromMillisecondsSinceEpoch(
-                                mdnsInformation.txtResourceRecord.validUntil,
-                              ),
-                            ),
-                          ),
-                        ],
+                    _buildInformationRow(
+                      context,
+                      AppLocalizations.of(context)!.validity,
+                      DateFormat(dateTimeFormat).format(
+                        DateTime.fromMillisecondsSinceEpoch(
+                          host.pointerResourceRecord.validUntil,
+                        ),
                       ),
                     ),
                   ],
@@ -247,181 +431,81 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
               ),
             ),
             Card(
-              color: Theme.of(navigatorKey.currentContext!).hoverColor,
+              color: Theme.of(context).hoverColor,
               child: ListTile(
-                title: Text(
-                  AppLocalizations.of(navigatorKey.currentContext!)!.srv_record,
-                ),
+                title: Text(AppLocalizations.of(context)!.srv_record),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text:
-                                "${AppLocalizations.of(navigatorKey.currentContext!)!.name}: ",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          TextSpan(
-                            text: mdnsInformation.srvResourceRecord.name,
-                          ),
-                        ],
-                      ),
+                    _buildInformationRow(
+                      context,
+                      AppLocalizations.of(context)!.name,
+                      host.serviceResourceRecord.name,
                     ),
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text:
-                                "${AppLocalizations.of(navigatorKey.currentContext!)!.target}: ",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          TextSpan(
-                            text: mdnsInformation.srvResourceRecord.target,
-                          ),
-                        ],
-                      ),
+                    _buildInformationRow(
+                      context,
+                      AppLocalizations.of(context)!.target,
+                      host.serviceResourceRecord.target,
                     ),
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text:
-                                "${AppLocalizations.of(navigatorKey.currentContext!)!.port}: ",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          TextSpan(
-                            text: "${mdnsInformation.srvResourceRecord.port}",
-                          ),
-                        ],
-                      ),
+                    _buildInformationRow(
+                      context,
+                      AppLocalizations.of(context)!.port,
+                      '${host.serviceResourceRecord.port}',
                     ),
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text:
-                                "${AppLocalizations.of(navigatorKey.currentContext!)!.priority}: ",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          TextSpan(
-                            text:
-                                "${mdnsInformation.srvResourceRecord.priority}",
-                          ),
-                        ],
-                      ),
+                    _buildInformationRow(
+                      context,
+                      AppLocalizations.of(context)!.priority,
+                      '${host.serviceResourceRecord.priority}',
                     ),
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text:
-                                "${AppLocalizations.of(navigatorKey.currentContext!)!.weight}: ",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          TextSpan(
-                            text: "${mdnsInformation.srvResourceRecord.weight}",
-                          ),
-                        ],
-                      ),
+                    _buildInformationRow(
+                      context,
+                      AppLocalizations.of(context)!.weight,
+                      '${host.serviceResourceRecord.weight}',
                     ),
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text:
-                                "${AppLocalizations.of(navigatorKey.currentContext!)!.record_type}: ",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          TextSpan(
-                            text:
-                                "${mdnsInformation.srvResourceRecord.resourceRecordType}",
-                          ),
-                        ],
-                      ),
+                    _buildInformationRow(
+                      context,
+                      AppLocalizations.of(context)!.record_type,
+                      '${host.serviceResourceRecord.resourceRecordType}',
                     ),
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text:
-                                "${AppLocalizations.of(navigatorKey.currentContext!)!.validity}: ",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          TextSpan(
-                            text: DateFormat('MMMM dd, yyyy hh:mm:ss a').format(
-                              DateTime.fromMillisecondsSinceEpoch(
-                                mdnsInformation.txtResourceRecord.validUntil,
-                              ),
-                            ),
-                          ),
-                        ],
+                    _buildInformationRow(
+                      context,
+                      AppLocalizations.of(context)!.validity,
+                      DateFormat(dateTimeFormat).format(
+                        DateTime.fromMillisecondsSinceEpoch(
+                          host.serviceResourceRecord.validUntil,
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-            if (mdnsInformation.txtResourceRecord.text.isNotEmpty)
+            if (host.textResourceRecord != null &&
+                host.textResourceRecord!.text.isNotEmpty)
               Card(
-                color: Theme.of(navigatorKey.currentContext!).hoverColor,
+                color: Theme.of(context).hoverColor,
                 child: ListTile(
-                  title: Text(
-                    AppLocalizations.of(navigatorKey.currentContext!)!
-                        .txt_record,
-                  ),
+                  title: Text(AppLocalizations.of(context)!.txt_record),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text:
-                                  "${AppLocalizations.of(navigatorKey.currentContext!)!.name}: ",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            TextSpan(
-                              text: mdnsInformation.txtResourceRecord.name,
-                            ),
-                          ],
-                        ),
+                      _buildInformationRow(
+                        context,
+                        AppLocalizations.of(context)!.name,
+                        host.textResourceRecord!.name,
                       ),
-                      Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text:
-                                  "${AppLocalizations.of(navigatorKey.currentContext!)!.record_type}: ",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            TextSpan(
-                              text:
-                                  "${mdnsInformation.txtResourceRecord.resourceRecordType}",
-                            ),
-                          ],
-                        ),
+                      _buildInformationRow(
+                        context,
+                        AppLocalizations.of(context)!.record_type,
+                        '${host.textResourceRecord!.resourceRecordType}',
                       ),
-                      Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text:
-                                  "${AppLocalizations.of(navigatorKey.currentContext!)!.validity}: ",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            TextSpan(
-                              text: DateFormat('MMMM dd, yyyy hh:mm:ss a')
-                                  .format(
-                                    DateTime.fromMillisecondsSinceEpoch(
-                                      mdnsInformation
-                                          .txtResourceRecord
-                                          .validUntil,
-                                    ),
-                                  ),
-                            ),
-                          ],
+                      _buildInformationRow(
+                        context,
+                        AppLocalizations.of(context)!.validity,
+                        DateFormat(dateTimeFormat).format(
+                          DateTime.fromMillisecondsSinceEpoch(
+                            host.textResourceRecord!.validUntil,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 8.0),
@@ -429,13 +513,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: ListTile(
-                            title: Text(
-                              AppLocalizations.of(navigatorKey.currentContext!)!
-                                  .value,
-                            ),
-                            subtitle: Text(
-                              mdnsInformation.txtResourceRecord.text,
-                            ),
+                            title: Text(AppLocalizations.of(context)!.value),
+                            subtitle: Text(host.textResourceRecord!.text),
                           ),
                         ),
                       ),
@@ -450,28 +529,19 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
   }
 
   Widget _resultWrapper() {
-    return FutureBuilder<List<Widget>>(
-      future: Future.wait(hosts.map(_buildInformationCard)),
-      builder: (BuildContext context, AsyncSnapshot<List<Widget>> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: snapshot.data!,
-          );
-        } else if (snapshot.hasError) {
-          showMessageDialog(
-            context,
-            AppLocalizations.of(context)!.error,
-            snapshot.error.toString(),
-          );
-
-          return const SizedBox.shrink();
-        } else {
-          return const SizedBox.shrink();
-        }
-      },
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: _hosts.map((
+        ({
+          List<IPAddressResourceRecord> ipAddressResourceRecords,
+          PtrResourceRecord pointerResourceRecord,
+          SrvResourceRecord serviceResourceRecord,
+          TxtResourceRecord? textResourceRecord,
+        })
+        host,
+      ) {
+        return _buildInformationCard(host);
+      }).toList(),
     );
   }
 
@@ -488,7 +558,7 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
           children: <Widget>[
             _form(context),
             const SizedBox(height: 16.0),
-            if (_isScanning) Center(child: CircularProgressIndicator()),
+            if (_isScanning) const Center(child: CircularProgressIndicator()),
             _resultWrapper(),
           ],
         ),
@@ -498,6 +568,8 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
 
   @override
   void dispose() {
+    _client.stop();
+
     super.dispose();
   }
 }

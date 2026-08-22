@@ -72,6 +72,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get broadcast_address => 'Broadcast Address';
 
   @override
+  String get by_abdullah_as_sadeed_bitscoper =>
+      'By Abdullah As-Sadeed (bitscoper)';
+
+  @override
   String get calculated => 'Calculated';
 
   @override

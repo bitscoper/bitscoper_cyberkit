@@ -6,8 +6,6 @@ import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:network_tools_flutter/network_tools_flutter.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -16,11 +14,6 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  await configureNetworkToolsFlutter(
-    (await getApplicationSupportDirectory()).path,
-    enableDebugging: kDebugMode,
-  );
 
   runApp(const ProviderScope(child: BitscoperCyberKit()));
 }

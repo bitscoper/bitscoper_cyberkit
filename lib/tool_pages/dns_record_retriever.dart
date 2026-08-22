@@ -44,9 +44,9 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
       TextEditingController();
   late StreamController<String> _recordTypeController;
 
-  List<RecordType> _selectedRecordTypes = RecordType.values.toList();
+  final List<RecordType> _selectedRecordTypes = RecordType.values.toList();
   bool _isRetrieving = false;
-  List<DNSRecord> _records = [];
+  final List<DNSRecord> _records = [];
 
   void _selectRecordTypes(BuildContext context) async {
     try {
@@ -172,7 +172,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
 
         setState(() {
           _isRetrieving = true;
-          _records = [];
+          _records.clear();
         });
 
         for (RecordType recordType in _selectedRecordTypes) {

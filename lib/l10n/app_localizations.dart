@@ -218,6 +218,12 @@ abstract class AppLocalizations {
   /// **'Broadcast Address'**
   String get broadcast_address;
 
+  /// No description provided for @by_abdullah_as_sadeed_bitscoper.
+  ///
+  /// In en, this message translates to:
+  /// **'By Abdullah As-Sadeed (bitscoper)'**
+  String get by_abdullah_as_sadeed_bitscoper;
+
   /// No description provided for @calculated.
   ///
   /// In en, this message translates to:

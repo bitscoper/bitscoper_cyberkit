@@ -35,7 +35,7 @@ class PingerPageState extends State<PingerPage> {
   final TextEditingController _hostEditingController = TextEditingController();
 
   bool _isPinging = false;
-  List<PingResult> _results = [];
+  final List<PingResult> _results = [];
 
   String? _hostFieldValidator(BuildContext context, String? value) {
     if ((value == null) || value.isEmpty) {
@@ -50,13 +50,14 @@ class PingerPageState extends State<PingerPage> {
       if (_formKey.currentState!.validate()) {
         setState(() {
           _isPinging = true;
-          _results = [];
+          _results.clear();
         });
 
         while (_isPinging) {
           final String response = (
             await Ping(
               _hostEditingController.text.trim(),
+              nat64Synthesis: true,
               encoding: const Utf8Codec(allowMalformed: false),
               count: 1,
             ).stream.first,

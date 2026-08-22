@@ -3,8 +3,9 @@
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
+import 'package:bitscoper_cyberkit/main.dart';
+import 'package:dart_ping/dart_ping.dart';
 import 'package:flutter/material.dart';
-import 'package:network_tools_flutter/network_tools_flutter.dart';
 
 class IPv4SubnetScannerPage extends StatefulWidget {
   const IPv4SubnetScannerPage({super.key});
@@ -24,9 +25,10 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _subnetEditingController =
       TextEditingController();
+  final Set<Ping> _activePings = <Ping>{};
 
   bool _isScanning = false;
-  Set<ActiveHost> _discoveredHosts = <ActiveHost>{};
+  final Set<String> _discoveredHosts = <String>{};
 
   String? _subnetFieldValidator(BuildContext context, String? value) {
     if ((value == null) || value.isEmpty) {
@@ -44,43 +46,80 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
           _discoveredHosts.clear();
         });
 
-        HostScannerService.instance
-            .getAllPingableDevices(
-              _subnetEditingController.text.trim(),
-              firstHostId: 1,
-              lastHostId: 254,
-              resultsInAddressAscendingOrder: true,
-            )
-            .listen(
-              (ActiveHost discoveredHost) {
-                setState(() {
-                  _discoveredHosts.add(discoveredHost);
-                });
-              },
-              onDone: () {
-                setState(() {
-                  _isScanning = false;
-                });
-              },
-            );
+        await Future.wait(
+          List<int>.generate(254, (int index) {
+            return index++;
+          }).map((int hostId) {
+            return _ping('${_subnetEditingController.text.trim()}.$hostId');
+          }),
+        );
       }
     } catch (error) {
       debugPrint(error.toString());
 
       showMessageDialog(
-        context,
-        AppLocalizations.of(context)!.error,
+        navigatorKey.currentContext!,
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
-
+    } finally {
       setState(() {
         _isScanning = false;
       });
-    } finally {}
+    }
   }
 
-  void _stop(BuildContext context) {
+  Future<void> _ping(String host) async {
+    if (_isScanning) {
+      try {
+        final Ping ping = Ping(
+          host,
+          ipVersion: IpVersion.ipv4,
+          nat64Synthesis: true,
+          count: 1,
+        );
+
+        _activePings.add(ping);
+
+        await for (final PingEvent event in ping.stream) {
+          if (_isScanning) {
+            if (event case PingResponse(ip: final String? ipAddress)) {
+              if (ipAddress != null) {
+                setState(() {
+                  _discoveredHosts.add(ipAddress);
+                });
+              }
+            }
+          } else {
+            break;
+          }
+        }
+
+        _activePings.remove(ping);
+      } catch (error) {
+        debugPrint(error.toString());
+
+        showMessageDialog(
+          navigatorKey.currentContext!,
+          AppLocalizations.of(navigatorKey.currentContext!)!.error,
+          error.toString(),
+        );
+      } finally {}
+    } else {
+      return;
+    }
+  }
+
+  Future<void> _stop(BuildContext context) async {
     try {
+      await Future.wait(
+        List<Ping>.from(_activePings).map((Ping ping) {
+          return ping.stop();
+        }),
+      );
+
+      _activePings.clear();
+
       setState(() {
         _isScanning = false;
       });
@@ -88,8 +127,8 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
       debugPrint(error.toString());
 
       showMessageDialog(
-        context,
-        AppLocalizations.of(context)!.error,
+        navigatorKey.currentContext!,
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
         error.toString(),
       );
     } finally {}
@@ -163,7 +202,7 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
         runSpacing: 8.0,
         children: <Widget>[
           if (_discoveredHosts.isNotEmpty)
-            ..._discoveredHosts.map((ActiveHost discoveredHost) {
+            ..._discoveredHosts.map((String discoveredHost) {
               return Chip(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -174,7 +213,7 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
                   bottom: 8.0,
                   left: 4.0,
                 ),
-                label: Text(discoveredHost.address.toString()),
+                label: Text(discoveredHost),
               );
             }),
         ],
@@ -206,6 +245,10 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
   @override
   void dispose() {
     _subnetEditingController.dispose();
+
+    for (final Ping ping in _activePings) {
+      ping.stop();
+    }
 
     super.dispose();
   }

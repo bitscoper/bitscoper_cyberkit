@@ -1,7 +1,5 @@
 /* By Abdullah As-Sadeed */
 
-// import 'dart:io';
-// import 'package:device_info_plus/device_info_plus.dart';
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
@@ -29,31 +27,6 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_guard/permission_guard.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-// Future<List<Permission>> listStoragePermissions() async {
-//   final List<Permission> permissions = [];
-
-//   if (Platform.isAndroid) {
-//     final DeviceInfoPlugin deviceInformationPlugin = DeviceInfoPlugin();
-//     final AndroidDeviceInfo androidInformation =
-//         await deviceInformationPlugin.androidInfo;
-//     final int sdkVersion = androidInformation.version.sdkInt;
-
-//     if (sdkVersion <= 32) {
-//       permissions.add(Permission.storage);
-//     } else if (sdkVersion >= 33) {
-//       permissions.addAll([
-//         Permission.audio,
-//         Permission.photos,
-//         Permission.videos,
-//       ]);
-//     }
-//   } else if (Platform.isIOS) {
-//     permissions.add(Permission.mediaLibrary);
-//   }
-
-//   return permissions;
-// } // FIXME: Consider Other Platforms
 
 class _ToolCardWidget extends StatelessWidget {
   final IconData icon;
@@ -170,7 +143,10 @@ class HomePage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(AppLocalizations.of(context)!.bitscoper_cyberkit),
+                      Text(
+                        AppLocalizations.of(context)!
+                            .by_abdullah_as_sadeed_bitscoper,
+                      ),
                       FutureBuilder<String>(
                         future: getLocalVersion(),
                         builder:
@@ -264,7 +240,7 @@ class HomePage extends StatelessWidget {
               child: Text(
                 AppLocalizations.of(context)!
                     .the_application_displays_error_messages_as_caught,
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.left,
               ),
             ),
           ),

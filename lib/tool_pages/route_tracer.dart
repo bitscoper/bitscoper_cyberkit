@@ -46,7 +46,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
       if (_formKey.currentState!.validate()) {
         setState(() {
           _isTracing = true;
-          _traceResults = [];
+          _traceResults.clear();
         });
 
         final TracerouteArgs arguments = TracerouteArgs(
