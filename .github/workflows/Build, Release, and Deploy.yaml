@@ -109,6 +109,12 @@ jobs:
     permissions:
       contents: read
     steps:
+      - name: Setup Java
+        uses: actions/setup-java@v5.7.0
+        with:
+          distribution: temurin
+          java-version: 25
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2.23.0
         with:
