@@ -1,9 +1,5 @@
 PODS:
   - Flutter (1.0.0)
-  - flutter_icmp_ping (0.0.1):
-    - Flutter
-  - flutter_isolate (0.0.1):
-    - Flutter
   - flutter_traceroute (0.0.1):
     - Flutter
     - SimpleTracer
@@ -13,8 +9,6 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
-  - flutter_icmp_ping (from `.symlinks/plugins/flutter_icmp_ping/ios`)
-  - flutter_isolate (from `.symlinks/plugins/flutter_isolate/ios`)
   - flutter_traceroute (from `.symlinks/plugins/flutter_traceroute/ios`)
   - SimplePing (from `https://github.com/Koizeay/SimplePing.git`)
   - SimpleTracer (from `https://github.com/Koizeay/SimpleTracer.git`)
@@ -22,10 +16,6 @@ DEPENDENCIES:
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
-  flutter_icmp_ping:
-    :path: ".symlinks/plugins/flutter_icmp_ping/ios"
-  flutter_isolate:
-    :path: ".symlinks/plugins/flutter_isolate/ios"
   flutter_traceroute:
     :path: ".symlinks/plugins/flutter_traceroute/ios"
   SimplePing:
@@ -43,8 +33,6 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Flutter: 71a624a5bc0c04062bf19101d501e466baf2fb47
-  flutter_icmp_ping: 47c1df3440c18ddd39fc457e607bb3b42d4a339f
-  flutter_isolate: ca1a284bbb8dcfeb26c4764794e0206f58ffa984
   flutter_traceroute: 96e117db703e503aafb1993a8028dee44a56822b
   SimplePing: dbf76d173000aa470f40ea6a0ddbd09778617b07
   SimpleTracer: b80357fc988d4324805845b13485d55930e485b8
