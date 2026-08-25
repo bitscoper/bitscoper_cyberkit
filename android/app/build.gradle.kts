@@ -5,7 +5,6 @@ import java.io.FileInputStream
 
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
     id("dev.flutter.flutter-gradle-plugin")
 }
 
@@ -40,10 +39,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_25
     }
 
-    kotlin {
-        jvmToolchain(25)
-    }
-
     sourceSets {
         getByName("main").java.srcDirs("src/main/kotlin")
     }
@@ -74,6 +69,18 @@ android {
     dependenciesInfo {
         includeInApk = false
         includeInBundle = false
+    }
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_25
     }
 }
 
