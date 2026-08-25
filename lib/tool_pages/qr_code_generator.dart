@@ -7,7 +7,6 @@ import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:file_saver/file_saver.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -562,21 +561,29 @@ class QRCodeGeneratorPageState extends State<QRCodeGeneratorPage> {
           final String fileName =
               'QR_Code_${DateTime.now().millisecondsSinceEpoch}.png';
 
-          await FileSaver.instance.saveFile(
-            name: fileName.replaceAll('.png', ''),
+          Uri? savedFile = await FilePicker.saveFile(
+            linuxOptions: LinuxOptions(lockParentWindow: true),
+            windowsOptions: WindowsOptions(lockParentWindow: true),
+            webOptions: WebOptions(),
+            dialogTitle: AppLocalizations.of(navigatorKey.currentContext!)!
+                .save_qr_code,
+            type: FileType.image,
+            mimeType: "image/png",
+            allowedExtensions: ["png"],
+            fileName: fileName,
             bytes: pngBytes,
-            fileExtension: 'png',
-            mimeType: MimeType.png,
           );
 
-          ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
-            SnackBar(
-              content: Text(
-                "${AppLocalizations.of(navigatorKey.currentContext!)!.saved}: $fileName",
+          if (savedFile != null) {
+            ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
+              SnackBar(
+                content: Text(
+                  "${AppLocalizations.of(navigatorKey.currentContext!)!.saved}: $fileName",
+                ),
+                showCloseIcon: true,
               ),
-              showCloseIcon: true,
-            ),
-          );
+            );
+          }
         }
       }
     } catch (error) {
