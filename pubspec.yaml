@@ -1,7 +1,7 @@
 # By Abdullah As-Sadeed
 
 name: bitscoper_cyberkit
-description: A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner, mDNS Scanner, UPnP Scanner, Route Tracer, TCP Port Scanner, Pinger, File Hash Calculator, String Hash Calculator, CVSS Calculator, Base Encoder, Morse Code Translator, OGP Data Extractor, Series URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Details Viewer.
+description: A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner, mDNS Scanner, UPnP Scanner, Route Tracer, TCP Port Scanner, Pinger, DNS Record Retriever, File Hash Calculator, String Hash Calculator, Base Encoder, Series URI Crawler, OGP Data Extractor, WHOIS Retriever, CVSS Calculator, Morse Code Translator, and Wi-Fi Details Viewer.
 version: 18.2.0+42
 publish_to: none
 

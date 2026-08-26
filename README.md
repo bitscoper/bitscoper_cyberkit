@@ -3,7 +3,7 @@
 
 # Bitscoper CyberKit
 
-A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner, mDNS Scanner, UPnP Scanner, Route Tracer, TCP Port Scanner, Pinger, File Hash Calculator, String Hash Calculator, CVSS Calculator, Base Encoder, Morse Code Translator, OGP Data Extractor, Series URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Details Viewer.
+A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner, mDNS Scanner, UPnP Scanner, Route Tracer, TCP Port Scanner, Pinger, DNS Record Retriever, File Hash Calculator, String Hash Calculator, Base Encoder, Series URI Crawler, OGP Data Extractor, WHOIS Retriever, CVSS Calculator, Morse Code Translator, and Wi-Fi Details Viewer.
 
 [![Build, Release, and Deploy](https://github.com/bitscoper/bitscoper_cyberkit/actions/workflows/Build,%20Release,%20and%20Deploy.yaml/badge.svg)](https://github.com/bitscoper/bitscoper_cyberkit/actions/workflows/Build,%20Release,%20and%20Deploy.yaml)
 [![IzzyOnDroid F-Droid Reproducible Builds Status](https://shields.rbtlog.dev/simple/bitscoper.bitscoper_cyberkit)](https://shields.rbtlog.dev/bitscoper.bitscoper_cyberkit)
@@ -177,41 +177,41 @@ Scans Transmission Control Protocol (TCP) ports from 0 to 65535 on a target serv
 
 Pings a target server and reports the IP address, Time To Live (TTL), and time.
 
-### 8. File Hash Calculator
+### 8. DNS Record Retriever
+
+Retrieves IPv4 Address (A), Name Server (NS), Canonical Name (CNAME), Start of Authority (SOA), Reverse DNS Pointer (PTR), Host Information (HINFO), Mail Exchanger (MX), Text (TXT), Responsible Person (RP), Andrew File System Database (AFSDB), Security Key (KEY), IPv6 Address (AAAA), Geographic Location (LOC), Service Location (SRV), Naming Authority Pointer (NAPTR), Key Exchanger (KX), Certificate (CERT), Address Prefix List (APL), DNSSEC Delegation Signer (DS), IPsec Key (IPSECKEY), DNSSEC Next Secure (NSEC), DNSSEC DNS Key (DNSKEY), DHCP Identifier (DHCID), DNSSEC Hashed Denial (NSEC3), NSEC3 Parameters (NSEC3PARAM), S/MIME Certificate (SMIMEA), Host Identity Protocol (HIP), DNSSEC Child DS (CDS), Service Binding (SVCB), HTTPS Binding (HTTPS), 48-Bit MAC Address (EUI48), 64-Bit MAC Address (EUI64), URI Mapping (URI), Certification Authority Authorization (CAA), Trust Anchor (TA), and DNSSEC Lookaside (DLV) records of a domain name (forward lookup) or an IP address (reverse lookup).
+
+### 9. File Hash Calculator
 
 Calculates Message Digest 5 (MD5), Secure Hash Algorithm 1 (SHA1), Secure Hash Algorithm 224 (SHA224), Secure Hash Algorithm 256 (SHA256), Secure Hash Algorithm 384 (SHA384), and Secure Hash Algorithm 512 (SHA512) hashes of files.
 
-### 9. String Hash Calculator
+### 10. String Hash Calculator
 
 Calculates Message Digest 5 (MD5), Secure Hash Algorithm 1 (SHA1), Secure Hash Algorithm 224 (SHA224), Secure Hash Algorithm 256 (SHA256), Secure Hash Algorithm 384 (SHA384), and Secure Hash Algorithm 512 (SHA512) hashes of a string.
-
-### 10. CVSS Calculator
-
-Uses Common Vulnerability Scoring System (CVSS) v3.1 to calculate base score of exploitability.
 
 ### 11. Base Encoder
 
 Encodes a string into binary (Base2), ternary (Base3), quaternary (Base4), quinary (Base5), senary (Base6), octal (Base8), decimal (Base10), duodecimal (Base12), hexadecimal (Base16), Base32, Base32Hex, Base36, Base58, Base62, and Base64.
 
-### 12. Morse Code Translator
+### 12. Series URI Crawler
 
-Translates English to Morse code and vice versa.
+Crawls webpages generated from a combination of Uniform Resource Identifier (URI) and number series, and lists the available ones.
 
 ### 13. OGP Data Extractor
 
 Extracts Open Graph Protocol (OGP) data of a webpage.
 
-### 14. Series URI Crawler
-
-Crawls webpages generated from a combination of Uniform Resource Identifier (URI) and number series, and lists the available ones.
-
-### 15. DNS Record Retriever
-
-Retrieves IPv4 Address (A), Name Server (NS), Canonical Name (CNAME), Start of Authority (SOA), Reverse DNS Pointer (PTR), Host Information (HINFO), Mail Exchanger (MX), Text (TXT), Responsible Person (RP), Andrew File System Database (AFSDB), Security Key (KEY), IPv6 Address (AAAA), Geographic Location (LOC), Service Location (SRV), Naming Authority Pointer (NAPTR), Key Exchanger (KX), Certificate (CERT), Address Prefix List (APL), DNSSEC Delegation Signer (DS), IPsec Key (IPSECKEY), DNSSEC Next Secure (NSEC), DNSSEC DNS Key (DNSKEY), DHCP Identifier (DHCID), DNSSEC Hashed Denial (NSEC3), NSEC3 Parameters (NSEC3PARAM), S/MIME Certificate (SMIMEA), Host Identity Protocol (HIP), DNSSEC Child DS (CDS), Service Binding (SVCB), HTTPS Binding (HTTPS), 48-Bit MAC Address (EUI48), 64-Bit MAC Address (EUI64), URI Mapping (URI), Certification Authority Authorization (CAA), Trust Anchor (TA), and DNSSEC Lookaside (DLV) records of a domain name (forward lookup) or an IP address (reverse lookup).
-
-### 16. WHOIS Retriever
+### 14. WHOIS Retriever
 
 Retrieves WHOIS information about a domain name.
+
+### 15. CVSS Calculator
+
+Uses Common Vulnerability Scoring System (CVSS) v3.1 to calculate base score of exploitability.
+
+### 16. Morse Code Translator
+
+Translates English to Morse code and vice versa.
 
 ### 17. Wi-Fi Details Viewer
 
@@ -228,15 +228,15 @@ Displays details of the currently connected Wireless Fidelity (Wi-Fi) network.
 | Route Tracer                 | ❌    | ✅      | ❌    | ✅  | ❌      | ~~❌~~  |
 | TCP Port Scanner             | ✅    | ✅      | ✅    | ✅  | ✅      | ~~❌~~  |
 | Pinger                       | ✅    | ✅      | ✅    | ✅  | ✅      | ~~❌~~  |
+| DNS Record Retriever         | ✅    | ✅      | ✅    | ✅  | ✅      | ~~❌~~  |
 | File Hash Calculator         | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
 | String Hash Calculator       | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
-| CVSS Calculator              | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
 | Base Encoder                 | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
-| Morse Code Translator        | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
-| OGP Data Extractor           | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
 | Series URI Crawler           | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
-| DNS Record Retriever         | ✅    | ✅      | ✅    | ✅  | ✅      | ~~❌~~  |
+| OGP Data Extractor           | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
 | WHOIS Retriever              | ✅    | ✅      | ✅    | ✅  | ✅      | ~~❌~~  |
+| CVSS Calculator              | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
+| Morse Code Translator        | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
 | Wi-Fi Details Viewer         | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
 
 ## Release Flow

@@ -302,6 +302,12 @@ class HomePage extends StatelessWidget {
         const PingerPage(),
       ),
       (
+        AppLocalizations.of(navigatorKey.currentContext!)!.dns_record_retriever,
+        Icons.dns_rounded,
+        [],
+        const DNSRecordRetrieverPage(),
+      ),
+      (
         AppLocalizations.of(navigatorKey.currentContext!)!.file_hash_calculator,
         Icons.file_present_rounded,
         [],
@@ -315,29 +321,10 @@ class HomePage extends StatelessWidget {
         const StringHashCalculatorPage(),
       ),
       (
-        AppLocalizations.of(navigatorKey.currentContext!)!.cvss_calculator,
-        Icons.security_rounded,
-        [],
-        const CVSSCalculatorPage(),
-      ),
-      (
         AppLocalizations.of(navigatorKey.currentContext!)!.base_encoder,
         Icons.numbers_rounded,
         [],
         const BaseEncoderPage(),
-      ),
-      (
-        AppLocalizations.of(navigatorKey.currentContext!)!
-            .morse_code_translator,
-        Icons.text_fields_rounded,
-        [],
-        const MorseCodeTranslatorPage(),
-      ),
-      (
-        AppLocalizations.of(navigatorKey.currentContext!)!.ogp_data_extractor,
-        Icons.share_rounded,
-        [],
-        const OGPDataExtractorPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.series_uri_crawler,
@@ -346,16 +333,29 @@ class HomePage extends StatelessWidget {
         const SeriesURICrawlerPage(),
       ),
       (
-        AppLocalizations.of(navigatorKey.currentContext!)!.dns_record_retriever,
-        Icons.dns_rounded,
+        AppLocalizations.of(navigatorKey.currentContext!)!.ogp_data_extractor,
+        Icons.share_rounded,
         [],
-        const DNSRecordRetrieverPage(),
+        const OGPDataExtractorPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.whois_retriever,
         Icons.domain_rounded,
         [],
         const WHOISRetrieverPage(),
+      ),
+      (
+        AppLocalizations.of(navigatorKey.currentContext!)!.cvss_calculator,
+        Icons.security_rounded,
+        [],
+        const CVSSCalculatorPage(),
+      ),
+      (
+        AppLocalizations.of(navigatorKey.currentContext!)!
+            .morse_code_translator,
+        Icons.text_fields_rounded,
+        [],
+        const MorseCodeTranslatorPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.wifi_details_viewer,
