@@ -164,23 +164,11 @@ abstract class AppLocalizations {
   /// **'The update checker only checks whether a newer release is available in the application’s GitHub repository. It neither runs automatically nor downloads or installs anything. If you installed the application from an application store, you should use the corresponding client instead.'**
   String get attention_to_update_checker;
 
-  /// No description provided for @automatic.
-  ///
-  /// In en, this message translates to:
-  /// **'Automatic'**
-  String get automatic;
-
   /// No description provided for @availability_impact.
   ///
   /// In en, this message translates to:
   /// **'Availability Impact'**
   String get availability_impact;
-
-  /// No description provided for @background.
-  ///
-  /// In en, this message translates to:
-  /// **'Background'**
-  String get background;
 
   /// No description provided for @base_encoder.
   ///
@@ -248,24 +236,6 @@ abstract class AppLocalizations {
   /// **'Checking Version ...'**
   String get checking_version;
 
-  /// No description provided for @circle.
-  ///
-  /// In en, this message translates to:
-  /// **'Circle'**
-  String get circle;
-
-  /// No description provided for @color_selection.
-  ///
-  /// In en, this message translates to:
-  /// **'Color Selection'**
-  String get color_selection;
-
-  /// No description provided for @colors.
-  ///
-  /// In en, this message translates to:
-  /// **'Colors'**
-  String get colors;
-
   /// No description provided for @common_vulnerability_scoring_system_v3_1_base_score.
   ///
   /// In en, this message translates to:
@@ -313,18 +283,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'CVSS Calculator'**
   String get cvss_calculator;
-
-  /// No description provided for @data.
-  ///
-  /// In en, this message translates to:
-  /// **'Data'**
-  String get data;
-
-  /// No description provided for @data_module_shape.
-  ///
-  /// In en, this message translates to:
-  /// **'Data Module Shape'**
-  String get data_module_shape;
 
   /// No description provided for @denied.
   ///
@@ -374,12 +332,6 @@ abstract class AppLocalizations {
   /// **'Elapsed Time'**
   String get elapsed_time;
 
-  /// No description provided for @embed_image.
-  ///
-  /// In en, this message translates to:
-  /// **'Embed Image'**
-  String get embed_image;
-
   /// No description provided for @enter_a_domain_name.
   ///
   /// In en, this message translates to:
@@ -398,23 +350,11 @@ abstract class AppLocalizations {
   /// **'Enter a Lower Limit!'**
   String get enter_a_lower_limit;
 
-  /// No description provided for @enter_a_number.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter a Number!'**
-  String get enter_a_number;
-
   /// No description provided for @enter_a_positive_integer.
   ///
   /// In en, this message translates to:
   /// **'Enter a Positive Integer!'**
   String get enter_a_positive_integer;
-
-  /// No description provided for @enter_a_positive_number.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter a Positive Number!'**
-  String get enter_a_positive_number;
 
   /// No description provided for @enter_a_string.
   ///
@@ -452,12 +392,6 @@ abstract class AppLocalizations {
   /// **'Enter morse code!'**
   String get enter_morse_code;
 
-  /// No description provided for @enter_padding.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter Padding!'**
-  String get enter_padding;
-
   /// No description provided for @enter_parallelism.
   ///
   /// In en, this message translates to:
@@ -469,12 +403,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Error'**
   String get error;
-
-  /// No description provided for @error_correction_level.
-  ///
-  /// In en, this message translates to:
-  /// **'Error Correction Level'**
-  String get error_correction_level;
 
   /// No description provided for @extract.
   ///
@@ -488,35 +416,11 @@ abstract class AppLocalizations {
   /// **'Extracted'**
   String get extracted;
 
-  /// No description provided for @eye.
-  ///
-  /// In en, this message translates to:
-  /// **'Eye'**
-  String get eye;
-
-  /// No description provided for @eye_shape.
-  ///
-  /// In en, this message translates to:
-  /// **'Eye Shape'**
-  String get eye_shape;
-
-  /// No description provided for @false_.
-  ///
-  /// In en, this message translates to:
-  /// **'False'**
-  String get false_;
-
   /// No description provided for @file_hash_calculator.
   ///
   /// In en, this message translates to:
   /// **'File Hash Calculator'**
   String get file_hash_calculator;
-
-  /// No description provided for @gapless.
-  ///
-  /// In en, this message translates to:
-  /// **'Gapless'**
-  String get gapless;
 
   /// No description provided for @gateway.
   ///
@@ -529,12 +433,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'hash'**
   String get hash;
-
-  /// No description provided for @high.
-  ///
-  /// In en, this message translates to:
-  /// **'High'**
-  String get high;
 
   /// No description provided for @integrity_impact.
   ///
@@ -578,12 +476,6 @@ abstract class AppLocalizations {
   /// **'Limited'**
   String get limited;
 
-  /// No description provided for @low.
-  ///
-  /// In en, this message translates to:
-  /// **'Low'**
-  String get low;
-
   /// No description provided for @lower_limit.
   ///
   /// In en, this message translates to:
@@ -601,12 +493,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'mDNS Scanner'**
   String get mdns_scanner;
-
-  /// No description provided for @medium.
-  ///
-  /// In en, this message translates to:
-  /// **'Medium'**
-  String get medium;
 
   /// No description provided for @morse_code.
   ///
@@ -643,12 +529,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'OK'**
   String get ok;
-
-  /// No description provided for @padding.
-  ///
-  /// In en, this message translates to:
-  /// **'Padding'**
-  String get padding;
 
   /// No description provided for @parallelism.
   ///
@@ -704,12 +584,6 @@ abstract class AppLocalizations {
   /// **'permissions will be used.'**
   String get permissions_will_be_used;
 
-  /// No description provided for @pick_an_image_file_to_embed_in_qr_code.
-  ///
-  /// In en, this message translates to:
-  /// **'Pick an Image File to Embed in QR Code'**
-  String get pick_an_image_file_to_embed_in_qr_code;
-
   /// No description provided for @ping.
   ///
   /// In en, this message translates to:
@@ -757,18 +631,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'PTR Record'**
   String get ptr_record;
-
-  /// No description provided for @qr_code_generator.
-  ///
-  /// In en, this message translates to:
-  /// **'QR Code Generator'**
-  String get qr_code_generator;
-
-  /// No description provided for @quartile.
-  ///
-  /// In en, this message translates to:
-  /// **'Quartile'**
-  String get quartile;
 
   /// No description provided for @record_type.
   ///
@@ -824,18 +686,6 @@ abstract class AppLocalizations {
   /// **'RSSI'**
   String get rssi;
 
-  /// No description provided for @save_qr_code.
-  ///
-  /// In en, this message translates to:
-  /// **'Save QR Code'**
-  String get save_qr_code;
-
-  /// No description provided for @saved.
-  ///
-  /// In en, this message translates to:
-  /// **'Saved'**
-  String get saved;
-
   /// No description provided for @scan.
   ///
   /// In en, this message translates to:
@@ -859,12 +709,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Scope'**
   String get scope;
-
-  /// No description provided for @select.
-  ///
-  /// In en, this message translates to:
-  /// **'Select'**
-  String get select;
 
   /// No description provided for @select_at_least_one_record_type.
   ///
@@ -915,12 +759,6 @@ abstract class AppLocalizations {
   /// **'Source Code'**
   String get source_code;
 
-  /// No description provided for @square.
-  ///
-  /// In en, this message translates to:
-  /// **'Square'**
-  String get square;
-
   /// No description provided for @srv_record.
   ///
   /// In en, this message translates to:
@@ -939,12 +777,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start typing a string to encode it to into the bases.'**
   String get start_typing_a_string_to_encode_it_into_the_bases;
-
-  /// No description provided for @start_typing_a_string_to_generate_qr_code.
-  ///
-  /// In en, this message translates to:
-  /// **'Start typing a string to generate QR Code.'**
-  String get start_typing_a_string_to_generate_qr_code;
 
   /// No description provided for @stop.
   ///
@@ -1017,12 +849,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Trace'**
   String get trace;
-
-  /// No description provided for @true_.
-  ///
-  /// In en, this message translates to:
-  /// **'True'**
-  String get true_;
 
   /// No description provided for @ttl.
   ///
@@ -1107,12 +933,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Vector string'**
   String get vector_string;
-
-  /// No description provided for @version.
-  ///
-  /// In en, this message translates to:
-  /// **'Version'**
-  String get version;
 
   /// No description provided for @wait.
   ///

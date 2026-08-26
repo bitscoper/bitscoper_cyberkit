@@ -44,13 +44,7 @@ class AppLocalizationsBn extends AppLocalizations {
       'এই আপডেট চেকার শুধু অ্যাপ্লিকেশনের GitHub রিপোজিটরিতে নতুন কোনো রিলিজ আছে কিনা তা জানায়। এটা স্বয়ংক্রিয়ভাবে চালু হয় না এবং কোনো কিছু ডাউনলোড বা ইনস্টলও করে না। আপনি যদি অ্যাপ্লিকেশনটি কোনো অ্যাপ্লিকেশন স্টোর থেকে ইনস্টল করে থাকেন, তাহলে সংশ্লিষ্ট ক্লায়েন্টটি ব্যবহার করুন।';
 
   @override
-  String get automatic => 'স্বয়ংক্রিয়';
-
-  @override
   String get availability_impact => 'অ্যাভেইলেবিলিটির ওপর প্রভাব';
-
-  @override
-  String get background => 'পটভূমি';
 
   @override
   String get base_encoder => 'বেইস এনকোডার';
@@ -88,15 +82,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get checking_version => 'সংস্করণ চেক করা হচ্ছে ...';
 
   @override
-  String get circle => 'বৃত্তাকার';
-
-  @override
-  String get color_selection => 'রঙ নির্বাচন';
-
-  @override
-  String get colors => 'রঙগুলো';
-
-  @override
   String get common_vulnerability_scoring_system_v3_1_base_score =>
       'কমন ভালনারেবিলিটি স্কোরিং সিস্টেম v3.1 বেইস স্কোর';
 
@@ -120,12 +105,6 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get cvss_calculator => 'সিভিএসএস ক্যালকুলেটর';
-
-  @override
-  String get data => 'তথ্য';
-
-  @override
-  String get data_module_shape => 'তথ্য মডিউলের আকৃতি';
 
   @override
   String get denied => 'অননুমোদিত';
@@ -153,9 +132,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get elapsed_time => 'সময়';
 
   @override
-  String get embed_image => 'ছবি এম্বেড করুন';
-
-  @override
   String get enter_a_domain_name => 'একটা ডোমেইন নেইম লিখুন!';
 
   @override
@@ -166,13 +142,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get enter_a_lower_limit => 'একটা নিম্ন সীমা লিখুন!';
 
   @override
-  String get enter_a_number => 'একটা নম্বর লিখুন!';
-
-  @override
   String get enter_a_positive_integer => 'একটা ধনাত্মক পূর্ণসংখ্যা লিখুন!';
-
-  @override
-  String get enter_a_positive_number => 'একটা ধনাত্মক নম্বর লিখুন!';
 
   @override
   String get enter_a_string => 'একটা স্ট্রিং লিখুন!';
@@ -193,16 +163,10 @@ class AppLocalizationsBn extends AppLocalizations {
   String get enter_morse_code => 'মোর্স কোড লিখুন!';
 
   @override
-  String get enter_padding => 'প্যাডিং লিখুন!';
-
-  @override
   String get enter_parallelism => 'সমান্তরালতা লিখুন!';
 
   @override
   String get error => 'ত্রুটি';
-
-  @override
-  String get error_correction_level => 'ত্রুটি সংশোধনের স্তর';
 
   @override
   String get extract => 'এক্সট্র্যাক্ট';
@@ -211,28 +175,13 @@ class AppLocalizationsBn extends AppLocalizations {
   String get extracted => 'এক্সট্রাক্টেড';
 
   @override
-  String get eye => 'চোখ';
-
-  @override
-  String get eye_shape => 'চোখের আকৃতি';
-
-  @override
-  String get false_ => 'না';
-
-  @override
   String get file_hash_calculator => 'ফাইল হ্যাশ ক্যালকুলেটর';
-
-  @override
-  String get gapless => 'ফাঁকবিহীন';
 
   @override
   String get gateway => 'গেইটওয়ে';
 
   @override
   String get hash => 'হ্যাশ';
-
-  @override
-  String get high => 'উচ্চ';
 
   @override
   String get integrity_impact => 'ইনটিগ্রিটির ওপর প্রভাব';
@@ -258,9 +207,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get limited => 'সীমিত';
 
   @override
-  String get low => 'নিম্ন';
-
-  @override
   String get lower_limit => 'নিম্ন সীমা';
 
   @override
@@ -268,9 +214,6 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get mdns_scanner => 'এমডিএনএস স্ক্যানার';
-
-  @override
-  String get medium => 'মধ্যম';
 
   @override
   String get morse_code => 'মোর্স কোড';
@@ -289,9 +232,6 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get ok => 'ঠিক আছে';
-
-  @override
-  String get padding => 'প্যাডিং';
 
   @override
   String get parallelism => 'সমান্তরালতা';
@@ -324,10 +264,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get permissions_will_be_used => 'অনুমতিসমূহ ব্যবহার করা হবে।';
 
   @override
-  String get pick_an_image_file_to_embed_in_qr_code =>
-      'QR কোডে এমবেড করার জন্য একটি ইমেজ ফাইল নির্বাচন করুন';
-
-  @override
   String get ping => 'পিং';
 
   @override
@@ -350,12 +286,6 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get ptr_record => 'পিটিআর রেকর্ড';
-
-  @override
-  String get qr_code_generator => 'কিউআর কোড জেনারেটর';
-
-  @override
-  String get quartile => 'তিন চতুর্থাংশ';
 
   @override
   String get record_type => 'রেকর্ড টাইপ';
@@ -385,12 +315,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get rssi => 'আরএসএসএই';
 
   @override
-  String get save_qr_code => 'QR কোড সংরক্ষণ করুন';
-
-  @override
-  String get saved => 'সংরক্ষণ করা হয়েছে';
-
-  @override
   String get scan => 'স্ক্যান';
 
   @override
@@ -401,9 +325,6 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get scope => 'স্কোপ';
-
-  @override
-  String get select => 'নির্বাচন';
 
   @override
   String get select_at_least_one_record_type =>
@@ -434,9 +355,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get source_code => 'সোর্স কোড';
 
   @override
-  String get square => 'বর্গাকার';
-
-  @override
   String get srv_record => 'এসআরভি রেকর্ড';
 
   @override
@@ -447,10 +365,6 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get start_typing_a_string_to_encode_it_into_the_bases =>
       'স্ট্রিংকে বেইসগুলোতে এনকোড করতে স্ট্রিংটা লিখতে শুরু করুন।';
-
-  @override
-  String get start_typing_a_string_to_generate_qr_code =>
-      'কিউআর কোড জেনারেট করতে স্ট্রিংটা লিখতে শুরু করুন।';
 
   @override
   String get stop => 'স্টপ';
@@ -489,9 +403,6 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get trace => 'ট্রেস';
-
-  @override
-  String get true_ => 'হ্যাঁ';
 
   @override
   String get ttl => 'টিটিএল';
@@ -535,9 +446,6 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get vector_string => 'ভেক্টর স্ট্রিং';
-
-  @override
-  String get version => 'সংস্করণ';
 
   @override
   String get wait => 'অপেক্ষা করুন ...';

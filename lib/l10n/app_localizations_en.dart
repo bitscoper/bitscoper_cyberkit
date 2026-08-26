@@ -44,13 +44,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'The update checker only checks whether a newer release is available in the application’s GitHub repository. It neither runs automatically nor downloads or installs anything. If you installed the application from an application store, you should use the corresponding client instead.';
 
   @override
-  String get automatic => 'Automatic';
-
-  @override
   String get availability_impact => 'Availability Impact';
-
-  @override
-  String get background => 'Background';
 
   @override
   String get base_encoder => 'Base Encoder';
@@ -88,15 +82,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get checking_version => 'Checking Version ...';
 
   @override
-  String get circle => 'Circle';
-
-  @override
-  String get color_selection => 'Color Selection';
-
-  @override
-  String get colors => 'Colors';
-
-  @override
   String get common_vulnerability_scoring_system_v3_1_base_score =>
       'Common Vulnerability Scoring System v3.1 Base Score';
 
@@ -120,12 +105,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cvss_calculator => 'CVSS Calculator';
-
-  @override
-  String get data => 'Data';
-
-  @override
-  String get data_module_shape => 'Data Module Shape';
 
   @override
   String get denied => 'Denied';
@@ -153,9 +132,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get elapsed_time => 'Elapsed Time';
 
   @override
-  String get embed_image => 'Embed Image';
-
-  @override
   String get enter_a_domain_name => 'Enter a domain name!';
 
   @override
@@ -165,13 +141,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enter_a_lower_limit => 'Enter a Lower Limit!';
 
   @override
-  String get enter_a_number => 'Enter a Number!';
-
-  @override
   String get enter_a_positive_integer => 'Enter a Positive Integer!';
-
-  @override
-  String get enter_a_positive_number => 'Enter a Positive Number!';
 
   @override
   String get enter_a_string => 'Enter a string!';
@@ -192,16 +162,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enter_morse_code => 'Enter morse code!';
 
   @override
-  String get enter_padding => 'Enter Padding!';
-
-  @override
   String get enter_parallelism => 'Enter Parallelism!';
 
   @override
   String get error => 'Error';
-
-  @override
-  String get error_correction_level => 'Error Correction Level';
 
   @override
   String get extract => 'Extract';
@@ -210,28 +174,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get extracted => 'Extracted';
 
   @override
-  String get eye => 'Eye';
-
-  @override
-  String get eye_shape => 'Eye Shape';
-
-  @override
-  String get false_ => 'False';
-
-  @override
   String get file_hash_calculator => 'File Hash Calculator';
-
-  @override
-  String get gapless => 'Gapless';
 
   @override
   String get gateway => 'Gateway';
 
   @override
   String get hash => 'hash';
-
-  @override
-  String get high => 'High';
 
   @override
   String get integrity_impact => 'Integrity Impact';
@@ -257,9 +206,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get limited => 'Limited';
 
   @override
-  String get low => 'Low';
-
-  @override
   String get lower_limit => 'Lower Limit';
 
   @override
@@ -267,9 +213,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mdns_scanner => 'mDNS Scanner';
-
-  @override
-  String get medium => 'Medium';
 
   @override
   String get morse_code => 'Morse Code';
@@ -288,9 +231,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ok => 'OK';
-
-  @override
-  String get padding => 'Padding';
 
   @override
   String get parallelism => 'Parallelism';
@@ -321,10 +261,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get permissions_will_be_used => 'permissions will be used.';
 
   @override
-  String get pick_an_image_file_to_embed_in_qr_code =>
-      'Pick an Image File to Embed in QR Code';
-
-  @override
   String get ping => 'Ping';
 
   @override
@@ -347,12 +283,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ptr_record => 'PTR Record';
-
-  @override
-  String get qr_code_generator => 'QR Code Generator';
-
-  @override
-  String get quartile => 'Quartile';
 
   @override
   String get record_type => 'Record Type';
@@ -382,12 +312,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get rssi => 'RSSI';
 
   @override
-  String get save_qr_code => 'Save QR Code';
-
-  @override
-  String get saved => 'Saved';
-
-  @override
   String get scan => 'Scan';
 
   @override
@@ -398,9 +322,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get scope => 'Scope';
-
-  @override
-  String get select => 'Select';
 
   @override
   String get select_at_least_one_record_type =>
@@ -430,9 +351,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get source_code => 'Source Code';
 
   @override
-  String get square => 'Square';
-
-  @override
   String get srv_record => 'SRV Record';
 
   @override
@@ -443,10 +361,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get start_typing_a_string_to_encode_it_into_the_bases =>
       'Start typing a string to encode it to into the bases.';
-
-  @override
-  String get start_typing_a_string_to_generate_qr_code =>
-      'Start typing a string to generate QR Code.';
 
   @override
   String get stop => 'Stop';
@@ -485,9 +399,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get trace => 'Trace';
-
-  @override
-  String get true_ => 'True';
 
   @override
   String get ttl => 'TTL';
@@ -531,9 +442,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get vector_string => 'Vector string';
-
-  @override
-  String get version => 'Version';
 
   @override
   String get wait => 'Wait ...';

@@ -14,7 +14,6 @@ import 'package:bitscoper_cyberkit/tool_pages/mdns_scanner.dart';
 import 'package:bitscoper_cyberkit/tool_pages/morse_code_translator.dart';
 import 'package:bitscoper_cyberkit/tool_pages/ogp_data_extractor.dart';
 import 'package:bitscoper_cyberkit/tool_pages/pinger.dart';
-import 'package:bitscoper_cyberkit/tool_pages/qr_code_generator.dart';
 import 'package:bitscoper_cyberkit/tool_pages/route_tracer.dart';
 import 'package:bitscoper_cyberkit/tool_pages/series_uri_crawler.dart';
 import 'package:bitscoper_cyberkit/tool_pages/string_hash_calculator.dart';
@@ -333,12 +332,6 @@ class HomePage extends StatelessWidget {
         Icons.text_fields_rounded,
         [],
         const MorseCodeTranslatorPage(),
-      ),
-      (
-        AppLocalizations.of(navigatorKey.currentContext!)!.qr_code_generator,
-        Icons.qr_code_rounded,
-        [],
-        const QRCodeGeneratorPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.ogp_data_extractor,

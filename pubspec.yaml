@@ -1,11 +1,7 @@
 # By Abdullah As-Sadeed
 
 name: bitscoper_cyberkit
-description: A Flutter application offering Bluetooth Low Energy Scanner, IPv4
-  Subnet Scanner, mDNS Scanner, UPnP Scanner, Route Tracer, TCP Port Scanner,
-  Pinger, File Hash Calculator, String Hash Calculator, CVSS Calculator, Base
-  Encoder, Morse Code Translator, QR Code Generator, OGP Data Extractor, Series
-  URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Details Viewer.
+description: A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner, mDNS Scanner, UPnP Scanner, Route Tracer, TCP Port Scanner, Pinger, File Hash Calculator, String Hash Calculator, CVSS Calculator, Base Encoder, Morse Code Translator, OGP Data Extractor, Series URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Details Viewer.
 version: 18.2.0+42
 publish_to: none
 
@@ -14,7 +10,6 @@ environment:
   flutter: ">=3.47.0"
 
 dependencies:
-  async: ^2.13.1
   b: ^0.2.0
   connectivity_plus: ^7.3.1
   crypto: ^3.0.7
@@ -25,7 +20,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_blue_plus: ^2.3.12
-  flutter_colorpicker: ^1.1.0
   flutter_local_notifications: ^22.3.0 # !Web
   flutter_localizations:
     sdk: flutter
@@ -35,7 +29,6 @@ dependencies:
   flutter_traceroute:
     git:
       url: https://github.com/bitscoper/flutter_traceroute.git # !Linux !macOS !Windows !Web
-  html: ^0.15.6
   http: ^1.6.0
   intl: ^0.20.3
   morse_code_translator: ^0.0.1
@@ -44,7 +37,6 @@ dependencies:
   ogp_data_extract: ^0.2.2
   package_info_plus: ^10.2.1
   permission_guard: ^2.0.1 # !Linux # !macOS
-  qr_flutter: ^4.1.0
   quick_actions: ^1.1.0 # !Linux !macOS !Windows !Web
   shared_preferences: ^2.5.5
   tcp_scanner: ^2.0.5 # !Web
@@ -53,7 +45,6 @@ dependencies:
   url_launcher: ^6.3.2
   uuid: ^4.6.0
   whois: ^1.0.0 # !Web
-  widgets_to_image: ^2.0.1
   yaml: ^3.1.3
 
 dev_dependencies:
@@ -104,16 +95,46 @@ flutter_launcher_icons:
     theme_color: "#FFFFFF"
 
 flutter_native_splash:
-  color: "#F0F8FF"
+  fullscreen: true
+  color: "#FFFFFF"
   image: assets/icon/square_transparent_unpadded_colored_512x512.png
-  branding: assets/branding.png
-  branding_mode: bottom
-  color_dark: "#F0F8FF"
+  color_dark: "#FFFFFF"
   image_dark: assets/icon/square_transparent_unpadded_colored_512x512.png
-  branding_dark: assets/branding.png
+
+  android: true
+  android_min_sdk: 24
+  android_screen_orientation: user
   android_gravity: center
+
+  color_android: "#FFFFFF"
+  image_android: assets/icon/square_transparent_unpadded_colored_512x512.png
+  color_dark_android: "#FFFFFF"
+  image_dark_android: assets/icon/square_transparent_unpadded_colored_512x512.png
+
+  android_12:
+    color: "#FFFFFF"
+    icon_background_color: "#FFFFFF"
+    image: assets/icon/square_whiteBackground_35percentPadding_colored_1152x1152.png
+
+    color_dark: "#FFFFFF"
+    icon_background_color_dark: "#FFFFFF"
+    image_dark: assets/icon/square_whiteBackground_35percentPadding_colored_1152x1152.png
+
+  ios: true
   ios_content_mode: center
+
+  color_ios: "#FFFFFF"
+  image_ios: assets/icon/square_transparent_unpadded_colored_512x512.png
+  color_dark_ios: "#FFFFFF"
+  image_dark_ios: assets/icon/square_transparent_unpadded_colored_512x512.png
+
+  web: true
   web_image_mode: center
+
+  color_web: "#FFFFFF"
+  image_web: assets/icon/square_transparent_unpadded_colored_512x512.png
+  color_dark_web: "#FFFFFF"
+  image_dark_web: assets/icon/square_transparent_unpadded_colored_512x512.png
 
 msix_config:
   display_name: Bitscoper CyberKit

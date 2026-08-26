@@ -3,7 +3,7 @@
 
 # Bitscoper CyberKit
 
-A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner, mDNS Scanner, UPnP Scanner, Route Tracer, TCP Port Scanner, Pinger, File Hash Calculator, String Hash Calculator, CVSS Calculator, Base Encoder, Morse Code Translator, QR Code Generator, OGP Data Extractor, Series URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Details Viewer.
+A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner, mDNS Scanner, UPnP Scanner, Route Tracer, TCP Port Scanner, Pinger, File Hash Calculator, String Hash Calculator, CVSS Calculator, Base Encoder, Morse Code Translator, OGP Data Extractor, Series URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Details Viewer.
 
 [![Build, Release, and Deploy](https://github.com/bitscoper/bitscoper_cyberkit/actions/workflows/Build,%20Release,%20and%20Deploy.yaml/badge.svg)](https://github.com/bitscoper/bitscoper_cyberkit/actions/workflows/Build,%20Release,%20and%20Deploy.yaml)
 [![IzzyOnDroid F-Droid Reproducible Builds Status](https://shields.rbtlog.dev/simple/bitscoper.bitscoper_cyberkit)](https://shields.rbtlog.dev/bitscoper.bitscoper_cyberkit)
@@ -197,27 +197,23 @@ Encodes a string into binary (Base2), ternary (Base3), quaternary (Base4), quina
 
 Translates English to Morse code and vice versa.
 
-### 13. QR Code Generator
-
-Generates QR (Quick Response) Code from a string.
-
-### 14. OGP Data Extractor
+### 13. OGP Data Extractor
 
 Extracts Open Graph Protocol (OGP) data of a webpage.
 
-### 15. Series URI Crawler
+### 14. Series URI Crawler
 
 Crawls webpages generated from a combination of Uniform Resource Identifier (URI) and number series, and lists the available ones.
 
-### 16. DNS Record Retriever
+### 15. DNS Record Retriever
 
 Retrieves IPv4 Address (A), Name Server (NS), Canonical Name (CNAME), Start of Authority (SOA), Reverse DNS Pointer (PTR), Host Information (HINFO), Mail Exchanger (MX), Text (TXT), Responsible Person (RP), Andrew File System Database (AFSDB), Security Key (KEY), IPv6 Address (AAAA), Geographic Location (LOC), Service Location (SRV), Naming Authority Pointer (NAPTR), Key Exchanger (KX), Certificate (CERT), Address Prefix List (APL), DNSSEC Delegation Signer (DS), IPsec Key (IPSECKEY), DNSSEC Next Secure (NSEC), DNSSEC DNS Key (DNSKEY), DHCP Identifier (DHCID), DNSSEC Hashed Denial (NSEC3), NSEC3 Parameters (NSEC3PARAM), S/MIME Certificate (SMIMEA), Host Identity Protocol (HIP), DNSSEC Child DS (CDS), Service Binding (SVCB), HTTPS Binding (HTTPS), 48-Bit MAC Address (EUI48), 64-Bit MAC Address (EUI64), URI Mapping (URI), Certification Authority Authorization (CAA), Trust Anchor (TA), and DNSSEC Lookaside (DLV) records of a domain name (forward lookup) or an IP address (reverse lookup).
 
-### 17. WHOIS Retriever
+### 16. WHOIS Retriever
 
 Retrieves WHOIS information about a domain name.
 
-### 18. Wi-Fi Details Viewer
+### 17. Wi-Fi Details Viewer
 
 Displays details of the currently connected Wireless Fidelity (Wi-Fi) network.
 
@@ -237,7 +233,6 @@ Displays details of the currently connected Wireless Fidelity (Wi-Fi) network.
 | CVSS Calculator              | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
 | Base Encoder                 | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
 | Morse Code Translator        | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
-| QR Code Generator            | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
 | OGP Data Extractor           | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
 | Series URI Crawler           | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
 | DNS Record Retriever         | ✅    | ✅      | ✅    | ✅  | ✅      | ~~❌~~  |
@@ -359,6 +354,7 @@ base64 --decode ./KeyStore.b64 > ./android/app/KeyStore.jks
 - I write commit messages in Title Case and past tense, leaving out articles to keep them concise while still showing details.
 - I have deleted some commits in the past, but this is unlikely to happen again.
 - I later PGP-signed all my commits, so they show a later date.
+- I removed a once-developed, long-used tool called QR Code Generator.
 - Versions I submit to the Microsoft Store may vary and be delayed.
 - Submission to Google Play is paused because I no longer own the account.
 - The free tier of the Amazon Elastic Container Registry Public Gallery has expired.

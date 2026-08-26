@@ -50,7 +50,7 @@ packages:
     source: hosted
     version: "2.7.0"
   async:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: async
       sha256: e2eb0491ba5ddb6177742d2da23904574082139b07c1e33b8503b9f46f3e1a37
@@ -382,14 +382,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.20"
-  flutter_colorpicker:
-    dependency: "direct main"
-    description:
-      name: flutter_colorpicker
-      sha256: "969de5f6f9e2a570ac660fb7b501551451ea2a1ab9e2097e89475f60e07816ea"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -535,7 +527,7 @@ packages:
     source: hosted
     version: "2.2.0"
   html:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: html
       sha256: "6d1264f2dffa1b1101c25a91dff0dc2daee4c18e87cd8538729773c073dbf602"
@@ -926,22 +918,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
-  qr:
-    dependency: transitive
-    description:
-      name: qr
-      sha256: "5a1d2586170e172b8a8c8470bbbffd5eb0cd38a66c0d77155ea138d3af3a4445"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.2"
-  qr_flutter:
-    dependency: "direct main"
-    description:
-      name: qr_flutter
-      sha256: "5095f0fc6e3f71d08adef8feccc8cea4f12eec18a2e31c2e8d82cb6019f4b097"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.1.0"
   queue:
     dependency: transitive
     description:
@@ -1379,14 +1355,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-  widgets_to_image:
-    dependency: "direct main"
-    description:
-      name: widgets_to_image
-      sha256: "4e5b7e88bf62c06a91762a9a713096f095361e4c8e81fdd3875cf19cdad73d3e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.1"
   win32:
     dependency: transitive
     description:
