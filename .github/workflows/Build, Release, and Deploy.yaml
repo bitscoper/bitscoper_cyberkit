@@ -144,10 +144,10 @@ jobs:
 
       - name: Create key.properties
         run: |
-          echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" >> ./android/key.properties
-          echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> ./android/key.properties
-          echo "keyAlias=Bitscoper_CyberKit" >> ./android/key.properties
           echo "storeFile=./KeyStore.jks" >> ./android/key.properties
+          echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" >> ./android/key.properties
+          echo "keyAlias=Bitscoper_CyberKit" >> ./android/key.properties
+          echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> ./android/key.properties
         shell: bash
 
       - name: Create KeyStore.jks

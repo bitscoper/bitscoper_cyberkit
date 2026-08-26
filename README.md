@@ -100,7 +100,6 @@ If you are unsure, choose the signed APK that supports all ABIs: [Bitscoper_Cybe
 ### Windows
 
 - **Microsoft Store:** [9MV2046TZ302](https://apps.microsoft.com/detail/9mv2046tz302)
-
 - **x64 Executable:** [Windows_x64_Executable.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Windows_x64_Executable.zip)
 - **MSIX**: [Bitscoper_CyberKit.msix](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit.msix)
 
@@ -131,6 +130,20 @@ podman run -it --rm ghcr.io/bitscoper/bitscoper_cyberkit:latest || docker run -i
 ### Web
 
 - **Web Application:** [Web_Application.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Web_Application.zip) (Disabled due to Build Failure)
+
+## Using Podman / Docker Locally on Linux
+
+### Build Image
+
+```sh
+docker build -t bitscoper_cyberkit .
+```
+
+### Run Container on Wayland
+
+```sh
+xhost +si:localuser:root && docker run -it --rm -e DISPLAY=$DISPLAY -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY -v /run/user/$(id -u)/wayland-0:/run/user/$(id -u)/wayland-0 -e XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR bitscoper_cyberkit
+```
 
 ## Tools
 
@@ -280,19 +293,12 @@ Web_Application --> Release[Release]
 Web_Application --> My_Server[My Server]
 ```
 
-## Using Podman / Docker Locally on Linux
+## External Files
 
-### Build Image
+### IzzyOnDroid F-Droid Repository
 
-```sh
-docker build -t bitscoper_cyberkit .
-```
-
-### Run Container on Wayland
-
-```sh
-xhost +si:localuser:root && docker run -it --rm -e DISPLAY=$DISPLAY -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY -v /run/user/$(id -u)/wayland-0:/run/user/$(id -u)/wayland-0 -e XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR bitscoper_cyberkit
-```
+- [Repository Metadata](https://codeberg.org/IzzyOnDroid/repodata/src/branch/main/metadata/bitscoper.bitscoper_cyberkit.yml)
+- [Recipe for Reproducible Builds](https://codeberg.org/IzzyOnDroid/rbtlog/src/branch/izzy/log/recipes/bitscoper.bitscoper_cyberkit.yml)
 
 ## Development Commands
 
@@ -333,13 +339,17 @@ flutter gen-l10n
 #### Generation
 
 ```sh
-keytool -genkey -v -keystore ./Android\ Key/KeyStore.jks -keyalg RSA -keysize 4096 -validity 10000 -alias Bitscoper_CyberKit
+keytool -genkey -v -keystore ./android/app/KeyStore.jks -keyalg RSA -keysize 4096 -validity 10000 -alias Bitscoper_CyberKit
 ```
 
-#### Conversion to Base64
+#### Conversion to Base64 and Vice Versa
 
 ```sh
-base64 ./Android\ Key/KeyStore.jks > ./Android\ Key/KeyStore.b64
+base64 ./android/app/KeyStore.jks > ./KeyStore.b64
+```
+
+```sh
+base64 --decode ./KeyStore.b64 > ./android/app/KeyStore.jks
 ```
 
 ## Notes
