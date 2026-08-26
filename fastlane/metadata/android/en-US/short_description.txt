@@ -1,1 +1,1 @@
-Scanner, Calculator, Encoder, Generator, Extractor, Crawler, and Retriever Tools
+Scanner, Tracer, Hasher, Encoder, Calculator, Generator, and Crawler Tools

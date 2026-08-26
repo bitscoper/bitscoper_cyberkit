@@ -6,7 +6,7 @@ description: A Flutter application offering Bluetooth Low Energy Scanner, IPv4
   Pinger, File Hash Calculator, String Hash Calculator, CVSS Calculator, Base
   Encoder, Morse Code Translator, QR Code Generator, OGP Data Extractor, Series
   URI Crawler, DNS Record Retriever, WHOIS Retriever, and Wi-Fi Details Viewer.
-version: 18.1.8+40
+version: 18.2.0+42
 publish_to: none
 
 environment:
@@ -70,33 +70,46 @@ flutter:
   uses-material-design: true
 
 flutter_launcher_icons:
-  image_path: assets/icon/maskable_icon_x512.png
+  image_path: assets/icon/square_whiteBackground_25percentPadding_colored_512x512.png
+
   android: true
-  min_sdk_android: 30
+  min_sdk_android: 24
+  image_path_android: assets/icon/square_whiteBackground_25percentPadding_colored_512x512.png
   adaptive_icon_background: "#FFFFFF"
-  adaptive_icon_foreground: assets/icon/maskable_icon_x512.png
+  adaptive_icon_foreground_inset: 25
+  adaptive_icon_foreground: assets/icon/square_transparent_unpadded_colored_512x512.png
+  adaptive_icon_monochrome: assets/icon/square_transparent_unpadded_monochrome_512x512.png
+
   macos:
     generate: true
-    image_path: assets/icon/maskable_icon_x512.png
+    image_path: assets/icon/square_whiteBackground_25percentPadding_colored_512x512.png
+
   ios: true
   remove_alpha_ios: true
+  background_color_ios: "#FFFFFF"
+  image_path_ios: assets/icon/square_transparent_unpadded_colored_512x512.png
+  image_path_ios_dark_transparent: assets/icon/square_transparent_unpadded_colored_512x512.png
+  image_path_ios_tinted_grayscale: assets/icon/square_transparent_unpadded_greyscale_512x512.png
+  desaturate_tinted_to_grayscale_ios: true
+
   windows:
     generate: true
-    image_path: assets/icon/icon.png
-    icon_size: 192
+    image_path: assets/icon/square_whiteBackground_25percentPadding_colored_256x256.png
+    icon_size: 256
+
   web:
     generate: true
-    image_path: assets/icon/icon.png
-    background_color: "#F0F8FF"
-    theme_color: "#424242"
+    image_path: assets/icon/square_whiteBackground_25percentPadding_colored_512x512.png
+    background_color: "#FFFFFF"
+    theme_color: "#FFFFFF"
 
 flutter_native_splash:
   color: "#F0F8FF"
-  image: assets/icon/icon.png
+  image: assets/icon/square_transparent_unpadded_colored_512x512.png
   branding: assets/branding.png
   branding_mode: bottom
   color_dark: "#F0F8FF"
-  image_dark: assets/icon/icon.png
+  image_dark: assets/icon/square_transparent_unpadded_colored_512x512.png
   branding_dark: assets/branding.png
   android_gravity: center
   ios_content_mode: center
@@ -107,7 +120,7 @@ msix_config:
   identity_name: 18862TeleChirkut.BitscoperCyberKit
   publisher_display_name: bitscoper
   publisher: CN=37755377-8C56-44E3-8D7A-0F1AD45034D2
-  logo_path: assets/icon/maskable_icon_x512.png
+  logo_path: assets/icon/square_whiteBackground_25percentPadding_colored_512x512.png
   trim_logo: false
   languages: en-US
   execution_alias: Bitscoper_CyberKit
@@ -120,5 +133,5 @@ msix_config:
   build_windows: true
   windows_build_args: --release
   debug: false
-  msix_version: 18.1.8.0
+  msix_version: 18.2.0.0
   output_name: Bitscoper_CyberKit

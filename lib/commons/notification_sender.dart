@@ -12,10 +12,12 @@ Future<void> sendNotification({
   required String body,
   required String payload,
 }) async {
-  final String iconPath = "assets/icon/icon.png";
+  final String iconPath =
+      "assets/icon/square_transparent_unpadded_colored_512x512.png";
   final String androidMonochromeIconName = "icon_monochrome";
   final String androidIconName = "icon";
-  final String windowsIconPath = "assets/icon/icon.ico";
+  final String windowsIconPath =
+      "assets/icon/square_transparent_unpadded_colored_256x256.ico";
   final String linuxSoundTheme =
       "bell-window-system"; // https://0pointer.de/public/sound-naming-spec.html
   final String linuxActionName = "default_linux_notification_action_name";
