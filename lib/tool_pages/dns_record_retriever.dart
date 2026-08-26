@@ -8,7 +8,7 @@ import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/commons/notification_sender.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
-import 'package:dnsolve/dnsolve.dart';
+import 'package:dns_client/dns_client.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -28,15 +28,14 @@ class DNSRecord {
 }
 
 class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
+  final String _dnsProviderExample = 'https://doh.dns.sb/dns-query';
+
   @override
   void initState() {
     super.initState();
-  }
 
-  final NumberFormat _numberFormat = NumberFormat(
-    '#',
-    AppLocalizations.of(navigatorKey.currentContext!)!.localeName,
-  );
+    _providerEditingController.text = _dnsProviderExample;
+  }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _hostEditingController = TextEditingController();
@@ -44,7 +43,14 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
       TextEditingController();
   late StreamController<String> _recordTypeController;
 
-  final List<RecordType> _selectedRecordTypes = RecordType.values.toList();
+  DnsOverHttps? _retriever;
+
+  final NumberFormat _numberFormat = NumberFormat(
+    '#',
+    AppLocalizations.of(navigatorKey.currentContext!)!.localeName,
+  );
+
+  late final List<RRType> _selectedRecordTypes = RRType.values.toList();
   bool _isRetrieving = false;
   final List<DNSRecord> _records = [];
 
@@ -69,15 +75,13 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                         child: Wrap(
                           spacing: 8,
                           runSpacing: 8,
-                          children: RecordType.values.map((RecordType type) {
+                          children: RRType.values.map((RRType type) {
                             final bool selected = _selectedRecordTypes.contains(
                               type,
                             );
 
                             return FilterChip(
-                              label: Text(
-                                type.toString().split('.').last.toUpperCase(),
-                              ),
+                              label: Text(type.name.toUpperCase()),
                               selected: selected,
                               onSelected: (bool value) {
                                 try {
@@ -167,7 +171,11 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
           return;
         }
 
-        final DNSolve dnsolve = DNSolve();
+        _retriever = DnsOverHttps(
+          _providerEditingController.text.trim(),
+          maximalPrivacy: true,
+        );
+
         _recordTypeController = StreamController<String>.broadcast();
 
         setState(() {
@@ -175,27 +183,31 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
           _records.clear();
         });
 
-        for (RecordType recordType in _selectedRecordTypes) {
-          _recordTypeController.add(
-            recordType.toString().replaceFirst('RecordType.', "").toUpperCase(),
-          );
+        for (RRType recordType in _selectedRecordTypes) {
+          if (_isRetrieving) {
+            try {
+              _recordTypeController.add(recordType.name.toUpperCase());
 
-          final ResolveResponse response = await dnsolve.lookup(
-            _hostEditingController.text.trim(),
-            dnsSec: true,
-            type: recordType,
-            server: DNSServer.custom(_providerEditingController.text.trim()),
-          );
+              final List<String>? response = await _retriever
+                  ?.lookupDataByRRType(
+                    _hostEditingController.text.trim(),
+                    recordType,
+                  );
 
-          if (response.answer!.records != null) {
-            for (final record in response.answer!.records!) {
-              _records.add(
-                DNSRecord(
-                  recordType.toString().split('.').last.toUpperCase(),
-                  record.toBind,
-                ),
+              for (final String record in response!) {
+                _records.add(DNSRecord(recordType.name.toUpperCase(), record));
+              }
+            } catch (error) {
+              debugPrint(error.toString());
+
+              showMessageDialog(
+                navigatorKey.currentContext!,
+                AppLocalizations.of(navigatorKey.currentContext!)!.error,
+                error.toString(),
               );
-            }
+
+              continue;
+            } finally {}
           }
         }
 
@@ -207,8 +219,6 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
           body: AppLocalizations.of(navigatorKey.currentContext!)!.retrieved,
           payload: "DNS_Record_Retriever",
         );
-
-        dnsolve.dispose();
       }
     } catch (error) {
       debugPrint(error.toString());
@@ -220,6 +230,8 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
       );
     } finally {
       setState(() {
+        _retriever?.close();
+
         _recordTypeController.close();
         _recordTypeController = StreamController<String>();
 
@@ -232,6 +244,8 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
     try {
       setState(() {
         _isRetrieving = false;
+
+        _retriever?.close();
       });
     } catch (error) {
       debugPrint(error.toString());
@@ -269,43 +283,35 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
             },
           ),
           const SizedBox(height: 16.0),
-          Row(
-            children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: TextFormField(
-                  controller: _providerEditingController,
-                  keyboardType: TextInputType.url,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    labelText: AppLocalizations.of(context)!.dns_provider,
-                    hintText: '9.9.9.9',
-                  ),
-                  showCursor: true,
-                  maxLines: 1,
-                  validator: (String? value) {
-                    return _providerFieldValidator(context, value);
-                  },
-                  onChanged: (String value) {},
-                  onFieldSubmitted: (String value) {
-                    _retrieve(context);
-                  },
-                ),
+          TextFormField(
+            controller: _providerEditingController,
+            keyboardType: TextInputType.url,
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              labelText: AppLocalizations.of(context)!.dns_provider,
+              hintText: _dnsProviderExample,
+            ),
+            showCursor: true,
+            maxLines: 1,
+            validator: (String? value) {
+              return _providerFieldValidator(context, value);
+            },
+            onChanged: (String value) {},
+            onFieldSubmitted: (String value) {
+              _retrieve(context);
+            },
+          ),
+          const SizedBox(height: 16.0),
+          Center(
+            child: ElevatedButton.icon(
+              icon: const Icon(Icons.checklist_rounded),
+              label: Text(
+                "${_numberFormat.format(_selectedRecordTypes.length)} ${AppLocalizations.of(context)!.types}",
               ),
-              const SizedBox(width: 16.0),
-              Expanded(
-                flex: 1,
-                child: ElevatedButton.icon(
-                  icon: const Icon(Icons.checklist_rounded),
-                  label: Text(
-                    "${_numberFormat.format(_selectedRecordTypes.length)} ${AppLocalizations.of(context)!.types}",
-                  ),
-                  onPressed: () {
-                    _selectRecordTypes(context);
-                  },
-                ),
-              ),
-            ],
+              onPressed: () {
+                _selectRecordTypes(context);
+              },
+            ),
           ),
           const SizedBox(height: 16.0),
           Center(
@@ -425,6 +431,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
     _hostEditingController.dispose();
     _providerEditingController.dispose();
     _recordTypeController.close();
+    _retriever?.close();
 
     super.dispose();
   }

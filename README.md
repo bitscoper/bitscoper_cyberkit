@@ -12,7 +12,9 @@ A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner
 </div>
 
 > [!WARNING]
-> Unlawful use is prohibited.
+>
+> 1. Unlawful use is prohibited.
+> 2. AI-generated code is not allowed in contributions.
 
 <div align="center">
   <table>
@@ -25,7 +27,7 @@ A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner
         </td>
         <td align="center">
           <a href="https://github.com/bitscoper/bitscoper_cyberkit/pkgs/container/bitscoper_cyberkit/">
-            <img src="https://dl.svgcdn.com/png/logos/docker-icon-800.png" height="48" alt="GitHub Container Registry" />
+            <img src="https://cdn.simpleicons.org/docker" height="48" alt="GitHub Container Registry" />
           </a>
         </td>
       </tr>
@@ -209,7 +211,7 @@ Crawls webpages generated from a combination of Uniform Resource Identifier (URI
 
 ### 16. DNS Record Retriever
 
-Retrieves Address (A), IPv6 Address (AAAA), Any Record (ANY), Certification Authority Authorization (CAA), Child Delegation Signer (CDS), Certificate (CERT), Canonical Name (CNAME), Delegation Name (DNAME), Domain Name System Key (DNSKEY), Delegation Signer (DS), Host Information (HINFO), IPsec Key (IPSECKEY), Next Secure (NSEC), Next Secure version 3 Parameters (NSEC3PARAM), Naming Authority Pointer (NAPTR), Pointer (PTR), Responsible Person (RP), Resource Record Signature (RRSIG), Start of Authority (SOA), Sender Policy Framework (SPF), Service Locator (SRV), SSH Fingerprint (SSHFP), Transport Layer Security Authentication (TLSA), Well Known Services (WKS), Text (TXT), Name Server (NS), and Mail Exchange (MX) records of a domain name (forward lookup) or an IP address (reverse lookup).
+Retrieves IPv4 Address (A), Name Server (NS), Canonical Name (CNAME), Start of Authority (SOA), Reverse DNS Pointer (PTR), Host Information (HINFO), Mail Exchanger (MX), Text (TXT), Responsible Person (RP), Andrew File System Database (AFSDB), Security Key (KEY), IPv6 Address (AAAA), Geographic Location (LOC), Service Location (SRV), Naming Authority Pointer (NAPTR), Key Exchanger (KX), Certificate (CERT), Address Prefix List (APL), DNSSEC Delegation Signer (DS), IPsec Key (IPSECKEY), DNSSEC Next Secure (NSEC), DNSSEC DNS Key (DNSKEY), DHCP Identifier (DHCID), DNSSEC Hashed Denial (NSEC3), NSEC3 Parameters (NSEC3PARAM), S/MIME Certificate (SMIMEA), Host Identity Protocol (HIP), DNSSEC Child DS (CDS), Service Binding (SVCB), HTTPS Binding (HTTPS), 48-Bit MAC Address (EUI48), 64-Bit MAC Address (EUI64), URI Mapping (URI), Certification Authority Authorization (CAA), Trust Anchor (TA), and DNSSEC Lookaside (DLV) records of a domain name (forward lookup) or an IP address (reverse lookup).
 
 ### 17. WHOIS Retriever
 
@@ -238,7 +240,7 @@ Displays details of the currently connected Wireless Fidelity (Wi-Fi) network.
 | QR Code Generator            | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
 | OGP Data Extractor           | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
 | Series URI Crawler           | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
-| DNS Record Retriever         | ✅    | ✅      | ❌    | ✅  | ✅      | ~~✅~~  |
+| DNS Record Retriever         | ✅    | ✅      | ✅    | ✅  | ✅      | ~~❌~~  |
 | WHOIS Retriever              | ✅    | ✅      | ✅    | ✅  | ✅      | ~~❌~~  |
 | Wi-Fi Details Viewer         | ✅    | ✅      | ✅    | ✅  | ✅      | ~~✅~~  |
 
@@ -355,8 +357,9 @@ base64 --decode ./KeyStore.b64 > ./android/app/KeyStore.jks
 ## Notes
 
 - I write commit messages in Title Case and past tense, leaving out articles to keep them concise while still showing details.
+- I have deleted some commits in the past, but this is unlikely to happen again.
+- I later PGP-signed all my commits, so they show a later date.
 - Versions I submit to the Microsoft Store may vary and be delayed.
 - Submission to Google Play is paused because I no longer own the account.
 - The free tier of the Amazon Elastic Container Registry Public Gallery has expired.
 - Building for the web and deployment is currently disabled due to a build failure.
-- I have deleted some commits in the past, but this is unlikely to happen again.
