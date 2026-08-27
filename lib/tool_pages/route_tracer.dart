@@ -4,7 +4,9 @@ import 'dart:async';
 
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
+import 'package:bitscoper_cyberkit/commons/notification_sender.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
+import 'package:bitscoper_cyberkit/main.dart';
 import 'package:flutter_traceroute/flutter_traceroute_platform_interface.dart';
 import 'package:flutter_traceroute/flutter_traceroute.dart';
 import 'package:flutter/material.dart';
@@ -54,14 +56,37 @@ class RouteTracerPageState extends State<RouteTracerPage> {
           ttl: TracerouteArgs.ttlDefault,
         );
 
-        _traceSubscription = _routeTracer.trace(arguments).listen((
-          TracerouteStep event,
-        ) {
-          setState(() {
-            _traceResults = List<TracerouteStep>.from(_traceResults)
-              ..add(event);
-          });
-        });
+        _traceSubscription = _routeTracer
+            .trace(arguments)
+            .listen(
+              (TracerouteStep event) {
+                setState(() {
+                  _traceResults = List<TracerouteStep>.from(_traceResults)
+                    ..add(event);
+                });
+              },
+              onDone: () async {
+                await sendNotification(
+                  title: AppLocalizations.of(navigatorKey.currentContext!)!
+                      .route_tracer,
+                  subtitle: AppLocalizations.of(navigatorKey.currentContext!)!
+                      .bitscoper_cyberkit,
+                  body: AppLocalizations.of(navigatorKey.currentContext!)!
+                      .traced,
+                  payload: "Route_Tracer",
+                );
+              },
+              onError: (error) {
+                debugPrint(error.toString());
+
+                showMessageDialog(
+                  navigatorKey.currentContext!,
+                  AppLocalizations.of(navigatorKey.currentContext!)!.error,
+                  error.toString(),
+                );
+              },
+              cancelOnError: false,
+            );
       }
     } catch (error) {
       debugPrint(error.toString());

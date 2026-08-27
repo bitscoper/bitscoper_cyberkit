@@ -405,6 +405,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get trace => 'ট্রেস';
 
   @override
+  String get traced => 'ট্রেসড';
+
+  @override
   String get ttl => 'টিটিএল';
 
   @override

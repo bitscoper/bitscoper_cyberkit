@@ -52,7 +52,7 @@ A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner
 ### Linux
 
 - **x64 Executable:** [Linux_x64_Executable.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Linux_x64_Executable.zip)
-- **x64 AppImage:** [Bitscoper_CyberKit-18.2.0-x64.AppImage](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-18.2.0-x64.AppImage)
+- **x64 AppImage:** [Bitscoper_CyberKit-18.2.1-x64.AppImage](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-18.2.1-x64.AppImage)
 
 ### Android
 
@@ -359,3 +359,7 @@ base64 --decode ./KeyStore.b64 > ./android/app/KeyStore.jks
 - Submission to Google Play is paused because I no longer own the account.
 - The free tier of the Amazon Elastic Container Registry Public Gallery has expired.
 - Building for the web and deployment is currently disabled due to a build failure.
+
+## Attributions
+
+- Template for Fastlane Feature Graphic: ["Google Play Feature Graphic 75" by Hotpot](https://hotpot.ai/templates/google-play-feature-graphic/75)

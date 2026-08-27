@@ -1,7 +1,10 @@
 /* By Abdullah As-Sadeed */
 
+import 'dart:io';
+
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
+import 'package:bitscoper_cyberkit/commons/notification_sender.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
 import 'package:dart_ping/dart_ping.dart';
@@ -46,14 +49,39 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
           _discoveredHosts.clear();
         });
 
+        final List<int> hosts = List<int>.generate(254, (int index) {
+          return index + 1;
+        });
+
+        int nextHost = 0;
+
+        Future<void> worker() async {
+          while (_isScanning) {
+            if (nextHost >= hosts.length) {
+              break;
+            }
+
+            await _ping(
+              '${_subnetEditingController.text.trim()}.${hosts[nextHost++]}',
+            );
+          }
+        }
+
         await Future.wait(
-          List<int>.generate(254, (int index) {
-            return index++;
-          }).map((int hostId) {
-            return _ping('${_subnetEditingController.text.trim()}.$hostId');
+          List<Future<void>>.generate(Platform.numberOfProcessors, (int index) {
+            return worker();
           }),
         );
       }
+
+      await sendNotification(
+        title: AppLocalizations.of(navigatorKey.currentContext!)!
+            .ipv4_subnet_scanner,
+        subtitle: AppLocalizations.of(navigatorKey.currentContext!)!
+            .bitscoper_cyberkit,
+        body: AppLocalizations.of(navigatorKey.currentContext!)!.scanned,
+        payload: "IPv4_Subnet_Scanner",
+      );
     } catch (error) {
       debugPrint(error.toString());
 

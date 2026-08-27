@@ -850,6 +850,12 @@ abstract class AppLocalizations {
   /// **'Trace'**
   String get trace;
 
+  /// No description provided for @traced.
+  ///
+  /// In en, this message translates to:
+  /// **'Traced'**
+  String get traced;
+
   /// No description provided for @ttl.
   ///
   /// In en, this message translates to:

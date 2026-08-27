@@ -401,6 +401,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get trace => 'Trace';
 
   @override
+  String get traced => 'Traced';
+
+  @override
   String get ttl => 'TTL';
 
   @override

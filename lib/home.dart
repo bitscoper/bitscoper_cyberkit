@@ -250,8 +250,6 @@ class HomePage extends StatelessWidget {
 
   Future<List<(String, IconData, List<Permission?>, StatefulWidget)>>
   _buildTools(BuildContext context) async {
-    // final List<Permission> storagePermissions = await listStoragePermissions();
-
     return [
       (
         AppLocalizations.of(navigatorKey.currentContext!)!
@@ -268,7 +266,7 @@ class HomePage extends StatelessWidget {
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.ipv4_subnet_scanner,
         Icons.lan_rounded,
-        [],
+        [Permission.notification],
         const IPv4SubnetScannerPage(),
       ),
       (
@@ -286,13 +284,13 @@ class HomePage extends StatelessWidget {
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.route_tracer,
         Icons.track_changes_rounded,
-        [],
+        [Permission.notification],
         const RouteTracerPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.tcp_port_scanner,
         Icons.radar_rounded,
-        [],
+        [Permission.notification],
         const TCPPortScannerPage(),
       ),
       (
@@ -304,13 +302,13 @@ class HomePage extends StatelessWidget {
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.dns_record_retriever,
         Icons.dns_rounded,
-        [],
+        [Permission.notification],
         const DNSRecordRetrieverPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.file_hash_calculator,
         Icons.file_present_rounded,
-        [],
+        [Permission.notification],
         const FileHashCalculatorPage(),
       ),
       (
@@ -329,19 +327,19 @@ class HomePage extends StatelessWidget {
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.series_uri_crawler,
         Icons.web_rounded,
-        [],
+        [Permission.notification],
         const SeriesURICrawlerPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.ogp_data_extractor,
         Icons.share_rounded,
-        [],
+        [Permission.notification],
         const OGPDataExtractorPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.whois_retriever,
         Icons.domain_rounded,
-        [],
+        [Permission.notification],
         const WHOISRetrieverPage(),
       ),
       (
@@ -431,5 +429,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-// TODO: Add Requester for Notification Permission
