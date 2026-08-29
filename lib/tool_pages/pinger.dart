@@ -29,6 +29,11 @@ class PingerPageState extends State<PingerPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _hostEditingController = TextEditingController();
 
+  final RegExp _regularExpression = RegExp(
+    r'ip:(.*?), ttl:(.*?), time:(.*?) ms',
+    unicode: true,
+  );
+
   bool _isPinging = false;
   final List<PingResult> _results = [];
 
@@ -58,16 +63,11 @@ class PingerPageState extends State<PingerPage> {
             ).stream.first,
           ).toString();
 
-          final RegExp expression = RegExp(
-            r'ip:(.*?), ttl:(.*?), time:(.*?) ms',
-          );
-
-          final RegExpMatch? match = expression.firstMatch(response);
+          final RegExpMatch? match = _regularExpression.firstMatch(response);
 
           if (match != null) {
             setState(() {
-              _results.insert(
-                0,
+              _results.add(
                 PingResult(
                   match.group(1)?.trim() ?? "",
                   match.group(2)?.trim() ?? "",
@@ -187,7 +187,7 @@ class PingerPageState extends State<PingerPage> {
                 );
               },
           contentsBuilder: (BuildContext context, int index) {
-            final PingResult result = _results[index];
+            final PingResult result = _results[_results.length - 1 - index];
 
             return Padding(
               padding: const EdgeInsets.all(8.0),

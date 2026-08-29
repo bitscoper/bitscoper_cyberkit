@@ -222,13 +222,7 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
 
   @override
   Widget build(BuildContext context) {
-    if (!_isUserPreferencesLoaded) {
-      return const MaterialApp(
-        home: Scaffold(body: Center(child: CircularProgressIndicator())),
-        debugShowCheckedModeBanner: false,
-        showSemanticsDebugger: false,
-      );
-    } else {
+    if (_isUserPreferencesLoaded) {
       return ValueListenableBuilder<bool>(
         valueListenable: _isDarkTheme,
         builder: (BuildContext context, bool isDark, Widget? child) {
@@ -241,10 +235,25 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
             darkTheme: _buildTheme(Brightness.dark),
             themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
             home: HomePage(),
+            checkerboardOffscreenLayers: false,
+            checkerboardRasterCacheImages: false,
             debugShowCheckedModeBanner: false,
+            debugShowMaterialGrid: false,
+            showPerformanceOverlay: false,
             showSemanticsDebugger: false,
           );
         },
+      );
+    } else {
+      return MaterialApp(
+        navigatorKey: navigatorKey,
+        home: const Scaffold(body: Center(child: CircularProgressIndicator())),
+        checkerboardOffscreenLayers: false,
+        checkerboardRasterCacheImages: false,
+        debugShowCheckedModeBanner: false,
+        debugShowMaterialGrid: false,
+        showPerformanceOverlay: false,
+        showSemanticsDebugger: false,
       );
     }
   }
