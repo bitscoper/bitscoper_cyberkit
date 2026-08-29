@@ -17,13 +17,6 @@ class CVSSCalculatorPage extends StatefulWidget {
 }
 
 class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
-  @override
-  void initState() {
-    super.initState();
-
-    _calculateCVSS(context);
-  }
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   AttackVector _attackVector = AttackVector.adjacentNetwork;
   AttackComplexity _attackComplexity = AttackComplexity.low;
@@ -406,6 +399,13 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _calculateCVSS(context);
   }
 
   @override

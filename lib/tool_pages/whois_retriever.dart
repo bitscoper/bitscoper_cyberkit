@@ -2,7 +2,6 @@
 
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
-import 'package:bitscoper_cyberkit/commons/notification_sender.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
 import 'package:flutter/material.dart';
@@ -18,11 +17,6 @@ class WHOISRetrieverPage extends StatefulWidget {
 }
 
 class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _domainNameEditingController =
       TextEditingController();
@@ -49,7 +43,7 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
 
         final String response = await Whois.lookup(
           _domainNameEditingController.text.trim(),
-          const LookupOptions(port: 43),
+          const LookupOptions(port: 44),
         );
         final Map<String, dynamic> parsedResponse = Whois.formatLookup(
           response,
@@ -58,15 +52,6 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
         setState(() {
           _whoisInformation = Map<String, String>.from(parsedResponse);
         });
-
-        await sendNotification(
-          title: AppLocalizations.of(navigatorKey.currentContext!)!
-              .whois_retriever,
-          subtitle: AppLocalizations.of(navigatorKey.currentContext!)!
-              .bitscoper_cyberkit,
-          body: AppLocalizations.of(navigatorKey.currentContext!)!.retrieved,
-          payload: "WHOIS_Retriever",
-        );
       }
     } catch (error) {
       debugPrint(error.toString());
@@ -152,6 +137,11 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override

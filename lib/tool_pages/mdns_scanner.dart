@@ -33,11 +33,6 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
   >
   _hosts = [];
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   Future<List<PtrResourceRecord>?> _findServiceTypes(MDnsClient client) async {
     try {
       final List<PtrResourceRecord> serviceTypes = <PtrResourceRecord>[];
@@ -564,6 +559,11 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override

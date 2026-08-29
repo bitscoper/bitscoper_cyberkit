@@ -19,13 +19,6 @@ class WiFiDetailsViewerPage extends StatefulWidget {
 }
 
 class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
-  @override
-  void initState() {
-    super.initState();
-
-    _loadWiFiDetails();
-  }
-
   List<ConnectivityResult>? networkConnectivityResult;
   final NetworkInfo _wifiDetails = NetworkInfo();
 
@@ -174,6 +167,13 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
           ? _wifiDetailsView(context)
           : _wifiDisconnectionNotice(context),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _loadWiFiDetails();
   }
 
   @override

@@ -25,11 +25,6 @@ class BluetoothLowEnergyScannerPageState
   bool _isScanning = false;
   final List<ScanResult> _scanResults = [];
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   void _scan() async {
     try {
       setState(() {
@@ -251,6 +246,11 @@ class BluetoothLowEnergyScannerPageState
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override

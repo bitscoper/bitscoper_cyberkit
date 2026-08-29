@@ -28,15 +28,6 @@ class DNSRecord {
 }
 
 class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
-  final String _dnsProviderExample = 'https://doh.dns.sb/dns-query';
-
-  @override
-  void initState() {
-    super.initState();
-
-    _providerEditingController.text = _dnsProviderExample;
-  }
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _hostEditingController = TextEditingController();
   final TextEditingController _providerEditingController =
@@ -51,6 +42,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
   );
 
   late final List<RRType> _selectedRecordTypes = RRType.values.toList();
+  final String _dnsProviderExample = 'https://doh.dns.sb/dns-query';
   bool _isRetrieving = false;
   final List<DNSRecord> _records = [];
 
@@ -424,6 +416,13 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _providerEditingController.text = _dnsProviderExample;
   }
 
   @override

@@ -20,11 +20,6 @@ class IPv4SubnetScannerPage extends StatefulWidget {
 }
 
 class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _subnetEditingController =
       TextEditingController();
@@ -268,6 +263,11 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override

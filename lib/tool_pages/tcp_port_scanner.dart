@@ -1,6 +1,7 @@
 /* By Abdullah As-Sadeed */
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
@@ -22,15 +23,10 @@ class TCPPortScannerPage extends StatefulWidget {
 }
 
 class TCPPortScannerPageState extends State<TCPPortScannerPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _hostEditingController = TextEditingController();
   final TextEditingController _parallelismEditingController =
-      TextEditingController(text: '64');
+      TextEditingController();
 
   final Stopwatch _stopwatch = Stopwatch();
 
@@ -260,6 +256,13 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _parallelismEditingController.text = Platform.numberOfProcessors.toString();
   }
 
   @override

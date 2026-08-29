@@ -26,11 +26,6 @@ class PingResult {
 }
 
 class PingerPageState extends State<PingerPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _hostEditingController = TextEditingController();
 
@@ -229,6 +224,11 @@ class PingerPageState extends State<PingerPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override

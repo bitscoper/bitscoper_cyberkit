@@ -339,7 +339,7 @@ class HomePage extends StatelessWidget {
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.whois_retriever,
         Icons.domain_rounded,
-        [Permission.notification],
+        [],
         const WHOISRetrieverPage(),
       ),
       (

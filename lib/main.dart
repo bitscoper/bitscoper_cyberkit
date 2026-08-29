@@ -38,15 +38,6 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
 
   bool _isUserPreferencesLoaded = false;
 
-  @override
-  void initState() {
-    super.initState();
-    instance = this;
-
-    _initializeUserPreferences();
-    _initializeQuickActions();
-  }
-
   Future<void> _initializeUserPreferences() async {
     try {
       final SharedPreferences userPreferences =
@@ -230,14 +221,6 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
   }
 
   @override
-  void dispose() {
-    _isDarkTheme.dispose();
-
-    instance = null;
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     if (!_isUserPreferencesLoaded) {
       return const MaterialApp(
@@ -264,5 +247,22 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
         },
       );
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    instance = this;
+
+    _initializeUserPreferences();
+    _initializeQuickActions();
+  }
+
+  @override
+  void dispose() {
+    _isDarkTheme.dispose();
+
+    instance = null;
+    super.dispose();
   }
 }

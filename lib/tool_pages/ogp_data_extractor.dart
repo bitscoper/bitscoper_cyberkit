@@ -19,11 +19,6 @@ class OGPDataExtractorPage extends StatefulWidget {
 }
 
 class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _hostEditingController = TextEditingController();
 
@@ -200,6 +195,11 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override

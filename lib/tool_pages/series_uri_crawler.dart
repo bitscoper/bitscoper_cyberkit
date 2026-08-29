@@ -22,11 +22,6 @@ class SeriesURICrawlerPage extends StatefulWidget {
 }
 
 class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _uriPrefixEditingController =
       TextEditingController();
@@ -330,6 +325,11 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override

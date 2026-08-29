@@ -24,11 +24,6 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
   bool _isScanning = false;
   final List<Device> _devices = [];
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   Widget _form(BuildContext context) {
     return Form(
       child: Row(
@@ -270,6 +265,11 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override

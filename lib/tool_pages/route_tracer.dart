@@ -21,11 +21,6 @@ class RouteTracerPage extends StatefulWidget {
 }
 
 class RouteTracerPageState extends State<RouteTracerPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _hostEditingController = TextEditingController();
 
@@ -204,6 +199,11 @@ class RouteTracerPageState extends State<RouteTracerPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override

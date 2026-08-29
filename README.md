@@ -52,7 +52,7 @@ A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner
 ### Linux
 
 - **x64 Executable:** [Linux_x64_Executable.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Linux_x64_Executable.zip)
-- **x64 AppImage:** [Bitscoper_CyberKit-18.2.1-x64.AppImage](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-18.2.1-x64.AppImage)
+- **x64 AppImage:** [Bitscoper_CyberKit-18.2.2-x64.AppImage](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-18.2.2-x64.AppImage)
 
 ### Android
 
