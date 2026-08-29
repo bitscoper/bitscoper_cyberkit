@@ -161,6 +161,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                     onFieldSubmitted: (String value) {
                       _scan(context);
                     },
+                    autofocus: true,
                   ),
                 ),
               ),
@@ -183,6 +184,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                     onFieldSubmitted: (String value) {
                       _scan(context);
                     },
+                    autofocus: false,
                   ),
                 ),
               ),

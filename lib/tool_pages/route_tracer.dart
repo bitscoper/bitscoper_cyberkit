@@ -135,6 +135,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
             onFieldSubmitted: (String value) {
               _trace(context);
             },
+            autofocus: true,
           ),
           const SizedBox(height: 16.0),
           Row(

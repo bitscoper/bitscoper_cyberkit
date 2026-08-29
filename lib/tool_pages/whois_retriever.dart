@@ -91,6 +91,7 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
             onFieldSubmitted: (String value) {
               _retrieve();
             },
+            autofocus: true,
           ),
           const SizedBox(height: 16.0),
           Center(

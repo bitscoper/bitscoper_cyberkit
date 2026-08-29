@@ -108,6 +108,7 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
             onFieldSubmitted: (String value) {
               _retrieve();
             },
+            autofocus: true,
           ),
           const SizedBox(height: 16.0),
           Center(

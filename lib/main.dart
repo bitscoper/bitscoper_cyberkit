@@ -235,8 +235,8 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
             darkTheme: _buildTheme(Brightness.dark),
             themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
             home: HomePage(),
-            checkerboardOffscreenLayers: false,
-            checkerboardRasterCacheImages: false,
+            checkerboardOffscreenLayers: kDebugMode,
+            checkerboardRasterCacheImages: kDebugMode,
             debugShowCheckedModeBanner: false,
             debugShowMaterialGrid: false,
             showPerformanceOverlay: false,
@@ -245,11 +245,10 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
         },
       );
     } else {
-      return MaterialApp(
-        navigatorKey: navigatorKey,
-        home: const Scaffold(body: Center(child: CircularProgressIndicator())),
-        checkerboardOffscreenLayers: false,
-        checkerboardRasterCacheImages: false,
+      return const MaterialApp(
+        home: Scaffold(body: Center(child: CircularProgressIndicator())),
+        checkerboardOffscreenLayers: kDebugMode,
+        checkerboardRasterCacheImages: kDebugMode,
         debugShowCheckedModeBanner: false,
         debugShowMaterialGrid: false,
         showPerformanceOverlay: false,

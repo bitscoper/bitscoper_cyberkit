@@ -97,6 +97,7 @@ class StringHashCalculatorPage extends ConsumerWidget {
         },
         onChanged: (String value) {},
         onFieldSubmitted: (String value) {},
+        autofocus: true,
       ),
     );
   }

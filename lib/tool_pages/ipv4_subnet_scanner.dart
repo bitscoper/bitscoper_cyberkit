@@ -180,6 +180,7 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
             onFieldSubmitted: (String value) {
               _scan(context);
             },
+            autofocus: true,
           ),
           const SizedBox(height: 16.0),
           Row(

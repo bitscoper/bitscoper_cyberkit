@@ -28,6 +28,7 @@ class PingResult {
 class PingerPageState extends State<PingerPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _hostEditingController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
 
   final RegExp _regularExpression = RegExp(
     r'ip:(.*?), ttl:(.*?), time:(.*?) ms',
@@ -132,6 +133,7 @@ class PingerPageState extends State<PingerPage> {
             onFieldSubmitted: (String value) {
               _ping();
             },
+            autofocus: true,
           ),
           const SizedBox(height: 16.0),
           Row(
@@ -169,6 +171,7 @@ class PingerPageState extends State<PingerPage> {
   Widget _resultWrapper() {
     return Expanded(
       child: Timeline.tileBuilder(
+        controller: _scrollController,
         builder: TimelineTileBuilder.connected(
           itemCount: _results.length,
           nodePositionBuilder: (BuildContext context, int index) {
@@ -234,6 +237,7 @@ class PingerPageState extends State<PingerPage> {
   @override
   void dispose() {
     _hostEditingController.dispose();
+    _scrollController.dispose();
 
     super.dispose();
   }

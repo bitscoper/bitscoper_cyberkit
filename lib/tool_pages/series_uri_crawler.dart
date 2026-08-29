@@ -182,6 +182,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                   onFieldSubmitted: (String value) {
                     _crawl();
                   },
+                  autofocus: true,
                 ),
               ),
               const SizedBox(width: 16.0),
@@ -203,6 +204,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                   onFieldSubmitted: (String value) {
                     _crawl();
                   },
+                  autofocus: false,
                 ),
               ),
             ],
@@ -226,6 +228,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                   onFieldSubmitted: (String value) {
                     _crawl();
                   },
+                  autofocus: false,
                 ),
               ),
               const SizedBox(width: 16.0),
@@ -246,6 +249,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                   onFieldSubmitted: (String value) {
                     _crawl();
                   },
+                  autofocus: false,
                 ),
               ),
             ],

@@ -155,6 +155,7 @@ class MorseCodeTranslatorPage extends ConsumerWidget {
         onFieldSubmitted: (String value) {
           _encode(context, ref);
         },
+        autofocus: false,
       ),
     );
   }
@@ -194,6 +195,7 @@ class MorseCodeTranslatorPage extends ConsumerWidget {
         onFieldSubmitted: (String value) {
           _decode(context, ref);
         },
+        autofocus: false,
       ),
     );
   }

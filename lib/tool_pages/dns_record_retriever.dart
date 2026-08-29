@@ -32,7 +32,8 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
   final TextEditingController _hostEditingController = TextEditingController();
   final TextEditingController _providerEditingController =
       TextEditingController();
-  late StreamController<String> _recordTypeController;
+  final StreamController<String> _recordTypeController =
+      StreamController<String>.broadcast();
 
   DnsOverHttps? _retriever;
 
@@ -168,8 +169,6 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
           maximalPrivacy: true,
         );
 
-        _recordTypeController = StreamController<String>.broadcast();
-
         setState(() {
           _isRetrieving = true;
           _records.clear();
@@ -224,9 +223,6 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
       setState(() {
         _retriever?.close();
 
-        _recordTypeController.close();
-        _recordTypeController = StreamController<String>();
-
         _isRetrieving = false;
       });
     }
@@ -273,6 +269,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
             onFieldSubmitted: (String value) {
               _retrieve(context);
             },
+            autofocus: true,
           ),
           const SizedBox(height: 16.0),
           TextFormField(
@@ -292,6 +289,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
             onFieldSubmitted: (String value) {
               _retrieve(context);
             },
+            autofocus: false,
           ),
           const SizedBox(height: 16.0),
           Center(
