@@ -144,7 +144,7 @@ class HomePage extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         AppLocalizations.of(context)!
-                            .by_abdullah_as_sadeed_bitscoper,
+                            .copyright_abdullah_as_sadeed_bitscoper,
                       ),
                       FutureBuilder<String>(
                         future: getLocalVersion(),

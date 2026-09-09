@@ -206,12 +206,6 @@ abstract class AppLocalizations {
   /// **'Broadcast Address'**
   String get broadcast_address;
 
-  /// No description provided for @by_abdullah_as_sadeed_bitscoper.
-  ///
-  /// In en, this message translates to:
-  /// **'By Abdullah As-Sadeed (bitscoper)'**
-  String get by_abdullah_as_sadeed_bitscoper;
-
   /// No description provided for @calculated.
   ///
   /// In en, this message translates to:
@@ -265,6 +259,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Copy to Clipboard'**
   String get copy_to_clipboard;
+
+  /// No description provided for @copyright_abdullah_as_sadeed_bitscoper.
+  ///
+  /// In en, this message translates to:
+  /// **'© Abdullah As-Sadeed (bitscoper)'**
+  String get copyright_abdullah_as_sadeed_bitscoper;
 
   /// No description provided for @crawl.
   ///

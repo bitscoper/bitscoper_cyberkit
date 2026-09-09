@@ -66,10 +66,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get broadcast_address => 'ব্রডকাস্ট অ্যাড্রেস';
 
   @override
-  String get by_abdullah_as_sadeed_bitscoper =>
-      'আবদুল্লাহ আস-সাদীদ (বিটস্কোপার)-এর দ্বারা';
-
-  @override
   String get calculated => 'ক্যালকুলেটেড';
 
   @override
@@ -96,6 +92,10 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get copy_to_clipboard => 'ক্লিপবোর্ডে কপি করুন';
+
+  @override
+  String get copyright_abdullah_as_sadeed_bitscoper =>
+      '© আবদুল্লাহ আস-সাদীদ (বিটস্কোপার)';
 
   @override
   String get crawl => 'ক্রল';
