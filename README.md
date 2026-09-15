@@ -52,7 +52,7 @@ A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner
 ### Linux
 
 - **x64 Executable:** [Linux_x64_Executable.zip](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Linux_x64_Executable.zip)
-- **x64 AppImage:** [Bitscoper_CyberKit-2026.09.15-x64.AppImage](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-2026.09.15-x64.AppImage)
+- **x64 AppImage:** [Bitscoper_CyberKit-2026.9.15-x64.AppImage](https://github.com/bitscoper/bitscoper_cyberkit/releases/latest/download/Bitscoper_CyberKit-2026.9.15-x64.AppImage)
 
 ### Android
 
@@ -296,6 +296,8 @@ Web_Application --> My_Server[My Server]
 
 - [Repository Metadata](https://codeberg.org/IzzyOnDroid/repodata/src/branch/main/metadata/bitscoper.bitscoper_cyberkit.yml)
 - [Recipe for Reproducible Builds](https://codeberg.org/IzzyOnDroid/rbtlog/src/branch/izzy/log/recipes/bitscoper.bitscoper_cyberkit.yml)
+- [Status of Reproducible Builds](https://shields.rbtlog.dev/bitscoper.bitscoper_cyberkit)
+- [Log of Reproducible Builds](https://codeberg.org/IzzyOnDroid/rbtlog/src/branch/izzy/log/logs/bitscoper.bitscoper_cyberkit.json)
 
 ## Development Commands
 
