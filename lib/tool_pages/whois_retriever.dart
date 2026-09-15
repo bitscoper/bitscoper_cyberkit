@@ -4,7 +4,7 @@ import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:whois/whois.dart';
 
 class WHOISRetrieverPage extends StatefulWidget {
@@ -69,43 +69,53 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
   }
 
   Widget _form(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TextFormField(
-            controller: _domainNameEditingController,
-            keyboardType: TextInputType.url,
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              labelText: AppLocalizations.of(context)!.a_domain_name,
-              hintText: 'bitscoper.dev',
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                TextFormField(
+                  controller: _domainNameEditingController,
+                  keyboardType: TextInputType.url,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: AppLocalizations.of(context)!.a_domain_name,
+                    hintText: 'bitscoper.dev',
+                  ),
+                  showCursor: true,
+                  maxLines: 1,
+                  validator: (String? value) {
+                    return _domainNameFieldValidator(context, value);
+                  },
+                  onChanged: (String value) {},
+                  onFieldSubmitted: (String value) {
+                    _retrieve();
+                  },
+                  autofocus: true,
+                ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: FilledButton.tonal(
+                      onPressed: _isRetrieving ? null : _retrieve,
+                      child: Text(AppLocalizations.of(context)!.retrieve),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            showCursor: true,
-            maxLines: 1,
-            validator: (String? value) {
-              return _domainNameFieldValidator(context, value);
-            },
-            onChanged: (String value) {},
-            onFieldSubmitted: (String value) {
-              _retrieve();
-            },
-            autofocus: true,
           ),
-          const SizedBox(height: 16.0),
-          Center(
-            child: ElevatedButton(
-              onPressed: _isRetrieving ? null : _retrieve,
-              child: Text(AppLocalizations.of(context)!.retrieve),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
 
-  Widget _resultCard() {
+  Widget _resultWrapper() {
     return Card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,15 +135,14 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
         title: AppLocalizations.of(context)!.whois_retriever,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _form(context),
-            const SizedBox(height: 16.0),
             _isRetrieving
                 ? const Center(child: CircularProgressIndicator())
-                : _resultCard(),
+                : _resultWrapper(),
           ],
         ),
       ),

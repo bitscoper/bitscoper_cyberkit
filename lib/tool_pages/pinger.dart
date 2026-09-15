@@ -7,7 +7,7 @@ import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
 import 'package:dart_ping/dart_ping.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:timelines_plus/timelines_plus.dart';
 
 class PingerPage extends StatefulWidget {
@@ -111,60 +111,68 @@ class PingerPageState extends State<PingerPage> {
   }
 
   Widget _form(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TextFormField(
-            controller: _hostEditingController,
-            keyboardType: TextInputType.url,
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              labelText: AppLocalizations.of(context)!.a_host_or_ip_address,
-              hintText: 'bitscoper.dev',
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Form(
+        key: _formKey,
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                TextFormField(
+                  controller: _hostEditingController,
+                  keyboardType: TextInputType.url,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: AppLocalizations.of(context)!
+                        .a_host_or_ip_address,
+                    hintText: 'bitscoper.dev',
+                  ),
+                  showCursor: true,
+                  maxLines: 1,
+                  validator: (String? value) {
+                    return _hostFieldValidator(context, value);
+                  },
+                  onChanged: (String value) {},
+                  onFieldSubmitted: (String value) {
+                    _ping();
+                  },
+                  autofocus: true,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      FilledButton.tonal(
+                        onPressed: _isPinging ? null : _ping,
+                        child: Text(AppLocalizations.of(context)!.ping),
+                      ),
+                      FilledButton.tonal(
+                        onPressed: _isPinging
+                            ? () {
+                                _stop(context);
+                              }
+                            : null,
+                        child: Text(AppLocalizations.of(context)!.stop),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            showCursor: true,
-            maxLines: 1,
-            validator: (String? value) {
-              return _hostFieldValidator(context, value);
-            },
-            onChanged: (String value) {},
-            onFieldSubmitted: (String value) {
-              _ping();
-            },
-            autofocus: true,
           ),
-          const SizedBox(height: 16.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              ElevatedButton(
-                onPressed: _isPinging ? null : _ping,
-                child: Text(AppLocalizations.of(context)!.ping),
-              ),
-              ElevatedButton(
-                onPressed: _isPinging
-                    ? () {
-                        _stop(context);
-                      }
-                    : null,
-                child: Text(AppLocalizations.of(context)!.stop),
-              ),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }
 
   Widget _progressIndicator() {
-    return const Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Center(child: CircularProgressIndicator()),
-        SizedBox(height: 16.0),
-      ],
+    return const Padding(
+      padding: EdgeInsets.symmetric(vertical: 8.0),
+      child: Center(child: CircularProgressIndicator()),
     );
   }
 
@@ -193,7 +201,7 @@ class PingerPageState extends State<PingerPage> {
             final PingResult result = _results[_results.length - 1 - index];
 
             return Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Card(
                 child: ListTile(
                   leading: const Icon(Icons.network_ping_rounded),
@@ -215,12 +223,11 @@ class PingerPageState extends State<PingerPage> {
     return Scaffold(
       appBar: ApplicationToolBar(title: AppLocalizations.of(context)!.pinger),
       body: Padding(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _form(context),
-            const SizedBox(height: 16.0),
             if (_isPinging) _progressIndicator(),
             if (_results.isNotEmpty) _resultWrapper(),
           ],

@@ -260,11 +260,11 @@ abstract class AppLocalizations {
   /// **'Copy to Clipboard'**
   String get copy_to_clipboard;
 
-  /// No description provided for @copyright_abdullah_as_sadeed_bitscoper.
+  /// No description provided for @copyright_abdullah_as_sadeed.
   ///
   /// In en, this message translates to:
-  /// **'© Abdullah As-Sadeed (bitscoper)'**
-  String get copyright_abdullah_as_sadeed_bitscoper;
+  /// **'© Abdullah As-Sadeed'**
+  String get copyright_abdullah_as_sadeed;
 
   /// No description provided for @crawl.
   ///
@@ -939,6 +939,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Vector string'**
   String get vector_string;
+
+  /// No description provided for @version.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get version;
 
   /// No description provided for @wait.
   ///

@@ -6,7 +6,7 @@ import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:upnp_client/upnp_client.dart';
 
 class UPnPScannerPage extends StatefulWidget {
@@ -25,23 +25,31 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
   final List<Device> _devices = [];
 
   Widget _form(BuildContext context) {
-    return Form(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          ElevatedButton(
-            onPressed: _isScanning ? null : _scan,
-            child: Text(AppLocalizations.of(context)!.scan),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                FilledButton.tonal(
+                  onPressed: _isScanning ? null : _scan,
+                  child: Text(AppLocalizations.of(context)!.scan),
+                ),
+                FilledButton.tonal(
+                  onPressed: _isScanning
+                      ? () {
+                          _stop(context);
+                        }
+                      : null,
+                  child: Text(AppLocalizations.of(context)!.stop),
+                ),
+              ],
+            ),
           ),
-          ElevatedButton(
-            onPressed: _isScanning
-                ? () {
-                    _stop(context);
-                  }
-                : null,
-            child: Text(AppLocalizations.of(context)!.stop),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -196,48 +204,54 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
     final String name = _extractName(context, dump);
     final String host = _extractIPAddress(context, dump);
 
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      child: ListTile(
-        title: Text(name),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text.rich(
-              TextSpan(
-                children: <TextSpan>[
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Card(
+        child: ListTile(
+          title: Text(
+            name,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          subtitle: Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text.rich(
                   TextSpan(
-                    text: "${AppLocalizations.of(context)!.ip_address}: ",
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(text: host),
-                ],
-              ),
-            ),
-            const SizedBox(height: 8.0),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Card(
-                color: Theme.of(context).hoverColor,
-                elevation: 1.5,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: ListTile(
-                  subtitle: SelectableText(
-                    _formatDump(context, dump),
-                    style: Theme.of(context).textTheme.bodySmall,
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: "${AppLocalizations.of(context)!.ip_address}: ",
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      TextSpan(text: host),
+                    ],
                   ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Card(
+                    elevation: 1.5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: ListTile(
+                      subtitle: SelectableText(
+                        _formatDump(context, dump),
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _resultColumn(BuildContext context) {
+  Widget _resultWrapper(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: _devices.map((Device device) {
@@ -253,14 +267,13 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
         title: AppLocalizations.of(context)!.upnp_scanner,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _form(context),
-            const SizedBox(height: 16.0),
             if (_isScanning) const Center(child: CircularProgressIndicator()),
-            if (_devices.isNotEmpty) _resultColumn(context),
+            if (_devices.isNotEmpty) _resultWrapper(context),
           ],
         ),
       ),

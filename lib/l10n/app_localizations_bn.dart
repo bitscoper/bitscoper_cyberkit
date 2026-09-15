@@ -94,8 +94,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get copy_to_clipboard => 'ক্লিপবোর্ডে কপি করুন';
 
   @override
-  String get copyright_abdullah_as_sadeed_bitscoper =>
-      '© আবদুল্লাহ আস-সাদীদ (বিটস্কোপার)';
+  String get copyright_abdullah_as_sadeed => '© আবদুল্লাহ আস-সাদীদ';
 
   @override
   String get crawl => 'ক্রল';
@@ -449,6 +448,9 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get vector_string => 'ভেক্টর স্ট্রিং';
+
+  @override
+  String get version => 'ভার্সন';
 
   @override
   String get wait => 'অপেক্ষা করুন ...';

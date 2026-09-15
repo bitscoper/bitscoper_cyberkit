@@ -22,8 +22,9 @@ import 'package:bitscoper_cyberkit/tool_pages/upnp_scanner.dart';
 import 'package:bitscoper_cyberkit/tool_pages/whois_retriever.dart';
 import 'package:bitscoper_cyberkit/tool_pages/wifi_details_viewer.dart';
 import 'package:bitscoper_cyberkit/version_checker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:permission_guard/permission_guard.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -75,10 +76,12 @@ class _ToolCardWidget extends StatelessWidget {
         onTap: () {
           try {
             Navigator.push(
-              navigatorKey.currentContext!,
+              context,
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return _permissionGuard(page);
+                  return (defaultTargetPlatform == TargetPlatform.linux)
+                      ? page
+                      : _permissionGuard(page);
                 },
               ),
             );
@@ -99,12 +102,14 @@ class _ToolCardWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Icon(icon, size: 32.0),
-              const SizedBox(height: 16.0 * 0.75), // 12.0
-              Text(
-                title,
-                style: Theme.of(context).textTheme.titleMedium,
-                textAlign: TextAlign.center,
-                softWrap: true,
+              Padding(
+                padding: const EdgeInsets.only(top: (16.0 * 0.75)),
+                child: Text(
+                  title,
+                  style: Theme.of(context).textTheme.titleMedium,
+                  textAlign: TextAlign.center,
+                  softWrap: true,
+                ),
               ),
             ],
           ),
@@ -144,7 +149,7 @@ class HomePage extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         AppLocalizations.of(context)!
-                            .copyright_abdullah_as_sadeed_bitscoper,
+                            .copyright_abdullah_as_sadeed,
                       ),
                       FutureBuilder<String>(
                         future: getLocalVersion(),
@@ -159,7 +164,9 @@ class HomePage extends StatelessWidget {
                               } else if (snapshot.hasError) {
                                 return Text(snapshot.error.toString());
                               } else {
-                                return Text(snapshot.data ?? "");
+                                return Text(
+                                  "${AppLocalizations.of(context)!.version} ${snapshot.data}",
+                                );
                               }
                             },
                       ),
@@ -234,7 +241,12 @@ class HomePage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.only(
+              top: 16.0,
+              right: 16.0,
+              bottom: 32.0,
+              left: 16.0,
+            ),
             child: Center(
               child: Text(
                 AppLocalizations.of(context)!
@@ -389,7 +401,7 @@ class HomePage extends StatelessWidget {
                   } else if (snapshot.hasError) {
                     return Center(
                       child: Padding(
-                        padding: const EdgeInsets.all(32.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Text(snapshot.error.toString()),
                       ),
                     );
@@ -401,11 +413,11 @@ class HomePage extends StatelessWidget {
                   tools = snapshot.data!;
 
                   return Padding(
-                    padding: const EdgeInsets.all(32.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: MasonryGridView.count(
                       crossAxisCount: _getCrossAxisCount(context),
-                      mainAxisSpacing: 16,
-                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16.0,
+                      crossAxisSpacing: 16.0,
                       itemCount: tools.length,
                       itemBuilder: (BuildContext context, int index) {
                         final (

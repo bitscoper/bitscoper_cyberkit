@@ -6,7 +6,7 @@ import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/commons/notification_sender.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:ogp_data_extract/ogp_data_extract.dart';
 
 class OGPDataExtractorPage extends StatefulWidget {
@@ -70,59 +70,73 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
   }
 
   Widget _buildCard(BuildContext context, String title, String? value) {
-    return Card(
-      child: ListTile(
-        title: Text(title),
-        subtitle: Text(value ?? 'N/A'),
-        trailing: IconButton(
-          icon: const Icon(Icons.copy_rounded),
-          onPressed: () {
-            copyToClipboard(context, title, value ?? 'N/A');
-          },
-          tooltip: AppLocalizations.of(context)!.copy_to_clipboard,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Card(
+        child: ListTile(
+          title: Text(title),
+          subtitle: Text(value ?? 'N/A'),
+          trailing: IconButton(
+            icon: const Icon(Icons.copy_rounded),
+            onPressed: () {
+              copyToClipboard(context, title, value ?? 'N/A');
+            },
+            tooltip: AppLocalizations.of(context)!.copy_to_clipboard,
+          ),
         ),
       ),
     );
   }
 
   Widget _form(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TextFormField(
-            controller: _hostEditingController,
-            keyboardType: TextInputType.url,
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              labelText: AppLocalizations.of(context)!.a_host_or_ip_address,
-              hintText: 'https://bitscoper.dev/',
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                TextFormField(
+                  controller: _hostEditingController,
+                  keyboardType: TextInputType.url,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: AppLocalizations.of(context)!
+                        .a_host_or_ip_address,
+                    hintText: 'https://bitscoper.dev/',
+                  ),
+                  showCursor: true,
+                  maxLines: 1,
+                  validator: (String? value) {
+                    return _hostFieldValidator(context, value);
+                  },
+                  onChanged: (String value) {},
+                  onFieldSubmitted: (String value) {
+                    _retrieve();
+                  },
+                  autofocus: true,
+                ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: FilledButton.tonal(
+                      onPressed: _isRetrieving ? null : _retrieve,
+                      child: Text(AppLocalizations.of(context)!.extract),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            showCursor: true,
-            maxLines: 1,
-            validator: (String? value) {
-              return _hostFieldValidator(context, value);
-            },
-            onChanged: (String value) {},
-            onFieldSubmitted: (String value) {
-              _retrieve();
-            },
-            autofocus: true,
           ),
-          const SizedBox(height: 16.0),
-          Center(
-            child: ElevatedButton(
-              onPressed: _isRetrieving ? null : _retrieve,
-              child: Text(AppLocalizations.of(context)!.extract),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
 
-  Widget _resultColumn(BuildContext context) {
+  Widget _resultWrapper(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -182,16 +196,15 @@ class OGPDataExtractorPageState extends State<OGPDataExtractorPage> {
         title: AppLocalizations.of(context)!.ogp_data_extractor,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _form(context),
-            const SizedBox(height: 16.0),
             if (_isRetrieving)
               const Center(child: CircularProgressIndicator())
             else if (_ogpData != null)
-              _resultColumn(context),
+              _resultWrapper(context),
           ],
         ),
       ),

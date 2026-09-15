@@ -3,7 +3,7 @@
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 enum _MenuAction { toggleTheme, changeLocale }
 
@@ -75,18 +75,23 @@ class ApplicationToolBar extends StatelessWidget
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            const SizedBox(height: 8.0),
-                            Center(
-                              child: Container(
-                                width: 40.0,
-                                height: 4.0,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius: BorderRadius.circular(4.0),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 8.0,
+                              ),
+                              child: Center(
+                                child: Container(
+                                  width: 48.0,
+                                  height: 4.0,
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .secondaryContainer,
+                                    borderRadius: BorderRadius.circular(4.0),
+                                  ),
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 8.0),
                             Center(
                               child: Text(
                                 AppLocalizations.of(context)!.change_locale,
@@ -94,11 +99,15 @@ class ApplicationToolBar extends StatelessWidget
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                            const SizedBox(height: 8.0),
-                            const Divider(),
+                            const Padding(
+                              padding: EdgeInsets.only(top: 8.0),
+                              child: Divider(),
+                            ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16.0,
+                              padding: const EdgeInsets.only(
+                                right: 16.0,
+                                bottom: 16.0,
+                                left: 16.0,
                               ),
                               child: Column(
                                 children: <Widget>[
@@ -107,7 +116,6 @@ class ApplicationToolBar extends StatelessWidget
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 16.0),
                           ],
                         ),
                       );
@@ -137,8 +145,10 @@ class ApplicationToolBar extends StatelessWidget
                           ? Icons.light_mode_rounded
                           : Icons.dark_mode_rounded,
                     ),
-                    const SizedBox(width: 16.0 * 0.75), // 12.0
-                    Text(AppLocalizations.of(context)!.toggle_theme),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0 * 0.75),
+                      child: Text(AppLocalizations.of(context)!.toggle_theme),
+                    ),
                   ],
                 ),
               ),
@@ -147,8 +157,10 @@ class ApplicationToolBar extends StatelessWidget
                 child: Row(
                   children: <Widget>[
                     const Icon(Icons.language_rounded),
-                    const SizedBox(width: 16.0 * 0.75), // 12.0
-                    Text(AppLocalizations.of(context)!.change_locale),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0 * 0.75),
+                      child: Text(AppLocalizations.of(context)!.change_locale),
+                    ),
                   ],
                 ),
               ),

@@ -3,9 +3,11 @@
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/home.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -212,12 +214,37 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
     } finally {}
   }
 
-  ThemeData _buildTheme(Brightness brightness) {
-    return ThemeData(
-      useMaterial3: true,
-      useSystemColors: true,
-      brightness: brightness,
+  FlexSubThemesData _subThemeData() {
+    return const FlexSubThemesData(
+      interactionEffects: true,
+      tintedDisabledControls: true,
     );
+  }
+
+  CupertinoThemeData _cupertinoThemeData() {
+    return const CupertinoThemeData(applyThemeToAll: true);
+  }
+
+  ThemeData _buildTheme(Brightness brightness) {
+    return brightness == Brightness.dark
+        ? FlexThemeData.dark(
+            useMaterial3: true,
+            useMaterial3ErrorColors: true,
+            scheme: FlexScheme.materialBaseline,
+            darkIsTrueBlack: false,
+            subThemesData: _subThemeData(),
+            visualDensity: FlexColorScheme.comfortablePlatformDensity,
+            cupertinoOverrideTheme: _cupertinoThemeData(),
+          )
+        : FlexThemeData.light(
+            useMaterial3: true,
+            useMaterial3ErrorColors: true,
+            scheme: FlexScheme.materialBaseline,
+            lightIsWhite: false,
+            subThemesData: _subThemeData(),
+            visualDensity: FlexColorScheme.comfortablePlatformDensity,
+            cupertinoOverrideTheme: _cupertinoThemeData(),
+          );
   }
 
   @override
@@ -228,7 +255,10 @@ class BitscoperCyberKitState extends State<BitscoperCyberKit> {
         builder: (BuildContext context, bool isDark, Widget? child) {
           return MaterialApp(
             navigatorKey: navigatorKey,
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            localizationsDelegates: <LocalizationsDelegate<dynamic>>[
+              ...GlobalMaterialLocalizations.delegates,
+              AppLocalizations.delegate,
+            ],
             supportedLocales: AppLocalizations.supportedLocales,
             locale: _locale,
             theme: _buildTheme(Brightness.light),

@@ -94,8 +94,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get copy_to_clipboard => 'Copy to Clipboard';
 
   @override
-  String get copyright_abdullah_as_sadeed_bitscoper =>
-      '© Abdullah As-Sadeed (bitscoper)';
+  String get copyright_abdullah_as_sadeed => '© Abdullah As-Sadeed';
 
   @override
   String get crawl => 'Crawl';
@@ -445,6 +444,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get vector_string => 'Vector string';
+
+  @override
+  String get version => 'Version';
 
   @override
   String get wait => 'Wait ...';

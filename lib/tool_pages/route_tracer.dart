@@ -7,9 +7,9 @@ import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/commons/notification_sender.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
-import 'package:flutter_traceroute/flutter_traceroute_platform_interface.dart';
 import 'package:flutter_traceroute/flutter_traceroute.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_traceroute/flutter_traceroute_platform_interface.dart';
+import 'package:material_ui/material_ui.dart';
 
 class RouteTracerPage extends StatefulWidget {
   const RouteTracerPage({super.key});
@@ -114,70 +114,94 @@ class RouteTracerPageState extends State<RouteTracerPage> {
   }
 
   Widget _form(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TextFormField(
-            controller: _hostEditingController,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: AppLocalizations.of(context)!.a_host_or_ip_address,
-              hintText: 'bitscoper.dev',
-            ),
-            maxLines: 1,
-            showCursor: true,
-            onChanged: (String value) {},
-            validator: (String? value) {
-              return _hostFieldValidator(context, value);
-            },
-            onFieldSubmitted: (String value) {
-              _trace(context);
-            },
-            autofocus: true,
-          ),
-          const SizedBox(height: 16.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              ElevatedButton(
-                onPressed: _isTracing
-                    ? null
-                    : () {
-                        _trace(context);
-                      },
-                child: Text(AppLocalizations.of(context)!.trace),
+              TextFormField(
+                controller: _hostEditingController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: AppLocalizations.of(context)!.a_host_or_ip_address,
+                  hintText: 'bitscoper.dev',
+                ),
+                maxLines: 1,
+                showCursor: true,
+                onChanged: (String value) {},
+                validator: (String? value) {
+                  return _hostFieldValidator(context, value);
+                },
+                onFieldSubmitted: (String value) {
+                  _trace(context);
+                },
+                autofocus: true,
               ),
-              ElevatedButton(
-                onPressed: _isTracing
-                    ? () {
-                        _stop(context);
-                      }
-                    : null,
-                child: Text(AppLocalizations.of(context)!.stop),
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    FilledButton.tonal(
+                      onPressed: _isTracing
+                          ? null
+                          : () {
+                              _trace(context);
+                            },
+                      child: Text(AppLocalizations.of(context)!.trace),
+                    ),
+                    FilledButton.tonal(
+                      onPressed: _isTracing
+                          ? () {
+                              _stop(context);
+                            }
+                          : null,
+                      child: Text(AppLocalizations.of(context)!.stop),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
 
-  Widget _resultColumn() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        for (final result in _traceResults)
-          Text(
-            result.toString(),
-            style: TextStyle(
-              fontWeight: (result is TracerouteStepFinished)
-                  ? FontWeight.bold
-                  : FontWeight.normal,
-            ),
+  Widget _resultWrapper() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              for (final result in _traceResults)
+                Text(
+                  result.toString(),
+                  style: TextStyle(
+                    fontWeight: (result is TracerouteStepFinished)
+                        ? FontWeight.bold
+                        : FontWeight.normal,
+                  ),
+                ),
+            ],
           ),
-      ],
+        ),
+      ),
+    );
+  }
+
+  Widget _progressIndicator() {
+    return const Center(
+      child: Padding(
+        padding: EdgeInsets.only(bottom: 16.0),
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 
@@ -188,14 +212,12 @@ class RouteTracerPageState extends State<RouteTracerPage> {
         title: AppLocalizations.of(context)!.route_tracer,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             _form(context),
-            const SizedBox(height: 16.0),
-            _resultColumn(),
-            const SizedBox(height: 16.0),
-            if (_isTracing) const Center(child: CircularProgressIndicator()),
+            if (_traceResults.isNotEmpty) _resultWrapper(),
+            if (_isTracing) _progressIndicator(),
           ],
         ),
       ),

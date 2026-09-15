@@ -4,9 +4,9 @@ import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/copy_to_clipboard.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:morse_code_translator/morse_code_translator.dart';
 
 final Provider<MorseCode> morseCodeTranslatorProvider =
@@ -165,37 +165,40 @@ class MorseCodeTranslatorPage extends ConsumerWidget {
       morseCodeEditingControllerProvider,
     );
 
-    return Form(
-      child: TextFormField(
-        controller: editingController,
-        keyboardType: TextInputType.text,
-        decoration: InputDecoration(
-          border: const OutlineInputBorder(),
-          labelText: AppLocalizations.of(context)!.morse_code,
-          hintText: '.- -... -.. ..- .-.. .-.. .- .... / .- ... -....- ... .- -.. . . -..',
-          suffixIcon: IconButton(
-            icon: const Icon(Icons.copy_rounded),
-            onPressed: () {
-              copyToClipboard(
-                context,
-                AppLocalizations.of(context)!.morse_code,
-                editingController.text,
-              );
-            },
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0),
+      child: Form(
+        child: TextFormField(
+          controller: editingController,
+          keyboardType: TextInputType.text,
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            labelText: AppLocalizations.of(context)!.morse_code,
+            hintText: '.- -... -.. ..- .-.. .-.. .- .... / .- ... -....- ... .- -.. . . -..',
+            suffixIcon: IconButton(
+              icon: const Icon(Icons.copy_rounded),
+              onPressed: () {
+                copyToClipboard(
+                  context,
+                  AppLocalizations.of(context)!.morse_code,
+                  editingController.text,
+                );
+              },
+            ),
           ),
+          showCursor: true,
+          maxLines: null,
+          validator: (String? value) {
+            return _morseCodeFieldValidator(context, value);
+          },
+          onChanged: (String? value) {
+            _decode(context, ref);
+          },
+          onFieldSubmitted: (String value) {
+            _decode(context, ref);
+          },
+          autofocus: false,
         ),
-        showCursor: true,
-        maxLines: null,
-        validator: (String? value) {
-          return _morseCodeFieldValidator(context, value);
-        },
-        onChanged: (String? value) {
-          _decode(context, ref);
-        },
-        onFieldSubmitted: (String value) {
-          _decode(context, ref);
-        },
-        autofocus: false,
       ),
     );
   }
@@ -207,14 +210,18 @@ class MorseCodeTranslatorPage extends ConsumerWidget {
         title: AppLocalizations.of(context)!.morse_code_translator,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            _stringForm(context, ref),
-            const SizedBox(height: 16.0),
-            _morseCodeForm(context, ref),
-          ],
+        padding: const EdgeInsets.all(16.0),
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                _stringForm(context, ref),
+                _morseCodeForm(context, ref),
+              ],
+            ),
+          ),
         ),
       ),
     );

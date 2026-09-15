@@ -8,7 +8,7 @@ import 'package:bitscoper_cyberkit/commons/notification_sender.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
 import 'package:dart_ping/dart_ping.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class IPv4SubnetScannerPage extends StatefulWidget {
   const IPv4SubnetScannerPage({super.key});
@@ -158,89 +158,102 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
   }
 
   Widget _form(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TextFormField(
-            controller: _subnetEditingController,
-            keyboardType: TextInputType.url,
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              labelText: AppLocalizations.of(context)!.an_ipv4_subnet,
-              hintText: "1.1.1",
-            ),
-            showCursor: true,
-            maxLines: 1,
-            validator: (String? value) {
-              return _subnetFieldValidator(context, value);
-            },
-            onChanged: (String value) {},
-            onFieldSubmitted: (String value) {
-              _scan(context);
-            },
-            autofocus: true,
-          ),
-          const SizedBox(height: 16.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              ElevatedButton(
-                onPressed: _isScanning
-                    ? null
-                    : () {
-                        _scan(context);
-                      },
-                child: Text(AppLocalizations.of(context)!.scan),
+              TextFormField(
+                controller: _subnetEditingController,
+                keyboardType: TextInputType.url,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: AppLocalizations.of(context)!.an_ipv4_subnet,
+                  hintText: "1.1.1",
+                ),
+                showCursor: true,
+                maxLines: 1,
+                validator: (String? value) {
+                  return _subnetFieldValidator(context, value);
+                },
+                onChanged: (String value) {},
+                onFieldSubmitted: (String value) {
+                  _scan(context);
+                },
+                autofocus: true,
               ),
-              ElevatedButton(
-                onPressed: _isScanning
-                    ? () {
-                        _stop(context);
-                      }
-                    : null,
-                child: Text(AppLocalizations.of(context)!.stop),
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    FilledButton.tonal(
+                      onPressed: _isScanning
+                          ? null
+                          : () {
+                              _scan(context);
+                            },
+                      child: Text(AppLocalizations.of(context)!.scan),
+                    ),
+                    FilledButton.tonal(
+                      onPressed: _isScanning
+                          ? () {
+                              _stop(context);
+                            }
+                          : null,
+                      child: Text(AppLocalizations.of(context)!.stop),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
 
   Widget _progressIndicator() {
-    return const Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        SizedBox(height: 16.0),
-        Center(child: CircularProgressIndicator()),
-      ],
+    return const Center(
+      child: Padding(
+        padding: EdgeInsets.only(top: 16.0),
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 
   Widget _resultWrapper() {
     return Center(
-      child: Wrap(
-        spacing: 8.0,
-        runSpacing: 8.0,
-        children: <Widget>[
-          if (_discoveredHosts.isNotEmpty)
-            ..._discoveredHosts.map((String discoveredHost) {
-              return Chip(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                padding: const EdgeInsets.only(
-                  top: 8.0,
-                  right: 4.0,
-                  bottom: 8.0,
-                  left: 4.0,
-                ),
-                label: Text(discoveredHost),
-              );
-            }),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.only(top: 16.0),
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Wrap(
+              spacing: 8.0,
+              runSpacing: 8.0,
+              children: <Widget>[
+                ..._discoveredHosts.map((String discoveredHost) {
+                  return Chip(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    padding: const EdgeInsets.only(
+                      top: 8.0,
+                      right: 4.0,
+                      bottom: 8.0,
+                      left: 4.0,
+                    ),
+                    label: Text(discoveredHost),
+                  );
+                }),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -252,14 +265,13 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
         title: AppLocalizations.of(context)!.ipv4_subnet_scanner,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _form(context),
             if (_isScanning) _progressIndicator(),
-            const SizedBox(height: 16.0),
-            _resultWrapper(),
+            if (_discoveredHosts.isNotEmpty) _resultWrapper(),
           ],
         ),
       ),

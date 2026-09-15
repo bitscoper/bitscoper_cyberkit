@@ -8,9 +8,9 @@ import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/commons/notification_sender.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:tcp_scanner/tcp_scanner.dart';
 
 class TCPPortScannerPage extends StatefulWidget {
@@ -132,110 +132,132 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
   }
 
   Widget _form(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Expanded(
-                flex: 3,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: TextFormField(
-                    controller: _hostEditingController,
-                    keyboardType: TextInputType.url,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: AppLocalizations.of(context)!
-                          .a_host_or_ip_address,
-                      hintText: 'bitscoper.dev',
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: TextFormField(
+                          controller: _hostEditingController,
+                          keyboardType: TextInputType.url,
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            labelText: AppLocalizations.of(context)!
+                                .a_host_or_ip_address,
+                            hintText: 'bitscoper.dev',
+                          ),
+                          showCursor: true,
+                          maxLines: 1,
+                          validator: (String? value) {
+                            return _hostFieldValidator(context, value);
+                          },
+                          onChanged: (String value) {},
+                          onFieldSubmitted: (String value) {
+                            _scan(context);
+                          },
+                          autofocus: true,
+                        ),
+                      ),
                     ),
-                    showCursor: true,
-                    maxLines: 1,
-                    validator: (String? value) {
-                      return _hostFieldValidator(context, value);
-                    },
-                    onChanged: (String value) {},
-                    onFieldSubmitted: (String value) {
-                      _scan(context);
-                    },
-                    autofocus: true,
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: TextFormField(
+                          controller: _parallelismEditingController,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            labelText: AppLocalizations.of(context)!
+                                .parallelism,
+                            hintText: '64',
+                          ),
+                          showCursor: true,
+                          maxLines: 1,
+                          onChanged: (String value) {},
+                          onFieldSubmitted: (String value) {
+                            _scan(context);
+                          },
+                          autofocus: false,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: Center(
+                    child: _isScanning
+                        ? const CircularProgressIndicator()
+                        : FilledButton.tonal(
+                            onPressed: () {
+                              _scan(context);
+                            },
+                            child: Text(AppLocalizations.of(context)!.scan),
+                          ),
                   ),
                 ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: TextFormField(
-                    controller: _parallelismEditingController,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: AppLocalizations.of(context)!.parallelism,
-                      hintText: '64',
-                    ),
-                    showCursor: true,
-                    maxLines: 1,
-                    onChanged: (String value) {},
-                    onFieldSubmitted: (String value) {
-                      _scan(context);
-                    },
-                    autofocus: false,
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-          const SizedBox(height: 16.0),
-          Center(
-            child: _isScanning
-                ? const CircularProgressIndicator()
-                : ElevatedButton(
-                    onPressed: () {
-                      _scan(context);
-                    },
-                    child: Text(AppLocalizations.of(context)!.scan),
-                  ),
-          ),
-        ],
+        ),
       ),
     );
   }
 
-  Widget _resultColumn(BuildContext context) {
+  Widget _resultWrapper(BuildContext context) {
     final NumberFormat numberFormat = NumberFormat(
       '#',
       AppLocalizations.of(context)!.localeName,
     );
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Wrap(
-          spacing: 8.0,
-          runSpacing: 8.0,
-          children: <Widget>[
-            for (int port in _openPorts)
-              Chip(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+        if (_openPorts.isNotEmpty)
+          Center(
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Wrap(
+                  spacing: 8.0,
+                  runSpacing: 8.0,
+                  children: <Widget>[
+                    for (int port in _openPorts)
+                      Chip(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        padding: const EdgeInsets.only(
+                          top: 8.0,
+                          right: 4.0,
+                          bottom: 8.0,
+                          left: 4.0,
+                        ),
+                        label: Text(numberFormat.format(port)),
+                      ),
+                  ],
                 ),
-                padding: const EdgeInsets.only(
-                  top: 8.0,
-                  right: 4.0,
-                  bottom: 8.0,
-                  left: 4.0,
-                ),
-                label: Text(numberFormat.format(port)),
               ),
-          ],
+            ),
+          ),
+        Padding(
+          padding: const EdgeInsets.only(top: 16.0),
+          child: Text(_scanInformation),
         ),
-        const SizedBox(height: 16.0),
-        Text(_scanInformation),
       ],
     );
   }
@@ -247,14 +269,10 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
         title: AppLocalizations.of(context)!.tcp_port_scanner,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            _form(context),
-            const SizedBox(height: 16.0),
-            if (!_isScanning) _resultColumn(context),
-          ],
+          children: <Widget>[_form(context), _resultWrapper(context)],
         ),
       ),
     );

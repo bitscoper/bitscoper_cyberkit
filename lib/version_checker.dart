@@ -1,10 +1,10 @@
 /* By Abdullah As-Sadeed */
 
+import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
-import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:material_ui/material_ui.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:yaml/yaml.dart';
 

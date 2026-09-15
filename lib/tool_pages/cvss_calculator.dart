@@ -5,7 +5,7 @@ import 'package:bitscoper_cyberkit/commons/copy_to_clipboard.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:cvss_vulnerability_scoring/cvss_vulnerability_scoring.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class CVSSCalculatorPage extends StatefulWidget {
   const CVSSCalculatorPage({super.key});
@@ -197,183 +197,210 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
   }
 
   Widget _form(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          DropdownButtonFormField<AttackVector>(
-            initialValue: _attackVector,
-            onChanged: _onAttackVectorChanged,
-            items: AttackVector.values.map((AttackVector vector) {
-              return DropdownMenuItem<AttackVector>(
-                value: vector,
-                child: Text(_formatEnumName(context, vector)),
-              );
-            }).toList(),
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context)!.attack_vector,
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                DropdownButtonFormField<AttackVector>(
+                  initialValue: _attackVector,
+                  onChanged: _onAttackVectorChanged,
+                  items: AttackVector.values.map((AttackVector vector) {
+                    return DropdownMenuItem<AttackVector>(
+                      value: vector,
+                      child: Text(_formatEnumName(context, vector)),
+                    );
+                  }).toList(),
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.attack_vector,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: DropdownButtonFormField<AttackComplexity>(
+                    initialValue: _attackComplexity,
+                    onChanged: _onAttackComplexityChanged,
+                    items: AttackComplexity.values.map((
+                      AttackComplexity complexity,
+                    ) {
+                      return DropdownMenuItem<AttackComplexity>(
+                        value: complexity,
+                        child: Text(_formatEnumName(context, complexity)),
+                      );
+                    }).toList(),
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)!
+                          .attack_complexity,
+                    ),
+                  ),
+                ),
+                DropdownButtonFormField<PrivilegesRequired>(
+                  initialValue: _privilegesRequired,
+                  onChanged: _onPrevilegeRequirementChanged,
+                  items: PrivilegesRequired.values.map((
+                    PrivilegesRequired privileges,
+                  ) {
+                    return DropdownMenuItem<PrivilegesRequired>(
+                      value: privileges,
+                      child: Text(_formatEnumName(context, privileges)),
+                    );
+                  }).toList(),
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!
+                        .privileges_required,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: DropdownButtonFormField<UserInteraction>(
+                    initialValue: _userInteraction,
+                    onChanged: _onUserInteractionValueChanged,
+                    items: UserInteraction.values.map((
+                      UserInteraction interaction,
+                    ) {
+                      return DropdownMenuItem<UserInteraction>(
+                        value: interaction,
+                        child: Text(_formatEnumName(context, interaction)),
+                      );
+                    }).toList(),
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)!.user_interaction,
+                    ),
+                  ),
+                ),
+                DropdownButtonFormField<Scope>(
+                  initialValue: _scope,
+                  onChanged: _onScopeChanged,
+                  items: Scope.values.map((Scope scope) {
+                    return DropdownMenuItem<Scope>(
+                      value: scope,
+                      child: Text(_formatEnumName(context, scope)),
+                    );
+                  }).toList(),
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.scope,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: DropdownButtonFormField<ConfidentialityImpact>(
+                    initialValue: _confidentialityImpact,
+                    onChanged: _onConfidentialityImpactChanged,
+                    items: ConfidentialityImpact.values.map((
+                      ConfidentialityImpact impact,
+                    ) {
+                      return DropdownMenuItem<ConfidentialityImpact>(
+                        value: impact,
+                        child: Text(_formatEnumName(context, impact)),
+                      );
+                    }).toList(),
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)!
+                          .confidentiality_impact,
+                    ),
+                  ),
+                ),
+                DropdownButtonFormField<IntegrityImpact>(
+                  initialValue: _integrityImpact,
+                  onChanged: _onIntigrityImpactChanged,
+                  items: IntegrityImpact.values.map((IntegrityImpact impact) {
+                    return DropdownMenuItem<IntegrityImpact>(
+                      value: impact,
+                      child: Text(_formatEnumName(context, impact)),
+                    );
+                  }).toList(),
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.integrity_impact,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: DropdownButtonFormField<AvailabilityImpact>(
+                    initialValue: _availabilityImpact,
+                    onChanged: _onAvailabilityImpactChanged,
+                    items: AvailabilityImpact.values.map((
+                      AvailabilityImpact impact,
+                    ) {
+                      return DropdownMenuItem<AvailabilityImpact>(
+                        value: impact,
+                        child: Text(_formatEnumName(context, impact)),
+                      );
+                    }).toList(),
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)!
+                          .availability_impact,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 16.0),
-          DropdownButtonFormField<AttackComplexity>(
-            initialValue: _attackComplexity,
-            onChanged: _onAttackComplexityChanged,
-            items: AttackComplexity.values.map((AttackComplexity complexity) {
-              return DropdownMenuItem<AttackComplexity>(
-                value: complexity,
-                child: Text(_formatEnumName(context, complexity)),
-              );
-            }).toList(),
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context)!.attack_complexity,
-            ),
-          ),
-          const SizedBox(height: 16.0),
-          DropdownButtonFormField<PrivilegesRequired>(
-            initialValue: _privilegesRequired,
-            onChanged: _onPrevilegeRequirementChanged,
-            items: PrivilegesRequired.values.map((
-              PrivilegesRequired privileges,
-            ) {
-              return DropdownMenuItem<PrivilegesRequired>(
-                value: privileges,
-                child: Text(_formatEnumName(context, privileges)),
-              );
-            }).toList(),
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context)!.privileges_required,
-            ),
-          ),
-          const SizedBox(height: 16.0),
-          DropdownButtonFormField<UserInteraction>(
-            initialValue: _userInteraction,
-            onChanged: _onUserInteractionValueChanged,
-            items: UserInteraction.values.map((UserInteraction interaction) {
-              return DropdownMenuItem<UserInteraction>(
-                value: interaction,
-                child: Text(_formatEnumName(context, interaction)),
-              );
-            }).toList(),
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context)!.user_interaction,
-            ),
-          ),
-          const SizedBox(height: 16.0),
-          DropdownButtonFormField<Scope>(
-            initialValue: _scope,
-            onChanged: _onScopeChanged,
-            items: Scope.values.map((Scope scope) {
-              return DropdownMenuItem<Scope>(
-                value: scope,
-                child: Text(_formatEnumName(context, scope)),
-              );
-            }).toList(),
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context)!.scope,
-            ),
-          ),
-          const SizedBox(height: 16.0),
-          DropdownButtonFormField<ConfidentialityImpact>(
-            initialValue: _confidentialityImpact,
-            onChanged: _onConfidentialityImpactChanged,
-            items: ConfidentialityImpact.values.map((
-              ConfidentialityImpact impact,
-            ) {
-              return DropdownMenuItem<ConfidentialityImpact>(
-                value: impact,
-                child: Text(_formatEnumName(context, impact)),
-              );
-            }).toList(),
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context)!.confidentiality_impact,
-            ),
-          ),
-          const SizedBox(height: 16.0),
-          DropdownButtonFormField<IntegrityImpact>(
-            initialValue: _integrityImpact,
-            onChanged: _onIntigrityImpactChanged,
-            items: IntegrityImpact.values.map((IntegrityImpact impact) {
-              return DropdownMenuItem<IntegrityImpact>(
-                value: impact,
-                child: Text(_formatEnumName(context, impact)),
-              );
-            }).toList(),
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context)!.integrity_impact,
-            ),
-          ),
-          const SizedBox(height: 16.0),
-          DropdownButtonFormField<AvailabilityImpact>(
-            initialValue: _availabilityImpact,
-            onChanged: _onAvailabilityImpactChanged,
-            items: AvailabilityImpact.values.map((AvailabilityImpact impact) {
-              return DropdownMenuItem<AvailabilityImpact>(
-                value: impact,
-                child: Text(_formatEnumName(context, impact)),
-              );
-            }).toList(),
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context)!.availability_impact,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
 
-  Widget _resultCard(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: _getSeverityColor(context).withValues(alpha: 0.10),
-                border: Border.all(
-                  color: _getSeverityColor(context),
-                  width: 2.0,
+  Widget _resultWrapper(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: _getSeverityColor(context).withValues(alpha: 0.10),
+                  border: Border.all(
+                    color: _getSeverityColor(context),
+                    width: 2.0,
+                  ),
+                ),
+                child: Text(
+                  _baseScore.toStringAsFixed(1),
+                  style: TextStyle(
+                    fontSize: 32.0,
+                    fontWeight: FontWeight.bold,
+                    color: _getSeverityColor(context),
+                  ),
                 ),
               ),
-              child: Text(
-                _baseScore.toStringAsFixed(1),
-                style: TextStyle(
-                  fontSize: 32.0,
-                  fontWeight: FontWeight.bold,
-                  color: _getSeverityColor(context),
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
+                child: Chip(
+                  label: Text(
+                    _getSeverityText(context),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 16.0),
-            Chip(
-              label: Text(
-                _getSeverityText(context),
-                style: const TextStyle(fontWeight: FontWeight.bold),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Flexible(child: SelectableText(_vectorString)),
+                  IconButton(
+                    icon: const Icon(Icons.copy_rounded, size: 16.0),
+                    onPressed: () {
+                      copyToClipboard(
+                        context,
+                        AppLocalizations.of(context)!.vector_string,
+                        _vectorString,
+                      );
+                    },
+                    tooltip: AppLocalizations.of(context)!.copy_to_clipboard,
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 4.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Flexible(child: SelectableText(_vectorString)),
-                IconButton(
-                  icon: const Icon(Icons.copy_rounded, size: 16.0),
-                  onPressed: () {
-                    copyToClipboard(
-                      context,
-                      AppLocalizations.of(context)!.vector_string,
-                      _vectorString,
-                    );
-                  },
-                  tooltip: AppLocalizations.of(context)!.copy_to_clipboard,
-                ),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -386,15 +413,13 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
         title: AppLocalizations.of(context)!.cvss_calculator,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _subTitle(context),
-            const SizedBox(height: 32.0),
             _form(context),
-            const SizedBox(height: 32.0),
-            _resultCard(context),
+            _resultWrapper(context),
           ],
         ),
       ),

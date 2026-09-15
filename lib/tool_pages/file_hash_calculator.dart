@@ -11,7 +11,7 @@ import 'package:bitscoper_cyberkit/main.dart';
 import 'package:crypto/crypto.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 final NotifierProvider<HashNotifier, List<Map<String, dynamic>>>
 hashesNotifierProvider =
@@ -97,13 +97,21 @@ class FileHashCalculatorPage extends ConsumerWidget {
   Widget _form(BuildContext context, WidgetRef ref) {
     final HashNotifier notifier = ref.read(hashesNotifierProvider.notifier);
 
-    return Form(
-      child: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            notifier._calculate(context);
-          },
-          child: Text(AppLocalizations.of(context)!.select_files),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            child: Center(
+              child: FilledButton.tonal(
+                onPressed: () {
+                  notifier._calculate(context);
+                },
+                child: Text(AppLocalizations.of(context)!.select_files),
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -120,7 +128,7 @@ class FileHashCalculatorPage extends ConsumerWidget {
     );
   }
 
-  Widget _resultColumn(
+  Widget _resultWrapper(
     BuildContext context,
     List<Map<String, dynamic>> hashes,
   ) {
@@ -179,18 +187,17 @@ class FileHashCalculatorPage extends ConsumerWidget {
         title: AppLocalizations.of(context)!.file_hash_calculator,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _form(context, ref),
-            const SizedBox(height: 16.0),
             if (!isCalculating && hashes.isEmpty)
               _startNotice(context)
             else if (isCalculating)
               const Center(child: CircularProgressIndicator())
             else
-              _resultColumn(context, hashes),
+              _resultWrapper(context, hashes),
           ],
         ),
       ),

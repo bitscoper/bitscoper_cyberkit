@@ -6,7 +6,7 @@ import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 
 class WiFiDetailsViewerPage extends StatefulWidget {
@@ -71,7 +71,7 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
   Widget _progressIndicator() {
     return Center(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(16.0),
         child: CircularProgressIndicator(),
       ),
     );
@@ -79,7 +79,7 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
 
   Widget _wifiDetailsCard(BuildContext context, String label, String? value) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: const EdgeInsets.only(bottom: 16.0),
       child: Card(
         child: ListTile(
           title: Text(label),
@@ -100,7 +100,7 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
 
   Widget _wifiDetailsView(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(32.0),
+      padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -149,7 +149,7 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
   Widget _wifiDisconnectionNotice(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(16.0),
         child: Text(AppLocalizations.of(context)!.wifi_is_disconnected),
       ),
     );

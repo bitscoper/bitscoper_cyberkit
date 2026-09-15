@@ -6,11 +6,11 @@ import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/commons/notification_sender.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
-import 'package:flutter/material.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:material_ui/material_ui.dart';
 
 class SeriesURICrawlerPage extends StatefulWidget {
   const SeriesURICrawlerPage({super.key});
@@ -157,155 +157,165 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
   }
 
   Widget _form(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Expanded(
-                flex: 2,
-                child: TextFormField(
-                  controller: _uriPrefixEditingController,
-                  keyboardType: TextInputType.url,
-                  decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.uri_prefix,
-                    hintText: 'https://bitscoper.dev/publication-',
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    flex: 2,
+                    child: TextFormField(
+                      controller: _uriPrefixEditingController,
+                      keyboardType: TextInputType.url,
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.uri_prefix,
+                        hintText: 'https://bitscoper.dev/publication-',
+                      ),
+                      showCursor: true,
+                      maxLines: 1,
+                      validator: (String? value) {
+                        return _uriPrefixFieldValidator(context, value);
+                      },
+                      onChanged: (String value) {},
+                      onFieldSubmitted: (String value) {
+                        _crawl();
+                      },
+                      autofocus: true,
+                    ),
                   ),
-                  showCursor: true,
-                  maxLines: 1,
-                  validator: (String? value) {
-                    return _uriPrefixFieldValidator(context, value);
-                  },
-                  onChanged: (String value) {},
-                  onFieldSubmitted: (String value) {
-                    _crawl();
-                  },
-                  autofocus: true,
-                ),
+                  const SizedBox(width: 16.0),
+                  Expanded(
+                    flex: 1,
+                    child: TextFormField(
+                      controller: _uriSuffixEditingController,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.uri_suffix,
+                        hintText: '.php',
+                      ),
+                      showCursor: true,
+                      maxLines: 1,
+                      // validator: (
+                      //   String? value,
+                      // ) {},
+                      onChanged: (String value) {},
+                      onFieldSubmitted: (String value) {
+                        _crawl();
+                      },
+                      autofocus: false,
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(width: 16.0),
-              Expanded(
-                flex: 1,
-                child: TextFormField(
-                  controller: _uriSuffixEditingController,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.uri_suffix,
-                    hintText: '.php',
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: TextFormField(
+                      controller: _lowerLimitEditingController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.lower_limit,
+                        hintText: '1',
+                      ),
+                      showCursor: true,
+                      maxLines: 1,
+                      validator: (String? value) {
+                        return _lowerLimitFieldValidator(context, value);
+                      },
+                      onChanged: (String value) {},
+                      onFieldSubmitted: (String value) {
+                        _crawl();
+                      },
+                      autofocus: false,
+                    ),
                   ),
-                  showCursor: true,
-                  maxLines: 1,
-                  // validator: (
-                  //   String? value,
-                  // ) {},
-                  onChanged: (String value) {},
-                  onFieldSubmitted: (String value) {
-                    _crawl();
-                  },
-                  autofocus: false,
+                  const SizedBox(width: 16.0),
+                  Expanded(
+                    child: TextFormField(
+                      controller: _upperLimitEditingController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.upper_limit,
+                        hintText: '100',
+                      ),
+                      showCursor: true,
+                      maxLines: 1,
+                      validator: (String? value) {
+                        return _upperLimitFieldValidator(context, value);
+                      },
+                      onChanged: (String value) {},
+                      onFieldSubmitted: (String value) {
+                        _crawl();
+                      },
+                      autofocus: false,
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    FilledButton.tonal(
+                      onPressed: _isCrawling ? null : _crawl,
+                      child: Text(AppLocalizations.of(context)!.crawl),
+                    ),
+                    FilledButton.tonal(
+                      onPressed: _isCrawling
+                          ? () {
+                              _stop(context);
+                            }
+                          : null,
+                      child: Text(AppLocalizations.of(context)!.stop),
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: TextFormField(
-                  controller: _lowerLimitEditingController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.lower_limit,
-                    hintText: '1',
-                  ),
-                  showCursor: true,
-                  maxLines: 1,
-                  validator: (String? value) {
-                    return _lowerLimitFieldValidator(context, value);
-                  },
-                  onChanged: (String value) {},
-                  onFieldSubmitted: (String value) {
-                    _crawl();
-                  },
-                  autofocus: false,
-                ),
-              ),
-              const SizedBox(width: 16.0),
-              Expanded(
-                child: TextFormField(
-                  controller: _upperLimitEditingController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.upper_limit,
-                    hintText: '100',
-                  ),
-                  showCursor: true,
-                  maxLines: 1,
-                  validator: (String? value) {
-                    return _upperLimitFieldValidator(context, value);
-                  },
-                  onChanged: (String value) {},
-                  onFieldSubmitted: (String value) {
-                    _crawl();
-                  },
-                  autofocus: false,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              ElevatedButton(
-                onPressed: _isCrawling ? null : _crawl,
-                child: Text(AppLocalizations.of(context)!.crawl),
-              ),
-              ElevatedButton(
-                onPressed: _isCrawling
-                    ? () {
-                        _stop(context);
-                      }
-                    : null,
-                child: Text(AppLocalizations.of(context)!.stop),
-              ),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }
 
-  Widget _resultColumn(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        for (MapEntry<String, dynamic> entry in webPages.entries)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: Card(
-              child: ListTile(
-                leading: const Icon(Icons.link_rounded),
-                title: Text(
-                  entry.value,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                trailing: IconButton(
-                  icon: const Icon(Icons.copy_rounded),
-                  onPressed: () {
-                    copyToClipboard(
-                      context,
-                      AppLocalizations.of(context)!.uri,
-                      entry.key,
-                    );
-                  },
-                  tooltip: AppLocalizations.of(context)!.copy_to_clipboard,
+  Widget _resultWrapper(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          for (MapEntry<String, dynamic> entry in webPages.entries)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: Card(
+                child: ListTile(
+                  leading: const Icon(Icons.link_rounded),
+                  title: Text(
+                    entry.value,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.copy_rounded),
+                    onPressed: () {
+                      copyToClipboard(
+                        context,
+                        AppLocalizations.of(context)!.uri,
+                        entry.key,
+                      );
+                    },
+                    tooltip: AppLocalizations.of(context)!.copy_to_clipboard,
+                  ),
                 ),
               ),
             ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -316,14 +326,12 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
         title: AppLocalizations.of(context)!.series_uri_crawler,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _form(context),
-            const SizedBox(height: 16.0),
-            _resultColumn(context),
-            const SizedBox(height: 8.0),
+            _resultWrapper(context),
             if (_isCrawling) const Center(child: CircularProgressIndicator()),
           ],
         ),

@@ -9,8 +9,8 @@ import 'package:bitscoper_cyberkit/commons/notification_sender.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
 import 'package:dns_client/dns_client.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:material_ui/material_ui.dart';
 
 class DNSRecordRetrieverPage extends StatefulWidget {
   const DNSRecordRetrieverPage({super.key});
@@ -247,87 +247,99 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
   }
 
   Widget _form(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TextFormField(
-            controller: _hostEditingController,
-            keyboardType: TextInputType.url,
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              labelText: AppLocalizations.of(context)!.a_host_or_ip_address,
-              hintText: 'bitscoper.dev',
-            ),
-            showCursor: true,
-            maxLines: 1,
-            validator: (String? value) {
-              return _hostFieldValidator(context, value);
-            },
-            onChanged: (String value) {},
-            onFieldSubmitted: (String value) {
-              _retrieve(context);
-            },
-            autofocus: true,
-          ),
-          const SizedBox(height: 16.0),
-          TextFormField(
-            controller: _providerEditingController,
-            keyboardType: TextInputType.url,
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              labelText: AppLocalizations.of(context)!.dns_provider,
-              hintText: _dnsProviderExample,
-            ),
-            showCursor: true,
-            maxLines: 1,
-            validator: (String? value) {
-              return _providerFieldValidator(context, value);
-            },
-            onChanged: (String value) {},
-            onFieldSubmitted: (String value) {
-              _retrieve(context);
-            },
-            autofocus: false,
-          ),
-          const SizedBox(height: 16.0),
-          Center(
-            child: ElevatedButton.icon(
-              icon: const Icon(Icons.checklist_rounded),
-              label: Text(
-                "${_numberFormat.format(_selectedRecordTypes.length)} ${AppLocalizations.of(context)!.types}",
-              ),
-              onPressed: () {
-                _selectRecordTypes(context);
-              },
-            ),
-          ),
-          const SizedBox(height: 16.0),
-          Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                ElevatedButton(
-                  onPressed: _isRetrieving
-                      ? null
-                      : () {
-                          _retrieve(context);
-                        },
-                  child: Text(AppLocalizations.of(context)!.retrieve),
+                TextFormField(
+                  controller: _hostEditingController,
+                  keyboardType: TextInputType.url,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: AppLocalizations.of(context)!
+                        .a_host_or_ip_address,
+                    hintText: 'bitscoper.dev',
+                  ),
+                  showCursor: true,
+                  maxLines: 1,
+                  validator: (String? value) {
+                    return _hostFieldValidator(context, value);
+                  },
+                  onChanged: (String value) {},
+                  onFieldSubmitted: (String value) {
+                    _retrieve(context);
+                  },
+                  autofocus: true,
                 ),
-                ElevatedButton(
-                  onPressed: _isRetrieving
-                      ? () {
-                          _stop(context);
-                        }
-                      : null,
-                  child: Text(AppLocalizations.of(context)!.stop),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: TextFormField(
+                    controller: _providerEditingController,
+                    keyboardType: TextInputType.url,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: AppLocalizations.of(context)!.dns_provider,
+                      hintText: _dnsProviderExample,
+                    ),
+                    showCursor: true,
+                    maxLines: 1,
+                    validator: (String? value) {
+                      return _providerFieldValidator(context, value);
+                    },
+                    onChanged: (String value) {},
+                    onFieldSubmitted: (String value) {
+                      _retrieve(context);
+                    },
+                    autofocus: false,
+                  ),
+                ),
+                Center(
+                  child: FilledButton.icon(
+                    icon: const Icon(Icons.checklist_rounded),
+                    label: Text(
+                      "${_numberFormat.format(_selectedRecordTypes.length)} ${AppLocalizations.of(context)!.types}",
+                    ),
+                    onPressed: () {
+                      _selectRecordTypes(context);
+                    },
+                  ),
+                ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        FilledButton.tonal(
+                          onPressed: _isRetrieving
+                              ? null
+                              : () {
+                                  _retrieve(context);
+                                },
+                          child: Text(AppLocalizations.of(context)!.retrieve),
+                        ),
+                        FilledButton.tonal(
+                          onPressed: _isRetrieving
+                              ? () {
+                                  _stop(context);
+                                }
+                              : null,
+                          child: Text(AppLocalizations.of(context)!.stop),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -360,19 +372,22 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
             },
           ),
         ),
-        const SizedBox(height: 16.0),
-        const Center(child: CircularProgressIndicator()),
-        const SizedBox(height: 16.0),
+        const Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 16.0),
+            child: CircularProgressIndicator(),
+          ),
+        ),
       ],
     );
   }
 
-  Widget _resultColumn(BuildContext context) {
+  Widget _resultWrapper(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: _records.map((record) {
         return Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
+          padding: const EdgeInsets.only(bottom: 16.0),
           child: Card(
             child: ListTile(
               title: Text(record.type),
@@ -402,14 +417,13 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
         title: AppLocalizations.of(context)!.dns_record_retriever,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _form(context),
-            const SizedBox(height: 16.0),
             if (_isRetrieving) _progressStatus(),
-            _resultColumn(context),
+            _resultWrapper(context),
           ],
         ),
       ),

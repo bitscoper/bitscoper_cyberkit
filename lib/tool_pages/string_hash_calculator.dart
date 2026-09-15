@@ -10,7 +10,7 @@ import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 final NotifierProvider<StringNotifier, String> stringNotifierProvider =
     NotifierProvider.autoDispose<StringNotifier, String>(() {
@@ -81,23 +81,31 @@ class StringHashCalculatorPage extends ConsumerWidget {
     final StringNotifier notifier = ref.read(stringNotifierProvider.notifier);
     final TextEditingController editingController = notifier.controller;
 
-    return Form(
-      child: TextFormField(
-        controller: editingController,
-        keyboardType: TextInputType.multiline,
-        decoration: InputDecoration(
-          border: const OutlineInputBorder(),
-          labelText: AppLocalizations.of(context)!.a_multiline_string,
-          hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            child: TextFormField(
+              controller: editingController,
+              keyboardType: TextInputType.multiline,
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                labelText: AppLocalizations.of(context)!.a_multiline_string,
+                hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
+              ),
+              showCursor: true,
+              maxLines: null,
+              validator: (String? value) {
+                return _stringFieldValidator(context, value);
+              },
+              onChanged: (String value) {},
+              onFieldSubmitted: (String value) {},
+              autofocus: true,
+            ),
+          ),
         ),
-        showCursor: true,
-        maxLines: null,
-        validator: (String? value) {
-          return _stringFieldValidator(context, value);
-        },
-        onChanged: (String value) {},
-        onFieldSubmitted: (String value) {},
-        autofocus: true,
       ),
     );
   }
@@ -113,7 +121,7 @@ class StringHashCalculatorPage extends ConsumerWidget {
     );
   }
 
-  Widget _resultColumn(
+  Widget _resultWrapper(
     BuildContext context,
     WidgetRef ref,
     Map<String, String> hashes,
@@ -155,14 +163,13 @@ class StringHashCalculatorPage extends ConsumerWidget {
         title: AppLocalizations.of(context)!.string_hash_calculator,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _form(context, ref),
-            const SizedBox(height: 16.0),
             string.isNotEmpty
-                ? _resultColumn(context, ref, hashes)
+                ? _resultWrapper(context, ref, hashes)
                 : _startNotice(context),
           ],
         ),

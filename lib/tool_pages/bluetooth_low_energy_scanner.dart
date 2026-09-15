@@ -6,8 +6,8 @@ import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:material_ui/material_ui.dart';
 
 class BluetoothLowEnergyScannerPage extends StatefulWidget {
   const BluetoothLowEnergyScannerPage({super.key});
@@ -117,19 +117,36 @@ class BluetoothLowEnergyScannerPageState
   }
 
   Widget _form(BuildContext context) {
-    return Form(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          ElevatedButton(
-            onPressed: _isScanning ? null : _scan,
-            child: Text(AppLocalizations.of(context)!.scan),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                FilledButton.tonal(
+                  onPressed: _isScanning ? null : _scan,
+                  child: Text(AppLocalizations.of(context)!.scan),
+                ),
+                FilledButton.tonal(
+                  onPressed: _isScanning ? _stop : null,
+                  child: Text(AppLocalizations.of(context)!.stop),
+                ),
+              ],
+            ),
           ),
-          ElevatedButton(
-            onPressed: _isScanning ? _stop : null,
-            child: Text(AppLocalizations.of(context)!.stop),
-          ),
-        ],
+        ),
+      ),
+    );
+  }
+
+  Widget _progressIndicator() {
+    return const Center(
+      child: Padding(
+        padding: EdgeInsets.only(bottom: 16.0),
+        child: CircularProgressIndicator(),
       ),
     );
   }
@@ -138,86 +155,87 @@ class BluetoothLowEnergyScannerPageState
     final BluetoothDevice device = scanResult.device;
     final AdvertisementData advertisement = scanResult.advertisementData;
 
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      child: ListTile(
-        title: Text(
-          advertisement.advName.isNotEmpty
-              ? advertisement.advName
-              : AppLocalizations.of(context)!.unknown,
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: "${AppLocalizations.of(context)!.address}: ",
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(text: device.remoteId.str),
-                ],
-              ),
-            ),
-            Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: "${AppLocalizations.of(context)!.rssi}: ",
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(text: "${scanResult.rssi} dBm"),
-                ],
-              ),
-            ),
-            Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: "${AppLocalizations.of(context)!.connectable}: ",
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(text: advertisement.connectable.toString()),
-                ],
-              ),
-            ),
-            if (advertisement.serviceUuids.isNotEmpty)
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Card(
+        child: ListTile(
+          title: Text(
+            advertisement.advName.isNotEmpty
+                ? advertisement.advName
+                : AppLocalizations.of(context)!.unknown,
+          ),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
               Text.rich(
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: "${AppLocalizations.of(context)!.service_type}: ",
+                      text: "${AppLocalizations.of(context)!.address}: ",
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    TextSpan(text: advertisement.serviceUuids.join(", ")),
+                    TextSpan(text: device.remoteId.str),
                   ],
                 ),
               ),
-            if (advertisement.manufacturerData.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Card(
-                  color: Theme.of(context).hoverColor,
-                  child: ListTile(
-                    title: Text(AppLocalizations.of(context)!.manufacturer),
-                    subtitle: Text(
-                      advertisement.manufacturerData.entries
-                          .map((MapEntry<int, List<int>> entry) {
-                            return "0x${entry.key.toRadixString(16)}: ${entry.value}";
-                          })
-                          .join("\n"),
+              Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "${AppLocalizations.of(context)!.rssi}: ",
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(text: "${scanResult.rssi} dBm"),
+                  ],
+                ),
+              ),
+              Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "${AppLocalizations.of(context)!.connectable}: ",
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(text: advertisement.connectable.toString()),
+                  ],
+                ),
+              ),
+              if (advertisement.serviceUuids.isNotEmpty)
+                Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "${AppLocalizations.of(context)!.service_type}: ",
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      TextSpan(text: advertisement.serviceUuids.join(", ")),
+                    ],
+                  ),
+                ),
+              if (advertisement.manufacturerData.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Card(
+                    child: ListTile(
+                      title: Text(AppLocalizations.of(context)!.manufacturer),
+                      subtitle: Text(
+                        advertisement.manufacturerData.entries
+                            .map((MapEntry<int, List<int>> entry) {
+                              return "0x${entry.key.toRadixString(16)}: ${entry.value}";
+                            })
+                            .join("\n"),
+                      ),
                     ),
                   ),
                 ),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _resultColumn(BuildContext context) {
+  Widget _resultWrapper(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: _scanResults.map((ScanResult scanResult) {
@@ -233,15 +251,13 @@ class BluetoothLowEnergyScannerPageState
         title: AppLocalizations.of(context)!.bluetooth_le_scanner,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _form(context),
-            const SizedBox(height: 16.0),
-            if (_isScanning) const Center(child: CircularProgressIndicator()),
-            const SizedBox(height: 16.0),
-            if (_scanResults.isNotEmpty) _resultColumn(context),
+            if (_isScanning) _progressIndicator(),
+            if (_scanResults.isNotEmpty) _resultWrapper(context),
           ],
         ),
       ),

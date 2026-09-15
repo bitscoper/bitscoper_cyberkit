@@ -8,7 +8,7 @@ import 'package:bitscoper_cyberkit/commons/copy_to_clipboard.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 final NotifierProvider<StringNotifier, String> stringNotifierProvider =
     NotifierProvider.autoDispose<StringNotifier, String>(() {
@@ -87,139 +87,168 @@ class BaseEncoderPage extends ConsumerWidget {
     final StringNotifier notifier = ref.read(stringNotifierProvider.notifier);
     final TextEditingController editingController = notifier.controller;
 
-    return Form(
-      child: TextFormField(
-        controller: editingController,
-        keyboardType: TextInputType.multiline,
-        decoration: InputDecoration(
-          border: const OutlineInputBorder(),
-          labelText: AppLocalizations.of(context)!.a_multiline_string,
-          hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            child: TextFormField(
+              controller: editingController,
+              keyboardType: TextInputType.multiline,
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                labelText: AppLocalizations.of(context)!.a_multiline_string,
+                hintText: AppLocalizations.of(context)!.abdullah_as_sadeed,
+              ),
+              showCursor: true,
+              maxLines: null,
+              validator: (String? value) {
+                return _stringFieldValidator(context, value);
+              },
+              onChanged: (String value) {},
+              onFieldSubmitted: (String value) {},
+              autofocus: true,
+            ),
+          ),
         ),
-        showCursor: true,
-        maxLines: null,
-        validator: (String? value) {
-          return _stringFieldValidator(context, value);
-        },
-        onChanged: (String value) {},
-        onFieldSubmitted: (String value) {},
-        autofocus: true,
       ),
     );
   }
 
   Widget _startNotice(BuildContext context) {
-    return Center(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            AppLocalizations.of(context)!
-                .start_typing_a_string_to_encode_it_into_the_bases,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 8.0),
-          const Wrap(
-            alignment: WrapAlignment.center,
-            children: <Widget>[
-              Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Binary (Base2)'),
-                ),
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              AppLocalizations.of(context)!
+                  .start_typing_a_string_to_encode_it_into_the_bases,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: const Wrap(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text('Binary (Base2)'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text('Ternary (Base3)'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text('Quaternary (Base4)'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text('Quinary (Base5)'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text('Senary (Base6)'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text('Octal (Base8)'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text('Decimal (Base10)'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text('Duodecimal (Base12)'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text('Hexadecimal (Base16)'),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text('Base32'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text('Base32Hex'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text('Base36'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text('Base58'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text('Base62'),
+                            ),
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text('Base64'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Ternary (Base3)'),
-                ),
-              ),
-              Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Quaternary (Base4)'),
-                ),
-              ),
-              Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Quinary (Base5)'),
-                ),
-              ),
-              Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Senary (Base6)'),
-                ),
-              ),
-              Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Octal (Base8)'),
-                ),
-              ),
-              Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Decimal (Base10)'),
-                ),
-              ),
-              Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Duodecimal (Base12)'),
-                ),
-              ),
-              Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Hexadecimal (Base16)'),
-                ),
-              ),
-              Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Base32'),
-                ),
-              ),
-              Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Base32Hex'),
-                ),
-              ),
-              Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Base36'),
-                ),
-              ),
-              Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Base58'),
-                ),
-              ),
-              Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Base62'),
-                ),
-              ),
-              Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Base64'),
-                ),
-              ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _resultColumn(BuildContext context, WidgetRef ref, String string) {
+  Widget _resultWrapper(BuildContext context, WidgetRef ref, String string) {
     if (string.isNotEmpty) {
       final Map<String, String> bases = ref.watch(basesProvider);
 
@@ -246,7 +275,7 @@ class BaseEncoderPage extends ConsumerWidget {
           } finally {}
 
           return Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
+            padding: const EdgeInsets.only(bottom: 16.0),
             child: Card(
               child: ListTile(
                 title: Text(entry.key),
@@ -277,14 +306,13 @@ class BaseEncoderPage extends ConsumerWidget {
         title: AppLocalizations.of(context)!.base_encoder,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _form(context, ref),
-            const SizedBox(height: 16.0),
             string.isNotEmpty
-                ? _resultColumn(context, ref, string)
+                ? _resultWrapper(context, ref, string)
                 : _startNotice(context),
           ],
         ),

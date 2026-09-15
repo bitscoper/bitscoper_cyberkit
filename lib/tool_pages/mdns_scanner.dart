@@ -6,8 +6,8 @@ import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:multicast_dns/multicast_dns.dart';
 
 class MDNSScannerPage extends StatefulWidget {
@@ -298,23 +298,28 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
   }
 
   Widget _form(BuildContext context) {
-    return Form(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          ElevatedButton(
-            onPressed: _isScanning ? null : _scan,
-            child: Text(AppLocalizations.of(context)!.scan),
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              FilledButton.tonal(
+                onPressed: _isScanning ? null : _scan,
+                child: Text(AppLocalizations.of(context)!.scan),
+              ),
+              FilledButton.tonal(
+                onPressed: _isScanning
+                    ? () {
+                        _stop(context);
+                      }
+                    : null,
+                child: Text(AppLocalizations.of(context)!.stop),
+              ),
+            ],
           ),
-          ElevatedButton(
-            onPressed: _isScanning
-                ? () {
-                    _stop(context);
-                  }
-                : null,
-            child: Text(AppLocalizations.of(context)!.stop),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -348,195 +353,225 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
   ) {
     final String dateTimeFormat = "MMMM dd, yyyy hh:mm:ss a";
 
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      child: ListTile(
-        title: Text(host.pointerResourceRecord.domainName),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            _buildInformationRow(
-              context,
-              AppLocalizations.of(context)!.name_or_target,
-              host.pointerResourceRecord.domainName,
-            ),
-            _buildInformationRow(
-              context,
-              AppLocalizations.of(context)!.domain_name_or_bundle_identifier,
-              host.pointerResourceRecord.name,
-            ),
-            _buildInformationRow(
-              context,
-              AppLocalizations.of(context)!.service_target,
-              host.serviceResourceRecord.target,
-            ),
-            _buildInformationRow(
-              context,
-              AppLocalizations.of(context)!.address,
-              host.ipAddressResourceRecords
-                  .map((IPAddressResourceRecord record) {
-                    return record.address.address;
-                  })
-                  .join(', '),
-            ),
-            _buildInformationRow(
-              context,
-              AppLocalizations.of(context)!.port,
-              '${host.serviceResourceRecord.port}',
-            ),
-            _buildInformationRow(
-              context,
-              AppLocalizations.of(context)!.service_type,
-              _extractServiceType(host.pointerResourceRecord.domainName)!,
-            ),
-            const SizedBox(height: 8.0),
-            Card(
-              color: Theme.of(context).hoverColor,
-              child: ListTile(
-                title: Text(AppLocalizations.of(context)!.ptr_record),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    _buildInformationRow(
-                      context,
-                      AppLocalizations.of(context)!.name,
-                      host.pointerResourceRecord.name,
-                    ),
-                    _buildInformationRow(
-                      context,
-                      AppLocalizations.of(context)!.domain_name,
-                      host.pointerResourceRecord.domainName,
-                    ),
-                    _buildInformationRow(
-                      context,
-                      AppLocalizations.of(context)!.record_type,
-                      '${host.pointerResourceRecord.resourceRecordType}',
-                    ),
-                    _buildInformationRow(
-                      context,
-                      AppLocalizations.of(context)!.validity,
-                      DateFormat(dateTimeFormat).format(
-                        DateTime.fromMillisecondsSinceEpoch(
-                          host.pointerResourceRecord.validUntil,
-                        ),
-                      ),
-                    ),
-                  ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Card(
+        child: ListTile(
+          title: Text(
+            host.pointerResourceRecord.domainName,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          subtitle: Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                _buildInformationRow(
+                  context,
+                  AppLocalizations.of(context)!.name_or_target,
+                  host.pointerResourceRecord.domainName,
                 ),
-              ),
-            ),
-            Card(
-              color: Theme.of(context).hoverColor,
-              child: ListTile(
-                title: Text(AppLocalizations.of(context)!.srv_record),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    _buildInformationRow(
-                      context,
-                      AppLocalizations.of(context)!.name,
-                      host.serviceResourceRecord.name,
-                    ),
-                    _buildInformationRow(
-                      context,
-                      AppLocalizations.of(context)!.target,
-                      host.serviceResourceRecord.target,
-                    ),
-                    _buildInformationRow(
-                      context,
-                      AppLocalizations.of(context)!.port,
-                      '${host.serviceResourceRecord.port}',
-                    ),
-                    _buildInformationRow(
-                      context,
-                      AppLocalizations.of(context)!.priority,
-                      '${host.serviceResourceRecord.priority}',
-                    ),
-                    _buildInformationRow(
-                      context,
-                      AppLocalizations.of(context)!.weight,
-                      '${host.serviceResourceRecord.weight}',
-                    ),
-                    _buildInformationRow(
-                      context,
-                      AppLocalizations.of(context)!.record_type,
-                      '${host.serviceResourceRecord.resourceRecordType}',
-                    ),
-                    _buildInformationRow(
-                      context,
-                      AppLocalizations.of(context)!.validity,
-                      DateFormat(dateTimeFormat).format(
-                        DateTime.fromMillisecondsSinceEpoch(
-                          host.serviceResourceRecord.validUntil,
-                        ),
-                      ),
-                    ),
-                  ],
+                _buildInformationRow(
+                  context,
+                  AppLocalizations.of(context)!
+                      .domain_name_or_bundle_identifier,
+                  host.pointerResourceRecord.name,
                 ),
-              ),
-            ),
-            if (host.textResourceRecord != null &&
-                host.textResourceRecord!.text.isNotEmpty)
-              Card(
-                color: Theme.of(context).hoverColor,
-                child: ListTile(
-                  title: Text(AppLocalizations.of(context)!.txt_record),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      _buildInformationRow(
-                        context,
-                        AppLocalizations.of(context)!.name,
-                        host.textResourceRecord!.name,
-                      ),
-                      _buildInformationRow(
-                        context,
-                        AppLocalizations.of(context)!.record_type,
-                        '${host.textResourceRecord!.resourceRecordType}',
-                      ),
-                      _buildInformationRow(
-                        context,
-                        AppLocalizations.of(context)!.validity,
-                        DateFormat(dateTimeFormat).format(
-                          DateTime.fromMillisecondsSinceEpoch(
-                            host.textResourceRecord!.validUntil,
+                _buildInformationRow(
+                  context,
+                  AppLocalizations.of(context)!.service_target,
+                  host.serviceResourceRecord.target,
+                ),
+                _buildInformationRow(
+                  context,
+                  AppLocalizations.of(context)!.address,
+                  host.ipAddressResourceRecords
+                      .map((IPAddressResourceRecord record) {
+                        return record.address.address;
+                      })
+                      .join(', '),
+                ),
+                _buildInformationRow(
+                  context,
+                  AppLocalizations.of(context)!.port,
+                  '${host.serviceResourceRecord.port}',
+                ),
+                _buildInformationRow(
+                  context,
+                  AppLocalizations.of(context)!.service_type,
+                  _extractServiceType(host.pointerResourceRecord.domainName)!,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Card(
+                    child: ListTile(
+                      title: Text(AppLocalizations.of(context)!.ptr_record),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          _buildInformationRow(
+                            context,
+                            AppLocalizations.of(context)!.name,
+                            host.pointerResourceRecord.name,
                           ),
-                        ),
-                      ),
-                      const SizedBox(height: 8.0),
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: ListTile(
-                            title: Text(AppLocalizations.of(context)!.value),
-                            subtitle: Text(host.textResourceRecord!.text),
+                          _buildInformationRow(
+                            context,
+                            AppLocalizations.of(context)!.domain_name,
+                            host.pointerResourceRecord.domainName,
                           ),
-                        ),
+                          _buildInformationRow(
+                            context,
+                            AppLocalizations.of(context)!.record_type,
+                            '${host.pointerResourceRecord.resourceRecordType}',
+                          ),
+                          _buildInformationRow(
+                            context,
+                            AppLocalizations.of(context)!.validity,
+                            DateFormat(dateTimeFormat).format(
+                              DateTime.fromMillisecondsSinceEpoch(
+                                host.pointerResourceRecord.validUntil,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-          ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Card(
+                    child: ListTile(
+                      title: Text(AppLocalizations.of(context)!.srv_record),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          _buildInformationRow(
+                            context,
+                            AppLocalizations.of(context)!.name,
+                            host.serviceResourceRecord.name,
+                          ),
+                          _buildInformationRow(
+                            context,
+                            AppLocalizations.of(context)!.target,
+                            host.serviceResourceRecord.target,
+                          ),
+                          _buildInformationRow(
+                            context,
+                            AppLocalizations.of(context)!.port,
+                            '${host.serviceResourceRecord.port}',
+                          ),
+                          _buildInformationRow(
+                            context,
+                            AppLocalizations.of(context)!.priority,
+                            '${host.serviceResourceRecord.priority}',
+                          ),
+                          _buildInformationRow(
+                            context,
+                            AppLocalizations.of(context)!.weight,
+                            '${host.serviceResourceRecord.weight}',
+                          ),
+                          _buildInformationRow(
+                            context,
+                            AppLocalizations.of(context)!.record_type,
+                            '${host.serviceResourceRecord.resourceRecordType}',
+                          ),
+                          _buildInformationRow(
+                            context,
+                            AppLocalizations.of(context)!.validity,
+                            DateFormat(dateTimeFormat).format(
+                              DateTime.fromMillisecondsSinceEpoch(
+                                host.serviceResourceRecord.validUntil,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                if (host.textResourceRecord != null &&
+                    host.textResourceRecord!.text.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Card(
+                      child: ListTile(
+                        title: Text(AppLocalizations.of(context)!.txt_record),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            _buildInformationRow(
+                              context,
+                              AppLocalizations.of(context)!.name,
+                              host.textResourceRecord!.name,
+                            ),
+                            _buildInformationRow(
+                              context,
+                              AppLocalizations.of(context)!.record_type,
+                              '${host.textResourceRecord!.resourceRecordType}',
+                            ),
+                            _buildInformationRow(
+                              context,
+                              AppLocalizations.of(context)!.validity,
+                              DateFormat(dateTimeFormat).format(
+                                DateTime.fromMillisecondsSinceEpoch(
+                                  host.textResourceRecord!.validUntil,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: Card(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: ListTile(
+                                    title: Text(
+                                      AppLocalizations.of(context)!.value,
+                                    ),
+                                    subtitle: Text(
+                                      host.textResourceRecord!.text,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 
+  Widget _progressIndicator() {
+    return const Padding(
+      padding: EdgeInsets.only(top: 16.0),
+      child: Center(child: CircularProgressIndicator()),
+    );
+  }
+
   Widget _resultWrapper() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: _hosts.map((
-        ({
-          List<IPAddressResourceRecord> ipAddressResourceRecords,
-          PtrResourceRecord pointerResourceRecord,
-          SrvResourceRecord serviceResourceRecord,
-          TxtResourceRecord? textResourceRecord,
-        })
-        host,
-      ) {
-        return _buildInformationCard(host);
-      }).toList(),
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: _hosts.map((
+          ({
+            List<IPAddressResourceRecord> ipAddressResourceRecords,
+            PtrResourceRecord pointerResourceRecord,
+            SrvResourceRecord serviceResourceRecord,
+            TxtResourceRecord? textResourceRecord,
+          })
+          host,
+        ) {
+          return _buildInformationCard(host);
+        }).toList(),
+      ),
     );
   }
 
@@ -547,13 +582,12 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
         title: AppLocalizations.of(context)!.mdns_scanner,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _form(context),
-            const SizedBox(height: 16.0),
-            if (_isScanning) const Center(child: CircularProgressIndicator()),
+            if (_isScanning) _progressIndicator(),
             _resultWrapper(),
           ],
         ),
