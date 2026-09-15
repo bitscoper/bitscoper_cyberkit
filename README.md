@@ -5,6 +5,7 @@
 
 A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner, mDNS Scanner, UPnP Scanner, Route Tracer, TCP Port Scanner, Pinger, DNS Record Retriever, File Hash Calculator, String Hash Calculator, Base Encoder, Series URI Crawler, OGP Data Extractor, WHOIS Retriever, CVSS Calculator, Morse Code Translator, and Wi-Fi Details Viewer.
 
+[![No AI](https://raw.githubusercontent.com/nuxy/no-ai-badge/master/badge.svg)](https://github.com/nuxy/no-ai-badge/)
 [![Build, Release, and Deploy](https://github.com/bitscoper/bitscoper_cyberkit/actions/workflows/Build,%20Release,%20and%20Deploy.yaml/badge.svg)](https://github.com/bitscoper/bitscoper_cyberkit/actions/workflows/Build,%20Release,%20and%20Deploy.yaml)
 [![IzzyOnDroid F-Droid Reproducible Builds Status](https://shields.rbtlog.dev/simple/bitscoper.bitscoper_cyberkit)](https://shields.rbtlog.dev/bitscoper.bitscoper_cyberkit)
 [![IzzyOnDroid F-Droid Yearly Downloads](https://img.shields.io/badge/dynamic/json?url=https://dlstats.izzyondroid.org/iod-stats-collector/stats/basic/yearly/rolling.json&query=$.['bitscoper.bitscoper_cyberkit']&label=IzzyOnDroid%20Yearly%20Downloads)](https://apt.izzysoft.de/packages/bitscoper.bitscoper_cyberkit/)
