@@ -69,13 +69,9 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                           spacing: 8,
                           runSpacing: 8,
                           children: RRType.values.map((RRType type) {
-                            final bool selected = _selectedRecordTypes.contains(
-                              type,
-                            );
-
                             return FilterChip(
                               label: Text(type.name.toUpperCase()),
-                              selected: selected,
+                              selected: _selectedRecordTypes.contains(type),
                               onSelected: (bool value) {
                                 try {
                                   setDialogState(() {
@@ -246,6 +242,42 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
     } finally {}
   }
 
+  Widget _recordTypeSelector(BuildContext context) {
+    return Card(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            "${_numberFormat.format(_selectedRecordTypes.length)} "
+            "${AppLocalizations.of(context)!.record_types}",
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: Wrap(
+              spacing: 8.0,
+              runSpacing: 8.0,
+              children: RRType.values.map((RRType type) {
+                return FilterChip(
+                  label: Text(type.name.toUpperCase()),
+                  selected: _selectedRecordTypes.contains(type),
+                  onSelected: (bool value) {
+                    setState(() {
+                      if (value) {
+                        _selectedRecordTypes.add(type);
+                      } else {
+                        _selectedRecordTypes.remove(type);
+                      }
+                    });
+                  },
+                );
+              }).toList(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _form(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
@@ -299,17 +331,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                     autofocus: false,
                   ),
                 ),
-                Center(
-                  child: FilledButton.icon(
-                    icon: const Icon(Icons.checklist_rounded),
-                    label: Text(
-                      "${_numberFormat.format(_selectedRecordTypes.length)} ${AppLocalizations.of(context)!.types}",
-                    ),
-                    onPressed: () {
-                      _selectRecordTypes(context);
-                    },
-                  ),
-                ),
+                _recordTypeSelector(context),
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.only(top: 16.0),

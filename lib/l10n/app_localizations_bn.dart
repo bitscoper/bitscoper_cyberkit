@@ -413,9 +413,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get txt_record => 'টিএক্সটি রেকর্ড';
 
   @override
-  String get types => 'ধরন';
-
-  @override
   String get unknown => 'অজানা';
 
   @override

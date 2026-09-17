@@ -8,6 +8,7 @@ import 'package:bitscoper_cyberkit/commons/notification_sender.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
 import 'package:dart_ping/dart_ping.dart';
+import 'package:flutter/services.dart';
 import 'package:material_ui/material_ui.dart';
 
 class IPv4SubnetScannerPage extends StatefulWidget {
@@ -22,6 +23,8 @@ class IPv4SubnetScannerPage extends StatefulWidget {
 class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _subnetEditingController =
+      TextEditingController();
+  final TextEditingController _parallelismEditingController =
       TextEditingController();
   final Set<Ping> _activePings = <Ping>{};
 
@@ -63,9 +66,12 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
         }
 
         await Future.wait(
-          List<Future<void>>.generate(Platform.numberOfProcessors, (int index) {
-            return worker();
-          }),
+          List<Future<void>>.generate(
+            int.parse(_parallelismEditingController.text.trim()),
+            (int index) {
+              return worker();
+            },
+          ),
         );
       }
 
@@ -166,24 +172,56 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              TextFormField(
-                controller: _subnetEditingController,
-                keyboardType: TextInputType.url,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: AppLocalizations.of(context)!.an_ipv4_subnet,
-                  hintText: "1.1.1",
-                ),
-                showCursor: true,
-                maxLines: 1,
-                validator: (String? value) {
-                  return _subnetFieldValidator(context, value);
-                },
-                onChanged: (String value) {},
-                onFieldSubmitted: (String value) {
-                  _scan(context);
-                },
-                autofocus: true,
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    flex: 3,
+                    child: TextFormField(
+                      controller: _subnetEditingController,
+                      keyboardType: TextInputType.url,
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: AppLocalizations.of(context)!.an_ipv4_subnet,
+                        hintText: "1.1.1",
+                      ),
+                      showCursor: true,
+                      maxLines: 1,
+                      validator: (String? value) {
+                        return _subnetFieldValidator(context, value);
+                      },
+                      onChanged: (String value) {},
+                      onFieldSubmitted: (String value) {
+                        _scan(context);
+                      },
+                      autofocus: true,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: TextFormField(
+                        controller: _parallelismEditingController,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
+                          labelText: AppLocalizations.of(context)!.parallelism,
+                          hintText: '64',
+                        ),
+                        showCursor: true,
+                        maxLines: 1,
+                        onChanged: (String value) {},
+                        onFieldSubmitted: (String value) {
+                          _scan(context);
+                        },
+                        autofocus: false,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 16.0),
@@ -281,11 +319,14 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
   @override
   void initState() {
     super.initState();
+
+    _parallelismEditingController.text = Platform.numberOfProcessors.toString();
   }
 
   @override
   void dispose() {
     _subnetEditingController.dispose();
+    _parallelismEditingController.dispose();
 
     for (final Ping ping in _activePings) {
       ping.stop();

@@ -868,12 +868,6 @@ abstract class AppLocalizations {
   /// **'TXT Record'**
   String get txt_record;
 
-  /// No description provided for @types.
-  ///
-  /// In en, this message translates to:
-  /// **'Types'**
-  String get types;
-
   /// No description provided for @unknown.
   ///
   /// In en, this message translates to:

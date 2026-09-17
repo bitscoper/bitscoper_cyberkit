@@ -409,9 +409,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get txt_record => 'TXT Record';
 
   @override
-  String get types => 'Types';
-
-  @override
   String get unknown => 'Unknown';
 
   @override
