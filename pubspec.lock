@@ -1035,6 +1035,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.5"
+  tdtx_nf_icons:
+    dependency: "direct main"
+    description:
+      name: tdtx_nf_icons
+      sha256: "91df7fd26f220ba990790557661d70c6de9e8e9ddcbc0cfa9d63fa4992eedc08"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.2+5"
   term_glyph:
     dependency: transitive
     description:

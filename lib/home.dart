@@ -26,6 +26,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:permission_guard/permission_guard.dart';
+import 'package:tdtx_nf_icons/tdtx_nf_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class _ToolCardWidget extends StatelessWidget {
@@ -175,7 +176,7 @@ class HomePage extends StatelessWidget {
                 ),
                 ListTile(
                   title: Text(AppLocalizations.of(context)!.check_version),
-                  leading: const Icon(Icons.update_rounded),
+                  leading: Icon(TDTxNFIcons.nf_md_update),
                   onTap: () {
                     try {
                       checkVersion(context);
@@ -192,8 +193,32 @@ class HomePage extends StatelessWidget {
                 ),
                 const Divider(),
                 ListTile(
-                  title: Text(AppLocalizations.of(context)!.source_code),
-                  leading: const Icon(Icons.code_rounded),
+                  title: Text(AppLocalizations.of(context)!.developer),
+                  leading: Icon(TDTxNFIcons.nf_oct_person),
+                  onTap: () async {
+                    try {
+                      final Uri uri = Uri.parse(
+                        'https://github.com/bitscoper/',
+                      );
+                      if (await canLaunchUrl(uri)) {
+                        await launchUrl(uri);
+                      }
+                    } catch (error) {
+                      debugPrint(error.toString());
+
+                      showMessageDialog(
+                        navigatorKey.currentContext!,
+                        AppLocalizations.of(navigatorKey.currentContext!)!
+                            .error,
+                        error.toString(),
+                      );
+                    } finally {}
+                  },
+                ),
+                const Divider(),
+                ListTile(
+                  title: Text(AppLocalizations.of(context)!.github_repository),
+                  leading: Icon(TDTxNFIcons.nf_md_github),
                   onTap: () async {
                     try {
                       final Uri uri = Uri.parse(
@@ -215,12 +240,12 @@ class HomePage extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  title: Text(AppLocalizations.of(context)!.privacy_policy),
-                  leading: const Icon(Icons.privacy_tip_rounded),
+                  title: Text(AppLocalizations.of(context)!.codeberg_mirror),
+                  leading: Icon(TDTxNFIcons.nf_linux_codeberg),
                   onTap: () async {
                     try {
                       final Uri uri = Uri.parse(
-                        'https://github.com/bitscoper/bitscoper_cyberkit/blob/main/PRIVACY_POLICY.md',
+                        'https://codeberg.org/bitscoper/bitscoper_cyberkit/',
                       );
                       if (await canLaunchUrl(uri)) {
                         await launchUrl(uri);
@@ -237,6 +262,30 @@ class HomePage extends StatelessWidget {
                     } finally {}
                   },
                 ),
+                ListTile(
+                  title: Text(AppLocalizations.of(context)!.gitlab_mirror),
+                  leading: Icon(TDTxNFIcons.nf_md_gitlab),
+                  onTap: () async {
+                    try {
+                      final Uri uri = Uri.parse(
+                        'https://gitlab.com/bitscoper/bitscoper_cyberkit/',
+                      );
+                      if (await canLaunchUrl(uri)) {
+                        await launchUrl(uri);
+                      }
+                    } catch (error) {
+                      debugPrint(error.toString());
+
+                      showMessageDialog(
+                        navigatorKey.currentContext!,
+                        AppLocalizations.of(navigatorKey.currentContext!)!
+                            .error,
+                        error.toString(),
+                      );
+                    } finally {}
+                  },
+                ),
+                const Divider(),
               ],
             ),
           ),

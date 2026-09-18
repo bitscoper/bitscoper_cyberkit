@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  tdtx_nf_icons
   url_launcher_linux
 )
 

@@ -41,7 +41,7 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get attention_to_update_checker =>
-      'এই আপডেট চেকার শুধু অ্যাপ্লিকেশনের GitHub রিপোজিটরিতে নতুন কোনো রিলিজ আছে কিনা তা জানায়। এটা স্বয়ংক্রিয়ভাবে চালু হয় না এবং কোনো কিছু ডাউনলোড বা ইনস্টলও করে না। আপনি যদি অ্যাপ্লিকেশনটি কোনো অ্যাপ্লিকেশন স্টোর থেকে ইনস্টল করে থাকেন, তাহলে সংশ্লিষ্ট ক্লায়েন্টটি ব্যবহার করুন।';
+      'এই আপডেট চেকার শুধু অ্যাপ্লিকেশনের গিটহাব রিপোজিটরিতে নতুন কোনো রিলিজ আছে কিনা তা জানায়। এটা স্বয়ংক্রিয়ভাবে চালু হয় না এবং কোনো কিছু ডাউনলোড বা ইনস্টলও করে না। আপনি যদি অ্যাপ্লিকেশনটি কোনো অ্যাপ্লিকেশন স্টোর থেকে ইনস্টল করে থাকেন, তাহলে সংশ্লিষ্ট ক্লায়েন্টটি ব্যবহার করুন।';
 
   @override
   String get availability_impact => 'অ্যাভেইলেবিলিটির ওপর প্রভাব';
@@ -78,6 +78,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get checking_version => 'সংস্করণ চেক করা হচ্ছে ...';
 
   @override
+  String get codeberg_mirror => 'কোডবার্গ মিরর';
+
+  @override
   String get common_vulnerability_scoring_system_v3_1_base_score =>
       'কমন ভালনারেবিলিটি স্কোরিং সিস্টেম v3.1 বেইস স্কোর';
 
@@ -107,6 +110,9 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get denied => 'অননুমোদিত';
+
+  @override
+  String get developer => 'ডেভেলপার';
 
   @override
   String get device => 'ডিভাইস';
@@ -178,6 +184,12 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get gateway => 'গেইটওয়ে';
+
+  @override
+  String get github_repository => 'গিটহাব রিপোজিটরি';
+
+  @override
+  String get gitlab_mirror => 'গিটল্যাব মিরর';
 
   @override
   String get hash => 'হ্যাশ';
@@ -275,9 +287,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get priority => 'অগ্রাধিকার';
 
   @override
-  String get privacy_policy => 'গোপনীয়তা নীতি';
-
-  @override
   String get privileges_required => 'প্রয়োজনীয় প্রিভিলেজেস';
 
   @override
@@ -349,9 +358,6 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get service_type => 'সার্ভিস টাইপ';
-
-  @override
-  String get source_code => 'সোর্স কোড';
 
   @override
   String get srv_record => 'এসআরভি রেকর্ড';

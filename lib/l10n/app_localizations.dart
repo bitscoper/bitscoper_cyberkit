@@ -230,6 +230,12 @@ abstract class AppLocalizations {
   /// **'Checking Version ...'**
   String get checking_version;
 
+  /// No description provided for @codeberg_mirror.
+  ///
+  /// In en, this message translates to:
+  /// **'Codeberg Mirror'**
+  String get codeberg_mirror;
+
   /// No description provided for @common_vulnerability_scoring_system_v3_1_base_score.
   ///
   /// In en, this message translates to:
@@ -289,6 +295,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Denied'**
   String get denied;
+
+  /// No description provided for @developer.
+  ///
+  /// In en, this message translates to:
+  /// **'Developer'**
+  String get developer;
 
   /// No description provided for @device.
   ///
@@ -427,6 +439,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Gateway'**
   String get gateway;
+
+  /// No description provided for @github_repository.
+  ///
+  /// In en, this message translates to:
+  /// **'GitHub Repository'**
+  String get github_repository;
+
+  /// No description provided for @gitlab_mirror.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab Mirror'**
+  String get gitlab_mirror;
 
   /// No description provided for @hash.
   ///
@@ -608,12 +632,6 @@ abstract class AppLocalizations {
   /// **'Priority'**
   String get priority;
 
-  /// No description provided for @privacy_policy.
-  ///
-  /// In en, this message translates to:
-  /// **'Privacy Policy'**
-  String get privacy_policy;
-
   /// No description provided for @privileges_required.
   ///
   /// In en, this message translates to:
@@ -752,12 +770,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Service Type'**
   String get service_type;
-
-  /// No description provided for @source_code.
-  ///
-  /// In en, this message translates to:
-  /// **'Source Code'**
-  String get source_code;
 
   /// No description provided for @srv_record.
   ///

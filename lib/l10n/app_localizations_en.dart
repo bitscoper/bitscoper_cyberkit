@@ -78,6 +78,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get checking_version => 'Checking Version ...';
 
   @override
+  String get codeberg_mirror => 'Codeberg Mirror';
+
+  @override
   String get common_vulnerability_scoring_system_v3_1_base_score =>
       'Common Vulnerability Scoring System v3.1 Base Score';
 
@@ -107,6 +110,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get denied => 'Denied';
+
+  @override
+  String get developer => 'Developer';
 
   @override
   String get device => 'Device';
@@ -177,6 +183,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get gateway => 'Gateway';
+
+  @override
+  String get github_repository => 'GitHub Repository';
+
+  @override
+  String get gitlab_mirror => 'GitLab Mirror';
 
   @override
   String get hash => 'hash';
@@ -272,9 +284,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get priority => 'Priority';
 
   @override
-  String get privacy_policy => 'Privacy Policy';
-
-  @override
   String get privileges_required => 'Privileges Required';
 
   @override
@@ -345,9 +354,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get service_type => 'Service Type';
-
-  @override
-  String get source_code => 'Source Code';
 
   @override
   String get srv_record => 'SRV Record';
