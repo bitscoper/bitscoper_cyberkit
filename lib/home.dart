@@ -197,12 +197,9 @@ class HomePage extends StatelessWidget {
                   leading: Icon(TDTxNFIcons.nf_oct_person),
                   onTap: () async {
                     try {
-                      final Uri uri = Uri.parse(
-                        'https://github.com/bitscoper/',
+                      await launchUrl(
+                        Uri.parse('https://github.com/bitscoper/'),
                       );
-                      if (await canLaunchUrl(uri)) {
-                        await launchUrl(uri);
-                      }
                     } catch (error) {
                       debugPrint(error.toString());
 
@@ -221,12 +218,11 @@ class HomePage extends StatelessWidget {
                   leading: Icon(TDTxNFIcons.nf_md_github),
                   onTap: () async {
                     try {
-                      final Uri uri = Uri.parse(
-                        'https://github.com/bitscoper/bitscoper_cyberkit/',
+                      await launchUrl(
+                        Uri.parse(
+                          'https://github.com/bitscoper/bitscoper_cyberkit/',
+                        ),
                       );
-                      if (await canLaunchUrl(uri)) {
-                        await launchUrl(uri);
-                      }
                     } catch (error) {
                       debugPrint(error.toString());
 
@@ -244,12 +240,11 @@ class HomePage extends StatelessWidget {
                   leading: Icon(TDTxNFIcons.nf_linux_codeberg),
                   onTap: () async {
                     try {
-                      final Uri uri = Uri.parse(
-                        'https://codeberg.org/bitscoper/bitscoper_cyberkit/',
+                      await launchUrl(
+                        Uri.parse(
+                          'https://codeberg.org/bitscoper/bitscoper_cyberkit/',
+                        ),
                       );
-                      if (await canLaunchUrl(uri)) {
-                        await launchUrl(uri);
-                      }
                     } catch (error) {
                       debugPrint(error.toString());
 
@@ -267,12 +262,11 @@ class HomePage extends StatelessWidget {
                   leading: Icon(TDTxNFIcons.nf_md_gitlab),
                   onTap: () async {
                     try {
-                      final Uri uri = Uri.parse(
-                        'https://gitlab.com/bitscoper/bitscoper_cyberkit/',
+                      await launchUrl(
+                        Uri.parse(
+                          'https://gitlab.com/bitscoper/bitscoper_cyberkit/',
+                        ),
                       );
-                      if (await canLaunchUrl(uri)) {
-                        await launchUrl(uri);
-                      }
                     } catch (error) {
                       debugPrint(error.toString());
 
