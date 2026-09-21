@@ -416,6 +416,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get ttl => 'টিটিএল';
 
   @override
+  String get turn_on_adapter => 'অ্যাডাপ্টার চালু করুন';
+
+  @override
   String get txt_record => 'টিএক্সটি রেকর্ড';
 
   @override

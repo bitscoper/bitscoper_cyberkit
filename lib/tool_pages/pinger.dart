@@ -36,7 +36,7 @@ class PingerPageState extends State<PingerPage> {
   );
 
   bool _isPinging = false;
-  final List<PingResult> _results = [];
+  final List<PingResult> _results = <PingResult>[];
 
   String? _hostFieldValidator(BuildContext context, String? value) {
     if ((value == null) || value.isEmpty) {

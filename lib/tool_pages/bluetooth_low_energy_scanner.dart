@@ -1,6 +1,7 @@
 /* By Abdullah As-Sadeed */
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bitscoper_cyberkit/commons/application_toolbar.dart';
 import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
@@ -20,10 +21,27 @@ class BluetoothLowEnergyScannerPage extends StatefulWidget {
 
 class BluetoothLowEnergyScannerPageState
     extends State<BluetoothLowEnergyScannerPage> {
+  final ValueNotifier<bool> _adapterState = ValueNotifier<bool>(false);
   StreamSubscription<List<ScanResult>>? _scanSubscription;
 
   bool _isScanning = false;
-  final List<ScanResult> _scanResults = [];
+  final List<ScanResult> _scanResults = <ScanResult>[];
+
+  void _turnOn() async {
+    try {
+      if (Platform.isAndroid) {
+        await FlutterBluePlus.turnOn();
+      }
+    } catch (error) {
+      debugPrint(error.toString());
+
+      showMessageDialog(
+        navigatorKey.currentContext!,
+        AppLocalizations.of(navigatorKey.currentContext!)!.error,
+        error.toString(),
+      );
+    } finally {}
+  }
 
   void _scan() async {
     try {
@@ -116,25 +134,40 @@ class BluetoothLowEnergyScannerPageState
     }
   }
 
-  Widget _form(BuildContext context) {
+  Widget _form(BuildContext context, bool adapterState) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                FilledButton.tonal(
-                  onPressed: _isScanning ? null : _scan,
-                  child: Text(AppLocalizations.of(context)!.scan),
-                ),
-                FilledButton.tonal(
-                  onPressed: _isScanning ? _stop : null,
-                  child: Text(AppLocalizations.of(context)!.stop),
-                ),
-              ],
+      child: Center(
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Form(
+              child: Column(
+                children: [
+                  adapterState
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            FilledButton.tonal(
+                              onPressed: (!adapterState || _isScanning)
+                                  ? null
+                                  : _scan,
+                              child: Text(AppLocalizations.of(context)!.scan),
+                            ),
+                            FilledButton.tonal(
+                              onPressed: _isScanning ? _stop : null,
+                              child: Text(AppLocalizations.of(context)!.stop),
+                            ),
+                          ],
+                        )
+                      : FilledButton.tonal(
+                          onPressed: !adapterState ? _turnOn : null,
+                          child: Text(
+                            AppLocalizations.of(context)!.turn_on_adapter,
+                          ),
+                        ),
+                ],
+              ),
             ),
           ),
         ),
@@ -252,13 +285,18 @@ class BluetoothLowEnergyScannerPageState
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            _form(context),
-            if (_isScanning) _progressIndicator(),
-            if (_scanResults.isNotEmpty) _resultWrapper(context),
-          ],
+        child: ValueListenableBuilder<bool>(
+          valueListenable: _adapterState,
+          builder: (context, adapterState, child) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                _form(context, adapterState),
+                if (_isScanning) _progressIndicator(),
+                if (_scanResults.isNotEmpty) _resultWrapper(context),
+              ],
+            );
+          },
         ),
       ),
     );
@@ -267,10 +305,19 @@ class BluetoothLowEnergyScannerPageState
   @override
   void initState() {
     super.initState();
+
+    FlutterBluePlus.adapterState.listen((BluetoothAdapterState adapterState) {
+      _adapterState.value = (adapterState == BluetoothAdapterState.on);
+
+      if ((adapterState == BluetoothAdapterState.off) && _isScanning) {
+        _stop();
+      }
+    });
   }
 
   @override
   void dispose() {
+    _adapterState.dispose();
     FlutterBluePlus.stopScan();
     _scanSubscription?.cancel();
 

@@ -12,6 +12,7 @@ void showMessageDialog(
   try {
     showDialog(
       context: context,
+      barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(title),

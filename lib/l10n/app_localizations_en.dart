@@ -412,6 +412,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ttl => 'TTL';
 
   @override
+  String get turn_on_adapter => 'Turn On Adapter';
+
+  @override
   String get txt_record => 'TXT Record';
 
   @override

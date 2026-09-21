@@ -28,7 +28,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
   StreamSubscription? _traceSubscription;
 
   bool _isTracing = false;
-  List<TracerouteStep> _traceResults = [];
+  List<TracerouteStep> _traceResults = <TracerouteStep>[];
 
   String? _hostFieldValidator(BuildContext context, String? value) {
     if ((value == null) || value.isEmpty) {

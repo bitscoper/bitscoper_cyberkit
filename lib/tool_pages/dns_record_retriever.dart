@@ -45,7 +45,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
   late final List<RRType> _selectedRecordTypes = RRType.values.toList();
   final String _dnsProviderExample = 'https://doh.dns.sb/dns-query';
   bool _isRetrieving = false;
-  final List<DNSRecord> _records = [];
+  final List<DNSRecord> _records = <DNSRecord>[];
 
   String? _hostFieldValidator(BuildContext context, String? value) {
     if ((value == null) || value.isEmpty) {

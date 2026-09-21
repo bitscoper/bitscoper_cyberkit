@@ -874,6 +874,12 @@ abstract class AppLocalizations {
   /// **'TTL'**
   String get ttl;
 
+  /// No description provided for @turn_on_adapter.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn On Adapter'**
+  String get turn_on_adapter;
+
   /// No description provided for @txt_record.
   ///
   /// In en, this message translates to:
