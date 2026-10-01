@@ -33,7 +33,7 @@ class StringNotifier extends Notifier<String> {
 
 final Provider<Map<String, String>> basesProvider =
     Provider<Map<String, String>>(
-      (Ref ref) => {
+      (Ref ref) => <String, String>{
         'Binary (Base2)': base2,
         'Ternary (Base3)': base3,
         'Quaternary (Base4)': base4,
@@ -84,7 +84,7 @@ class BaseEncoderPage extends ConsumerWidget {
   }
 
   Widget _form(BuildContext context, WidgetRef ref) {
-    final StringNotifier notifier = ref.read(stringNotifierProvider.notifier);
+    final StringNotifier notifier = ref.read<StringNotifier>(stringNotifierProvider.notifier);
     final TextEditingController editingController = notifier.controller;
 
     return Padding(
@@ -250,11 +250,11 @@ class BaseEncoderPage extends ConsumerWidget {
 
   Widget _resultWrapper(BuildContext context, WidgetRef ref, String string) {
     if (string.isNotEmpty) {
-      final Map<String, String> bases = ref.watch(basesProvider);
+      final Map<String, String> bases = ref.watch<Map<String, String>>(basesProvider);
 
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: bases.entries.map((MapEntry<String, String> entry) {
+        children: bases.entries.map<Padding>((MapEntry<String, String> entry) {
           String result = "";
 
           try {
@@ -299,7 +299,7 @@ class BaseEncoderPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String string = ref.watch(stringNotifierProvider);
+    final String string = ref.watch<String>(stringNotifierProvider);
 
     return Scaffold(
       appBar: ApplicationToolBar(

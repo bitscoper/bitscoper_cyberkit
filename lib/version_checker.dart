@@ -19,7 +19,7 @@ String skipBuildNumber(String version) {
 
 Future<void> checkVersion(BuildContext context) async {
   try {
-    Navigator.of(context).pop();
+    Navigator.of(context).pop<Object?>();
 
     showMessageDialog(
       context,

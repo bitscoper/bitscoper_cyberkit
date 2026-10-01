@@ -1,10 +1,19 @@
 # By Abdullah As-Sadeed
 
+**/doc/api/
+**/ios/Flutter/.last_build_id
+*.class
+*.iml
+*.ipr
+*.iws
+*.log
+*.pyc
+*.swp
+.DS_Store
 .atom/
 .build/
 .buildlog/
 .dart_tool/
-.DS_Store
 .flutter-plugins
 .flutter-plugins-dependencies
 .history
@@ -13,15 +22,6 @@
 .pub/
 .svn/
 .swiftpm/
-*.class
-*.iml
-*.ipr
-*.iws
-*.log
-*.pyc
-*.swp
-**/doc/api/
-**/ios/Flutter/.last_build_id
 /android/app/debug
 /android/app/profile
 /android/app/release

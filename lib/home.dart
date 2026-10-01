@@ -53,7 +53,7 @@ class _ToolCardWidget extends StatelessWidget {
           options: const PermissionGuardOptions(
             displayLoader: true,
             requestOnInit: true,
-            validStatuses: [
+            validStatuses: <PermissionStatus>[
               PermissionStatus.granted,
               PermissionStatus.limited,
               PermissionStatus.provisional,
@@ -76,7 +76,7 @@ class _ToolCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
         onTap: () {
           try {
-            Navigator.push(
+            Navigator.push<dynamic>(
               context,
               MaterialPageRoute(
                 builder: (BuildContext context) {
@@ -199,7 +199,7 @@ class HomePage extends StatelessWidget {
                     try {
                       await launchUrl(
                         Uri.parse('https://github.com/bitscoper/'),
-                      );
+                      ); // Not Using canLaunchUrl for Privacy
                     } catch (error) {
                       debugPrint(error.toString());
 
@@ -222,7 +222,7 @@ class HomePage extends StatelessWidget {
                         Uri.parse(
                           'https://github.com/bitscoper/bitscoper_cyberkit/',
                         ),
-                      );
+                      ); // Not Using canLaunchUrl for Privacy
                     } catch (error) {
                       debugPrint(error.toString());
 
@@ -244,7 +244,7 @@ class HomePage extends StatelessWidget {
                         Uri.parse(
                           'https://codeberg.org/bitscoper/bitscoper_cyberkit/',
                         ),
-                      );
+                      ); // Not Using canLaunchUrl for Privacy
                     } catch (error) {
                       debugPrint(error.toString());
 
@@ -266,7 +266,7 @@ class HomePage extends StatelessWidget {
                         Uri.parse(
                           'https://gitlab.com/bitscoper/bitscoper_cyberkit/',
                         ),
-                      );
+                      ); // Not Using canLaunchUrl for Privacy
                     } catch (error) {
                       debugPrint(error.toString());
 
@@ -305,12 +305,12 @@ class HomePage extends StatelessWidget {
 
   Future<List<(String, IconData, List<Permission?>, StatefulWidget)>>
   _buildTools(BuildContext context) async {
-    return [
+    return <(String, IconData, List<Permission?>, StatefulWidget)>[
       (
         AppLocalizations.of(navigatorKey.currentContext!)!
             .bluetooth_low_energy_scanner,
         Icons.bluetooth_searching_rounded,
-        [
+        <Permission?>[
           Permission.bluetooth,
           Permission.bluetoothScan,
           Permission.location,
@@ -321,99 +321,99 @@ class HomePage extends StatelessWidget {
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.ipv4_subnet_scanner,
         Icons.lan_rounded,
-        [Permission.notification],
+        <Permission?>[Permission.notification],
         const IPv4SubnetScannerPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.mdns_scanner,
         Icons.stream_rounded,
-        [],
+        <Permission?>[],
         const MDNSScannerPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.upnp_scanner,
         Icons.cast_rounded,
-        [],
+        <Permission?>[],
         const UPnPScannerPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.route_tracer,
         Icons.track_changes_rounded,
-        [Permission.notification],
+        <Permission?>[Permission.notification],
         const RouteTracerPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.tcp_port_scanner,
         Icons.radar_rounded,
-        [Permission.notification],
+        <Permission?>[Permission.notification],
         const TCPPortScannerPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.pinger,
         Icons.network_ping_rounded,
-        [],
+        <Permission?>[],
         const PingerPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.dns_record_retriever,
         Icons.dns_rounded,
-        [Permission.notification],
+        <Permission?>[Permission.notification],
         const DNSRecordRetrieverPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.file_hash_calculator,
         Icons.file_present_rounded,
-        [Permission.notification],
+        <Permission?>[Permission.notification],
         const FileHashCalculatorPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!
             .string_hash_calculator,
         Icons.text_snippet_rounded,
-        [],
+        <Permission?>[],
         const StringHashCalculatorPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.base_encoder,
         Icons.numbers_rounded,
-        [],
+        <Permission?>[],
         const BaseEncoderPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.series_uri_crawler,
         Icons.web_rounded,
-        [Permission.notification],
+        <Permission?>[Permission.notification],
         const SeriesURICrawlerPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.ogp_data_extractor,
         Icons.share_rounded,
-        [Permission.notification],
+        <Permission?>[Permission.notification],
         const OGPDataExtractorPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.whois_retriever,
         Icons.domain_rounded,
-        [],
+        <Permission?>[],
         const WHOISRetrieverPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.cvss_calculator,
         Icons.security_rounded,
-        [],
+        <Permission?>[],
         const CVSSCalculatorPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!
             .morse_code_translator,
         Icons.text_fields_rounded,
-        [],
+        <Permission?>[],
         const MorseCodeTranslatorPage(),
       ),
       (
         AppLocalizations.of(navigatorKey.currentContext!)!.wifi_details_viewer,
         Icons.network_check_rounded,
-        [Permission.location, Permission.locationWhenInUse],
+        <Permission?>[Permission.location, Permission.locationWhenInUse],
         const WiFiDetailsViewerPage(),
       ),
     ];

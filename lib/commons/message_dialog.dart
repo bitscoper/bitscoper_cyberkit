@@ -10,7 +10,7 @@ void showMessageDialog(
   void Function()? onOK,
 }) {
   try {
-    showDialog(
+    showDialog<dynamic>(
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {

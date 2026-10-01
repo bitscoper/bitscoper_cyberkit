@@ -143,7 +143,7 @@ class BluetoothLowEnergyScannerPageState
             padding: const EdgeInsets.all(16.0),
             child: Form(
               child: Column(
-                children: [
+                children: <Widget>[
                   adapterState
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -202,7 +202,7 @@ class BluetoothLowEnergyScannerPageState
             children: <Widget>[
               Text.rich(
                 TextSpan(
-                  children: [
+                  children: <InlineSpan>[
                     TextSpan(
                       text: "${AppLocalizations.of(context)!.address}: ",
                       style: const TextStyle(fontWeight: FontWeight.bold),
@@ -213,7 +213,7 @@ class BluetoothLowEnergyScannerPageState
               ),
               Text.rich(
                 TextSpan(
-                  children: [
+                  children: <InlineSpan>[
                     TextSpan(
                       text: "${AppLocalizations.of(context)!.rssi}: ",
                       style: const TextStyle(fontWeight: FontWeight.bold),
@@ -224,7 +224,7 @@ class BluetoothLowEnergyScannerPageState
               ),
               Text.rich(
                 TextSpan(
-                  children: [
+                  children: <InlineSpan>[
                     TextSpan(
                       text: "${AppLocalizations.of(context)!.connectable}: ",
                       style: const TextStyle(fontWeight: FontWeight.bold),
@@ -236,7 +236,7 @@ class BluetoothLowEnergyScannerPageState
               if (advertisement.serviceUuids.isNotEmpty)
                 Text.rich(
                   TextSpan(
-                    children: [
+                    children: <InlineSpan>[
                       TextSpan(
                         text: "${AppLocalizations.of(context)!.service_type}: ",
                         style: const TextStyle(fontWeight: FontWeight.bold),
@@ -253,7 +253,7 @@ class BluetoothLowEnergyScannerPageState
                       title: Text(AppLocalizations.of(context)!.manufacturer),
                       subtitle: Text(
                         advertisement.manufacturerData.entries
-                            .map((MapEntry<int, List<int>> entry) {
+                            .map<String>((MapEntry<int, List<int>> entry) {
                               return "0x${entry.key.toRadixString(16)}: ${entry.value}";
                             })
                             .join("\n"),
@@ -271,7 +271,7 @@ class BluetoothLowEnergyScannerPageState
   Widget _resultWrapper(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: _scanResults.map((ScanResult scanResult) {
+      children: _scanResults.map<Widget>((ScanResult scanResult) {
         return _buildDeviceCard(context, scanResult);
       }).toList(),
     );
@@ -287,7 +287,7 @@ class BluetoothLowEnergyScannerPageState
         padding: const EdgeInsets.all(16.0),
         child: ValueListenableBuilder<bool>(
           valueListenable: _adapterState,
-          builder: (context, adapterState, child) {
+          builder: (BuildContext context,bool adapterState,Widget? child) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[

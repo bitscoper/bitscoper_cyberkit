@@ -26,7 +26,7 @@ class _LanguageTile extends StatelessWidget {
       onTap: () {
         try {
           BitscoperCyberKitState.instance?.changeLocale(Locale(code));
-          Navigator.of(context).pop();
+          Navigator.of(context).pop<Object?>();
         } catch (error) {
           debugPrint(error.toString());
 
@@ -62,7 +62,7 @@ class ApplicationToolBar extends StatelessWidget
                   BitscoperCyberKitState.instance?.toggleTheme();
                   break;
                 case _MenuAction.changeLocale:
-                  showModalBottomSheet(
+                  showModalBottomSheet<dynamic>(
                     context: context,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.vertical(
@@ -135,8 +135,8 @@ class ApplicationToolBar extends StatelessWidget
             } finally {}
           },
           itemBuilder: (BuildContext context) {
-            return [
-              PopupMenuItem(
+            return <PopupMenuEntry<_MenuAction>>[
+              PopupMenuItem<_MenuAction>(
                 value: _MenuAction.toggleTheme,
                 child: Row(
                   children: <Widget>[
@@ -152,7 +152,7 @@ class ApplicationToolBar extends StatelessWidget
                   ],
                 ),
               ),
-              PopupMenuItem(
+              PopupMenuItem<_MenuAction>(
                 value: _MenuAction.changeLocale,
                 child: Row(
                   children: <Widget>[
