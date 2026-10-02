@@ -174,7 +174,8 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
                       keyboardType: TextInputType.url,
                       decoration: InputDecoration(
                         labelText: AppLocalizations.of(context)!.uri_prefix,
-                        hintText: 'https://bitscoper.dev/publication-',
+                        hintText:
+                            'https://bitscoper-computer-museum.site/something-',
                       ),
                       showCursor: true,
                       maxLines: 1,

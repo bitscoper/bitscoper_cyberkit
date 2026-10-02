@@ -127,7 +127,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: AppLocalizations.of(context)!.a_host_or_ip_address,
-                  hintText: 'bitscoper.dev',
+                  hintText: 'bitscoper-computer-museum.site',
                 ),
                 maxLines: 1,
                 showCursor: true,

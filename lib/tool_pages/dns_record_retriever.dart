@@ -212,7 +212,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
                     border: const OutlineInputBorder(),
                     labelText: AppLocalizations.of(context)!
                         .a_host_or_ip_address,
-                    hintText: 'bitscoper.dev',
+                    hintText: 'bitscoper-computer-museum.site',
                   ),
                   showCursor: true,
                   maxLines: 1,
