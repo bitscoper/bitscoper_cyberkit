@@ -40,27 +40,28 @@ class HashNotifier extends Notifier<List<Map<String, dynamic>>> {
 
       if (files.isNotEmpty) {
         _isCalculating = true;
-        state = [...state];
+        state = <Map<String, dynamic>>[...state];
 
-        final List<Map<String, String>> hashes = await Future.wait(
-          files.map((PlatformFile file) async {
-            final Uint8List bytes = await file.readAsBytes();
+        final List<Map<String, String>> hashes =
+            await Future.wait<Map<String, String>>(
+              files.map<Future<Map<String, String>>>((PlatformFile file) async {
+                final Uint8List bytes = await file.readAsBytes();
 
-            return {
-              'File Name': file.name,
-              'MD5': md5.convert(bytes).toString(),
-              'SHA1': sha1.convert(bytes).toString(),
-              'SHA224': sha224.convert(bytes).toString(),
-              'SHA256': sha256.convert(bytes).toString(),
-              'SHA384': sha384.convert(bytes).toString(),
-              'SHA512': sha512.convert(bytes).toString(),
-            };
-          }),
-        );
+                return <String, String>{
+                  'File Name': file.name,
+                  'MD5': md5.convert(bytes).toString(),
+                  'SHA1': sha1.convert(bytes).toString(),
+                  'SHA224': sha224.convert(bytes).toString(),
+                  'SHA256': sha256.convert(bytes).toString(),
+                  'SHA384': sha384.convert(bytes).toString(),
+                  'SHA512': sha512.convert(bytes).toString(),
+                };
+              }),
+            );
 
         state = hashes;
         _isCalculating = false;
-        state = [...state];
+        state = <Map<String, dynamic>>[...state];
 
         await sendNotification(
           title: AppLocalizations.of(navigatorKey.currentContext!)!
@@ -81,21 +82,25 @@ class HashNotifier extends Notifier<List<Map<String, dynamic>>> {
       );
 
       _isCalculating = false;
-      state = [...state];
+      state = <Map<String, dynamic>>[...state];
     } finally {}
   }
 }
 
 final Provider<bool> statusProvider = Provider<bool>((Ref ref) {
-  ref.watch(hashesNotifierProvider);
-  return ref.watch(hashesNotifierProvider.notifier)._isCalculating;
+  ref.watch<List<Map<String, dynamic>>>(hashesNotifierProvider);
+  return ref
+      .watch<HashNotifier>(hashesNotifierProvider.notifier)
+      ._isCalculating;
 });
 
 class FileHashCalculatorPage extends ConsumerWidget {
   const FileHashCalculatorPage({super.key});
 
   Widget _form(BuildContext context, WidgetRef ref) {
-    final HashNotifier notifier = ref.read(hashesNotifierProvider.notifier);
+    final HashNotifier notifier = ref.read<HashNotifier>(
+      hashesNotifierProvider.notifier,
+    );
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
@@ -179,8 +184,9 @@ class FileHashCalculatorPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<Map<String, dynamic>> hashes = ref.watch(hashesNotifierProvider);
-    final bool isCalculating = ref.watch(statusProvider);
+    final List<Map<String, dynamic>> hashes = ref
+        .watch<List<Map<String, dynamic>>>(hashesNotifierProvider);
+    final bool isCalculating = ref.watch<bool>(statusProvider);
 
     return Scaffold(
       appBar: ApplicationToolBar(

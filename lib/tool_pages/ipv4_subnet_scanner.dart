@@ -65,7 +65,7 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
           }
         }
 
-        await Future.wait(
+        await Future.wait<void>(
           List<Future<void>>.generate(
             int.parse(_parallelismEditingController.text.trim()),
             (int index) {
@@ -141,8 +141,8 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
 
   Future<void> _stop(BuildContext context) async {
     try {
-      await Future.wait(
-        List<Ping>.from(_activePings).map((Ping ping) {
+      await Future.wait<bool>(
+        List<Ping>.from(_activePings).map<Future<bool>>((Ping ping) {
           return ping.stop();
         }),
       );
@@ -203,7 +203,7 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
                       child: TextFormField(
                         controller: _parallelismEditingController,
                         keyboardType: TextInputType.number,
-                        inputFormatters: [
+                        inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.digitsOnly,
                         ],
                         decoration: InputDecoration(
@@ -274,7 +274,7 @@ class IPv4SubnetScannerPageState extends State<IPv4SubnetScannerPage> {
               spacing: 8.0,
               runSpacing: 8.0,
               children: <Widget>[
-                ..._discoveredHosts.map((String discoveredHost) {
+                ..._discoveredHosts.map<Widget>((String discoveredHost) {
                   return Chip(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),

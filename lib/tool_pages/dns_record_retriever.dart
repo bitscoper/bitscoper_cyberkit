@@ -323,7 +323,7 @@ class DNSRecordRetrieverPageState extends State<DNSRecordRetrieverPage> {
   Widget _resultWrapper(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: _records.map((record) {
+      children: _records.map<Padding>((record) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 16.0),
           child: Card(

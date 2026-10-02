@@ -25,7 +25,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
   final TextEditingController _hostEditingController = TextEditingController();
 
   final FlutterTraceroute _routeTracer = FlutterTraceroute();
-  StreamSubscription? _traceSubscription;
+  StreamSubscription<dynamic>? _traceSubscription;
 
   bool _isTracing = false;
   List<TracerouteStep> _traceResults = <TracerouteStep>[];
@@ -71,7 +71,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
                   payload: "Route_Tracer",
                 );
               },
-              onError: (error) {
+              onError: (dynamic error) {
                 debugPrint(error.toString());
 
                 showMessageDialog(
@@ -180,7 +180,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              for (final result in _traceResults)
+              for (final TracerouteStep result in _traceResults)
                 Text(
                   result.toString(),
                   style: TextStyle(
@@ -214,7 +214,7 @@ class RouteTracerPageState extends State<RouteTracerPage> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          children: [
+          children: <Widget>[
             _form(context),
             if (_traceResults.isNotEmpty) _resultWrapper(),
             if (_isTracing) _progressIndicator(),

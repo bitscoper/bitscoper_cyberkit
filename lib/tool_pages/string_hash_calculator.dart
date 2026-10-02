@@ -37,12 +37,12 @@ class StringNotifier extends Notifier<String> {
 final Provider<Map<String, String>> hashProvider =
     Provider<Map<String, String>>((Ref ref) {
       try {
-        final String string = ref.watch(stringNotifierProvider);
+        final String string = ref.watch<String>(stringNotifierProvider);
 
         if (string.isNotEmpty) {
           final Uint8List bytes = utf8.encode(string);
 
-          return {
+          return <String, String>{
             'MD5': md5.convert(bytes).toString(),
             'SHA1': sha1.convert(bytes).toString(),
             'SHA224': sha224.convert(bytes).toString(),
@@ -51,7 +51,7 @@ final Provider<Map<String, String>> hashProvider =
             'SHA512': sha512.convert(bytes).toString(),
           };
         } else {
-          return {};
+          return <String, String>{};
         }
       } catch (error) {
         debugPrint(error.toString());
@@ -78,7 +78,9 @@ class StringHashCalculatorPage extends ConsumerWidget {
   }
 
   Widget _form(BuildContext context, WidgetRef ref) {
-    final StringNotifier notifier = ref.read(stringNotifierProvider.notifier);
+    final StringNotifier notifier = ref.read<StringNotifier>(
+      stringNotifierProvider.notifier,
+    );
     final TextEditingController editingController = notifier.controller;
 
     return Padding(
@@ -128,7 +130,7 @@ class StringHashCalculatorPage extends ConsumerWidget {
   ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: hashes.entries.map((MapEntry<String, String> entry) {
+      children: hashes.entries.map<Padding>((MapEntry<String, String> entry) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 16.0),
           child: Card(
@@ -155,8 +157,10 @@ class StringHashCalculatorPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String string = ref.watch(stringNotifierProvider);
-    final Map<String, String> hashes = ref.watch(hashProvider);
+    final String string = ref.watch<String>(stringNotifierProvider);
+    final Map<String, String> hashes = ref.watch<Map<String, String>>(
+      hashProvider,
+    );
 
     return Scaffold(
       appBar: ApplicationToolBar(

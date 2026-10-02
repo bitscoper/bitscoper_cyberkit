@@ -461,7 +461,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "35796786e889b035b870350f61c4f5aa5abafd31"
+      resolved-ref: "37c77d50647cf0f7f4fef9d8d5f53d9ab3502db9"
       url: "https://github.com/bitscoper/flutter_traceroute.git"
     source: git
     version: "0.0.2+3"
@@ -714,10 +714,10 @@ packages:
     dependency: "direct main"
     description:
       name: package_info_plus
-      sha256: "127e1751e37ffb2ff4658beeaca77bad0c27bf5f932bd3a501c2296926d4b481"
+      sha256: "73ef2cd5c11a7548f9b7f6fc2a4f6113de2e64aa2a70de63feede95548822908"
       url: "https://pub.dev"
     source: hosted
-    version: "10.2.1"
+    version: "10.2.2"
   package_info_plus_platform_interface:
     dependency: transitive
     description:

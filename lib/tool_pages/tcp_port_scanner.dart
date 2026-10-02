@@ -30,7 +30,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
 
   final Stopwatch _stopwatch = Stopwatch();
 
-  final List<int> _portList = List.generate(65536, (int iteration) {
+  final List<int> _portList = List<int>.generate(65536, (int iteration) {
     return iteration;
   });
 
@@ -64,8 +64,8 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
             )
             .start()
             .asStream()
-            .transform(
-              StreamTransformer.fromHandlers(
+            .transform<Object?>(
+              StreamTransformer<TcpScannerTaskReport, Object?>.fromHandlers(
                 handleData: (TcpScannerTaskReport report, EventSink<Object?> sink) {
                   setState(() {
                     _openPorts = report.openPorts.cast<int>();
@@ -177,7 +177,7 @@ class TCPPortScannerPageState extends State<TCPPortScannerPage> {
                         child: TextFormField(
                           controller: _parallelismEditingController,
                           keyboardType: TextInputType.number,
-                          inputFormatters: [
+                          inputFormatters: <TextInputFormatter>[
                             FilteringTextInputFormatter.digitsOnly,
                           ],
                           decoration: InputDecoration(

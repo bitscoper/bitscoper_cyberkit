@@ -22,7 +22,7 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
       TextEditingController();
 
   bool _isRetrieving = false;
-  late Map<String, String> _whoisInformation = {};
+  late Map<String, String> _whoisInformation = <String, String>{};
 
   String? _domainNameFieldValidator(BuildContext context, String? value) {
     if ((value == null) || value.isEmpty) {
@@ -119,7 +119,7 @@ class WHOISRetrieverPageState extends State<WHOISRetrieverPage> {
     return Card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: _whoisInformation.entries.map((
+        children: _whoisInformation.entries.map<ListTile>((
           MapEntry<String, String> entry,
         ) {
           return ListTile(title: Text(entry.key), subtitle: Text(entry.value));

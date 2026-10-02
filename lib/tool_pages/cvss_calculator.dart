@@ -210,12 +210,16 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                 DropdownButtonFormField<AttackVector>(
                   initialValue: _attackVector,
                   onChanged: _onAttackVectorChanged,
-                  items: AttackVector.values.map((AttackVector vector) {
-                    return DropdownMenuItem<AttackVector>(
-                      value: vector,
-                      child: Text(_formatEnumName(context, vector)),
-                    );
-                  }).toList(),
+                  items: AttackVector.values
+                      .map<DropdownMenuItem<AttackVector>>((
+                        AttackVector vector,
+                      ) {
+                        return DropdownMenuItem<AttackVector>(
+                          value: vector,
+                          child: Text(_formatEnumName(context, vector)),
+                        );
+                      })
+                      .toList(),
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.attack_vector,
                   ),
@@ -225,14 +229,16 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                   child: DropdownButtonFormField<AttackComplexity>(
                     initialValue: _attackComplexity,
                     onChanged: _onAttackComplexityChanged,
-                    items: AttackComplexity.values.map((
-                      AttackComplexity complexity,
-                    ) {
-                      return DropdownMenuItem<AttackComplexity>(
-                        value: complexity,
-                        child: Text(_formatEnumName(context, complexity)),
-                      );
-                    }).toList(),
+                    items: AttackComplexity.values
+                        .map<DropdownMenuItem<AttackComplexity>>((
+                          AttackComplexity complexity,
+                        ) {
+                          return DropdownMenuItem<AttackComplexity>(
+                            value: complexity,
+                            child: Text(_formatEnumName(context, complexity)),
+                          );
+                        })
+                        .toList(),
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context)!
                           .attack_complexity,
@@ -242,14 +248,16 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                 DropdownButtonFormField<PrivilegesRequired>(
                   initialValue: _privilegesRequired,
                   onChanged: _onPrevilegeRequirementChanged,
-                  items: PrivilegesRequired.values.map((
-                    PrivilegesRequired privileges,
-                  ) {
-                    return DropdownMenuItem<PrivilegesRequired>(
-                      value: privileges,
-                      child: Text(_formatEnumName(context, privileges)),
-                    );
-                  }).toList(),
+                  items: PrivilegesRequired.values
+                      .map<DropdownMenuItem<PrivilegesRequired>>((
+                        PrivilegesRequired privileges,
+                      ) {
+                        return DropdownMenuItem<PrivilegesRequired>(
+                          value: privileges,
+                          child: Text(_formatEnumName(context, privileges)),
+                        );
+                      })
+                      .toList(),
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!
                         .privileges_required,
@@ -260,14 +268,16 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                   child: DropdownButtonFormField<UserInteraction>(
                     initialValue: _userInteraction,
                     onChanged: _onUserInteractionValueChanged,
-                    items: UserInteraction.values.map((
-                      UserInteraction interaction,
-                    ) {
-                      return DropdownMenuItem<UserInteraction>(
-                        value: interaction,
-                        child: Text(_formatEnumName(context, interaction)),
-                      );
-                    }).toList(),
+                    items: UserInteraction.values
+                        .map<DropdownMenuItem<UserInteraction>>((
+                          UserInteraction interaction,
+                        ) {
+                          return DropdownMenuItem<UserInteraction>(
+                            value: interaction,
+                            child: Text(_formatEnumName(context, interaction)),
+                          );
+                        })
+                        .toList(),
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context)!.user_interaction,
                     ),
@@ -276,7 +286,9 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                 DropdownButtonFormField<Scope>(
                   initialValue: _scope,
                   onChanged: _onScopeChanged,
-                  items: Scope.values.map((Scope scope) {
+                  items: Scope.values.map<DropdownMenuItem<Scope>>((
+                    Scope scope,
+                  ) {
                     return DropdownMenuItem<Scope>(
                       value: scope,
                       child: Text(_formatEnumName(context, scope)),
@@ -291,14 +303,16 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                   child: DropdownButtonFormField<ConfidentialityImpact>(
                     initialValue: _confidentialityImpact,
                     onChanged: _onConfidentialityImpactChanged,
-                    items: ConfidentialityImpact.values.map((
-                      ConfidentialityImpact impact,
-                    ) {
-                      return DropdownMenuItem<ConfidentialityImpact>(
-                        value: impact,
-                        child: Text(_formatEnumName(context, impact)),
-                      );
-                    }).toList(),
+                    items: ConfidentialityImpact.values
+                        .map<DropdownMenuItem<ConfidentialityImpact>>((
+                          ConfidentialityImpact impact,
+                        ) {
+                          return DropdownMenuItem<ConfidentialityImpact>(
+                            value: impact,
+                            child: Text(_formatEnumName(context, impact)),
+                          );
+                        })
+                        .toList(),
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context)!
                           .confidentiality_impact,
@@ -308,12 +322,16 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                 DropdownButtonFormField<IntegrityImpact>(
                   initialValue: _integrityImpact,
                   onChanged: _onIntigrityImpactChanged,
-                  items: IntegrityImpact.values.map((IntegrityImpact impact) {
-                    return DropdownMenuItem<IntegrityImpact>(
-                      value: impact,
-                      child: Text(_formatEnumName(context, impact)),
-                    );
-                  }).toList(),
+                  items: IntegrityImpact.values
+                      .map<DropdownMenuItem<IntegrityImpact>>((
+                        IntegrityImpact impact,
+                      ) {
+                        return DropdownMenuItem<IntegrityImpact>(
+                          value: impact,
+                          child: Text(_formatEnumName(context, impact)),
+                        );
+                      })
+                      .toList(),
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.integrity_impact,
                   ),
@@ -323,14 +341,16 @@ class CVSSCalculatorPageState extends State<CVSSCalculatorPage> {
                   child: DropdownButtonFormField<AvailabilityImpact>(
                     initialValue: _availabilityImpact,
                     onChanged: _onAvailabilityImpactChanged,
-                    items: AvailabilityImpact.values.map((
-                      AvailabilityImpact impact,
-                    ) {
-                      return DropdownMenuItem<AvailabilityImpact>(
-                        value: impact,
-                        child: Text(_formatEnumName(context, impact)),
-                      );
-                    }).toList(),
+                    items: AvailabilityImpact.values
+                        .map<DropdownMenuItem<AvailabilityImpact>>((
+                          AvailabilityImpact impact,
+                        ) {
+                          return DropdownMenuItem<AvailabilityImpact>(
+                            value: impact,
+                            child: Text(_formatEnumName(context, impact)),
+                          );
+                        })
+                        .toList(),
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context)!
                           .availability_impact,

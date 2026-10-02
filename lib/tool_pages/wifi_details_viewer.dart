@@ -6,67 +6,59 @@ import 'package:bitscoper_cyberkit/commons/message_dialog.dart';
 import 'package:bitscoper_cyberkit/l10n/app_localizations.dart';
 import 'package:bitscoper_cyberkit/main.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 
-class WiFiDetailsViewerPage extends StatefulWidget {
+final Provider<NetworkInfo> networkInformationProvider = Provider<NetworkInfo>((
+  Ref ref,
+) {
+  return NetworkInfo();
+});
+
+final FutureProvider<Map<String, String?>> wifiDetailsProvider =
+    FutureProvider.autoDispose<Map<String, String?>>((Ref ref) async {
+      try {
+        final NetworkInfo networkInformation = ref.read<NetworkInfo>(
+          networkInformationProvider,
+        );
+
+        final List<ConnectivityResult> networkConnectivityResult =
+            await Connectivity().checkConnectivity();
+
+        Map<String, String?> wifiDetails = <String, String?>{};
+
+        if (networkConnectivityResult.contains(ConnectivityResult.wifi)) {
+          wifiDetails['ssid'] = await networkInformation.getWifiName();
+          wifiDetails['bssid'] = await networkInformation.getWifiBSSID();
+          wifiDetails['ipAddress'] = await networkInformation.getWifiIP();
+          wifiDetails['ipV6Address'] = await networkInformation.getWifiIPv6();
+          wifiDetails['subnetMask'] = await networkInformation.getWifiSubmask();
+          wifiDetails['broadcast'] = await networkInformation
+              .getWifiBroadcast();
+          wifiDetails['gatewayIPAddress'] = await networkInformation
+              .getWifiGatewayIP();
+        }
+
+        return wifiDetails;
+      } catch (error) {
+        debugPrint(error.toString());
+
+        showMessageDialog(
+          navigatorKey.currentContext!,
+          AppLocalizations.of(navigatorKey.currentContext!)!.error,
+          error.toString(),
+        );
+
+        return <String, String?>{
+          AppLocalizations.of(navigatorKey.currentContext!)!.error: error
+              .toString(),
+        };
+      } finally {}
+    });
+
+class WiFiDetailsViewerPage extends ConsumerWidget {
   const WiFiDetailsViewerPage({super.key});
-
-  @override
-  WiFiDetailsViewerPageState createState() {
-    return WiFiDetailsViewerPageState();
-  }
-}
-
-class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
-  List<ConnectivityResult>? networkConnectivityResult;
-  final NetworkInfo _wifiDetails = NetworkInfo();
-
-  String? _ssid,
-      _bssid,
-      _ipAddress,
-      _ipV6Address,
-      _subnetMask,
-      _broadcast,
-      _gatewayIPAddress;
-
-  Future<void> _loadWiFiDetails() async {
-    try {
-      networkConnectivityResult = await (Connectivity().checkConnectivity());
-
-      setState(() {
-        networkConnectivityResult;
-      });
-
-      if (networkConnectivityResult!.contains(ConnectivityResult.wifi)) {
-        _ssid = await _wifiDetails.getWifiName();
-        _bssid = await _wifiDetails.getWifiBSSID();
-        _ipAddress = await _wifiDetails.getWifiIP();
-        _ipV6Address = await _wifiDetails.getWifiIPv6();
-        _subnetMask = await _wifiDetails.getWifiSubmask();
-        _broadcast = await _wifiDetails.getWifiBroadcast();
-        _gatewayIPAddress = await _wifiDetails.getWifiGatewayIP();
-
-        setState(() {
-          _ssid;
-          _bssid;
-          _ipAddress;
-          _ipV6Address;
-          _subnetMask;
-          _broadcast;
-          _gatewayIPAddress;
-        });
-      }
-    } catch (error) {
-      debugPrint(error.toString());
-
-      showMessageDialog(
-        navigatorKey.currentContext!,
-        AppLocalizations.of(navigatorKey.currentContext!)!.error,
-        error.toString(),
-      );
-    } finally {}
-  }
 
   Widget _progressIndicator() {
     return Center(
@@ -98,7 +90,7 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
     );
   }
 
-  Widget _wifiDetailsView(BuildContext context) {
+  Widget _wifiDetailsView(BuildContext context, Map<String, String?> data) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -107,39 +99,39 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
           _wifiDetailsCard(
             context,
             AppLocalizations.of(context)!.service_set_identifier_ssid,
-            _ssid,
+            data['ssid'],
           ),
           _wifiDetailsCard(
             context,
             AppLocalizations.of(context)!.basic_service_set_identifier_bssid,
-            _bssid,
+            data['bssid'],
           ),
           _wifiDetailsCard(
             context,
             AppLocalizations.of(context)!
                 .internet_protocol_version_4_ipv4_address,
-            _ipAddress,
+            data['ipAddress'],
           ),
           _wifiDetailsCard(
             context,
             AppLocalizations.of(context)!
                 .internet_protocol_version_6_ipv6_address,
-            _ipV6Address,
+            data['ipV6Address'],
           ),
           _wifiDetailsCard(
             context,
             AppLocalizations.of(context)!.subnet_mask,
-            _subnetMask,
+            data['subnetMask'],
           ),
           _wifiDetailsCard(
             context,
             AppLocalizations.of(context)!.broadcast_address,
-            _broadcast,
+            data['broadcast'],
           ),
           _wifiDetailsCard(
             context,
             AppLocalizations.of(context)!.gateway,
-            _gatewayIPAddress,
+            data['gatewayIPAddress'],
           ),
         ],
       ),
@@ -156,28 +148,47 @@ class WiFiDetailsViewerPageState extends State<WiFiDetailsViewerPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final AsyncValue<Map<String, String?>> wifiDetailsAsync = ref
+        .watch<AsyncValue<Map<String, String?>>>(wifiDetailsProvider);
+
     return Scaffold(
       appBar: ApplicationToolBar(
         title: AppLocalizations.of(context)!.wifi_details_viewer,
       ),
-      body: (networkConnectivityResult == null)
-          ? _progressIndicator()
-          : networkConnectivityResult!.contains(ConnectivityResult.wifi)
-          ? _wifiDetailsView(context)
-          : _wifiDisconnectionNotice(context),
+      body: wifiDetailsAsync.when<Widget?>(
+        data: (Map<String, String?> data) {
+          if (data.containsKey('error')) {
+            showMessageDialog(
+              navigatorKey.currentContext!,
+              AppLocalizations.of(navigatorKey.currentContext!)!.error,
+              data['error']!,
+            );
+
+            return _progressIndicator();
+          }
+
+          if (data['ssid'] != null) {
+            return _wifiDetailsView(context, data);
+          } else {
+            return _wifiDisconnectionNotice(context);
+          }
+        },
+        loading: () {
+          return _progressIndicator();
+        },
+        error: (Object error, StackTrace stackTrace) {
+          debugPrint(error.toString());
+
+          showMessageDialog(
+            navigatorKey.currentContext!,
+            AppLocalizations.of(navigatorKey.currentContext!)!.error,
+            error.toString(),
+          );
+
+          return _progressIndicator();
+        },
+      ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    _loadWiFiDetails();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }

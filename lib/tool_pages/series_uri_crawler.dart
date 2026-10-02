@@ -33,7 +33,7 @@ class SeriesURICrawlerPageState extends State<SeriesURICrawlerPage> {
       TextEditingController();
 
   bool _isCrawling = false;
-  Map<String, String> webPages = {};
+  Map<String, String> webPages = <String, String>{};
 
   String? _uriPrefixFieldValidator(BuildContext context, String? value) {
     if ((value == null) || value.isEmpty) {

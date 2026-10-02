@@ -31,7 +31,15 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
       TxtResourceRecord? textResourceRecord,
     })
   >
-  _hosts = [];
+  _hosts =
+      <
+        ({
+          List<IPAddressResourceRecord> ipAddressResourceRecords,
+          PtrResourceRecord pointerResourceRecord,
+          SrvResourceRecord serviceResourceRecord,
+          TxtResourceRecord? textResourceRecord,
+        })
+      >[];
 
   Future<List<PtrResourceRecord>?> _findServiceTypes(MDnsClient client) async {
     try {
@@ -331,7 +339,7 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
   ) {
     return Text.rich(
       TextSpan(
-        children: [
+        children: <InlineSpan>[
           TextSpan(
             text: "$title: ",
             style: const TextStyle(fontWeight: FontWeight.bold),
@@ -386,7 +394,7 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
                   context,
                   AppLocalizations.of(context)!.address,
                   host.ipAddressResourceRecords
-                      .map((IPAddressResourceRecord record) {
+                      .map<String>((IPAddressResourceRecord record) {
                         return record.address.address;
                       })
                       .join(', '),
@@ -560,7 +568,7 @@ class MDNSScannerPageState extends State<MDNSScannerPage> {
       padding: const EdgeInsets.only(top: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: _hosts.map((
+        children: _hosts.map<Widget>((
           ({
             List<IPAddressResourceRecord> ipAddressResourceRecords,
             PtrResourceRecord pointerResourceRecord,

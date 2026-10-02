@@ -22,7 +22,7 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
   DeviceDiscoverer? _deviceDiscoverer;
 
   bool _isScanning = false;
-  final List<Device> _devices = [];
+  final List<Device> _devices = <Device>[];
 
   Widget _form(BuildContext context) {
     return Padding(
@@ -254,7 +254,7 @@ class UPnPScannerPageState extends State<UPnPScannerPage> {
   Widget _resultWrapper(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: _devices.map((Device device) {
+      children: _devices.map<Widget>((Device device) {
         return _buildDeviceCard(context, device);
       }).toList(),
     );

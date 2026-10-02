@@ -64,13 +64,13 @@ class MorseCodeTranslatorPage extends ConsumerWidget {
 
   void _encode(BuildContext context, WidgetRef ref) {
     try {
-      final MorseCode translator = ref.read(morseCodeTranslatorProvider);
-      final TextEditingController stringEditingController = ref.read(
-        stringEditingControllerProvider,
+      final MorseCode translator = ref.read<MorseCode>(
+        morseCodeTranslatorProvider,
       );
-      final TextEditingController morseCodeEditingController = ref.read(
-        morseCodeEditingControllerProvider,
-      );
+      final TextEditingController stringEditingController = ref
+          .read<TextEditingController>(stringEditingControllerProvider);
+      final TextEditingController morseCodeEditingController = ref
+          .read<TextEditingController>(morseCodeEditingControllerProvider);
 
       if (stringEditingController.text.isNotEmpty) {
         morseCodeEditingController.text = translator.enCode(
@@ -92,13 +92,13 @@ class MorseCodeTranslatorPage extends ConsumerWidget {
 
   void _decode(BuildContext context, WidgetRef ref) {
     try {
-      final MorseCode translator = ref.read(morseCodeTranslatorProvider);
-      final TextEditingController stringEditingController = ref.read(
-        stringEditingControllerProvider,
+      final MorseCode translator = ref.read<MorseCode>(
+        morseCodeTranslatorProvider,
       );
-      final TextEditingController morseCodeEditingController = ref.read(
-        morseCodeEditingControllerProvider,
-      );
+      final TextEditingController stringEditingController = ref
+          .read<TextEditingController>(stringEditingControllerProvider);
+      final TextEditingController morseCodeEditingController = ref
+          .read<TextEditingController>(morseCodeEditingControllerProvider);
 
       if (morseCodeEditingController.text.isNotEmpty) {
         stringEditingController.text = translator.deCode(
@@ -119,15 +119,14 @@ class MorseCodeTranslatorPage extends ConsumerWidget {
   }
 
   Widget _stringForm(BuildContext context, WidgetRef ref) {
-    final TextEditingController editingController = ref.watch(
-      stringEditingControllerProvider,
-    );
+    final TextEditingController editingController = ref
+        .watch<TextEditingController>(stringEditingControllerProvider);
 
     return Form(
       child: TextFormField(
         controller: editingController,
         keyboardType: TextInputType.text,
-        inputFormatters: [UpperCaseTextFormatter()],
+        inputFormatters: <TextInputFormatter>[UpperCaseTextFormatter()],
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
           labelText: AppLocalizations.of(context)!.a_string,
@@ -161,9 +160,8 @@ class MorseCodeTranslatorPage extends ConsumerWidget {
   }
 
   Widget _morseCodeForm(BuildContext context, WidgetRef ref) {
-    final TextEditingController editingController = ref.watch(
-      morseCodeEditingControllerProvider,
-    );
+    final TextEditingController editingController = ref
+        .watch<TextEditingController>(morseCodeEditingControllerProvider);
 
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
