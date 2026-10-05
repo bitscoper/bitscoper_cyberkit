@@ -2,12 +2,12 @@
 
 name: bitscoper_cyberkit
 description: A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner, mDNS Scanner, UPnP Scanner, Route Tracer, TCP Port Scanner, Pinger, DNS Record Retriever, File Hash Calculator, String Hash Calculator, Base Encoder, Series URI Crawler, OGP Data Extractor, WHOIS Retriever, CVSS Calculator, Morse Code Translator, and Wi-Fi Details Viewer.
-version: 2026.10.2+20261002
+version: 2026.10.5+20261005
 publish_to: none
 
 environment:
-  sdk: ">=3.13.0"
-  flutter: ">=3.47.0"
+  sdk: ">=3.13.3"
+  flutter: ">=3.47.4"
 
 dependencies:
   b: ^0.2.0
@@ -21,7 +21,7 @@ dependencies:
   flex_color_scheme: ^9.0.0
   flutter:
     sdk: flutter
-  flutter_blue_plus: ^2.3.13
+  flutter_blue_plus: ^2.3.14
   flutter_local_notifications: ^22.3.1 # !Web
   flutter_localizations:
     sdk: flutter
@@ -47,7 +47,7 @@ dependencies:
   tdtx_nf_icons: ^3.2.2+5
   timelines_plus: ^2.0.1
   upnp_client: ^1.5.0 # !Web
-  url_launcher: ^6.3.2
+  url_launcher: ^6.3.3
   uuid: ^4.6.0
   whois: ^1.0.0 # !Web
   yaml: ^3.1.4
@@ -71,7 +71,7 @@ flutter_launcher_icons:
   android: true
   min_sdk_android: 24
   image_path_android: assets/icon/square_whiteBackground_25percentPadding_colored_512x512.png
-  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_background: "#FEF7FF"
   adaptive_icon_foreground_inset: 25
   adaptive_icon_foreground: assets/icon/square_transparent_unpadded_colored_512x512.png
   adaptive_icon_monochrome: assets/icon/square_transparent_unpadded_monochrome_512x512.png
@@ -82,7 +82,7 @@ flutter_launcher_icons:
 
   ios: true
   remove_alpha_ios: true
-  background_color_ios: "#FFFFFF"
+  background_color_ios: "#FEF7FF"
   image_path_ios: assets/icon/square_transparent_unpadded_colored_512x512.png
   image_path_ios_dark_transparent: assets/icon/square_transparent_unpadded_colored_512x512.png
   image_path_ios_tinted_grayscale: assets/icon/square_transparent_unpadded_greyscale_512x512.png
@@ -96,14 +96,14 @@ flutter_launcher_icons:
   web:
     generate: true
     image_path: assets/icon/square_whiteBackground_25percentPadding_colored_512x512.png
-    background_color: "#FFFFFF"
-    theme_color: "#FFFFFF"
+    background_color: "#FEF7FF"
+    theme_color: "#FEF7FF"
 
 flutter_native_splash:
   fullscreen: true
-  color: "#FFFFFF"
+  color: "#FEF7FF"
   image: assets/icon/square_transparent_unpadded_colored_512x512.png
-  color_dark: "#FFFFFF"
+  color_dark: "#322F35"
   image_dark: assets/icon/square_transparent_unpadded_colored_512x512.png
 
   android: true
@@ -111,34 +111,34 @@ flutter_native_splash:
   android_screen_orientation: user
   android_gravity: center
 
-  color_android: "#FFFFFF"
+  color_android: "#FEF7FF"
   image_android: assets/icon/square_transparent_unpadded_colored_512x512.png
-  color_dark_android: "#FFFFFF"
+  color_dark_android: "#322F35"
   image_dark_android: assets/icon/square_transparent_unpadded_colored_512x512.png
 
   android_12:
-    color: "#FFFFFF"
-    icon_background_color: "#FFFFFF"
+    color: "#FEF7FF"
+    icon_background_color: "#FEF7FF"
     image: assets/icon/square_whiteBackground_35percentPadding_colored_1152x1152.png
 
-    color_dark: "#FFFFFF"
-    icon_background_color_dark: "#FFFFFF"
+    color_dark: "#322F35"
+    icon_background_color_dark: "#FEF7FF"
     image_dark: assets/icon/square_whiteBackground_35percentPadding_colored_1152x1152.png
 
   ios: true
   ios_content_mode: center
 
-  color_ios: "#FFFFFF"
+  color_ios: "#FEF7FF"
   image_ios: assets/icon/square_transparent_unpadded_colored_512x512.png
-  color_dark_ios: "#FFFFFF"
+  color_dark_ios: "#322F35"
   image_dark_ios: assets/icon/square_transparent_unpadded_colored_512x512.png
 
   web: true
   web_image_mode: center
 
-  color_web: "#FFFFFF"
+  color_web: "#FEF7FF"
   image_web: assets/icon/square_transparent_unpadded_colored_512x512.png
-  color_dark_web: "#FFFFFF"
+  color_dark_web: "#322F35"
   image_dark_web: assets/icon/square_transparent_unpadded_colored_512x512.png
 
 msix_config:
@@ -159,5 +159,5 @@ msix_config:
   build_windows: true
   windows_build_args: --release
   debug: false
-  msix_version: 2026.10.2.0
+  msix_version: 2026.10.5.0
   output_name: Bitscoper_CyberKit

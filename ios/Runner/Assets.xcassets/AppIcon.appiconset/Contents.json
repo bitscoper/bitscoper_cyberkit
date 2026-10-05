@@ -124,7 +124,12 @@
       "filename": "Icon-App-Dark-20x20@2x.png",
       "scale": "2x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "dark" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ]
     },
     {
       "size": "20x20",
@@ -132,7 +137,12 @@
       "filename": "Icon-App-Dark-20x20@3x.png",
       "scale": "3x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "dark" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ]
     },
     {
       "size": "29x29",
@@ -140,7 +150,12 @@
       "filename": "Icon-App-Dark-29x29@2x.png",
       "scale": "2x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "dark" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ]
     },
     {
       "size": "29x29",
@@ -148,7 +163,12 @@
       "filename": "Icon-App-Dark-29x29@3x.png",
       "scale": "3x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "dark" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ]
     },
     {
       "size": "38x38",
@@ -156,7 +176,12 @@
       "filename": "Icon-App-Dark-38x38@2x.png",
       "scale": "2x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "dark" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ]
     },
     {
       "size": "38x38",
@@ -164,7 +189,12 @@
       "filename": "Icon-App-Dark-38x38@3x.png",
       "scale": "3x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "dark" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ]
     },
     {
       "size": "40x40",
@@ -172,7 +202,12 @@
       "filename": "Icon-App-Dark-40x40@2x.png",
       "scale": "2x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "dark" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ]
     },
     {
       "size": "40x40",
@@ -180,7 +215,12 @@
       "filename": "Icon-App-Dark-40x40@3x.png",
       "scale": "3x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "dark" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ]
     },
     {
       "size": "60x60",
@@ -188,7 +228,12 @@
       "filename": "Icon-App-Dark-60x60@2x.png",
       "scale": "2x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "dark" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ]
     },
     {
       "size": "60x60",
@@ -196,7 +241,12 @@
       "filename": "Icon-App-Dark-60x60@3x.png",
       "scale": "3x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "dark" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ]
     },
     {
       "size": "64x64",
@@ -204,7 +254,12 @@
       "filename": "Icon-App-Dark-64x64@2x.png",
       "scale": "2x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "dark" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ]
     },
     {
       "size": "64x64",
@@ -212,7 +267,12 @@
       "filename": "Icon-App-Dark-64x64@3x.png",
       "scale": "3x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "dark" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ]
     },
     {
       "size": "68x68",
@@ -220,7 +280,12 @@
       "filename": "Icon-App-Dark-68x68@2x.png",
       "scale": "2x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "dark" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ]
     },
     {
       "size": "76x76",
@@ -228,7 +293,12 @@
       "filename": "Icon-App-Dark-76x76@2x.png",
       "scale": "2x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "dark" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ]
     },
     {
       "size": "83.5x83.5",
@@ -236,7 +306,12 @@
       "filename": "Icon-App-Dark-83.5x83.5@2x.png",
       "scale": "2x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "dark" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ]
     },
     {
       "size": "1024x1024",
@@ -244,7 +319,12 @@
       "filename": "Icon-App-Dark-1024x1024@1x.png",
       "scale": "1x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "dark" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ]
     },
     {
       "size": "20x20",
@@ -252,7 +332,12 @@
       "filename": "Icon-App-Tinted-20x20@2x.png",
       "scale": "2x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "tinted" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "tinted"
+        }
+      ]
     },
     {
       "size": "20x20",
@@ -260,7 +345,12 @@
       "filename": "Icon-App-Tinted-20x20@3x.png",
       "scale": "3x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "tinted" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "tinted"
+        }
+      ]
     },
     {
       "size": "29x29",
@@ -268,7 +358,12 @@
       "filename": "Icon-App-Tinted-29x29@2x.png",
       "scale": "2x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "tinted" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "tinted"
+        }
+      ]
     },
     {
       "size": "29x29",
@@ -276,7 +371,12 @@
       "filename": "Icon-App-Tinted-29x29@3x.png",
       "scale": "3x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "tinted" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "tinted"
+        }
+      ]
     },
     {
       "size": "38x38",
@@ -284,7 +384,12 @@
       "filename": "Icon-App-Tinted-38x38@2x.png",
       "scale": "2x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "tinted" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "tinted"
+        }
+      ]
     },
     {
       "size": "38x38",
@@ -292,7 +397,12 @@
       "filename": "Icon-App-Tinted-38x38@3x.png",
       "scale": "3x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "tinted" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "tinted"
+        }
+      ]
     },
     {
       "size": "40x40",
@@ -300,7 +410,12 @@
       "filename": "Icon-App-Tinted-40x40@2x.png",
       "scale": "2x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "tinted" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "tinted"
+        }
+      ]
     },
     {
       "size": "40x40",
@@ -308,7 +423,12 @@
       "filename": "Icon-App-Tinted-40x40@3x.png",
       "scale": "3x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "tinted" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "tinted"
+        }
+      ]
     },
     {
       "size": "60x60",
@@ -316,7 +436,12 @@
       "filename": "Icon-App-Tinted-60x60@2x.png",
       "scale": "2x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "tinted" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "tinted"
+        }
+      ]
     },
     {
       "size": "60x60",
@@ -324,7 +449,12 @@
       "filename": "Icon-App-Tinted-60x60@3x.png",
       "scale": "3x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "tinted" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "tinted"
+        }
+      ]
     },
     {
       "size": "64x64",
@@ -332,7 +462,12 @@
       "filename": "Icon-App-Tinted-64x64@2x.png",
       "scale": "2x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "tinted" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "tinted"
+        }
+      ]
     },
     {
       "size": "64x64",
@@ -340,7 +475,12 @@
       "filename": "Icon-App-Tinted-64x64@3x.png",
       "scale": "3x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "tinted" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "tinted"
+        }
+      ]
     },
     {
       "size": "68x68",
@@ -348,7 +488,12 @@
       "filename": "Icon-App-Tinted-68x68@2x.png",
       "scale": "2x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "tinted" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "tinted"
+        }
+      ]
     },
     {
       "size": "76x76",
@@ -356,7 +501,12 @@
       "filename": "Icon-App-Tinted-76x76@2x.png",
       "scale": "2x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "tinted" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "tinted"
+        }
+      ]
     },
     {
       "size": "83.5x83.5",
@@ -364,7 +514,12 @@
       "filename": "Icon-App-Tinted-83.5x83.5@2x.png",
       "scale": "2x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "tinted" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "tinted"
+        }
+      ]
     },
     {
       "size": "1024x1024",
@@ -372,8 +527,16 @@
       "filename": "Icon-App-Tinted-1024x1024@1x.png",
       "scale": "1x",
       "platform": "ios",
-      "appearances": [{ "appearance": "luminosity", "value": "tinted" }]
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "tinted"
+        }
+      ]
     }
   ],
-  "info": { "version": 1, "author": "xcode" }
+  "info": {
+    "version": 1,
+    "author": "xcode"
+  }
 }
