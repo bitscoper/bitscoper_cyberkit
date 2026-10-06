@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <item type="drawable" name="icon_monochrome" tools:keep="true" />
-</resources>
+<resources
+	xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@drawable/icon,@drawable/icon_monochrome,@drawable/splash,@drawable/android12splash,@drawable/background" />

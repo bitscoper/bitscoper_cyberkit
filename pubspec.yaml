@@ -2,7 +2,7 @@
 
 name: bitscoper_cyberkit
 description: A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner, mDNS Scanner, UPnP Scanner, Route Tracer, TCP Port Scanner, Pinger, DNS Record Retriever, File Hash Calculator, String Hash Calculator, Base Encoder, Series URI Crawler, OGP Data Extractor, WHOIS Retriever, CVSS Calculator, Morse Code Translator, and Wi-Fi Details Viewer.
-version: 2026.10.5+20261005
+version: 2026.10.6+20261006
 publish_to: none
 
 environment:
@@ -42,7 +42,7 @@ dependencies:
   package_info_plus: ^10.2.2
   permission_guard: ^2.0.1 # !Linux # !macOS
   quick_actions: ^1.1.1 # !Linux !macOS !Windows !Web
-  shared_preferences: ^2.5.5
+  shared_preferences: ^2.5.6
   tcp_scanner: ^2.0.5 # !Web
   tdtx_nf_icons: ^3.2.2+5
   timelines_plus: ^2.0.1
@@ -60,8 +60,20 @@ dev_dependencies:
 
 flutter:
   assets:
-    - assets/
-    - assets/icon/
+    - assets/icon/square_transparent_unpadded_colored_256x256.ico
+    - assets/icon/square_transparent_unpadded_colored_512x512.png
+    - assets/icon/square_transparent_unpadded_greyscale_512x512.png
+    - assets/icon/square_transparent_unpadded_monochrome_512x512.png
+    - assets/icon/square_whiteBackground_25percentPadding_colored_48x48.png
+    - assets/icon/square_whiteBackground_25percentPadding_colored_72x72.png
+    - assets/icon/square_whiteBackground_25percentPadding_colored_96x96.png
+    - assets/icon/square_whiteBackground_25percentPadding_colored_128x128.png
+    - assets/icon/square_whiteBackground_25percentPadding_colored_192x192.png
+    - assets/icon/square_whiteBackground_25percentPadding_colored_256x256.png
+    - assets/icon/square_whiteBackground_25percentPadding_colored_384x384.png
+    - assets/icon/square_whiteBackground_25percentPadding_colored_512x512.png
+    - assets/icon/square_whiteBackground_50percentPadding_colored_1152x1152.png
+
   generate: true
   uses-material-design: true
 
@@ -119,11 +131,11 @@ flutter_native_splash:
   android_12:
     color: "#FEF7FF"
     icon_background_color: "#FEF7FF"
-    image: assets/icon/square_whiteBackground_35percentPadding_colored_1152x1152.png
+    image: assets/icon/square_whiteBackground_50percentPadding_colored_1152x1152.png
 
     color_dark: "#322F35"
     icon_background_color_dark: "#FEF7FF"
-    image_dark: assets/icon/square_whiteBackground_35percentPadding_colored_1152x1152.png
+    image_dark: assets/icon/square_whiteBackground_50percentPadding_colored_1152x1152.png
 
   ios: true
   ios_content_mode: center
@@ -159,5 +171,5 @@ msix_config:
   build_windows: true
   windows_build_args: --release
   debug: false
-  msix_version: 2026.10.5.0
+  msix_version: 2026.10.6.0
   output_name: Bitscoper_CyberKit
