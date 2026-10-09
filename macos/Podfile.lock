@@ -1,15 +1,21 @@
 PODS:
   - FlutterMacOS (1.0.0)
+  - tdtx_nf_icons (0.0.1):
+    - FlutterMacOS
 
 DEPENDENCIES:
   - FlutterMacOS (from `Flutter/ephemeral`)
+  - tdtx_nf_icons (from `Flutter/ephemeral/.symlinks/plugins/tdtx_nf_icons/macos`)
 
 EXTERNAL SOURCES:
   FlutterMacOS:
     :path: Flutter/ephemeral
+  tdtx_nf_icons:
+    :path: Flutter/ephemeral/.symlinks/plugins/tdtx_nf_icons/macos
 
 SPEC CHECKSUMS:
   FlutterMacOS: c232990155153907050900a2e175c7773903ba4e
+  tdtx_nf_icons: 8438056f8ddeca336223958d5762afd1757b1cec
 
 PODFILE CHECKSUM: f0c21717cb7ee9112f915044c74bfceb5b12e02a
 

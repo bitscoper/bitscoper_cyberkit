@@ -6,12 +6,15 @@ PODS:
   - SimplePing (0.1.1)
   - SimpleTracer (0.1.2):
     - SimplePing
+  - tdtx_nf_icons (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_traceroute (from `.symlinks/plugins/flutter_traceroute/ios`)
   - SimplePing (from `https://github.com/Koizeay/SimplePing.git`)
   - SimpleTracer (from `https://github.com/Koizeay/SimpleTracer.git`)
+  - tdtx_nf_icons (from `.symlinks/plugins/tdtx_nf_icons/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
@@ -22,6 +25,8 @@ EXTERNAL SOURCES:
     :git: https://github.com/Koizeay/SimplePing.git
   SimpleTracer:
     :git: https://github.com/Koizeay/SimpleTracer.git
+  tdtx_nf_icons:
+    :path: ".symlinks/plugins/tdtx_nf_icons/ios"
 
 CHECKOUT OPTIONS:
   SimplePing:
@@ -36,6 +41,7 @@ SPEC CHECKSUMS:
   flutter_traceroute: 96e117db703e503aafb1993a8028dee44a56822b
   SimplePing: dbf76d173000aa470f40ea6a0ddbd09778617b07
   SimpleTracer: b80357fc988d4324805845b13485d55930e485b8
+  tdtx_nf_icons: 8759cc1298093bf08ee4616f54b92c44ba736ec2
 
 PODFILE CHECKSUM: e5ba65eabd7db207233c9f568b97065dea40cec4
 
