@@ -493,8 +493,8 @@ jobs:
           tag: v${{ env.VERSION }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
-  update_docker_image:
-    name: Update Docker Images
+  update_linux_docker_podman_images:
+    name: Update Linux Docker / Podman Images
     needs: [upload_release]
     runs-on: ubuntu-latest
     permissions:
@@ -504,11 +504,24 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v7.0.1
 
-      - name: Build and Push Docker Image to GHCR
+      - name: Build and Tag Linux Docker / Podman Image
         run: |
-          docker login --username bitscoper --password ${{secrets.GITHUB_TOKEN}} ghcr.io
-          docker build . --tag ghcr.io/bitscoper/bitscoper_cyberkit:latest
+          docker build . --tag bitscoper_cyberkit:latest
+          docker tag bitscoper_cyberkit:latest ghcr.io/bitscoper/bitscoper_cyberkit:latest
+          docker tag bitscoper_cyberkit:latest quay.io/bitscoper/bitscoper_cyberkit:latest
+        shell: bash
+
+      - name: Log In, Push Linux Docker / Podman Image to GitHub Container Registry, and Log Out
+        run: |
+          docker login --username=bitscoper --password='${{secrets.GITHUB_TOKEN}}' ghcr.io
           docker push ghcr.io/bitscoper/bitscoper_cyberkit:latest
+        shell: bash
+
+      - name: Log In, Push Linux Docker / Podman Image to Red Hat Quay, and Log Out
+        run: |
+          docker login --username=bitscoper --password='${{secrets.RED_HAT_QUAY_ENCRYPTED_PASSWORD}}' quay.io
+          docker push quay.io/bitscoper/bitscoper_cyberkit:latest
+          docker logout quay.io
         shell: bash
 
       # - name: Install Python for AWS CLI
@@ -526,7 +539,7 @@ jobs:
       #     pip install --upgrade awscli
       #   shell: bash
 
-      # - name: Build and Push Docker Image to Amazon Elastic Container Registry Public Gallery
+      # - name: Build and Push Linux Docker / Podman Image to Amazon Elastic Container Registry Public Gallery
       #   run: |
       #     aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
       #     aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
