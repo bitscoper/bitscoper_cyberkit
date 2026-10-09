@@ -508,6 +508,7 @@ jobs:
         run: |
           docker build . --tag bitscoper_cyberkit:latest
           docker tag bitscoper_cyberkit:latest ghcr.io/bitscoper/bitscoper_cyberkit:latest
+          docker tag bitscoper_cyberkit:latest registry.gitlab.com/bitscoper/bitscoper_cyberkit:latest
           docker tag bitscoper_cyberkit:latest quay.io/bitscoper/bitscoper_cyberkit:latest
         shell: bash
 
@@ -515,6 +516,14 @@ jobs:
         run: |
           docker login --username=bitscoper --password='${{secrets.GITHUB_TOKEN}}' ghcr.io
           docker push ghcr.io/bitscoper/bitscoper_cyberkit:latest
+          docker logout ghcr.io
+        shell: bash
+
+      - name: Log In, Push Linux Docker / Podman Image to GitLab Container Registry, and Log Out
+        run: |
+          docker login --username=bitscoper --password='${{secrets.GITLAB_CONTAINER_REGISTRY_READ_WRITE_PERSONAL_ACCESS_TOKEN}}' registry.gitlab.com
+          docker push registry.gitlab.com/bitscoper/bitscoper_cyberkit:latest
+          docker logout registry.gitlab.com
         shell: bash
 
       - name: Log In, Push Linux Docker / Podman Image to Red Hat Quay, and Log Out
