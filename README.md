@@ -5,7 +5,7 @@
 
 A Flutter application offering Bluetooth Low Energy Scanner, IPv4 Subnet Scanner, mDNS Scanner, UPnP Scanner, Route Tracer, TCP Port Scanner, Pinger, DNS Record Retriever, File Hash Calculator, String Hash Calculator, Base Encoder, Series URI Crawler, OGP Data Extractor, WHOIS Retriever, CVSS Calculator, Morse Code Translator, and Wi-Fi Details Viewer.
 
-[![No AI](https://raw.githubusercontent.com/nuxy/no-ai-badge/master/badge.svg)](https://github.com/bitscoper/bitscoper_cyberkit#notes)
+[![No AI](https://raw.githubusercontent.com/nuxy/no-ai-badge/master/badge.svg)](#notes)
 [![Build, Release, and Deploy](https://github.com/bitscoper/bitscoper_cyberkit/actions/workflows/Build,%20Release,%20and%20Deploy.yaml/badge.svg)](https://github.com/bitscoper/bitscoper_cyberkit/actions/workflows/Build,%20Release,%20and%20Deploy.yaml)
 [![IzzyOnDroid F-Droid Reproducible Builds Status](https://shields.rbtlog.dev/simple/bitscoper.bitscoper_cyberkit)](https://shields.rbtlog.dev/bitscoper.bitscoper_cyberkit)
 [![IzzyOnDroid F-Droid Yearly Downloads](https://img.shields.io/badge/dynamic/json?url=https://dlstats.izzyondroid.org/iod-stats-collector/stats/basic/yearly/rolling.json&query=$.['bitscoper.bitscoper_cyberkit']&label=IzzyOnDroid%20Yearly%20Downloads)](https://apt.izzysoft.de/packages/bitscoper.bitscoper_cyberkit/)
@@ -341,9 +341,11 @@ base64 --decode ./KeyStore.b64 > ./android/app/KeyStore.jks
 
 ## Notes
 
+- I only use AI to search for alternatives and possibilities during brainstorming. AI-generated code from contributors is also not allowed.
+- I commit multiple changes in a single commit.
 - I write commit messages in Title Case and past tense, leaving out articles to keep them concise while still showing details.
-- I have deleted some commits in the past, but this is unlikely to happen again.
-- I later PGP-signed all my commits, so they show a later date.
+- I previously reuploaded the repository to clean up the commit history and later deleted some commits.
+- I later PGP-signed all my commits, so they show later dates.
 - I removed a once-developed, long-used tool called QR Code Generator.
 - Versions I submit to the Microsoft Store may vary and be delayed.
 - Submission to Google Play is paused because I no longer own the account.
